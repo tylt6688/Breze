@@ -52,3 +52,7 @@
 > 版权声明
 
 此项目为青枫网络工作室开源项目，遵循Apache License 2.0协议，个人用途可免费使用，商业用途请联系主要青枫网络工作室获得授权许可。联系方式：tylt6688@gmail.com
+
+Power By LGX
+
+Contributors：LGX
