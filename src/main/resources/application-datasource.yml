@@ -1,0 +1,75 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/breze?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    # MySQL 5.x 驱动：com.mysql.jdbc.Driver
+    # MySQL 6.x 驱动：com.mysql.cj.jdbc.Driver
+
+    #Druid连接池配置
+    druid:
+      mysql:
+        usePingMethod: false
+      #初始化连接池数量
+      initial-size: 15
+      #最小连接池数量
+      min-idle: 15
+      #最大连接池数量
+      max-active: 100
+      #获取连接时最大等待时间
+      max-wait: 60000
+      #配置间隔多久进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      #配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-borrow: false
+      #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-return: false
+      #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-while-idle: true
+      #用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。因数据库方言而差, 例如 oracle 应该写成 SELECT 1 FROM DUAL
+      validation-query: SELECT 1
+      #单位：ms，检测连接是否有效的超时时间。
+      validation-query-timeout: 1000
+      keep-alive: true
+      #用于自动回收超时连接的，用于辅助不细心的开发人员使用连接后忘记关闭的问题。容易导致误回收，官方不建议在生产环境中使用。
+      remove-abandoned: false
+      remove-abandoned-timeout: 180
+      log-abandoned: true
+
+      #是否缓存preparedStatement，也就是PSCache(官方建议MySQL下关闭,个人建议如果想用SQL防火墙的话可以打开)
+      pool-prepared-statements: false
+      #要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+      maxOpenPreparedStatements: 100
+      max-pool-prepared-statement-per-connection-size: 20
+
+      #配置监控统计拦截的 Filter，去掉后监控界面 SQL无法统计，wall用于防火墙
+      filters: stat,wall,log4j2,slf4j
+      use-global-data-source-stat: true
+
+      #配置 Druid StatFilter
+      web-stat-filter:
+        enabled: false
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        url-pattern: "/druid/*"
+        # IP 白名单，没有配置或者为空，则允许所有访问
+        allow: 127.0.0.1
+        # IP 黑名单，若白名单也存在，则优先使用
+        deny: 192.168.0.1
+        # 禁用 HTML 中 Reset All 按钮
+        reset-enable: false
+        # 监控面板登录 http://localhost:8090/druid/index.html
+        login-username: admin
+        login-password: 123456
+        enabled: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/**Mapper.xml
+  #  开启SQL日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

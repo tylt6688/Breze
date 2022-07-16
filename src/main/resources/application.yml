@@ -1,0 +1,30 @@
+# application.yml 主配置文件
+# application-dev.yml  开发环境配置文件
+# application-prod.yml  生产环境配置文件
+# application-test.yml  测试环境配置文件
+# 项目相关配置
+breze:
+  # 名称
+  title: 清枫
+  name: Breeze
+  # 版本
+  version: 0.0.1
+  # 版权年份
+  copyrightYear: 2022
+  copyrightName: 青枫网络工作室
+  swaggerEnabled: true
+
+spring:
+#  配置激活文件
+  profiles:
+    active: dev,datasource,redis,rabbitmq,mail,private
+# 限制文件大小
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+logging:
+  config: classpath:application-log4j2.yml
+  level:
+    ssm.app.mapper: debug

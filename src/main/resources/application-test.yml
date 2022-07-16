@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+#适用于初始测试配置,编写完UserDetailServiceImpl后失效处理
+#  security:
+#    user:
+#      name: user
+#      password: 1234

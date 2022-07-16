@@ -1,0 +1,24 @@
+spring:
+  mail:
+    default-encoding: UTF-8
+    # smtp服务主机企业必须开启SSL加密
+    # 个人邮箱和企业邮箱通道不同, 163个人邮箱:smtp.163.com,企业邮箱:smtp.qiye.163.com
+    # 腾讯个人邮箱:smtp.qq.com,企业邮箱:smtp.exmail.qq.com
+    host: smtp.qq.com
+    # 服务协议
+    protocol: smtp
+    # 端口号465或587
+    port: 587
+    username: tylt6688@foxmail.com
+    # 密码是邮箱开通的smtp服务后得到的客户端授权码,不是邮箱登录密码
+    password: ptbuvrttnzuueaaa
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+    ##         ssl:
+    ##           enable :true
+
+
+
