@@ -70,10 +70,9 @@ public class TestController extends BaseController {
     // TODO:测试二维码生成
     @RequestMapping("/qrCode")
     public Result qrCode(Integer id) {
-        QrCodeUtil qrCodeUtil = new QrCodeUtil();
         String content = "http://www.baidu.com?id=";
         String logoUrl = "http://www.baidu.com/statics/logo.png";
-        String url = qrCodeUtil.getBase64QRCode(content + id, logoUrl);
+        String url = QrCodeUtil.getBase64QRCode(content + id, logoUrl);
         return Result.createSuccessMessage(url);
     }
 

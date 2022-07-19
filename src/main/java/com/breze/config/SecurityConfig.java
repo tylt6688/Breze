@@ -31,7 +31,6 @@ import com.breze.security.securityimpl.UserDetailServiceImpl;
 @Log4j2
 @Configuration
 @EnableWebSecurity
-//开启基于注解的权限配置
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

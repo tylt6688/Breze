@@ -2,12 +2,13 @@ package com.breze.utils;
 
 import cn.hutool.system.oshi.CpuInfo;
 import cn.hutool.system.oshi.OshiUtil;
+import lombok.experimental.UtilityClass;
 
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
+@UtilityClass
 public class ServerUtil {
 
 

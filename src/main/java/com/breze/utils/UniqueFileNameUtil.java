@@ -1,10 +1,13 @@
 package com.breze.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.UUID;
 /*
  * TODO 生成OSS存储空间内的唯一文件名称
  */
 
+@UtilityClass
 public class UniqueFileNameUtil {
     public static String getRandomImgName(String fileName) {
         int index = fileName.lastIndexOf(".");

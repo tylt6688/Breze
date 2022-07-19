@@ -1,9 +1,9 @@
 package com.breze.common.aspect;
 
 import com.breze.common.event.LogEvent;
-import com.breze.entity.pojo.logpage.Log;
+import com.breze.entity.pojo.logpojo.Log;
 import com.breze.utils.LogUtil;
-import com.breze.utils.SpringContextHolder;
+import com.breze.serviceimpl.SpringContextHolder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Around;

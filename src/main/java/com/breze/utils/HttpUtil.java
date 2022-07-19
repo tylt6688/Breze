@@ -1,7 +1,7 @@
 package com.breze.utils;
 
+import lombok.experimental.UtilityClass;
 import org.springframework.http.*;
-import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
  * @Date 2022/2/5 11:57
  **/
 
-@Component
+@UtilityClass
 public class HttpUtil {
 
     /**

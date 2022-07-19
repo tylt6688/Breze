@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 /*
+ * @param msgId        消息id用于mq消息落盘唯一标识
  * @param mailFrom     发件人邮箱
  * @param mailFromNick 发件人昵称
  * @param mailTo       收件人邮箱
@@ -25,9 +26,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Email implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    private String msgId;// 消息id用于mq消息落盘唯一
+    private String msgId;
 
     private String mailFrom;
     private String mailFromNick;

@@ -5,7 +5,7 @@
 # 项目相关配置
 breze:
   # 名称
-  title: 清枫
+  title: 清枫Breze权限管理系统
   name: Breeze
   # 版本
   version: 0.0.1

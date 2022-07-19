@@ -4,14 +4,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.constant.Const;
 import com.breze.config.JwtConfig;
 import com.breze.config.OssConfig;
-import com.breze.service.homepage.*;
-import com.breze.service.logpage.HandleLogService;
-import com.breze.service.logpage.LoginLogService;
+import com.breze.service.homeservice.*;
+import com.breze.service.logservice.HandleLogService;
+import com.breze.service.logservice.LoginLogService;
 import com.breze.service.rbac.*;
 import com.breze.service.tool.MailService;
 import com.breze.service.tool.OssfileService;
 import com.breze.service.tool.QiNiuService;
-import com.breze.utils.HttpUtil;
 import com.breze.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,8 +38,6 @@ public class BaseController {
     // 工具类注入 Start
     @Autowired
     protected BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    protected HttpUtil httpUtil;
     @Autowired
     protected RedisUtil redisUtil;
 

@@ -24,15 +24,16 @@ import java.util.List;
  * @Description //TODO Swagger配置类
  * @Date 2022/2/5 12:07
  **/
-@Configuration//声明自定义配置类
 @Profile("dev")//指明多环境配置类标识
 @EnableOpenApi
+@Configuration//声明自定义配置类
 public class SwaggerConfig {
 
     @Autowired
     private BrezeConfig brezeConfig;
 
-    @Bean // 将返回值对象作为组件添加到Spring容器中，组件ID默认为方法名
+    // 将返回值对象作为组件添加到Spring容器中，组件ID默认为方法名
+    @Bean
     public Docket createRestApi() {
 
         // 指定文档风格

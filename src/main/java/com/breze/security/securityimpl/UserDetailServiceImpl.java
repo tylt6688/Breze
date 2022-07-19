@@ -3,7 +3,8 @@ package com.breze.security.securityimpl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.breze.common.constant.Const;
 import com.breze.common.rabbit.Produce;
-import com.breze.service.logpage.LoginLogService;
+import com.breze.config.BrezeConfig;
+import com.breze.service.logservice.LoginLogService;
 import com.breze.service.rbac.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import com.breze.config.MailConfig;
 import com.breze.entity.pojo.tool.Email;
-import com.breze.entity.pojo.logpage.LoginLog;
+import com.breze.entity.pojo.logpojo.LoginLog;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.security.AccountUser;
 
@@ -43,6 +44,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     TemplateEngine templateEngine;
     @Autowired
     MailConfig mailConfig;
+
+    @Autowired
+    BrezeConfig brezeConfig;
 
 
     @Override
@@ -72,12 +76,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
             context.setVariable("username", user.getUsername());
             context.setVariable("last_login", LocalDateTime.now());
             context.setVariable("link", "https://blog.csdn.net/tylt6688");
-         // context.setVariable("image", "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png");
             String content = templateEngine.process("mail.html", context);
 
             Email email = new Email();
             email.setMailFrom(mailConfig.getUsername());
-            email.setMailFromNick("多端一体化教育教学平台");
+            email.setMailFromNick(brezeConfig.getName());
             email.setMailTo(user.getEmail());
             email.setSubject("账户登录提醒");
             email.setContent(content);

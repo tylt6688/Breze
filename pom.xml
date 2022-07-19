@@ -8,11 +8,11 @@
         <version>2.6.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>xyz.tylt</groupId>
-    <artifactId>SuperFusionTeachingPlatform</artifactId>
+    <groupId>com.breze</groupId>
+    <artifactId>Breze</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SuperFusionTeachingPlatform</name>
-    <description>SuperFusionTeachingPlatform</description>
+    <name>Breze</name>
+    <description>清枫 Breze</description>
     <properties>
         <java.version>1.8</java.version>
         <jwt.version>0.9.1</jwt.version>

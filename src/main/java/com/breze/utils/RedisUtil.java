@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2022/2/5 11:57
  **/
 
+
 @Component
 public class RedisUtil {
 

@@ -3,12 +3,10 @@ package com.breze.utils;
 import cn.hutool.core.util.StrUtil;
 import com.maxmind.geoip2.DatabaseReader;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 @Log4j2
-@Component
 public class IPUtil {
 
     /**

@@ -23,10 +23,10 @@ import java.io.IOException;
 public class KaptchaFilter extends OncePerRequestFilter {
 
     @Autowired
-    RedisUtil redisUtil;
+    LoginFailureHandler loginFailureHandler;
 
     @Autowired
-    LoginFailureHandler loginFailureHandler;
+    RedisUtil redisUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {

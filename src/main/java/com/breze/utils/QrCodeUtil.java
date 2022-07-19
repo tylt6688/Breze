@@ -8,8 +8,8 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -27,7 +27,7 @@ import java.util.HashMap;
  * @author ZhangHaohui
  */
 @Slf4j
-@Component
+@UtilityClass
 public class QrCodeUtil {
 
     /**

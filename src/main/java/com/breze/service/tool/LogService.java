@@ -1,7 +1,7 @@
 package com.breze.service.tool;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.pojo.logpage.Log;
+import com.breze.entity.pojo.logpojo.Log;
 
 /**
  * @Name: LogService.java

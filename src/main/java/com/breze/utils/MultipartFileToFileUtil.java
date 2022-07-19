@@ -1,6 +1,6 @@
 package com.breze.utils;
 
-import org.springframework.stereotype.Component;
+import lombok.experimental.UtilityClass;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -10,7 +10,7 @@ import java.util.Objects;
  * TODO 文件转换工具类
  *
  */
-@Component
+@UtilityClass
 public class MultipartFileToFileUtil {
 
     /**
