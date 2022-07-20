@@ -6,7 +6,6 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.excel.util.MapUtils;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.Log;
@@ -61,24 +60,25 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "Principal", value = "用户信息", required = true, dataType = "Principal", dataTypeClass = Principal.class)
     @GetMapping("/getuserinfo")
     public Result getUserInfo(Principal principal) {
-        // 此处使用fastjson传输，前端需要什么后端就返回什么
+        // 此处为安全页面展示，前端需要什么后端就返回什么
         User user = userService.getByUserName(principal.getName());
         user.setRoles(roleService.listRolesByUserId(user.getId()));
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", user.getId());
-        jsonObject.put("roles", user.getRoles());
-        jsonObject.put("truename", user.getTruename());
-        jsonObject.put("username", user.getUsername());
-        jsonObject.put("avatar", user.getAvatar());
-        jsonObject.put("phone", user.getPhone());
-        jsonObject.put("city", user.getCity());
-        jsonObject.put("email", user.getEmail());
-        jsonObject.put("last_login", user.getLastLogin());
-        jsonObject.put("created", user.getCreated());
+        Result result = new Result();
+        result.addData("id", user.getId());
+        result.addData("username", user.getUsername());
+        result.addData("roles", user.getRoles());
+        result.addData("avatar", user.getAvatar());
+        result.addData("truename", user.getTruename());
+        result.addData("email", user.getEmail());
+        result.addData("phone", user.getPhone());
+        result.addData("city", user.getCity());
+        result.addData("last_login", user.getLastLogin());
+        result.addData("created", user.getCreated());
+        result.addData("loginwarn", user.getLoginWarn());
         Department department = departmentService.getOne(new QueryWrapper<Department>().eq("id", user.getDepartmentId()));
-        jsonObject.put("department", department.getName());
-        jsonObject.put("loginwarn", user.getLoginWarn());
-        return Result.createSuccessMessage(jsonObject);
+        result.addData("department", department.getName());
+
+        return Result.createSuccessMessage(result);
 
     }
 
@@ -87,7 +87,7 @@ public class UserController extends BaseController {
      */
     @Log("根据ID获取用户信息")
     @ApiOperation("根据ID获取用户信息")
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
+    @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
     // @PreAuthorize("hasAuthority('sys:user:select')")
     public Result info(@PathVariable Long id) {
@@ -163,7 +163,7 @@ public class UserController extends BaseController {
 
     @Log("删除用户")
     @ApiOperation("删除用户信息")
-    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]",  dataTypeClass = Long.class)
+    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
     @Transactional
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
@@ -175,7 +175,7 @@ public class UserController extends BaseController {
 
     @Log("分配用户角色")
     @ApiOperation("分配用户角色")
-    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path", dataTypeClass = Long.class)
+    @ApiImplicitParam(name = "userId", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @Transactional
     @PostMapping("/roleperm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")

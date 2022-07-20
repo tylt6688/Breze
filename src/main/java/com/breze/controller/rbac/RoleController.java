@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.constant.Const;
+import com.breze.common.constant.ErrorEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -120,22 +121,28 @@ public class RoleController extends BaseController {
         return Result.createSuccessMessage(role);
     }
 
-    //添加事务注解保证执行完毕或者回退
+    // 添加事务注解保证执行完毕或者回退
     @Log("删除角色")
     @ApiOperation(value = "删除角色")
     @ApiImplicitParam(name = "roleIds", value = "角色ID集合", required = true, dataType = "List", dataTypeClass = List.class)
     @Transactional
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sys:role:delete')")
-    //方便批量删除与单个删除
+    // 方便批量删除与单个删除
     public Result delete(@RequestBody Long[] roleIds) {
+        for (Long roleId : roleIds) {
+            long count = userRoleService.count(new QueryWrapper<UserRole>().eq("role_id", roleId));
+            if (count > 0) {
+                return Result.createFailureMessage(ErrorEnum.IllegalOperation,"角色已被使用，不能删除");
+            }
+        }
         List<Long> ids = Arrays.asList(roleIds);
-        //批量删除需要传入一个集合
+        // 批量删除需要传入一个集合
         roleService.removeByIds(ids);
-        //删除中间表信息
+        // 删除中间表信息
         userRoleService.remove(new QueryWrapper<UserRole>().in("role_id", roleIds));
         roleMenuService.remove(new QueryWrapper<RoleMenu>().in("role_id", roleIds));
-        //批量同步删除缓存
+        // 批量同步删除缓存
         for (Long id : roleIds) {
             userService.clearUserAuthorityInfoByRoleId(id);
         }
