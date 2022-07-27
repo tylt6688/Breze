@@ -86,8 +86,8 @@ public class MenuController extends BaseController {
     @PreAuthorize("hasAuthority('sys:menu:insert')")
     public Result insert(@Validated @RequestBody Menu menu) {
         menu.setCreated(LocalDateTime.now());
-        menuService.save(menu);
-        return Result.createSuccessMessage(menu);
+        boolean flag = menuService.save(menu);
+        return flag ? Result.createSuccessMessage(menu) : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     @Log("更新菜单")
@@ -100,10 +100,10 @@ public class MenuController extends BaseController {
     @PreAuthorize("hasAuthority('sys:menu:update')")
     public Result update(@Validated @RequestBody Menu menu) {
         menu.setUpdated(LocalDateTime.now());
-        menuService.updateById(menu);
+        boolean flag = menuService.updateById(menu);
         // 菜单发生变化时清除Redis中的缓存
         userService.clearUserAuthorityInfoByMenuId(menu.getId());
-        return Result.createSuccessMessage(menu);
+        return flag ? Result.createSuccessMessage(menu) : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     @Log("删除菜单")
