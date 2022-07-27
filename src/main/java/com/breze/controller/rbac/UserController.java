@@ -143,8 +143,8 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result update(@Validated @RequestBody User user) {
         user.setUpdated(LocalDateTime.now());
-        userService.updateById(user);
-        return Result.createSuccessMessage(user);
+        boolean flag = userService.updateById(user);
+        return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
 
@@ -157,8 +157,8 @@ public class UserController extends BaseController {
     @Transactional
     @PostMapping("/updateloginwarn")
     public Result updateLoginWarn(@RequestParam Integer loginwarn, @RequestParam Long id) {
-        userService.updateLoginWarnById(loginwarn, id);
-        return Result.createSuccessMessage("更新登录提醒成功");
+        boolean flag = userService.updateLoginWarnById(loginwarn, id);
+        return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     @Log("删除用户")
@@ -169,8 +169,8 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@RequestBody Long[] ids) {
         userService.removeByIds(Arrays.asList(ids));
-        userRoleService.remove(new QueryWrapper<UserRole>().in("user_id", ids));
-        return Result.createSuccessMessage("删除成功");
+        boolean flag = userRoleService.remove(new QueryWrapper<UserRole>().in("user_id", ids));
+        return flag ? Result.createSuccessMessage("删除成功") : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     @Log("分配用户角色")
@@ -235,8 +235,8 @@ public class UserController extends BaseController {
         User user = userService.getById(userId);
         user.setPassword(bCryptPasswordEncoder.encode(Const.DEFAULT_PASSWORD));
         user.setUpdated(LocalDateTime.now());
-        userService.updateById(user);
-        return Result.createSuccessMessage("重置密码成功");
+        boolean flag = userService.updateById(user);
+        return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     @Log("修改用户密码")
@@ -290,8 +290,8 @@ public class UserController extends BaseController {
     @PostMapping("/updateuserinfo")
     public Result updateUserInfo(@Validated @RequestBody User user) {
         user.setUpdated(LocalDateTime.now());
-        userService.updateById(user);
-        return Result.createSuccessMessage(user);
+        boolean flag = userService.updateById(user);
+        return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     @Log("导入Excel表")

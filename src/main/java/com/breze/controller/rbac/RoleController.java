@@ -101,8 +101,8 @@ public class RoleController extends BaseController {
     public Result insert(@Validated @RequestBody Role role) {
         role.setCreated(LocalDateTime.now());
         role.setStatu(Const.STATUS_ON);
-        roleService.save(role);
-        return Result.createSuccessMessage(role);
+        boolean flag = roleService.save(role);
+        return flag ? Result.createSuccessMessage(role) : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     @Log("更新角色")
@@ -115,10 +115,10 @@ public class RoleController extends BaseController {
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result update(@Validated @RequestBody Role role) {
         role.setUpdated(LocalDateTime.now());
-        roleService.updateById(role);
+        boolean flag = roleService.updateById(role);
         //更新缓存
         userService.clearUserAuthorityInfoByRoleId(role.getId());
-        return Result.createSuccessMessage(role);
+        return flag ? Result.createSuccessMessage(role) : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
     // 添加事务注解保证执行完毕或者回退
