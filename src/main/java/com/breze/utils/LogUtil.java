@@ -3,7 +3,7 @@ package com.breze.utils;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
-import com.breze.common.constant.LogEnum;
+import com.breze.common.enums.LogEnum;
 import com.breze.entity.pojo.logdo.Log;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;

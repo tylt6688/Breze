@@ -4,8 +4,8 @@ package com.breze.controller.rbac;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.breze.common.constant.Const;
-import com.breze.common.constant.ErrorEnum;
+import com.breze.common.consts.GlobalConstant;
+import com.breze.common.enums.ErrorEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -100,7 +100,7 @@ public class RoleController extends BaseController {
     @PreAuthorize("hasAuthority('sys:role:insert')")
     public Result insert(@Validated @RequestBody Role role) {
         role.setCreated(LocalDateTime.now());
-        role.setStatu(Const.STATUS_ON);
+        role.setStatu(GlobalConstant.STATUS_ON);
         boolean flag = roleService.save(role);
         return flag ? Result.createSuccessMessage(role) : Result.createFailureMessage(ErrorEnum.FindException);
     }

@@ -1,4 +1,4 @@
-package com.breze.common.constant;
+package com.breze.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,35 +12,32 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public enum ErrorEnum {
-    /**
-     * 错误枚举
-     */
-
+    // 全局未知错误码
     UnknowError("未知错误", 600),
-
+    // 违章操作错误码
     IllegalOperation("违章操作", 700),
-
+    // 无权限错误码
     NoPermission("没有权限", 101),
-
+    // 未登录用户错误码
     Unlogin("用户未登陆", 102),
-
+    // 账户无效错误码
     UnknownAccount("账户无效", 103),
-
+    // 密码错误错误码
     IncorrectCredentials("密码错误", 104),
-
+    // 出现异常错误码
     FindException("出现异常", 800);
 
     @Getter
     private final String errorName;
-    @Getter
-    private final int errorCode;
 
+    @Getter
+    private final Integer errorCode;
 
     // 普通方法
     public static String getErrorName(int code) {
-        for (ErrorEnum c : ErrorEnum.values()) {
-            if (c.getErrorCode() == code) {
-                return c.getErrorName();
+        for (ErrorEnum errorEnum : ErrorEnum.values()) {
+            if (errorEnum.getErrorCode() == code) {
+                return errorEnum.getErrorName();
             }
         }
         return null;

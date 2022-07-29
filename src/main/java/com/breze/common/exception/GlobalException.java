@@ -1,7 +1,7 @@
 package com.breze.common.exception;
 
 
-import com.breze.common.constant.ErrorEnum;
+import com.breze.common.enums.ErrorEnum;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

@@ -1,11 +1,11 @@
-package com.breze.common.constant;
+package com.breze.common.consts;
 
 /*
  * @Author tylt
  * @Description //TODO 全局通用常数类
  * @Date 2022/2/5 11:57
  **/
-public class Const {
+public class GlobalConstant {
 
 
 

@@ -1,7 +1,7 @@
 package com.breze.security;
 
 import cn.hutool.json.JSONUtil;
-import com.breze.common.constant.ErrorEnum;
+import com.breze.common.enums.ErrorEnum;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;

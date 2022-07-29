@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import com.breze.common.constant.ErrorEnum;
+import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 
 import javax.servlet.ServletException;

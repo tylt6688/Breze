@@ -1,6 +1,6 @@
 package com.breze.common.result;
 
-import com.breze.common.constant.ErrorEnum;
+import com.breze.common.enums.ErrorEnum;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 

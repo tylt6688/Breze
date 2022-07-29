@@ -1,4 +1,4 @@
-package com.breze.common.constant;
+package com.breze.common.enums;
 
 /*
  * @Author tylt
@@ -14,19 +14,17 @@ import lombok.ToString;
 @AllArgsConstructor
 public enum LogEnum {
 
-    /**
-     * 本地日志枚举
-     */
+    // 业务日志枚举
     BUSSINESS("bussiness"),
-
+    // 系统日志枚举
     PLATFORM("platform"),
-
+    // 数据库日志枚举
     DB("db"),
-
+    // 系统异常日志枚举
     EXCEPTION("exception");
 
     @Getter
-    private String category;
+    private final String category;
 
 
 }
