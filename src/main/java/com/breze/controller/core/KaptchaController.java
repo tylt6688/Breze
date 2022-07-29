@@ -2,7 +2,7 @@ package com.breze.controller.core;
 
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.map.MapUtil;
-import com.breze.common.constant.Const;
+import com.breze.common.constant.SystemConst;
 import com.breze.common.result.Result;
 import com.breze.utils.RedisUtil;
 import com.google.code.kaptcha.Producer;
@@ -57,7 +57,7 @@ public class KaptchaController extends BaseController {
         outputStream.close();
 
         // 将生成的验证码存储到redis中
-        redisUtil.hashSet(Const.KAPTCHA_KEY, key, code, 120);
+        redisUtil.hashSet(SystemConst.KAPTCHA_KEY, key, code, 120);
 
         log.info("当前验证码：|--key:{} |--code: {}", key, code);
 

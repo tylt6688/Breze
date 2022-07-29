@@ -1,7 +1,7 @@
 package com.breze.serviceimpl.homeimpl;
 
 import com.breze.service.homeservice.BannerService;
-import com.breze.entity.pojo.homepojo.Banner;
+import com.breze.entity.pojo.homedo.Banner;
 import com.breze.mapper.homemapper.BannerMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import com.breze.entity.pojo.tool.Ossfile;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.dto.ShareDto;
+import com.breze.entity.dto.ShareDTO;
 
 import java.util.List;
 
@@ -23,6 +23,6 @@ public interface OssfileMapper extends BaseMapper<Ossfile> {
             "LEFT JOIN sys_user u\n" +
             "ON oss.user_id=u.id\n" +
             "WHERE oss.`status`=1")
-    List<ShareDto> selectShare();
+    List<ShareDTO> selectShare();
 
 }

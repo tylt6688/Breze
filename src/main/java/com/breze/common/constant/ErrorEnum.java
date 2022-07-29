@@ -28,8 +28,7 @@ public enum ErrorEnum {
 
     IncorrectCredentials("密码错误", 104),
 
-    FindException("出现异常",800);
-
+    FindException("出现异常", 800);
 
     @Getter
     private final String errorName;
@@ -46,10 +45,6 @@ public enum ErrorEnum {
         }
         return null;
     }
-
-
-
-
 
 
 }

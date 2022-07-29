@@ -7,8 +7,7 @@ package com.breze.common.constant;
  **/
 public class Const {
 
-    // 验证码常量
-    public static final String KAPTCHA_KEY = "kaptcha";
+
 
    // 状态常量 ---> 0正常 1禁止 2准备
     public static final Integer STATUS_ON = 0;

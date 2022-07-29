@@ -13,7 +13,7 @@ import com.breze.common.constant.Const;
 import com.breze.common.constant.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.dto.UpdatePasswordDto;
+import com.breze.entity.dto.UpdatePasswordDTO;
 import com.breze.entity.pojo.rbac.Department;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.User;
@@ -246,7 +246,7 @@ public class UserController extends BaseController {
     })
     @Transactional
     @PostMapping("/updatepassword")
-    public Result updatepassword(@Validated @RequestBody UpdatePasswordDto updatePasswordDto, Principal principal) {
+    public Result updatepassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
         User user = userService.getByUserName(principal.getName());
         boolean matches = bCryptPasswordEncoder.matches(updatePasswordDto.getCurrentPass(), user.getPassword());
         if (matches) {

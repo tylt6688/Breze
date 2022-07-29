@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.pojo.homepojo.IndexPresence;
+import com.breze.entity.pojo.homedo.IndexPresence;
 
 /**
  * <p>

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.breze.entity.pojo.tool.Ossfile;
-import com.breze.entity.dto.ShareDto;
+import com.breze.entity.dto.ShareDTO;
 import com.breze.mapper.tool.OssfileMapper;
 import com.breze.service.tool.OssfileService;
 
@@ -25,7 +25,7 @@ public class OssfileServiceImpl extends ServiceImpl<OssfileMapper, Ossfile> impl
     OssfileMapper ossfileMapper;
 
     @Override
-    public List<ShareDto> selectShare() {
+    public List<ShareDTO> selectShare() {
         return ossfileMapper.selectShare();
     }
 }

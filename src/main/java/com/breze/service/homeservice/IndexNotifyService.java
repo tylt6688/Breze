@@ -1,6 +1,6 @@
 package com.breze.service.homeservice;
 
-import com.breze.entity.pojo.homepojo.IndexNotify;
+import com.breze.entity.pojo.homedo.IndexNotify;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

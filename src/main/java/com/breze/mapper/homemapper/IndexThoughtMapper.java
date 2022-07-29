@@ -1,6 +1,6 @@
 package com.breze.mapper.homemapper;
 
-import com.breze.entity.pojo.homepojo.IndexThought;
+import com.breze.entity.pojo.homedo.IndexThought;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

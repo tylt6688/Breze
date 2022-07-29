@@ -7,7 +7,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import com.breze.entity.pojo.logpojo.Log;
+import com.breze.entity.pojo.logdo.Log;
 import com.breze.service.tool.LogService;
 
 /**

@@ -3,7 +3,7 @@ package com.breze.controller.logcontroller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.breze.entity.pojo.logpojo.LoginLog;
+import com.breze.entity.pojo.logdo.LoginLog;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.breze.common.result.Result;

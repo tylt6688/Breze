@@ -18,7 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import com.breze.config.MailConfig;
 import com.breze.entity.pojo.tool.Email;
-import com.breze.entity.pojo.logpojo.LoginLog;
+import com.breze.entity.pojo.logdo.LoginLog;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.security.AccountUser;
 

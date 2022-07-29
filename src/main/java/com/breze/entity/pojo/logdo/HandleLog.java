@@ -1,7 +1,6 @@
-package com.breze.entity.pojo.logpojo;
+package com.breze.entity.pojo.logdo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *  实体类
+ * 操作日志记录
  * </p>
  *
  * @author tylt6688
@@ -21,26 +20,20 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@TableName("log_login")
-@ApiModel(value = "LoginLog对象", description = "登录日志对象")
-public class LoginLog implements Serializable {
+@TableName("log_handle")
+@ApiModel(value = "Handle对象", description = "")
+public class HandleLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private LocalDateTime createTime;
+    private LocalDateTime createdTime;
 
     private Long userId;
 
-    private Integer state;
-
-    @TableField(exist = false)
-    private String userName;
-
-    @TableField(exist = false)
-    private String trueName;
+    private Integer type;
 
 
 }

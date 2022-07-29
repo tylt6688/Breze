@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class MenuDto implements Serializable {
+public class MenuDTO implements Serializable {
 
     private Long id;
 
@@ -21,6 +21,6 @@ public class MenuDto implements Serializable {
 
     private String component;
 
-    private List<MenuDto> children = new ArrayList<>();
+    private List<MenuDTO> children = new ArrayList<>();
 
 }

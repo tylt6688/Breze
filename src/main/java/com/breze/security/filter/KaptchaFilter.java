@@ -1,13 +1,13 @@
 package com.breze.security.filter;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.breze.common.constant.Const;
+import com.breze.common.constant.SystemConst;
+import com.breze.common.exception.KaptchaException;
+import com.breze.security.LoginFailureHandler;
 import com.breze.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.breze.common.exception.KaptchaException;
-import com.breze.security.LoginFailureHandler;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -58,11 +58,11 @@ public class KaptchaFilter extends OncePerRequestFilter {
         }
 
         //从redis中获取进行比较
-        if (!code.equals(redisUtil.hashGet(Const.KAPTCHA_KEY, key))) {
+        if (!code.equals(redisUtil.hashGet(SystemConst.KAPTCHA_KEY, key))) {
             throw new KaptchaException("验证码错误");
         }
 
         //一次性使用，使用后将其从Redis中删除
-        redisUtil.hdel(Const.KAPTCHA_KEY, key);
+        redisUtil.hdel(SystemConst.KAPTCHA_KEY, key);
     }
 }

@@ -19,7 +19,7 @@ import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.RoleMenu;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.dto.MenuDto;
+import com.breze.entity.dto.MenuDTO;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -49,7 +49,7 @@ public class MenuController extends BaseController {
         String authorityInfo = userService.getUserAuthorityInfo(user.getId());
         String[] authorityInfoArray = StringUtils.tokenizeToStringArray(authorityInfo, ",");
         //获取当前用户授权的菜单导航栏信息
-        List<MenuDto> navs = menuService.getCurrentNav();
+        List<MenuDTO> navs = menuService.getCurrentNav();
         Map<Object, Object> map = MapUtil.builder()
                 .put("authority", authorityInfoArray)
                 .put("nav", navs).map();

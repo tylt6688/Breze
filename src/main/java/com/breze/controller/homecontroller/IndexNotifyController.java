@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.pojo.homepojo.IndexNotify;
+import com.breze.entity.pojo.homedo.IndexNotify;
 
 import java.time.LocalDateTime;
 

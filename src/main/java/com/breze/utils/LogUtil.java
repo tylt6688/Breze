@@ -4,7 +4,7 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
 import com.breze.common.constant.LogEnum;
-import com.breze.entity.pojo.logpojo.Log;
+import com.breze.entity.pojo.logdo.Log;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;

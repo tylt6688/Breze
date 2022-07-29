@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ShareDto {
+public class ShareDTO {
     private Long id;
 
     private String filename;

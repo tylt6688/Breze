@@ -3,7 +3,7 @@ package com.breze.serviceimpl.logimpl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.service.logservice.LoginLogService;
 import org.springframework.stereotype.Service;
-import com.breze.entity.pojo.logpojo.LoginLog;
+import com.breze.entity.pojo.logdo.LoginLog;
 import com.breze.mapper.logmapper.LoginLogMapper;
 
 /**

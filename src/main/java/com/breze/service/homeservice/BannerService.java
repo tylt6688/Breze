@@ -1,6 +1,6 @@
 package com.breze.service.homeservice;
 
-import com.breze.entity.pojo.homepojo.Banner;
+import com.breze.entity.pojo.homedo.Banner;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

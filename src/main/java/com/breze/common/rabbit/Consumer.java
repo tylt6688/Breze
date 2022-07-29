@@ -26,14 +26,14 @@ public class Consumer {
     @Autowired
     MailService mailService;
 
-// 绑定消息落脚点
-@RabbitListener(queues = RabbitMQConfig.QUEUE_A)
+    // 绑定消息落脚点
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_A)
     public void consume(Message message, Channel channel) throws IOException {
 
         String str = new String(message.getBody());
         Email email = JSONUtil.toBean(str, Email.class);
 
-        log.info("收到队列消息: {}",email.toString());
+        log.info("收到队列消息: {}", email.toString());
         MessageProperties properties = message.getMessageProperties();
         long tag = properties.getDeliveryTag();
 

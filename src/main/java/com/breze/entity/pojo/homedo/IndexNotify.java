@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.homepojo;
+package com.breze.entity.pojo.homedo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,26 +18,26 @@ import java.io.Serializable;
  * </p>
  *
  * @author tylt6688
- * @since 2022-04-15
+ * @since 2022-04-16
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("tb_banner")
-@ApiModel(value = "Banner对象", description = "")
-public class Banner implements Serializable {
+@TableName("tb_index_notify")
+@ApiModel(value = "IndexNotify对象", description = "")
+public class IndexNotify implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private String url;
+    private String title;
 
-    private String alt;
+    private String content;
 
-    private Integer orderNum;
+    private LocalDateTime created;
 
 
 }

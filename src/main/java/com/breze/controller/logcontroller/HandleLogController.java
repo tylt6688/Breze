@@ -1,7 +1,7 @@
 package com.breze.controller.logcontroller;
 
 
-import com.breze.entity.pojo.logpojo.HandleLog;
+import com.breze.entity.pojo.logdo.HandleLog;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.breze.common.result.Result;

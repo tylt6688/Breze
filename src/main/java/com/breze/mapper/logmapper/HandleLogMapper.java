@@ -1,7 +1,7 @@
 package com.breze.mapper.logmapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.logpojo.HandleLog;
+import com.breze.entity.pojo.logdo.HandleLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

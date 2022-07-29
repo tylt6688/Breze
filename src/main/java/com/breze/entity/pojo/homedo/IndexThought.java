@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.homepojo;
+package com.breze.entity.pojo.homedo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -24,9 +24,9 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("tb_index_news")
-@ApiModel(value = "IndexNews对象", description = "")
-public class IndexNews implements Serializable {
+@TableName("tb_index_thought")
+@ApiModel(value = "IndexThought对象", description = "")
+public class IndexThought implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,7 +1,7 @@
 package com.breze.common.event;
 
 import org.springframework.context.ApplicationEvent;
-import com.breze.entity.pojo.logpojo.Log;
+import com.breze.entity.pojo.logdo.Log;
 
 /**
  * @Name: LogEvent.java

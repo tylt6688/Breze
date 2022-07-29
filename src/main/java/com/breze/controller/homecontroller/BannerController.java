@@ -2,7 +2,7 @@ package com.breze.controller.homecontroller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.breze.entity.pojo.homepojo.Banner;
+import com.breze.entity.pojo.homedo.Banner;
 import com.qiniu.common.QiniuException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;

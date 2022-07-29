@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.logpojo;
+package com.breze.entity.pojo.logdo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

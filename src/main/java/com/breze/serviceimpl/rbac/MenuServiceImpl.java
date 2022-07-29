@@ -8,7 +8,7 @@ import com.breze.service.rbac.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import com.breze.entity.dto.MenuDto;
+import com.breze.entity.dto.MenuDTO;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.mapper.rbac.MenuMapper;
 
@@ -32,7 +32,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     UserMapper userMapper;
 
     @Override
-    public List<MenuDto> getCurrentNav() {
+    public List<MenuDTO> getCurrentNav() {
         //因为当前用户的信息是注册在Security里面的
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userMapper.getByUserName(username);
@@ -70,10 +70,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return finalMenus;
     }
 
-    private List<MenuDto> convert(List<Menu> menuTree) {
-        List<MenuDto> menuDtos = new ArrayList<>();
+    private List<MenuDTO> convert(List<Menu> menuTree) {
+        List<MenuDTO> menuDTOS = new ArrayList<>();
         menuTree.forEach(m -> {
-            MenuDto dto = new MenuDto();
+            MenuDTO dto = new MenuDTO();
             dto.setId(m.getId());
             dto.setName(m.getPerms());
             dto.setTitle(m.getName());
@@ -84,9 +84,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                 // 子节点调用当前方法进行再次转换
                 dto.setChildren(convert(m.getChildren()));
             }
-            menuDtos.add(dto);
+            menuDTOS.add(dto);
         });
-        return menuDtos;
+        return menuDTOS;
     }
 
     @Override
