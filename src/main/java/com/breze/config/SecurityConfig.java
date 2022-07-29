@@ -1,6 +1,6 @@
 package com.breze.config;
 
-import com.breze.security.jwt.JwtAuthenticationFilter;
+import com.breze.security.filter.JwtAuthenticationFilter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.breze.security.LoginFailureHandler;
-import com.breze.security.LoginSuccessHandler;
+import com.breze.security.handler.LoginFailureHandler;
+import com.breze.security.handler.LoginSuccessHandler;
 import com.breze.security.filter.KaptchaFilter;
-import com.breze.security.jwt.JwtLogoutSuccessHandler;
+import com.breze.security.handler.JwtLogoutSuccessHandler;
 import com.breze.security.securityimpl.AccessDeniedHandlerImpl;
 import com.breze.security.securityimpl.AuthenticationEntryPointImpl;
 import com.breze.security.securityimpl.UserDetailServiceImpl;

@@ -1,4 +1,4 @@
-package com.breze.security;
+package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.enums.ErrorEnum;

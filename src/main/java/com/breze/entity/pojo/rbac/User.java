@@ -55,7 +55,7 @@ public class User implements Serializable {
     private String password;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "盐", name = "salt", example = "123456", notes = "盐")
+    @ApiModelProperty(value = "微信小程序唯一标识", name = "openId", example = "123456", notes = "微信小程序唯一标识")
     private String openId;
 
     @ExcelIgnore
@@ -80,7 +80,7 @@ public class User implements Serializable {
     @ColumnWidth(20)
     @NotBlank(message = "邮箱不能为空")
     @Email(message = "邮箱格式不正确")
-    @ApiModelProperty(value = "邮箱", name = "email", example = "123@126.com", notes = "邮箱")
+    @ApiModelProperty(value = "邮箱", name = "email", example = "13888888888@qq.com", notes = "邮箱")
     private String email;
 
     @ExcelProperty("籍贯")
@@ -101,7 +101,7 @@ public class User implements Serializable {
     private LocalDateTime updated;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "最近登录时间", name = "lastLogin", example = "2020-03-01 12:00:00", notes = "最近登录时间")
+    @ApiModelProperty(value = "最后一次登录时间", name = "lastLogin", example = "2020-03-01 12:00:00", notes = "最近登录时间")
     private LocalDateTime lastLogin;
 
     @ExcelIgnore

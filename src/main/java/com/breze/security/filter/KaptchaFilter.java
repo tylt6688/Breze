@@ -3,7 +3,7 @@ package com.breze.security.filter;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.exception.KaptchaException;
-import com.breze.security.LoginFailureHandler;
+import com.breze.security.handler.LoginFailureHandler;
 import com.breze.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -7,17 +7,12 @@ import java.io.*;
 import java.util.Objects;
 
 /**
- * TODO 文件转换工具类
+ * TODO 文件转换工具类，MultipartFile 转 File
  *
  */
 @UtilityClass
 public class MultipartFileToFileUtil {
 
-    /**
-     * MultipartFile 转 File
-     * @param file
-     * @throws Exception
-     */
     public static File multipartFileToFile(MultipartFile file) {
         try {
             File toFile;
