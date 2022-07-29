@@ -1,7 +1,7 @@
 package com.breze.controller.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.breze.common.constant.Const;
+import com.breze.common.consts.GlobalConstant;
 import com.breze.config.JwtConfig;
 import com.breze.config.OssConfig;
 import com.breze.service.homeservice.*;
@@ -109,9 +109,9 @@ public class BaseController {
     // 自定义泛型分页数据方法
     public <T> Page<T> getPage() {
         // 当前页的页码，默认第一页
-        int current = ServletRequestUtils.getIntParameter(request, "current", Const.CURRENT);
+        int current = ServletRequestUtils.getIntParameter(request, "current", GlobalConstant.CURRENT);
         // 每页显示的条数，设定每页10条数据
-        int size = ServletRequestUtils.getIntParameter(request, "size", Const.SIZE);
+        int size = ServletRequestUtils.getIntParameter(request, "size", GlobalConstant.SIZE);
         return new Page<>(current, size);
     }
 }

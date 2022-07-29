@@ -1,7 +1,7 @@
 package com.breze.security.securityimpl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.breze.common.constant.Const;
+import com.breze.common.consts.GlobalConstant;
 import com.breze.common.rabbit.Produce;
 import com.breze.config.BrezeConfig;
 import com.breze.service.logservice.LoginLogService;
@@ -56,7 +56,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         // 进行异常抛出，交付给认证失败处理器进行处理
         if (user == null) {
             throw new UsernameNotFoundException("用户名或密码错误");
-        } else if (user.getStatu().equals(Const.STATUS_OFF)) {
+        } else if (user.getStatu().equals(GlobalConstant.STATUS_OFF)) {
             throw new UsernameNotFoundException("账户状态异常");
         }
         // 更新账户最后一次登录时间
@@ -68,10 +68,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
         LoginLog loginLog = new LoginLog();
         loginLog.setUserId(user.getId());
         loginLog.setCreateTime(LocalDateTime.now());
-        loginLog.setState(Const.TYPE_ZERO);
+        loginLog.setState(GlobalConstant.TYPE_ZERO);
         loginLogService.save(loginLog);
 
-        if (user.getLoginWarn().equals(Const.STATUS_ON)) {
+        if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
             Context context = new Context();
             context.setVariable("username", user.getUsername());
             context.setVariable("last_login", LocalDateTime.now());
