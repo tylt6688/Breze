@@ -157,6 +157,13 @@
             <version>${mybatis.plus.boot.version}</version>
         </dependency>
 
+        <!-- Mybatis Plus 主从数据库 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${mybatis.plus.boot.version}</version>
+        </dependency>
+
         <!--MyBatisPlus代码生成器-->
         <dependency>
             <groupId>com.baomidou</groupId>

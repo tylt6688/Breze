@@ -1,6 +1,10 @@
 package com.breze.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -27,6 +31,24 @@ public class MybatisPlusConfig {
         // 防止update语句where条件缺失后产生全表更新和删除插件
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;
+    }
+
+    /*
+     * @Author: LUCIFER-LGX
+     * @Date: 2022/8/2 14:52
+     * @Return: com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer
+     * @Description: TODO Mybatis Plus 枚举类优化全局配置
+     * @Version: 1.0
+     */
+    @Bean
+    public MybatisPlusPropertiesCustomizer mybatisPlusPropertiesCustomizer() {
+        return properties -> {
+            GlobalConfig globalConfig = properties.getGlobalConfig();
+            globalConfig.setBanner(false);
+            MybatisConfiguration configuration = new MybatisConfiguration();
+            configuration.setDefaultEnumTypeHandler(MybatisEnumTypeHandler.class);
+            properties.setConfiguration(configuration);
+        };
     }
 
 }
