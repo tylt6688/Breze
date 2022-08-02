@@ -33,22 +33,4 @@ public class MybatisPlusConfig {
         return interceptor;
     }
 
-    /*
-     * @Author: LUCIFER-LGX
-     * @Date: 2022/8/2 14:52
-     * @Return: com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer
-     * @Description: TODO Mybatis Plus 枚举类优化全局配置
-     * @Version: 1.0
-     */
-    @Bean
-    public MybatisPlusPropertiesCustomizer mybatisPlusPropertiesCustomizer() {
-        return properties -> {
-            GlobalConfig globalConfig = properties.getGlobalConfig();
-            globalConfig.setBanner(false);
-            MybatisConfiguration configuration = new MybatisConfiguration();
-            configuration.setDefaultEnumTypeHandler(MybatisEnumTypeHandler.class);
-            properties.setConfiguration(configuration);
-        };
-    }
-
 }
