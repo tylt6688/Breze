@@ -124,7 +124,7 @@ public class UserController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result insert(@Validated @RequestBody User user) {
-        user.setCreated(LocalDateTime.now());
+        // user.setCreated(LocalDateTime.now());
         user.setStatu(Const.STATUS_ON);
         user.setAvatar(Const.DEFAULT_AVATAR);
         user.setPassword(bCryptPasswordEncoder.encode(Const.DEFAULT_PASSWORD));

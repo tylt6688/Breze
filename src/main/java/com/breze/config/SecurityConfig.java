@@ -104,7 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 //配置拦截白名单放行
                 .antMatchers(URL_WHITELIST).permitAll()
-
+                // .antMatchers("/**/**").hasRole("SUPER_ADMIN")
                 //对其它请求进行拦截认证处理  Spring EL
                 .anyRequest()
                 .authenticated()
@@ -127,6 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // auth.inMemoryAuthentication().withUser("tylt").password("123456").roles("SUPER_ADMIN");
         auth.userDetailsService(userDetailService);
     }
 }

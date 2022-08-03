@@ -7,7 +7,18 @@ spring:
     url: jdbc:mysql://localhost:3306/breze?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     # MySQL 5.x 驱动：com.mysql.jdbc.Driver
     # MySQL 6.x 驱动：com.mysql.cj.jdbc.Driver
-
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/breze?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+          username: root
+          password: 123456
+        slave:
+          url: jdbc:mysql://localhost:3306/breze?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+          username: root
+          password: 123456
     #Druid连接池配置
     druid:
       mysql:
