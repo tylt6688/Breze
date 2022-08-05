@@ -1,5 +1,6 @@
 package com.breze.serviceimpl.rbac;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.service.rbac.UserService;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  * @author tylt6688
  * @since 2022-03-01
  */
+@DS("master")
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
