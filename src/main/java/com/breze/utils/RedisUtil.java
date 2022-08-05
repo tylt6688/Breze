@@ -13,10 +13,10 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 /*
  * @Author tylt
- * @Description //TODO Redis工具类
+ * @Description Redis工具类
  * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
  **/
-
 
 @Component
 public class RedisUtil {

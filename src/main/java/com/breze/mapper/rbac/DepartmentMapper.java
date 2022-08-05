@@ -1,7 +1,7 @@
 package com.breze.mapper.rbac;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.rbac.Department;
+import com.breze.entity.pojo.rbac.Group;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.breze.entity.pojo.rbac.Department;
  * @author tylt6688
  * @since 2022-03-25
  */
-public interface DepartmentMapper extends BaseMapper<Department> {
+public interface DepartmentMapper extends BaseMapper<Group> {
 
 }

@@ -1,7 +1,8 @@
+# 开发环境
 server:
   port: 8090
 spring:
-  # Swagger 2 显示地址 http://localhost:8088/swagger-ui.html
+  # Swagger显示地址 http://localhost:8090/swagger-ui/index.html
   mvc:
     path match:
       matching-strategy: ant_path_matcher

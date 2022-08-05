@@ -6,7 +6,7 @@ import lombok.ToString;
 
 /*
  * @Author tylt
- * @Description //TODO 错误码枚举类，这里注意业务错误码不要与HTTP状态码相同
+ * @Description TODO 错误码枚举类，注意业务错误码不要与HTTP状态码相同
  * @Date 2022/2/5 11:57
  **/
 @ToString

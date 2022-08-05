@@ -1,7 +1,7 @@
 package com.breze.mapper.rbac;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.logdo.Log;
+import com.breze.entity.pojo.logdo.HandleLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @Description:
  */
 @Mapper
-public interface LogMapper extends BaseMapper<Log> {
+public interface LogMapper extends BaseMapper<HandleLog> {
 
 
 }

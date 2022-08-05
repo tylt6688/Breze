@@ -3,6 +3,12 @@ package com.breze.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+/*
+ * @Author tylt
+ * @Description 代码生成配置类
+ * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
+ **/
 
 @Data
 @Configuration

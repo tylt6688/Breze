@@ -24,8 +24,9 @@ import com.breze.security.securityimpl.UserDetailServiceImpl;
 
 /*
  * @Author tylt
- * @Description //TODO Spring Security配置类
+ * @Description Spring Security配置类
  * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
  **/
 
 @Log4j2
@@ -84,6 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //关闭csrf预防攻击认证
                 .csrf().disable()
+                /** 放行Swagger前端展示 */
+                .headers().frameOptions().disable()
+                .and()
                 //配置登录请求
                 .formLogin()
                 .failureHandler(loginFailureHandler)

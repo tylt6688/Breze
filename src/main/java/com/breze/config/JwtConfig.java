@@ -11,8 +11,9 @@ import java.util.Date;
 
 /*
  * @Author tylt
- * @Description //TODO Jwt工具类
+ * @Description Jwt配置类
  * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
  **/
 
 @Data
@@ -28,7 +29,7 @@ public class JwtConfig {
     private String secret;
 
 
-    // 生成jwt
+    /** 生成jwt*/
     public String generateToken(String username) {
 
         Date nowDate = new Date();
@@ -38,12 +39,13 @@ public class JwtConfig {
                 .setHeaderParam("typ", "JWT")
                 .setSubject(username)
                 .setIssuedAt(nowDate)
-                .setExpiration(expireDate)// 7天过期
+                // 设置7天过期
+                .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
-    // 解析jwt
+    /** 解析jwt */
     public Claims getClaimByToken(String jwt) {
         try {
             return Jwts.parser()
@@ -55,7 +57,7 @@ public class JwtConfig {
         }
     }
 
-    // 判断jwt是否过期
+    /** 判断jwt是否过期 */
     public boolean isTokenExpired(Claims claims) {
 
         return claims.getExpiration().before(new Date());

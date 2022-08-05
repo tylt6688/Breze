@@ -1,14 +1,14 @@
 package com.breze.common.listener;
 
 import com.breze.common.event.LogEvent;
+import com.breze.entity.pojo.logdo.HandleLog;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import com.breze.entity.pojo.logdo.Log;
-import com.breze.service.tool.LogService;
+import com.breze.service.logservice.HandleLogService;
 
 /**
  * @Name: LogListener.java
@@ -23,13 +23,13 @@ import com.breze.service.tool.LogService;
 @Component
 public class LogListener {
 
-    private final LogService logService;
+    private final HandleLogService handleLogService;
 
     @Async
     @Order
     @EventListener(LogEvent.class)
     public void saveSysLog(LogEvent event) {
-        Log log = (Log) event.getSource();
-        logService.save(log);
+        HandleLog handleLog = (HandleLog) event.getSource();
+        handleLogService.save(handleLog);
     }
 }

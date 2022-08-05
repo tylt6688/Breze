@@ -3,7 +3,6 @@ package com.breze.entity.pojo.rbac;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +31,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 @TableName("sys_user")
 @ApiModel(value = "用户对象", description = "")
 public class User implements Serializable {
@@ -97,7 +98,6 @@ public class User implements Serializable {
 
     @ExcelIgnore
     @ApiModelProperty(value = "更新时间", name = "updated", example = "2020-03-01 12:00:00", notes = "更新时间")
-    // @TableField(value = "updated", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updated;
 
     @ExcelIgnore

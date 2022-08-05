@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.logdo.HandleLog;
 
 /**
- * <p>
- *  服务类
- * </p>
- *
- * @author tylt6688
- * @since 2022-06-23
+ * @Name: LogService.java
+ * @Package: xyz.tylt.service.rbac
+ * @Author LUCIFER-LGX
+ * @Date 2022/7/11 8:57
+ * @Copyright(c) 2022 , 青枫网络工作室
+ * @Description:
  */
 public interface HandleLogService extends IService<HandleLog> {
+
 
 }

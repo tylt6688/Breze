@@ -5,11 +5,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Objects;
+/*
+ * @Author tylt
+ * @Description 文件转换工具类，MultipartFile 转 File
+ * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
+ **/
 
-/**
- * TODO 文件转换工具类，MultipartFile 转 File
- *
- */
 @UtilityClass
 public class MultipartFileToFileUtil {
 
@@ -32,6 +34,7 @@ public class MultipartFileToFileUtil {
 
     /**
      * 获取流文件
+     *
      * @param ins
      * @param file
      */
@@ -52,6 +55,7 @@ public class MultipartFileToFileUtil {
 
     /**
      * 删除本地临时文件
+     *
      * @param file
      */
     public static void deleteTempFile(File file) {

@@ -3,9 +3,13 @@ package com.breze.utils;
 import lombok.experimental.UtilityClass;
 
 import java.util.UUID;
+
 /*
- * TODO 生成OSS存储空间内的唯一文件名称
- */
+ * @Author tylt
+ * @Description 生成OSS存储空间内的唯一文件名称工具类
+ * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
+ **/
 
 @UtilityClass
 public class UniqueFileNameUtil {

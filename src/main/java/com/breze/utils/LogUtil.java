@@ -4,7 +4,7 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
 import com.breze.common.enums.LogEnum;
-import com.breze.entity.pojo.logdo.Log;
+import com.breze.entity.pojo.logdo.HandleLog;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
@@ -19,8 +19,9 @@ import java.util.Objects;
 
 /*
  * @Author tylt
- * @Description //TODO 日志工具类
+ * @Description 日志工具类
  * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
  **/
 @Log4j2
 @UtilityClass
@@ -56,19 +57,19 @@ public class LogUtil {
     }
 
 
-    public Log getLog() {
+    public HandleLog getLog() {
         //获取请求url,ip,httpMethod
         HttpServletRequest request = ((ServletRequestAttributes) Objects
                 .requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        Log log = new Log();
+        HandleLog handleLog = new HandleLog();
         //log.setType(LogTypeEnum.NORMAL.getType());
-        log.setType("PC");
-        log.setRequestIp(ServletUtil.getClientIP(request));
-        log.setRequestPath(URLUtil.getPath(request.getRequestURI()));
-        log.setMethod(request.getMethod());
-        log.setBrowser(request.getHeader(HttpHeaders.USER_AGENT));
-        log.setParams(HttpUtil.toParams(request.getParameterMap()));
-        log.setCreateTime(LocalDateTime.now());
-        return log;
+        handleLog.setType("PC");
+        handleLog.setRequestIp(ServletUtil.getClientIP(request));
+        handleLog.setRequestPath(URLUtil.getPath(request.getRequestURI()));
+        handleLog.setMethod(request.getMethod());
+        handleLog.setBrowser(request.getHeader(HttpHeaders.USER_AGENT));
+        handleLog.setParams(HttpUtil.toParams(request.getParameterMap()));
+        handleLog.setCreateTime(LocalDateTime.now());
+        return handleLog;
     }
 }

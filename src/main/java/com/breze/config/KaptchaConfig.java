@@ -9,8 +9,9 @@ import java.util.Properties;
 
 /*
  * @Author tylt
- * @Description //TODO 谷歌验证码插件配置类
+ * @Description 谷歌验证码插件配置类
  * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
  **/
 @Configuration
 public class KaptchaConfig {

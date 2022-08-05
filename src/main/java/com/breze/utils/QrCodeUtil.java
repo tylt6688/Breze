@@ -22,10 +22,12 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.HashMap;
 
-/**
- * 链接二维码生成工具
- * @author ZhangHaohui
- */
+/*
+ * @Author tylt
+ * @Description Base64二维码生成工具
+ * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
+ **/
 @Slf4j
 @UtilityClass
 public class QrCodeUtil {

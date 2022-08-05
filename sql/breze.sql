@@ -294,14 +294,14 @@ INSERT INTO `sys_menu` VALUES (23, 0, '关于项目', NULL, 'sys:about', NULL, 0
 INSERT INTO `sys_menu` VALUES (24, 23, '项目介绍', '/about/about', 'sys:about:project', 'about/About', 1, 'el-icon-s-claim', 1, '2022-03-12 16:08:37', '2022-03-24 17:12:40', 0);
 INSERT INTO `sys_menu` VALUES (25, 23, '关于我', '/about/me', 'sys:about:me', 'about/Aboutme', 1, 'el-icon-magic-stick', 2, '2022-03-13 10:13:55', '2022-04-21 22:57:54', 0);
 INSERT INTO `sys_menu` VALUES (47, 1, '首页管理', '/sys/indexmanage', 'sys:manage:index', 'sys/IndexManage', 1, 'el-icon-c-scale-to-original', 1, '2022-03-27 12:31:36', '2022-04-15 18:26:24', 0);
-INSERT INTO `sys_menu` VALUES (60, 0, '日志管理', NULL, 'log:manage', NULL, 0, 'el-icon-tickets', 8, '2022-06-23 16:21:16', '2022-06-23 16:21:25', 0);
-INSERT INTO `sys_menu` VALUES (61, 60, '登录日志', '/log/loginlog', 'log:manage:login', 'log/LoginLog', 1, 'el-icon-notebook-2', 1, '2022-06-23 16:24:42', NULL, 0);
-INSERT INTO `sys_menu` VALUES (62, 60, '操作日志', '/log/handlelog', 'log:manage:handle', 'log/HandleLog', 1, 'el-icon-edit-outline', 2, '2022-06-23 16:26:01', '2022-06-23 16:29:42', 0);
+INSERT INTO `sys_menu` VALUES (60, 0, '日志管理', NULL, 'handleLog:manage', NULL, 0, 'el-icon-tickets', 8, '2022-06-23 16:21:16', '2022-06-23 16:21:25', 0);
+INSERT INTO `sys_menu` VALUES (61, 60, '登录日志', '/handleLog/loginlog', 'handleLog:manage:login', 'handleLog/LoginLog', 1, 'el-icon-notebook-2', 1, '2022-06-23 16:24:42', NULL, 0);
+INSERT INTO `sys_menu` VALUES (62, 60, '操作日志', '/handleLog/handlelog', 'handleLog:manage:handle', 'handleLog/HandleLog', 1, 'el-icon-edit-outline', 2, '2022-06-23 16:26:01', '2022-06-23 16:29:42', 0);
 INSERT INTO `sys_menu` VALUES (63, 0, '项目开发', NULL, 'project:develop', NULL, 0, 'el-icon-sunny', 9, '2022-06-29 13:47:59', NULL, 0);
 INSERT INTO `sys_menu` VALUES (64, 63, '代码生成', '/develop/codegener', 'project:develop:codegener', 'develop/CodeGener', 1, 'el-icon-more-outline', 1, '2022-06-29 14:10:35', '2022-06-29 14:13:00', 0);
 INSERT INTO `sys_menu` VALUES (65, 0, '平台监控', NULL, 'sys:monitor', NULL, 0, 'el-icon-monitor', 10, '2022-07-06 16:51:58', NULL, 0);
 INSERT INTO `sys_menu` VALUES (66, 65, '服务器监控', '/monitor/servermonitor', 'sys:monitor:server', 'monitor/ServerMonitor', 1, 'el-icon-coin', 1, '2022-07-06 16:54:08', NULL, 0);
-INSERT INTO `sys_menu` VALUES (67, 1, '部门管理', '/sys/department', 'sys:department:select', 'sys/Department', 1, 'el-icon-office-building', 5, '2022-07-13 20:49:51', NULL, 0);
+INSERT INTO `sys_menu` VALUES (67, 1, '部门管理', '/sys/group', 'sys:group:select', 'sys/Department', 1, 'el-icon-office-building', 5, '2022-07-13 20:49:51', NULL, 0);
 
 -- ----------------------------
 -- Table structure for sys_role

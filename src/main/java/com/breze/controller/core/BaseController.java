@@ -79,7 +79,7 @@ public class BaseController {
     @Autowired
     protected RoleMenuService roleMenuService;
     @Autowired
-    protected DepartmentService departmentService;
+    protected GroupService groupService;
     // RBAC权限服务注入 End
 
     /**********************************************************************************************************************************/

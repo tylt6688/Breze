@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 /*
  * @Author tylt
- * @Description //TODO 服务器端Http请求工具类
+ * @Description 服务器端 Http请求工具类
  * @Date 2022/2/5 11:57
  **/
 

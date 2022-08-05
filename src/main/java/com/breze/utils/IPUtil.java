@@ -6,6 +6,13 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
+
+/**
+ * @Author tylt
+ * @Description IP地址工具类
+ * @Date 2022/3/11 9:11
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 @Log4j2
 public class IPUtil {
 

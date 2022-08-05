@@ -1,7 +1,7 @@
 package com.breze.common.aspect;
 
 import com.breze.common.event.LogEvent;
-import com.breze.entity.pojo.logdo.Log;
+import com.breze.entity.pojo.logdo.HandleLog;
 import com.breze.utils.LogUtil;
 import com.breze.serviceimpl.SpringContextHolder;
 import lombok.SneakyThrows;
@@ -31,9 +31,9 @@ public class LogAspect {
         String strMethodName = point.getSignature().getName();
         log.debug("[类名]:{},[方法]:{}", strClassName, strMethodName);
 
-        Log logVo = LogUtil.getLog();
+        HandleLog handleLogVo = LogUtil.getLog();
 
-        logVo.setTitle(logs.value());
+        handleLogVo.setTitle(logs.value());
 
         // 发送异步日志事件
         Long startTime = System.currentTimeMillis();
@@ -43,14 +43,14 @@ public class LogAspect {
             obj = point.proceed();
         }
         catch (Exception e) {
-            logVo.setType("-1");
-            logVo.setException(e.getMessage());
+            handleLogVo.setType("-1");
+            handleLogVo.setException(e.getMessage());
             throw e;
         }
         finally {
             Long endTime = System.currentTimeMillis();
-            logVo.setTime(String.valueOf(endTime - startTime));
-            SpringContextHolder.publishEvent(new LogEvent(logVo));
+            handleLogVo.setTime(String.valueOf(endTime - startTime));
+            SpringContextHolder.publishEvent(new LogEvent(handleLogVo));
         }
 
         return obj;

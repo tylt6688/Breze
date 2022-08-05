@@ -3,9 +3,12 @@ package com.breze.serviceimpl.rbac;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.common.consts.GlobalConstant;
+import com.breze.common.consts.SystemConstant;
 import com.breze.service.rbac.UserService;
 import com.breze.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.Role;
@@ -13,6 +16,7 @@ import com.breze.entity.pojo.rbac.User;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.MenuService;
 import com.breze.service.rbac.RoleService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,9 +46,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     RedisUtil redisUtil;
 
 
+
+
     @Override
     public User getByUserName(String username) {
         return getOne(new QueryWrapper<User>().eq("username", username));
+    }
+
+    @Override
+    @Transactional
+    public Boolean insertUser(User user) {
+        user.setStatu(GlobalConstant.STATUS_ON);
+        user.setAvatar(SystemConstant.DEFAULT_AVATAR);
+        user.setPassword(new BCryptPasswordEncoder().encode(SystemConstant.DEFAULT_PASSWORD));
+        return save(user);
+
     }
 
     @Override
@@ -122,8 +138,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      **/
     @Override
     public void clearUserAuthorityInfoByRoleId(Long roleId) {
-        List<User> users = this.list(new QueryWrapper<User>()
-                .inSql("id", "select user_id from sys_user_role where role_id = " + roleId));
+        List<User> users = this.list(new QueryWrapper<User>().inSql("id", "select user_id from sys_user_role where role_id = " + roleId));
 
         users.forEach(u -> {
             this.clearUserAuthorityInfo(u.getUsername());

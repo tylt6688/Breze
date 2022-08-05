@@ -1,10 +1,6 @@
 package com.breze.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
-import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -13,8 +9,9 @@ import org.springframework.context.annotation.Configuration;
 
 /*
  * @Author tylt
- * @Description //TODO MyBatisPlus配置类
+ * @Description MyBatisPlus配置类
  * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
  **/
 @Configuration
 public class MybatisPlusConfig {

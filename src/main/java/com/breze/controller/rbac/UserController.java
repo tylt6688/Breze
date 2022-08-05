@@ -10,11 +10,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.Log;
 import com.breze.common.consts.GlobalConstant;
+import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.dto.UpdatePasswordDTO;
-import com.breze.entity.pojo.rbac.Department;
+import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
@@ -75,16 +76,14 @@ public class UserController extends BaseController {
         result.addData("last_login", user.getLastLogin());
         result.addData("created", user.getCreated());
         result.addData("loginwarn", user.getLoginWarn());
-        Department department = departmentService.getOne(new QueryWrapper<Department>().eq("id", user.getDepartmentId()));
-        result.addData("department", department.getName());
+        Group group = groupService.getOne(new QueryWrapper<Group>().eq("id", user.getDepartmentId()));
+        result.addData("department", group.getName());
 
         return Result.createSuccessMessage(result);
 
     }
 
-    /*
-     * TODO 编辑时用户信息回显
-     */
+
     @Log("根据ID获取用户信息")
     @ApiOperation("根据ID获取用户信息")
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
@@ -100,7 +99,7 @@ public class UserController extends BaseController {
 
     @Log("根据用户名获取用户信息")
     @ApiOperation("根据用户名获取用户信息")
-    @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", dataTypeClass = String.class)
+    @ApiImplicitParam(name = "username", value = "用户名", required = false, dataType = "String", dataTypeClass = String.class)
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
     public Result select(String username) {
@@ -114,30 +113,15 @@ public class UserController extends BaseController {
 
     @Log("新增用户")
     @ApiOperation("新增用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "唯一用户名", dataType = "String", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "truename", value = "真实姓名", dataType = "String", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "email", value = "邮箱地址", dataType = "String", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "phone", value = "用户手机", dataType = "String", dataTypeClass = String.class)
-    })
-    @Transactional
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result insert(@Validated @RequestBody User user) {
-        // user.setCreated(LocalDateTime.now());
-        user.setStatu(GlobalConstant.STATUS_ON);
-        user.setAvatar(GlobalConstant.DEFAULT_AVATAR);
-        user.setPassword(bCryptPasswordEncoder.encode(GlobalConstant.DEFAULT_PASSWORD));
-        boolean flag = userService.save(user);
+        boolean flag = userService.insertUser(user);
         return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
-
     }
 
     @Log("修改用户")
     @ApiOperation("修改用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "唯一用户名", dataType = "String", dataTypeClass = String.class),
-    })
     @Transactional
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
@@ -150,10 +134,7 @@ public class UserController extends BaseController {
 
     @Log("更新登录")
     @ApiOperation("更新登录提醒")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "loginwarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class),
-            @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "loginwarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @Transactional
     @PostMapping("/updateloginwarn")
     public Result updateLoginWarn(@RequestParam Integer loginwarn, @RequestParam Long id) {
@@ -197,10 +178,7 @@ public class UserController extends BaseController {
 
     @Log("批量分配用户角色")
     @ApiOperation("批量分配用户角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class), @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)})
     @Transactional
     @PostMapping("/rolepermmore")
     @PreAuthorize("hasAuthority('sys:user:role')")
@@ -233,7 +211,7 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result resertpassword(@RequestBody Long userId) {
         User user = userService.getById(userId);
-        user.setPassword(bCryptPasswordEncoder.encode(GlobalConstant.DEFAULT_PASSWORD));
+        user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
         user.setUpdated(LocalDateTime.now());
         boolean flag = userService.updateById(user);
         return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailureMessage(ErrorEnum.FindException);
@@ -241,9 +219,6 @@ public class UserController extends BaseController {
 
     @Log("修改用户密码")
     @ApiOperation("修改用户密码")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "principal", value = "用户信息", required = true, dataType = "Principal", dataTypeClass = Principal.class)
-    })
     @Transactional
     @PostMapping("/updatepassword")
     public Result updatepassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
@@ -283,9 +258,7 @@ public class UserController extends BaseController {
 
     @Log("更新用户信息")
     @ApiOperation("更新用户信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)})
     @Transactional
     @PostMapping("/updateuserinfo")
     public Result updateUserInfo(@Validated @RequestBody User user) {
@@ -300,13 +273,13 @@ public class UserController extends BaseController {
     @Transactional
     @PostMapping("/uploadexcel")
     public Result uploadExcel(@RequestParam MultipartFile file) {
-        String encode = bCryptPasswordEncoder.encode(GlobalConstant.DEFAULT_PASSWORD);
+        String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
         File covfile = MultipartFileToFileUtil.multipartFileToFile(file);
         EasyExcel.read(covfile, User.class, new PageReadListener<User>(dataList -> {
             for (User user : dataList) {
                 user.setPassword(encode);
-                user.setStatu(0);
-                user.setLoginWarn(1);
+                user.setStatu(GlobalConstant.TYPE_ZERO);
+                user.setLoginWarn(GlobalConstant.TYPE_ONE);
                 user.setCreated(LocalDateTime.now());
                 userService.save(user);
             }
@@ -321,8 +294,7 @@ public class UserController extends BaseController {
         try {
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding("utf-8");
-            EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板")
-                    .doWrite(userService.list());
+            EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(userService.list());
         } catch (Exception e) {
             response.reset();
             response.setContentType("application/json");
@@ -343,14 +315,9 @@ public class UserController extends BaseController {
             response.setCharacterEncoding("utf-8");
             List<User> list = new ArrayList<>();
             User user = new User();
-            user.setTruename("张三");
-            user.setUsername("202006032142");
-            user.setPhone("18888888888");
-            user.setEmail("zhangsan@email.com");
-            user.setCity("济南");
+            user.setTruename("张三").setUsername("2022000000001").setEmail("zhangsan@email.com").setPhone("18888888888").setCity("济南");
             list.add(user);
-            EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板")
-                    .doWrite(list);
+            EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(list);
         } catch (Exception e) {
             response.reset();
             response.setContentType("application/json");

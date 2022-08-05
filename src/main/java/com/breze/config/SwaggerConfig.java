@@ -21,8 +21,9 @@ import java.util.List;
 
 /*
  * @Author tylt
- * @Description //TODO Swagger配置类
+ * @Description Swagger配置类
  * @Date 2022/2/5 12:07
+ * @Copyright(c) 2022 , 青枫网络工作室
  **/
 @Profile("dev")//指明多环境配置类标识
 @EnableOpenApi

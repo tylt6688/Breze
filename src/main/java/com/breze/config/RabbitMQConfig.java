@@ -28,6 +28,13 @@ import org.springframework.context.annotation.Configuration;
  *  模式：六个模式
  */
 
+/*
+ * @Author tylt
+ * @Description RabbitMQ配置类
+ * @Date 2022/2/5 11:57
+ * @Copyright(c) 2022 , 青枫网络工作室
+ **/
+
 @Log4j2
 @Configuration
 public class RabbitMQConfig {

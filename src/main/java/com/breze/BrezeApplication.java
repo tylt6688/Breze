@@ -6,10 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+/*
+ * @Description 清枫Breze权限一体化平台
+ * @Copyright(c) 2022 , 青枫网络工作室
+ **/
 
-/**
- * @author TYLT
- */
 @EnableAsync//开启基于注解的异步任务支持
 @EnableCaching//开启基于注解的缓存支持
 @EnableScheduling // 开启定时任务功能
@@ -19,7 +20,7 @@ public class BrezeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BrezeApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  清枫Breeze启动成功   ლ(´ڡ`ლ)ﾞ  \n" + "\n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ  清枫Breze启动成功   ლ(´ڡ`ლ)ﾞ  \n" + "\n" +
                 " .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. \n" +
                 "| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |\n" +
                 "| |   ______     | || |  _______     | || |  _________   | || |  _________   | || |   ________   | || |  _________   | |\n" +
