@@ -9,8 +9,8 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.Log;
-import com.breze.common.constant.Const;
-import com.breze.common.constant.ErrorEnum;
+import com.breze.common.consts.GlobalConstant;
+import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.dto.UpdatePasswordDTO;
@@ -125,9 +125,9 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result insert(@Validated @RequestBody User user) {
         // user.setCreated(LocalDateTime.now());
-        user.setStatu(Const.STATUS_ON);
-        user.setAvatar(Const.DEFAULT_AVATAR);
-        user.setPassword(bCryptPasswordEncoder.encode(Const.DEFAULT_PASSWORD));
+        user.setStatu(GlobalConstant.STATUS_ON);
+        user.setAvatar(GlobalConstant.DEFAULT_AVATAR);
+        user.setPassword(bCryptPasswordEncoder.encode(GlobalConstant.DEFAULT_PASSWORD));
         boolean flag = userService.save(user);
         return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
 
@@ -233,7 +233,7 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result resertpassword(@RequestBody Long userId) {
         User user = userService.getById(userId);
-        user.setPassword(bCryptPasswordEncoder.encode(Const.DEFAULT_PASSWORD));
+        user.setPassword(bCryptPasswordEncoder.encode(GlobalConstant.DEFAULT_PASSWORD));
         user.setUpdated(LocalDateTime.now());
         boolean flag = userService.updateById(user);
         return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailureMessage(ErrorEnum.FindException);
@@ -300,7 +300,7 @@ public class UserController extends BaseController {
     @Transactional
     @PostMapping("/uploadexcel")
     public Result uploadExcel(@RequestParam MultipartFile file) {
-        String encode = bCryptPasswordEncoder.encode(Const.DEFAULT_PASSWORD);
+        String encode = bCryptPasswordEncoder.encode(GlobalConstant.DEFAULT_PASSWORD);
         File covfile = MultipartFileToFileUtil.multipartFileToFile(file);
         EasyExcel.read(covfile, User.class, new PageReadListener<User>(dataList -> {
             for (User user : dataList) {
