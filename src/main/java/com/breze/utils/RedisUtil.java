@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-/*
- * @Author tylt
- * @Description Redis工具类
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description Redis工具类
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 
 @Component
 public class RedisUtil {

@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-/*
- * @Author tylt
- * @Description 邮件配置类
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description 邮件配置类
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "spring.mail")

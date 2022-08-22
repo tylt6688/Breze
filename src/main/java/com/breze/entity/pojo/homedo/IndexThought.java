@@ -28,8 +28,8 @@ import java.time.LocalDateTime;
 @ApiModel(value = "IndexThought对象", description = "")
 public class IndexThought implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 623424692769233533L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

@@ -8,12 +8,12 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/*
- * @Author tylt
- * @Description 跨域配置类，解决前后端分离产生的跨域问题
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description 跨域配置类，解决前后端分离产生的跨域问题
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 

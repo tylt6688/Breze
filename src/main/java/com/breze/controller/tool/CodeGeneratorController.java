@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.breze.entity.gener.Gener;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,10 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.breze.common.result.Result;
 import com.breze.config.CodeGeneratorConfig;
 import com.breze.controller.core.BaseController;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 
-@RequestMapping("/codeGenerator")
+/**
+ * <p>
+ * 代码生成前端控制器
+ * </p>
+ *
+ * @author tylt6688
+ * @since 2022-03-01
+ */
+@Api(tags = "代码生成器")
+@RestController
+@RequestMapping("tool/code")
 public class CodeGeneratorController {
 
     @Autowired
@@ -26,7 +38,10 @@ public class CodeGeneratorController {
 
         String drive = "D://";
         String xmlpath = drive + "xyz//resource//mapper";
-        String projectPath = System.getProperty("user.dir");
+
+
+        String projectPath = System.getProperty("user.dir") + "//src//main//java//";
+        String projectXmlPath = System.getProperty("user.dir") + "//src//main//resource//mapper";
 
 
         FastAutoGenerator.create(codeGeneratorConfig.getUrl(), codeGeneratorConfig.getUsername(), codeGeneratorConfig.getPassword())
@@ -46,7 +61,7 @@ public class CodeGeneratorController {
                 // 实体策略配置
                 .strategyConfig(builder -> {
                     builder.entityBuilder()
-                            // 开启Lombok
+                            // 开启 Lombok
                             .enableLombok();
                 })
                 // 控制类策略配置
@@ -75,4 +90,5 @@ public class CodeGeneratorController {
 
         return Result.createSuccessMessage("代码生成成功");
     }
+
 }

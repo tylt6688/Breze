@@ -15,6 +15,15 @@ import com.breze.entity.pojo.tool.Email;
 import com.breze.entity.pojo.rbac.User;
 
 
+/**
+ * <p>
+ * 邮件发送前端控制器
+ * </p>
+ *
+ * @author tylt6688
+ * @since 2022-03-01
+ */
+
 @RestController
 @RequestMapping("/mail")
 public class MailController extends BaseController {
@@ -37,11 +46,11 @@ public class MailController extends BaseController {
         // 注意导入的包是org.thymeleaf.context
         Context context = new Context();
         context.setVariable("username", user.getUsername());
-        context.setVariable("updated", user.getUpdated());
+        context.setVariable("updated", user.getUpdateTime());
         context.setVariable("link", "https://blog.csdn.net/tylt6688");
         context.setVariable("image", "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png");
 
-        String content = templateEngine.process("mail.html", context);
+        String content = templateEngine.process("email.html", context);
 
         Email email = new Email();
         email.setMailFrom(mailConfig.getUsername());
@@ -54,7 +63,7 @@ public class MailController extends BaseController {
         email.setContent(content);
 
 //        mailService.sendHtmlMailThymeLeaf(email);
-      produce.sendMailByMQ(email);
+        produce.sendMailByMQ(email);
 
         return Result.createSuccessMessage("邮件发送成功");
     }

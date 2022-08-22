@@ -4,32 +4,37 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.Serializable;
 import java.util.Date;
 
-/*
- * @Author tylt
+/**
+ * @Author tylt6688
  * @Description Jwt配置类
  * @Date 2022/2/5 11:57
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
-
+ */
+@Log4j2
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "breeze.jwt")
-public class JwtConfig {
+public class JwtConfig implements Serializable {
 
-    //给JWT起个名字方便后面获取
+    private static final Long serialVersionUID = 13083965924334257L;
+    // 给JWT起个名字方便后面获取
     private String header;
-    //过期时间
-    private long expire;
-
+    // 过期时间
+    private Long expire;
+    // 密钥
     private String secret;
 
 
-    /** 生成jwt*/
+    /**
+     * 生成jwt
+     */
     public String generateToken(String username) {
 
         Date nowDate = new Date();
@@ -39,26 +44,34 @@ public class JwtConfig {
                 .setHeaderParam("typ", "JWT")
                 .setSubject(username)
                 .setIssuedAt(nowDate)
-                // 设置7天过期
+                // 设置过期时间 7 天
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
-    /** 解析jwt */
+    /**
+     * 解析jwt
+     */
     public Claims getClaimByToken(String jwt) {
+        Claims claims;
         try {
-            return Jwts.parser()
+            claims = Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(jwt)
                     .getBody();
+
         } catch (Exception e) {
-            return null;
+            log.warn(e.getMessage());
+            claims = null;
         }
+        return claims;
     }
 
-    /** 判断jwt是否过期 */
-    public boolean isTokenExpired(Claims claims) {
+    /**
+     * 判断jwt是否过期
+     */
+    public Boolean isTokenExpired(Claims claims) {
 
         return claims.getExpiration().before(new Date());
     }

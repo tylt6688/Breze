@@ -2,25 +2,23 @@ package com.breze.common.aspect;
 
 import com.breze.common.event.LogEvent;
 import com.breze.entity.pojo.logdo.HandleLog;
-import com.breze.utils.LogUtil;
 import com.breze.serviceimpl.SpringContextHolder;
+import com.breze.utils.LogUtil;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
- * @Name: LogAspect.java
- * @Package: xyz.tylt.common.aspect
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 9:11
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description:
+ * @Description 用于AOP记录日志的注解
  */
+@Log4j2
 @Aspect
-@Slf4j
 @Component
 public class LogAspect {
 
@@ -41,13 +39,11 @@ public class LogAspect {
 
         try {
             obj = point.proceed();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             handleLogVo.setType("-1");
             handleLogVo.setException(e.getMessage());
             throw e;
-        }
-        finally {
+        } finally {
             Long endTime = System.currentTimeMillis();
             handleLogVo.setTime(String.valueOf(endTime - startTime));
             SpringContextHolder.publishEvent(new LogEvent(handleLogVo));

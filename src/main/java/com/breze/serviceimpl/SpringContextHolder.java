@@ -10,12 +10,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
- * @Name: SpringContextHolder.java
- * @Package: xyz.tylt.utils
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 9:09
+ * @Description Spring上下文工具类
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description:
  */
 @Slf4j
 @Service

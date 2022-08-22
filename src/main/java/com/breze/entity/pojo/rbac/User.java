@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * <p>
- *
+ * 用户表
  * </p>
  *
  * @author tylt6688
@@ -33,7 +33,7 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_user")
-@ApiModel(value = "用户对象", description = "")
+@ApiModel(value = "用户对象", description = "用户表")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 482852208991067144L;
@@ -54,21 +54,13 @@ public class User implements Serializable {
     private String password;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "微信小程序唯一标识", name = "openId", example = "123456", notes = "微信小程序唯一标识")
-    private String openId;
-
-    @ExcelIgnore
-    @ApiModelProperty(value = "部门ID", name = "departmentId", example = "1", notes = "部门ID")
-    private Long departmentId;
-
-    @ExcelIgnore
     @ApiModelProperty(value = "用户头像", name = "avatar", example = "http://www.baidu.com/img/bd_logo1.png", notes = "用户头像")
     private String avatar;
 
     @ExcelProperty("真实姓名")
     @ColumnWidth(20)
-    @ApiModelProperty(value = "真实姓名", name = "realName", example = "张三", notes = "真实姓名")
-    private String truename;
+    @ApiModelProperty(value = "真实姓名", name = "trueName", example = "张三", notes = "真实姓名")
+    private String trueName;
 
     @ExcelProperty("手机号")
     @ColumnWidth(20)
@@ -92,21 +84,30 @@ public class User implements Serializable {
     private Integer loginWarn;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "创建时间", name = "created", example = "2020-03-01 12:00:00", notes = "创建时间")
-    @TableField(value = "created", fill = FieldFill.INSERT)
-    private LocalDateTime created;
+    @ApiModelProperty(value = "创建时间", name = "createTime", example = "2022-03-01 12:00:00", notes = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "更新时间", name = "updated", example = "2020-03-01 12:00:00", notes = "更新时间")
-    private LocalDateTime updated;
+    @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2022-03-01 12:00:00", notes = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "最后一次登录时间", name = "lastLogin", example = "2020-03-01 12:00:00", notes = "最近登录时间")
-    private LocalDateTime lastLogin;
+    @ApiModelProperty(value = "最后一次登录时间", name = "loginTime", example = "2022-03-01 12:00:00", notes = "最近登录时间")
+    private LocalDateTime loginTime;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "状态", name = "statu", example = "1", notes = "状态:1正常,0禁用")
-    private Integer statu;
+    @ApiModelProperty(value = "状态", name = "state", example = "1", notes = "状态:1正常,0禁用")
+    private Integer state;
+
+    @ExcelIgnore
+    @ApiModelProperty(value = "微信小程序唯一标识", name = "openId", example = "123456", notes = "微信小程序唯一标识")
+    private String openId;
+
+    @ExcelIgnore
+    @ApiModelProperty(value = "部门ID", name = "departmentId", example = "1", notes = "部门ID")
+    private Long departmentId;
 
     @ExcelIgnore
     @TableField(exist = false)

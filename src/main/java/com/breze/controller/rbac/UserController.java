@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.Log;
+import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
@@ -37,7 +38,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,7 +58,6 @@ public class UserController extends BaseController {
 
     @Log("获取当前用户信息")
     @ApiOperation("获取当前用户信息")
-    @ApiImplicitParam(name = "Principal", value = "用户信息", required = true, dataType = "Principal", dataTypeClass = Principal.class)
     @GetMapping("/getuserinfo")
     public Result getUserInfo(Principal principal) {
         // 此处为安全页面展示，前端需要什么后端就返回什么
@@ -69,13 +68,13 @@ public class UserController extends BaseController {
         result.addData("username", user.getUsername());
         result.addData("roles", user.getRoles());
         result.addData("avatar", user.getAvatar());
-        result.addData("truename", user.getTruename());
+        result.addData("trueName", user.getTrueName());
         result.addData("email", user.getEmail());
         result.addData("phone", user.getPhone());
         result.addData("city", user.getCity());
-        result.addData("last_login", user.getLastLogin());
-        result.addData("created", user.getCreated());
-        result.addData("loginwarn", user.getLoginWarn());
+        result.addData("loginTime", user.getLoginTime());
+        result.addData("createTime", user.getCreateTime());
+        result.addData("loginWarn", user.getLoginWarn());
         Group group = groupService.getOne(new QueryWrapper<Group>().eq("id", user.getDepartmentId()));
         result.addData("department", group.getName());
 
@@ -126,7 +125,6 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result update(@Validated @RequestBody User user) {
-        user.setUpdated(LocalDateTime.now());
         boolean flag = userService.updateById(user);
         return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
     }
@@ -209,10 +207,9 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @PostMapping("/resertpassword")
     @PreAuthorize("hasAuthority('sys:user:repass')")
-    public Result resertpassword(@RequestBody Long userId) {
+    public Result resertPassword(@RequestBody Long userId) {
         User user = userService.getById(userId);
         user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
-        user.setUpdated(LocalDateTime.now());
         boolean flag = userService.updateById(user);
         return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailureMessage(ErrorEnum.FindException);
     }
@@ -221,12 +218,11 @@ public class UserController extends BaseController {
     @ApiOperation("修改用户密码")
     @Transactional
     @PostMapping("/updatepassword")
-    public Result updatepassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
+    public Result updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
         User user = userService.getByUserName(principal.getName());
         boolean matches = bCryptPasswordEncoder.matches(updatePasswordDto.getCurrentPass(), user.getPassword());
         if (matches) {
             user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDto.getPassword()));
-            user.setUpdated(LocalDateTime.now());
             userService.updateById(user);
         } else {
             return Result.createFailureMessage(ErrorEnum.FindException, "旧密码不正确");
@@ -258,11 +254,9 @@ public class UserController extends BaseController {
 
     @Log("更新用户信息")
     @ApiOperation("更新用户信息")
-    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)})
     @Transactional
     @PostMapping("/updateuserinfo")
     public Result updateUserInfo(@Validated @RequestBody User user) {
-        user.setUpdated(LocalDateTime.now());
         boolean flag = userService.updateById(user);
         return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
     }
@@ -278,9 +272,8 @@ public class UserController extends BaseController {
         EasyExcel.read(covfile, User.class, new PageReadListener<User>(dataList -> {
             for (User user : dataList) {
                 user.setPassword(encode);
-                user.setStatu(GlobalConstant.TYPE_ZERO);
+                user.setState(GlobalConstant.TYPE_ZERO);
                 user.setLoginWarn(GlobalConstant.TYPE_ONE);
-                user.setCreated(LocalDateTime.now());
                 userService.save(user);
             }
         })).sheet().doRead();
@@ -292,13 +285,13 @@ public class UserController extends BaseController {
     @GetMapping("/downloadexcel")
     public void downloadUserExcel(HttpServletResponse response) throws IOException {
         try {
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setCharacterEncoding("utf-8");
+            response.setContentType(CharsetConstant.EXCEL_TYPE);
+            response.setCharacterEncoding(CharsetConstant.UTF_8);
             EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(userService.list());
         } catch (Exception e) {
             response.reset();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
+            response.setContentType(CharsetConstant.JSON_TYPE);
+            response.setCharacterEncoding(CharsetConstant.UTF_8);
             Map<String, String> map = MapUtils.newHashMap();
             map.put("status", "failure");
             map.put("message", "下载文件失败" + e.getMessage());
@@ -311,17 +304,17 @@ public class UserController extends BaseController {
     @GetMapping("/downloadmodelexcel")
     public void downloadModelExcel(HttpServletResponse response) throws IOException {
         try {
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-            response.setCharacterEncoding("utf-8");
+            response.setContentType(CharsetConstant.EXCEL_TYPE);
+            response.setCharacterEncoding(CharsetConstant.UTF_8);
             List<User> list = new ArrayList<>();
             User user = new User();
-            user.setTruename("张三").setUsername("2022000000001").setEmail("zhangsan@email.com").setPhone("18888888888").setCity("济南");
+            user.setTrueName("张三").setUsername("2022000000001").setEmail("zhangsan@email.com").setPhone("18888888888").setCity("济南");
             list.add(user);
             EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(list);
         } catch (Exception e) {
             response.reset();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
+            response.setContentType(CharsetConstant.JSON_TYPE);
+            response.setCharacterEncoding(CharsetConstant.UTF_8);
             Map<String, String> map = MapUtils.newHashMap();
             map.put("status", "failure");
             map.put("message", "下载文件失败" + e.getMessage());

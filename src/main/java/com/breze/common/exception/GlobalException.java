@@ -14,11 +14,12 @@ import com.breze.common.result.Result;
 
 import java.nio.file.AccessDeniedException;
 
-/*
- * @Author tylt
- * @Description //TODO 全局异常处理机制，捕获Controller部分
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
- **/
+ * @Description 全局异常处理机制，捕获 Controller 部分
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 @Log4j2
 @RestControllerAdvice
 public class GlobalException {

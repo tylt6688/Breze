@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--使用th,html标签内要导入xmlns:th="http://www.thymeleaf.org"-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>多端一体化教育教学平台</title>
+</head>
+<body th:style="'background-image: url(./background.jpg)'">
+<h2>
+    安全登录提醒
+</h2>
+<table>
+    <tr>
+        <td>用户名</td>
+        <td th:text="${username}"></td>
+    </tr>
+    <tr>
+        <td>登录时间</td>
+        <td th:text="${login_time}"></td>
+    </tr>
+</table>
+
+<a th:text="若非本人操作请点击此处链接" th:href="${link}"></a>
+<!--<img th:src="${image}">-->
+
+</body>
+</html>

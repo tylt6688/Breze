@@ -14,11 +14,12 @@ import com.breze.service.tool.MailService;
 
 import java.io.IOException;
 
-/*
- * @Author tylt
- * @Description //TODO 队列消息消费者
+/**
+ * @Author tylt6688
  * @Date 2022/4/24 11:33
- **/
+ * @Description 队列消息消费者
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 @Log4j2
 @Component
 public class Consumer {

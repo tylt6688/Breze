@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.io.File;
 import java.io.Serializable;
@@ -25,19 +26,28 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 public class Email implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4904930249407221901L;
 
     private String msgId;
 
     private String mailFrom;
+
     private String mailFromNick;
+
     private String mailTo;
+
     private String cc;
+
     private String subject;
+
     private String content;
+
     private String[] imagePaths;
+
     private String[] imageId;
+
     private List<File> files;
 }

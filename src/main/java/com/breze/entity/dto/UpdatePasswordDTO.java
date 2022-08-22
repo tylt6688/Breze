@@ -8,6 +8,8 @@ import java.io.Serializable;
 @Data
 public class UpdatePasswordDTO implements Serializable {
 
+	private static final long serialVersionUID = 4794413496085729435L;
+
 	@NotBlank(message = "新密码不能为空")
 	private String password;
 

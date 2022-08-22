@@ -1,7 +1,7 @@
 package com.breze.security.filter;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.breze.common.consts.SystemConstant;
+import com.breze.common.consts.CacheConstant;
 import com.breze.common.exception.KaptchaException;
 import com.breze.security.handler.LoginFailureHandler;
 import com.breze.utils.RedisUtil;
@@ -15,10 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*
- * TODO 验证码判定机制
- * 在进行账号密码判断前进行第三方验证码判断
+/**
+ * @Author tylt6688
+ * @Date 2022/2/11 14:50
+ * @Description 每次请求携带jwt进行令牌校验以及认证鉴权投票判定，验证码判定机制，在进行账号密码判断前进行第三方验证码判断
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
+// TODO: 2022/8/20 等待修改自定义登陆方式
 @Component
 public class KaptchaFilter extends OncePerRequestFilter {
 
@@ -57,12 +60,12 @@ public class KaptchaFilter extends OncePerRequestFilter {
             throw new KaptchaException("验证码错误");
         }
 
-        //从redis中获取进行比较
-        if (!code.equals(redisUtil.hashGet(SystemConstant.KAPTCHA_KEY, key))) {
+        //从Redis中获取进行比较
+        if (!code.equals(redisUtil.hashGet(CacheConstant.KAPTCHA_KEY, key))) {
             throw new KaptchaException("验证码错误");
         }
 
         //一次性使用，使用后将其从Redis中删除
-        redisUtil.hdel(SystemConstant.KAPTCHA_KEY, key);
+        redisUtil.hdel(CacheConstant.KAPTCHA_KEY, key);
     }
 }

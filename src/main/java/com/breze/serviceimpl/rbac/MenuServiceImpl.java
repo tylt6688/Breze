@@ -33,20 +33,20 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuDTO> getCurrentNav() {
-        //因为当前用户的信息是注册在Security里面的
+        // 因为当前用户的信息是注册在Security里面的
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userMapper.getByUserName(username);
         List<Long> navMenuIds = userMapper.getNavMenuIds(user.getId());
         List<Menu> menus = this.listByIds(navMenuIds);
-        //此处先进行排序再转父子树
+        // 此处先进行排序再转父子树
         List<Menu> menusList = search(menus);
-        //转成树状结构
+        // 转成树状结构
         List<Menu> menuTree = buildTreeMenu(menusList);
-        //需要实体转DTO
+        // 需要实体转DTO
         return convert(menuTree);
     }
 
-    //TODO 按照排序号进行升序排序后再转成父子树
+    // 按照排序号进行升序排序后再转成父子树
     public List<Menu> search(List<Menu> menusList) {
         menusList.sort(Comparator.comparing(Menu::getOrderNum));
         return menusList;

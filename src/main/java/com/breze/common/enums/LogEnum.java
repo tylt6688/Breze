@@ -1,15 +1,16 @@
 package com.breze.common.enums;
 
-/*
- * @Author tylt
- * @Description 日志枚举类
- * @Date 2022/2/5 11:57
- **/
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * @Author tylt6688
+ * @Date 2022/2/5 11:57
+ * @Description 日志枚举类
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 @ToString
 @AllArgsConstructor
 public enum LogEnum {

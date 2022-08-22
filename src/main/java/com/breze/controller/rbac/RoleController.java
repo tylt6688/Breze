@@ -4,8 +4,14 @@ package com.breze.controller.rbac;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.breze.common.annotation.Log;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
+import com.breze.common.result.Result;
+import com.breze.controller.core.BaseController;
+import com.breze.entity.pojo.rbac.Role;
+import com.breze.entity.pojo.rbac.RoleMenu;
+import com.breze.entity.pojo.rbac.UserRole;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,14 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.breze.common.annotation.Log;
-import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
-import com.breze.entity.pojo.rbac.Role;
-import com.breze.entity.pojo.rbac.RoleMenu;
-import com.breze.entity.pojo.rbac.UserRole;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -99,8 +98,8 @@ public class RoleController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
     public Result insert(@Validated @RequestBody Role role) {
-        role.setCreated(LocalDateTime.now());
-        role.setStatu(GlobalConstant.STATUS_ON);
+
+        role.setState(GlobalConstant.STATUS_ON);
         boolean flag = roleService.save(role);
         return flag ? Result.createSuccessMessage(role) : Result.createFailureMessage(ErrorEnum.FindException);
     }
@@ -114,14 +113,12 @@ public class RoleController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result update(@Validated @RequestBody Role role) {
-        role.setUpdated(LocalDateTime.now());
         boolean flag = roleService.updateById(role);
-        //更新缓存
+        // 更新缓存
         userService.clearUserAuthorityInfoByRoleId(role.getId());
         return flag ? Result.createSuccessMessage(role) : Result.createFailureMessage(ErrorEnum.FindException);
     }
 
-    // 添加事务注解保证执行完毕或者回退
     @Log("删除角色")
     @ApiOperation(value = "删除角色")
     @ApiImplicitParam(name = "roleIds", value = "角色ID集合", required = true, dataType = "List", dataTypeClass = List.class)
@@ -133,7 +130,7 @@ public class RoleController extends BaseController {
         for (Long roleId : roleIds) {
             long count = userRoleService.count(new QueryWrapper<UserRole>().eq("role_id", roleId));
             if (count > 0) {
-                return Result.createFailureMessage(ErrorEnum.IllegalOperation,"角色已被使用，不能删除");
+                return Result.createFailureMessage(ErrorEnum.IllegalOperation, "角色已被使用，不能删除");
             }
         }
         List<Long> ids = Arrays.asList(roleIds);
@@ -148,7 +145,6 @@ public class RoleController extends BaseController {
         }
         return Result.createSuccessMessage("删除成功");
     }
-
 
 
 }

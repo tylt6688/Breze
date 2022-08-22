@@ -5,12 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Objects;
-/*
- * @Author tylt
- * @Description 文件转换工具类，MultipartFile 转 File
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description 文件转换工具类，MultipartFile 转 File
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 
 @UtilityClass
 public class MultipartFileToFileUtil {

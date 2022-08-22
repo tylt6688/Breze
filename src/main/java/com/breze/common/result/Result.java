@@ -7,12 +7,12 @@ import lombok.extern.log4j.Log4j2;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
- * @Author tylt
- * @Description //TODO 全局返回结果封装，修改借鉴于之前qust亲爱的李老师
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
- * 结果封装是为了前后端数据交互有一个统一约定的标准，一般有三个要素 1.是否成功 2.结果消息 3.具体数据
- **/
+ * @Description 全局返回结果封装，为了前后端数据交互有一个统一约定的标准，一般有三个要素 1.是否成功 2.结果消息 3.具体数据
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 
 @Log4j2
 @Data
@@ -29,39 +29,17 @@ public class Result {
     private Map<String, Object> result = new HashMap<>();
 
 
-    /*
+    /**
      * 请求成功消息模板
      */
     public static Result createSuccessMessage() {
 
-        return Result.createSuccessMessage("", null);
+        return Result.createSuccessMessage("请求成功");
     }
 
-    public static Result createSuccessMessage(Object object) {
+    public static Result createSuccessMessage(Object data) {
 
-        return Result.createSuccessMessage("", object);
-    }
-
-    public static Result createSuccessMessage(WebModel webModel) {
-
-        return Result.createSuccessMessage("", webModel);
-    }
-
-    public static Result createSuccessMessage(String message, WebModel webModel) {
-
-        Result resultBox = new Result();
-        resultBox.success = true;
-        resultBox.message = message;
-
-        if (webModel != null) {
-            resultBox.result.put("data", webModel.getData());
-            resultBox.result.put("ps", webModel.getPs());
-            resultBox.result.put("sp", webModel.getSp());
-            resultBox.result.put("tp", webModel.getTp());
-            resultBox.result.put("tc", webModel.getTc());
-        }
-
-        return resultBox;
+        return Result.createSuccessMessage("请求成功", data);
     }
 
     public static Result createSuccessMessage(String message, Object data) {
@@ -75,13 +53,14 @@ public class Result {
         return resultBox;
     }
 
-    /*
+
+    /**
      * 请求失败消息模板
      */
 
     public static Result createFailureMessage(ErrorEnum err) {
 
-        return Result.createFailureMessage(err, "", null);
+        return Result.createFailureMessage(err, "请求失败");
     }
 
     public static Result createFailureMessage(ErrorEnum err, String message) {
@@ -94,8 +73,8 @@ public class Result {
 
         Result resultBox = new Result();
         resultBox.success = false;
-        resultBox.errorName = err.getErrorName();
         resultBox.errorCode = err.getErrorCode();
+        resultBox.errorName = err.getErrorName();
         resultBox.message = message;
         resultBox.result.put("data", data);
         return resultBox;
@@ -104,7 +83,6 @@ public class Result {
 
     public Result addData(String key, Object value) {
         this.result.put(key, value);
-        log.info(this + " 我是Message里面的addData方法");
         return this;
     }
 

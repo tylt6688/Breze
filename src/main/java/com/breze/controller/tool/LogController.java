@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Name: LogController.java
- * @Package: xyz.tylt.controller.rbac
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 8:59
+ * @Description 日志控制器
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description:
  */
 @Api(tags = "权限-日志管理")
 @RestController
@@ -29,7 +27,7 @@ public class LogController extends BaseController {
         Page<LoginLog> pageData = loginLogService.page(getPage(), new QueryWrapper<LoginLog>().orderByDesc("create_time"));
         pageData.getRecords().forEach(loginLog -> {
             loginLog.setUserName(userService.getById(loginLog.getUserId()).getUsername());
-            loginLog.setTrueName(userService.getById(loginLog.getUserId()).getTruename());
+            loginLog.setTrueName(userService.getById(loginLog.getUserId()).getTrueName());
         });
         return Result.createSuccessMessage(pageData);
     }

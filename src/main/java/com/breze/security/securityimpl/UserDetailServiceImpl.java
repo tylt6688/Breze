@@ -24,11 +24,13 @@ import com.breze.security.AccountUser;
 
 import java.time.LocalDateTime;
 import java.util.List;
-/*
- * @Author tylt
- * @Description //TODO 实现UserDetailsService接口来实现身份认证，避免数据库结构暴露
+
+/**
+ * @Author tylt6688
  * @Date 2022/2/7 14:24
- **/
+ * @Description 实现UserDetailsService接口来实现身份认证，避免数据库结构暴露
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 
 @Log4j2
 @Service
@@ -44,7 +46,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     TemplateEngine templateEngine;
     @Autowired
     MailConfig mailConfig;
-
     @Autowired
     BrezeConfig brezeConfig;
 
@@ -55,27 +56,26 @@ public class UserDetailServiceImpl implements UserDetailsService {
         // 进行异常抛出，交付给认证失败处理器进行处理
         if (user == null) {
             throw new UsernameNotFoundException("用户名或密码错误");
-        } else if (user.getStatu().equals(GlobalConstant.STATUS_OFF)) {
+        } else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
             throw new UsernameNotFoundException("账户状态异常");
         }
         // 更新账户最后一次登录时间
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("username", username);
-        updateWrapper.set("last_login", LocalDateTime.now());
+        updateWrapper.set("login_time", LocalDateTime.now());
         userService.update(updateWrapper);
 
         LoginLog loginLog = new LoginLog();
         loginLog.setUserId(user.getId());
-        loginLog.setCreateTime(LocalDateTime.now());
         loginLog.setState(GlobalConstant.TYPE_ZERO);
         loginLogService.save(loginLog);
 
         if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
             Context context = new Context();
             context.setVariable("username", user.getUsername());
-            context.setVariable("last_login", LocalDateTime.now());
+            context.setVariable("login_time", LocalDateTime.now());
             context.setVariable("link", "https://blog.csdn.net/tylt6688");
-            String content = templateEngine.process("mail.html", context);
+            String content = templateEngine.process("email.html", context);
 
             Email email = new Email();
             email.setMailFrom(mailConfig.getUsername());
@@ -91,7 +91,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
 
     /**
-     * TODO 通过用户id获取权限信息（角色、菜单权限）
+     * 通过用户id获取权限信息（角色、菜单权限）
      *
      * @param userId
      * @return 连接表方式通过userID获取权限信息

@@ -1,11 +1,11 @@
 package com.breze.common.consts;
 
-/*
- * @Author tylt
- * @Description 全局通用常量类
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description 全局通用常量类
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 public class GlobalConstant {
 
 

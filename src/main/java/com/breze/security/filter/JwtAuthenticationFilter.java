@@ -1,6 +1,11 @@
 package com.breze.security.filter;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
+import com.breze.common.consts.CharsetConstant;
+import com.breze.config.JwtConfig;
+import com.breze.entity.pojo.rbac.User;
+import com.breze.security.securityimpl.UserDetailServiceImpl;
+import com.breze.service.rbac.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.log4j.Log4j2;
@@ -9,10 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import com.breze.entity.pojo.rbac.User;
-import com.breze.security.securityimpl.UserDetailServiceImpl;
-import com.breze.service.rbac.UserService;
-import com.breze.config.JwtConfig;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -20,11 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*
- * @Author tylt
- * @Description //TODO 每次请求携带jwt进行令牌校验以及认证鉴权投票判定
+/**
+ * @Author tylt6688
  * @Date 2022/2/11 14:50
- **/
+ * @Description 每次请求携带jwt进行令牌校验以及认证鉴权投票判定
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 
 @Log4j2
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
@@ -48,14 +50,16 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
-        if (StrUtil.isBlankOrUndefined(jwt)) {
+        if (CharSequenceUtil.isBlankOrUndefined(jwt) || !jwt.startsWith(CharsetConstant.JWT_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
 
+        jwt = jwt.replace(CharsetConstant.JWT_PREFIX, "");
+
         // 进行JWT解析
         Claims claim = jwtConfig.getClaimByToken(jwt);
-        log.info(claim);
+
         if (claim == null) {
             throw new JwtException("token令牌异常");
         }

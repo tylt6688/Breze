@@ -1,11 +1,14 @@
 package com.breze.service.tool;
 
 import com.breze.entity.pojo.tool.Email;
-/*
- * @Author tylt
- * @Description //TODO 邮件服务类
- * @Date 2022/4/1 17:56
- **/
+/**
+ * <p>
+ * 邮件服务类
+ * </p>
+ *
+ * @author tylt6688
+ * @since 2022-03-19
+ */
 
 public interface MailService {
 

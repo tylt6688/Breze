@@ -9,12 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author tylt6688
@@ -24,11 +25,12 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 @TableName("sys_role_menu")
 @ApiModel(value = "角色菜单对象", description = "")
 public class RoleMenu implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 342723982250723899L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "角色菜单ID", name = "id", example = "1", notes = "角色菜单ID")

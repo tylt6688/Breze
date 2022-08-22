@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -17,10 +20,18 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Gener {
-    private String[] tableNames;
-    private String[] tablePrefix;
-    private String packageName;
+@Accessors(chain = true)
+public class Gener implements Serializable {
+
+    private static final long serialVersionUID = 4844981954357208726L;
+
     private String author;
+
+    private String[] tableNames;
+
+    private String[] tablePrefix;
+
+    private String packageName;
+
     private String outputDir;
 }

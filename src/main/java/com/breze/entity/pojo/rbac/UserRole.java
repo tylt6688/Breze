@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -24,11 +25,12 @@ import java.io.Serializable;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 @TableName("sys_user_role")
 @ApiModel(value = "用户角色对象", description = "")
 public class UserRole implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 342723982250723899L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "用户角色ID", name = "id", example = "1", notes = "用户角色ID")

@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/*
- * @Author tylt
- * @Description 日志工具类
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description 日志工具类
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 @Log4j2
 @UtilityClass
 public class LogUtil {

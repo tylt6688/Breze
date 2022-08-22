@@ -1,3 +1,0 @@
-2022-01-06 12:22:51.081 - INFO  [nio-9090-exec-3] x.t.c.TestController           : getBussinessLogger===日志测试
-2022-01-06 12:26:27.858 - INFO  [nio-9090-exec-1] x.t.c.TestController           : getBussinessLogger===info日志测试
-2022-01-06 14:22:38.020 - INFO  [nio-9090-exec-1] x.t.c.TestController           : getBussinessLogger===info日志测试

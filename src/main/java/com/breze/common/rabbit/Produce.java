@@ -10,13 +10,15 @@ import com.breze.entity.pojo.tool.Email;
 
 import java.util.UUID;
 
+
+/**
+ * @Author tylt6688
+ * @Date 2022/4/24 11:30
+ * @Description 队列消息生产者
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 @Log4j2
 @Component
-/*
- * @Author tylt
- * @Description //TODO 消息生产者
- * @Date 2022/4/24 11:30
- **/
 public class Produce {
 
     @Autowired
@@ -29,9 +31,9 @@ public class Produce {
         String msgId = UUID.randomUUID().toString().replaceAll("-", "");
         email.setMsgId(msgId);
         CorrelationData correlationData = new CorrelationData(msgId);
-        log.info("队列消息生成成功{}",msgId);
+        log.info("队列消息生成成功{}", msgId);
         //消息生产
-        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_A, RabbitMQConfig.ROUTINGKEY_A, MessageHelper.objToMsg(email),correlationData);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_A, RabbitMQConfig.ROUTINGKEY_A, MessageHelper.objToMsg(email), correlationData);
 
         return true;
 

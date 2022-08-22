@@ -19,12 +19,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * @Author tylt
- * @Description Swagger配置类
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 12:07
+ * @Description Swagger配置类
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
+
 @Profile("dev")//指明多环境配置类标识
 @EnableOpenApi
 @Configuration//声明自定义配置类
@@ -60,15 +61,15 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 // 开启构建者模式
                 .build()
-                /* 设置安全模式，swagger可以设置访问token */
+                // 设置安全模式，swagger可以设置访问 token
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
     }
+
     /**
      * 安全模式，这里指定token通过Authorization头请求头传递
      */
-    private List<SecurityScheme> securitySchemes()
-    {
+    private List<SecurityScheme> securitySchemes() {
         List<SecurityScheme> apiKeyList = new ArrayList<SecurityScheme>();
         apiKeyList.add(new ApiKey("Authorization", "Authorization", In.HEADER.toValue()));
         return apiKeyList;
@@ -77,8 +78,7 @@ public class SwaggerConfig {
     /**
      * 安全上下文
      */
-    private List<SecurityContext> securityContexts()
-    {
+    private List<SecurityContext> securityContexts() {
         List<SecurityContext> securityContexts = new ArrayList<>();
         securityContexts.add(
                 SecurityContext.builder()
@@ -91,8 +91,7 @@ public class SwaggerConfig {
     /**
      * 默认的安全上引用
      */
-    private List<SecurityReference> defaultAuth()
-    {
+    private List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
@@ -102,14 +101,19 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        //配置作者信息
+        // 配置作者信息
         Contact DEFAULT_CONTACT = new Contact(brezeConfig.getCopyrightName(), "https://blog.csdn.net/tylt6688/", "tylt6688@foxmail.com");
         return new ApiInfoBuilder()
-                .title(brezeConfig.getTitle()) //设置文档的标题
-                .description("系统接口文档") // 设置文档的描述
-                .version(brezeConfig.getVersion()) // 设置文档的版本信息-> 1.0.0 Version information
-                .termsOfServiceUrl("https://love.tylt.xyz") // 设置文档的License信息->1.3 License information
-                .contact(DEFAULT_CONTACT) // 设置文档的联系方式->1.3.1 Contact information
+                // 设置文档的标题
+                .title(brezeConfig.getTitle())
+                // 设置文档的描述
+                .description(brezeConfig.getDescription())
+                // 设置文档的版本信息-> 1.0.0 Version information
+                .version(brezeConfig.getVersion())
+                // 设置文档的 License 信息->1.3 License information
+                .termsOfServiceUrl("https://love.tylt.xyz")
+                // 设置文档的联系方式->1.3.1 Contact information
+                .contact(DEFAULT_CONTACT)
                 .build();
     }
 

@@ -46,8 +46,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     RedisUtil redisUtil;
 
 
-
-
     @Override
     public User getByUserName(String username) {
         return getOne(new QueryWrapper<User>().eq("username", username));
@@ -56,7 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional
     public Boolean insertUser(User user) {
-        user.setStatu(GlobalConstant.STATUS_ON);
+        user.setState(GlobalConstant.STATUS_ON);
         user.setAvatar(SystemConstant.DEFAULT_AVATAR);
         user.setPassword(new BCryptPasswordEncoder().encode(SystemConstant.DEFAULT_PASSWORD));
         return save(user);

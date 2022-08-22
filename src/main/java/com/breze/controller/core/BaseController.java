@@ -9,28 +9,31 @@ import com.breze.service.logservice.HandleLogService;
 import com.breze.service.logservice.LoginLogService;
 import com.breze.service.rbac.*;
 import com.breze.service.tool.MailService;
-import com.breze.service.tool.OssfileService;
+import com.breze.service.tool.OssFileService;
 import com.breze.service.tool.QiNiuService;
 import com.breze.utils.RedisUtil;
+import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
-/*
- * @Author tylt
- * @Description Controller基类，其它Controller都需继承此类，公共服务组件在此集体注入，方便后续统一调用
+/**
+ * @Author tylt6688
  * @Date 2022/3/2 22:08
- **/
+ * @Description Controller基类，其它Controller都需继承此类，公共服务组件在此集体注入，方便后续统一调用
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
 
 public class BaseController {
 
     // 配置类注入 Start
     @Autowired
-    protected OssConfig ossConfig;
-    @Autowired
     protected JwtConfig jwtConfig;
+    @Autowired
+    protected OssConfig ossConfig;
+
     // 配置类注入 End
 
     /**********************************************************************************************************************************/
@@ -45,12 +48,18 @@ public class BaseController {
 
     /**********************************************************************************************************************************/
 
+    // RabbitMQ 队列服务注入 Start
+    @Autowired
+    protected Producer producer;
+    // RabbitMQ 队列服务注入 End
+    /**********************************************************************************************************************************/
+
 
     // 通用型服务注入 Start
     @Autowired
     protected QiNiuService qiNiuService;
     @Autowired
-    protected OssfileService ossfileService;
+    protected OssFileService ossFileService;
     @Autowired
     protected MailService mailService;
     // 通用型服务注入 End
@@ -101,7 +110,7 @@ public class BaseController {
     /**********************************************************************************************************************************/
 
     /**
-     * TODO MyBatis-Plus分页方法自定义
+     * MyBatis-Plus分页方法自定义
      */
     @Autowired
     protected HttpServletRequest request;

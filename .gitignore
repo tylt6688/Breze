@@ -1,9 +1,12 @@
+# private file
 application-private.yml
+
 # Compiled class file
 *.class
 
 # Log file
-*.handleLog
+log
+*.log
 
 # BlueJ files
 *.ctxt
@@ -23,12 +26,10 @@ application-private.yml
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-HELP.md
 .mvn
 mvnw
 mvnw.cmd
-handleLog
-
+HELP.md
 
 
 target/

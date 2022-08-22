@@ -6,6 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.breze.common.result.Result;
 
+
+/**
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author tylt6688
+ * @since 2022-03-01
+ */
 @RestController
 @RequestMapping("/monitor/server")
 public class ServerController {

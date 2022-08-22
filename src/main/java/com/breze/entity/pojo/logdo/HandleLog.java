@@ -1,8 +1,6 @@
 package com.breze.entity.pojo.logdo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -14,19 +12,18 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @Name: Log.java
- * @Package: xyz.tylt.entity.pojo.rbac
+ * @Package xyz.tylt.entity.pojo.rbac
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 8:54
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description:
+ * @Description
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("log_handle")
-@ApiModel(value = "日志对象", description = "")
+@ApiModel(value = "HandleLog操作日志对象", description = "操作日志表")
 public class HandleLog implements Serializable {
 
     private static final long serialVersionUID = 506856700098163790L;
@@ -57,6 +54,7 @@ public class HandleLog implements Serializable {
     private String params;
 
     @ApiModelProperty(value = "请求时间", name = "createTime", example = "2022-07-11 08:54:00")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "请求异常", name = "exception", example = "IOException")

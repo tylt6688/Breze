@@ -28,8 +28,8 @@ import java.time.LocalDateTime;
 @ApiModel(value = "IndexNotify对象", description = "")
 public class IndexNotify implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 205282645622996663L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

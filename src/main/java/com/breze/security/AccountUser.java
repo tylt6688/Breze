@@ -5,8 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import java.util.Collection;
-/*
- * TODO 这里是为了返回这个实体类，后期其实可以改为集成User类再实现UserDetails好一些
+
+/**
+ * 这里是为了返回这个实体类，后期其实可以改为集成User类再实现UserDetails好一些
  */
 public class AccountUser implements UserDetails {
 
@@ -50,13 +51,13 @@ public class AccountUser implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return this.password;
+    public String getUsername() {
+        return this.username;
     }
 
     @Override
-    public String getUsername() {
-        return this.username;
+    public String getPassword() {
+        return this.password;
     }
 
     @Override

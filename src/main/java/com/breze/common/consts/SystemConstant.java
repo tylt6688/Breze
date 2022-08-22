@@ -1,15 +1,13 @@
 package com.breze.common.consts;
 
 /**
- * @Author tylt
- * @Description 系统常量类
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description 系统常量类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 public class SystemConstant {
 
-    /** 验证码常量 */
-    public static final String KAPTCHA_KEY = "kaptcha";
 
     /** 默认账号密码常量 */
     public static final String DEFAULT_PASSWORD = "123456";

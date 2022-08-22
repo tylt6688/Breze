@@ -6,13 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-/*
+
+/**
  * @Description 清枫Breze权限一体化平台
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 
-@EnableAsync//开启基于注解的异步任务支持
-@EnableCaching//开启基于注解的缓存支持
+@EnableAsync // 开启基于注解的异步任务支持
+@EnableCaching // 开启基于注解的缓存支持
 @EnableScheduling // 开启定时任务功能
 @SpringBootApplication
 @MapperScan("com.breze.mapper")

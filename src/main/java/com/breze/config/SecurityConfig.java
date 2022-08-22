@@ -16,18 +16,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.breze.security.handler.LoginFailureHandler;
 import com.breze.security.handler.LoginSuccessHandler;
 import com.breze.security.filter.KaptchaFilter;
-import com.breze.security.handler.JwtLogoutSuccessHandler;
+import com.breze.security.handler.ExitSuccessHandler;
 import com.breze.security.securityimpl.AccessDeniedHandlerImpl;
 import com.breze.security.securityimpl.AuthenticationEntryPointImpl;
 import com.breze.security.securityimpl.UserDetailServiceImpl;
 
 
-/*
- * @Author tylt
- * @Description Spring Security配置类
+/**
+ * @Author tylt6688
  * @Date 2022/2/5 11:57
+ * @Description Spring Security配置类
  * @Copyright(c) 2022 , 青枫网络工作室
- **/
+ */
 
 @Log4j2
 @Configuration
@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     AuthenticationEntryPointImpl authenticationEntryPointImpl;
     @Autowired
-    JwtLogoutSuccessHandler jwtLogoutSuccessHandler;
+    ExitSuccessHandler exitSuccessHandler;
     @Autowired
     UserDetailServiceImpl userDetailService;
 
@@ -83,48 +83,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //允许跨域
         http.cors()
                 .and()
-                //关闭csrf预防攻击认证
+                // 关闭csrf预防攻击认证
                 .csrf().disable()
-                /** 放行Swagger前端展示 */
+                // 放行Swagger前端展示
+
                 .headers().frameOptions().disable()
                 .and()
-                //配置登录请求
+                // 配置登录请求
                 .formLogin()
                 .failureHandler(loginFailureHandler)
                 .successHandler(loginSuccessHandler)
 
-                //退出登录
+                // 退出登录
                 .and()
                 .logout()
-                .logoutSuccessHandler(jwtLogoutSuccessHandler)
+                .logoutSuccessHandler(exitSuccessHandler)
 
                 .and()
-                //前后端分离禁用Session，选择不生成session策略
+                // 前后端分离禁用Session，选择不生成session策略
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                //配置拦截规则
+                // 配置拦截规则
                 .authorizeHttpRequests()
-                //配置拦截白名单放行
+                // 配置拦截白名单放行
                 .antMatchers(URL_WHITELIST).permitAll()
                 // .antMatchers("/**/**").hasRole("SUPER_ADMIN")
-                //对其它请求进行拦截认证处理  Spring EL
+                // 对其它请求进行拦截认证处理  Spring EL
                 .anyRequest()
                 .authenticated()
 
 
-                //异常处理器
+                // 异常处理器
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPointImpl)
                 .accessDeniedHandler(accessDeniedHandlerImpl)
 
-                //自定义过滤器进行添加
+                // 自定义过滤器进行添加
                 .and()
-                //自定义验证码过滤器，在账号密码验证器运行之前
+                // 自定义验证码过滤器，在账号密码验证器运行之前
                 .addFilterBefore(kaptchaFilter, UsernamePasswordAuthenticationFilter.class)
-                //添加JWT授权验证过滤器
+                // 添加 JWT 授权验证过滤器
                 .addFilter(jwtAuthenticationFilter());
     }
 

@@ -28,8 +28,8 @@ import java.time.LocalDateTime;
 @ApiModel(value = "IndexPresence对象", description = "")
 public class IndexPresence implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 63541484714722857L;
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

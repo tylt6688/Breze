@@ -11,12 +11,10 @@ import org.springframework.stereotype.Component;
 import com.breze.service.logservice.HandleLogService;
 
 /**
- * @Name: LogListener.java
- * @Package: xyz.tylt.common.listener
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 9:06
+ * @Description 日志监听器
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description:
  */
 @Slf4j
 @RequiredArgsConstructor
