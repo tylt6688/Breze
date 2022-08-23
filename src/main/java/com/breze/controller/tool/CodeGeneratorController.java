@@ -36,7 +36,7 @@ public class CodeGeneratorController {
     @PostMapping("/generate")
     public Result codeGenerator(@RequestBody Gener gener) {
 
-        String drive = "D://";
+        String drive = "F://";
         String xmlpath = drive + "xyz//resource//mapper";
 
 
@@ -84,7 +84,7 @@ public class CodeGeneratorController {
                             .addTablePrefix(gener.getTablePrefix());
                 })
                 // 使用Freemarker引擎模板，默认的是Velocity引擎模板
-                .templateEngine(new FreemarkerTemplateEngine())
+                // .templateEngine(new FreemarkerTemplateEngine())
                 .execute();
 
 
