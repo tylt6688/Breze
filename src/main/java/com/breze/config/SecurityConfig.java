@@ -75,7 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-resources/**",
             "/druid/**",
             "/sys/log/test",
-            "/tool/code/generate",
     };
 
 
