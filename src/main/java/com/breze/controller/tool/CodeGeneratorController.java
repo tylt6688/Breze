@@ -4,15 +4,13 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.breze.entity.gener.Gener;
+import com.breze.service.tool.SqlTableService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.breze.common.result.Result;
 import com.breze.config.CodeGeneratorConfig;
 import com.breze.controller.core.BaseController;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 
@@ -32,11 +30,18 @@ public class CodeGeneratorController {
     @Autowired
     private CodeGeneratorConfig codeGeneratorConfig;
 
+    @Autowired
+    private SqlTableService sqlTableService;
+
+    @GetMapping("/tables")
+    private Result findAllTablesName(){
+        return Result.createSuccessMessage(sqlTableService.findAll());
+    }
 
     @PostMapping("/generate")
     public Result codeGenerator(@RequestBody Gener gener) {
 
-        String drive = "D://";
+        String drive = "F://";
         String xmlpath = drive + "xyz//resource//mapper";
 
 
@@ -84,7 +89,7 @@ public class CodeGeneratorController {
                             .addTablePrefix(gener.getTablePrefix());
                 })
                 // 使用Freemarker引擎模板，默认的是Velocity引擎模板
-                .templateEngine(new FreemarkerTemplateEngine())
+                // .templateEngine(new FreemarkerTemplateEngine())
                 .execute();
 
 

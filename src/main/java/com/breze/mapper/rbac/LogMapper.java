@@ -1,8 +1,11 @@
 package com.breze.mapper.rbac;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.breze.entity.gener.Table;
 import com.breze.entity.pojo.logdo.HandleLog;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Name: LogMapper.java
@@ -15,5 +18,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LogMapper extends BaseMapper<HandleLog> {
 
+
+    public List<Table> findAll();
 
 }
