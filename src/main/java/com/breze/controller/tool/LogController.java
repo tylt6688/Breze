@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/tool/log")
 public class LogController extends BaseController {
 
-    @RequestMapping("/listLoginLog")
+    @RequestMapping("/list_login_log")
     public Result list() {
         Page<LoginLog> pageData = loginLogService.page(getPage(), new QueryWrapper<LoginLog>().orderByDesc("create_time"));
         pageData.getRecords().forEach(loginLog -> {

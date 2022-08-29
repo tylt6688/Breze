@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //白名单数组
+    // 白名单数组
     private static final String[] URL_WHITELIST = {
             "/wxlogin",
             "/login",
@@ -73,8 +73,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/*/api-docs",
             "/swagger-resources/**",
-            "/druid/**",
-            "/sys/log/test",
+            "/druid/**"
+    };
+    //  Breze-Portal-Get类型Api接口白名单数组
+    private static final String[] PORTAL_WHITELIST = {
+            // TODO 暂时放行全部，等待后期按 Get 接口白名单进行控制 [抄送人：tylt6688 待办人：ChenWX 2022-08-29]
+            "/breze/portal/**",
+            // 以下为放行举例，此行注释与上述 TODO 待阅读后下次提交删除
+            "/breze/portal/banner/info/**",
+            "/breze/portal/banner/select",
     };
 
 
@@ -109,6 +116,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 // 配置拦截白名单放行
                 .antMatchers(URL_WHITELIST).permitAll()
+                .antMatchers(PORTAL_WHITELIST).permitAll()
                 // .antMatchers("/**/**").hasRole("SUPER_ADMIN")
                 // 对其它请求进行拦截认证处理  Spring EL
                 .anyRequest()

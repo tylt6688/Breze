@@ -12,11 +12,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @Package xyz.tylt.entity.pojo.rbac
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 8:54
- * @Copyright(c) 2022 , 青枫网络工作室
  * @Description
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
 @ToString

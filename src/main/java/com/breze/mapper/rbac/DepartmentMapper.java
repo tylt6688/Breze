@@ -2,6 +2,7 @@ package com.breze.mapper.rbac;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.breze.entity.pojo.rbac.Group;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.breze.entity.pojo.rbac.Group;
  * @author tylt6688
  * @since 2022-03-25
  */
+@Mapper
 public interface DepartmentMapper extends BaseMapper<Group> {
 
 }

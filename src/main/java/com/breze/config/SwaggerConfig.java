@@ -26,9 +26,9 @@ import java.util.List;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
-@Profile("dev")//指明多环境配置类标识
+@Profile("dev")// 指明多环境配置类标识
 @EnableOpenApi
-@Configuration//声明自定义配置类
+@Configuration// 声明自定义配置类
 public class SwaggerConfig {
 
     @Autowired
@@ -43,7 +43,7 @@ public class SwaggerConfig {
                 .enable(brezeConfig.getSwaggerEnabled())
                 .apiInfo(apiInfo())
                 .groupName("controller")
-                .select()//选择哪些接口暴露给Swagger展示的生成策略
+                .select()// 选择哪些接口暴露给Swagger展示的生成策略
                 // 扫描所有有注解的api，用这种方式更灵活
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 // 扫描指定包中的swagger注解

@@ -2,7 +2,6 @@ package com.breze.controller.tool;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.breze.entity.gener.Gener;
 import com.breze.service.tool.SqlTableService;
 import io.swagger.annotations.Api;
@@ -34,8 +33,8 @@ public class CodeGeneratorController {
     private SqlTableService sqlTableService;
 
     @GetMapping("/tables")
-    private Result findAllTablesName(){
-        return Result.createSuccessMessage(sqlTableService.findAll());
+    private Result findAllTablesName() {
+        return Result.createSuccessMessage(sqlTableService.findDatabaseTable());
     }
 
     @PostMapping("/generate")

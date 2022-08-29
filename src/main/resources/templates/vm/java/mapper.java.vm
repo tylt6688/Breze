@@ -1,0 +1,14 @@
+package ${package.Mapper};
+
+import ${package.Entity}.${entity};
+import ${superMapperClassPackage};
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @Author ${author}
+ * @Date ${date}
+ * @Description
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
+@Mapper
+public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {}

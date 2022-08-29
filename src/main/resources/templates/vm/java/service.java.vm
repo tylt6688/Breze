@@ -1,0 +1,14 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+
+import java.util.List;
+
+/**
+ * @Author ${author}
+ * @Date ${date}
+ * @Description
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {}

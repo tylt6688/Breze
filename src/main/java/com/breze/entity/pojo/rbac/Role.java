@@ -29,7 +29,7 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_role")
-@ApiModel(value = "Role角色对象", description = "角色表")
+@ApiModel(value = "Role角色对象", description = "sys_role角色表")
 public class Role implements Serializable {
 
 

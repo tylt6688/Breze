@@ -3,30 +3,37 @@ package com.breze.entity.gener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/8/24 10:06
+ * @Description
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description:
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Table {
+@ToString
+public class Table implements Serializable {
+
+    private static final long serialVersionUID = 4844981954357208726L;
 
     /** 表名称 */
-    private Object tableName;
+    private String tableName;
 
     /** 创建日期 */
-    private Object createTime;
+    private LocalDateTime createTime;
 
     /** 数据库引擎 */
-    private Object engine;
+    private String engine;
 
     /** 编码集 */
-    private Object coding;
+    private String coding;
 
     /** 备注 */
-    private Object remark;
+    private String remark;
 }

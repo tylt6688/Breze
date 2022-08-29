@@ -33,7 +33,7 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_user")
-@ApiModel(value = "用户对象", description = "用户表")
+@ApiModel(value = "User用户对象", description = "sys_user用户表")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 482852208991067144L;

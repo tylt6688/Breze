@@ -1,0 +1,61 @@
+package ${package.Entity};
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+
+#if(${swagger})
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+#end
+
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.ToString;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+#end
+
+/**
+ * @Author ${author}
+ * @Date ${date}
+ * @Description
+ * @Copyright(c) 2022 , 青枫网络工作室
+ */
+#if(${entityLombokModel})
+@Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+#end
+#if(${table.convert})
+@TableName("${table.name}")
+#end
+#if(${swagger})
+@ApiModel(value = "${entity}对象" , description = "$!{table.comment}")
+#end
+#if(${superEntityClass})
+public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
+#elseif(${activeRecord})
+public class ${entity} extends Model<${entity}> {
+#else
+public class ${entity} implements Serializable{
+#end
+
+#if(${entitySerialVersionUID})
+private static final Long serialVersionUID=1L;
+#end
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    #if("$!field.comment" != "")
+    @ApiModelProperty(value = "${field.comment}" , name = "${field.propertyName}" , notes = "${field.comment}")
+    #end
+    #if(${field.keyIdentityFlag})
+    @TableId(value = "${field.annotationColumnName}" , type = IdType.AUTO)
+    #end
+private ${field.propertyType} ${field.propertyName};
+
+#end
+## ----------  END 字段循环遍历  ----------
+}

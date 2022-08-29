@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * @author tylt6688
  * @since 2022-03-01
  */
-@Api(tags = "权限-角色管理")
+@Api(tags = "角色管理")
 @RestController
 @RequestMapping("/sys/role")
 public class RoleController extends BaseController {

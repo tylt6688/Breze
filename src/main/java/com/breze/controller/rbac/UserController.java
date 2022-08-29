@@ -22,10 +22,7 @@ import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
 import com.breze.utils.MultipartFileToFileUtil;
 import com.qiniu.common.QiniuException;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,13 +48,13 @@ import java.util.Map;
  * @author tylt6688
  * @since 2022-03-01
  */
-@Api(tags = "权限-用户管理")
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/sys/user")
 public class UserController extends BaseController {
 
     @Log("获取当前用户信息")
-    @ApiOperation("获取当前用户信息")
+    @ApiOperation(value = "获取当前用户信息")
     @GetMapping("/getuserinfo")
     public Result getUserInfo(Principal principal) {
         // 此处为安全页面展示，前端需要什么后端就返回什么
@@ -176,7 +173,10 @@ public class UserController extends BaseController {
 
     @Log("批量分配用户角色")
     @ApiOperation("批量分配用户角色")
-    @ApiImplicitParams({@ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class), @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
+    })
     @Transactional
     @PostMapping("/rolepermmore")
     @PreAuthorize("hasAuthority('sys:user:role')")
@@ -282,7 +282,7 @@ public class UserController extends BaseController {
 
     @Log("导出Excel表")
     @ApiOperation("导出Excel表")
-    @GetMapping("/downloadexcel")
+    @GetMapping("/export_excel")
     public void downloadUserExcel(HttpServletResponse response) throws IOException {
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
@@ -301,7 +301,7 @@ public class UserController extends BaseController {
 
     @Log("导出模板Excel表")
     @ApiOperation("导出模板Excel表")
-    @GetMapping("/downloadmodelexcel")
+    @GetMapping("/download_model_excel")
     public void downloadModelExcel(HttpServletResponse response) throws IOException {
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);

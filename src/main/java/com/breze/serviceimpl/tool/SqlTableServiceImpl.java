@@ -12,7 +12,7 @@ import java.util.List;
  * @Author LUCIFER-LGX
  * @Date 2022/8/24 10:12
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description:
+ * @Description
  */
 @Service
 public class SqlTableServiceImpl implements SqlTableService {
@@ -21,7 +21,7 @@ public class SqlTableServiceImpl implements SqlTableService {
     private SqlTableMapper mapper;
 
     @Override
-    public List<Table> findAll() {
-        return mapper.findAll();
+    public List<Table> findDatabaseTable() {
+        return mapper.findDatabaseTable();
     }
 }

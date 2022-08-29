@@ -26,8 +26,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("tb_group")
-@ApiModel(value = "Group部门对象", description = "部门表")
+@TableName("sys_group")
+@ApiModel(value = "Group部门对象", description = "sys_group部门表")
 public class Group implements Serializable {
 
     private static final long serialVersionUID = 4904930249407221901L;

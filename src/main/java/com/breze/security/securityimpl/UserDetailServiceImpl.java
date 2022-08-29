@@ -35,7 +35,8 @@ import java.util.List;
 @Log4j2
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
-
+    @Autowired
+    BrezeConfig brezeConfig;
     @Autowired
     UserService userService;
     @Autowired
@@ -43,11 +44,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     Produce produce;
     @Autowired
-    TemplateEngine templateEngine;
-    @Autowired
     MailConfig mailConfig;
     @Autowired
-    BrezeConfig brezeConfig;
+    TemplateEngine templateEngine;
 
 
     @Override
@@ -75,7 +74,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             context.setVariable("username", user.getUsername());
             context.setVariable("login_time", LocalDateTime.now());
             context.setVariable("link", "https://blog.csdn.net/tylt6688");
-            String content = templateEngine.process("email.html", context);
+            String content = templateEngine.process("html/email.html", context);
 
             Email email = new Email();
             email.setMailFrom(mailConfig.getUsername());

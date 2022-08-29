@@ -32,7 +32,7 @@ import java.util.Map;
  * @author tylt6688
  * @since 2022-03-01
  */
-@Api(tags = "权限-菜单管理")
+@Api(tags = "菜单管理")
 @RestController
 @RequestMapping("/sys/menu")
 public class MenuController extends BaseController {

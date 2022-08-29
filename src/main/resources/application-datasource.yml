@@ -15,42 +15,47 @@ spring:
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
-    #Druid连接池配置
+        portal:
+          url: jdbc:mysql://localhost:3306/breze_portal?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+    # Druid连接池配置
     druid:
       mysql:
         usePingMethod: false
-      #初始化连接池数量
+      # 初始化连接池数量
       initial-size: 15
-      #最小连接池数量
+      # 最小连接池数量
       min-idle: 15
-      #最大连接池数量
+      # 最大连接池数量
       max-active: 100
-      #获取连接时最大等待时间
+      # 获取连接时最大等待时间
       max-wait: 60000
-      #配置间隔多久进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      # 配置间隔多久进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       time-between-eviction-runs-millis: 60000
-      #配置一个连接在池中最小生存的时间，单位是毫秒
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
-      #配置一个连接在池中最大生存的时间，单位是毫秒
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
       max-evictable-idle-time-millis: 900000
-      #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
       test-on-borrow: false
-      #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
       test-on-return: false
-      #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
       test-while-idle: true
-      #用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。因数据库方言而差, 例如 oracle 应该写成 SELECT 1 FROM DUAL
+      # 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。因数据库方言而差, 例如 oracle 应该写成 SELECT 1 FROM DUAL
       validation-query: SELECT 1
-      #单位：ms，检测连接是否有效的超时时间。
+      # 单位：ms，检测连接是否有效的超时时间。
       validation-query-timeout: 1000
       keep-alive: true
-      #用于自动回收超时连接的，用于辅助不细心的开发人员使用连接后忘记关闭的问题。容易导致误回收，官方不建议在生产环境中使用。
+      # 用于自动回收超时连接的，用于辅助不细心的开发人员使用连接后忘记关闭的问题。容易导致误回收，官方不建议在生产环境中使用。
       remove-abandoned: false
       remove-abandoned-timeout: 180
       log-abandoned: true
-      #是否缓存preparedStatement，也就是PSCache(官方建议MySQL下关闭,个人建议如果想用SQL防火墙的话可以打开)
+      # 是否缓存preparedStatement，也就是PSCache(官方建议MySQL下关闭,个人建议如果想用SQL防火墙的话可以打开)
       pool-prepared-statements: false
-      #要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+      # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
       maxOpenPreparedStatements: 100
       max-pool-prepared-statement-per-connection-size: 20
       use-global-data-source-stat: true

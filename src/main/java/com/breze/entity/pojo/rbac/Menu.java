@@ -30,7 +30,7 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_menu")
-@ApiModel(value = "Menu菜单对象", description = "菜单表")
+@ApiModel(value = "Menu菜单对象", description = "sys_menu菜单表")
 public class Menu implements Serializable {
 
 
