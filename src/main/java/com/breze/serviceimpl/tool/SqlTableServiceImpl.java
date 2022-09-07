@@ -21,6 +21,11 @@ public class SqlTableServiceImpl implements SqlTableService {
     private SqlTableMapper mapper;
 
     @Override
+    public List showDatabases() {
+        return mapper.showDatabases();
+    }
+
+    @Override
     public List<Table> findDatabaseTable() {
         return mapper.findDatabaseTable();
     }

@@ -18,16 +18,16 @@
         <jwt.version>0.9.1</jwt.version>
         <swagger.version>3.0.0</swagger.version>
         <redis.boot.version>2.6.2</redis.boot.version>
-        <jedis.version>4.2.2</jedis.version>
-        <druid.boot.version>1.2.8</druid.boot.version>
-        <fastjson.version>1.2.79</fastjson.version>
+        <jedis.version>4.2.3</jedis.version>
+        <druid.boot.version>1.2.11</druid.boot.version>
+        <fastjson.version>2.0.12</fastjson.version>
         <easyexcel.version>3.0.5</easyexcel.version>
-        <mybatis.plus.boot.version>3.5.1</mybatis.plus.boot.version>
+        <mybatis.plus.boot.version>3.5.2</mybatis.plus.boot.version>
         <freemarker.version>2.3.30</freemarker.version>
         <kaptcha.version>0.0.9</kaptcha.version>
-        <hutool.version>5.8.4</hutool.version>
+        <hutool.version>5.8.5</hutool.version>
         <pagehelper.boot.version>1.4.3</pagehelper.boot.version>
-        <commons.lang.version>3.11</commons.lang.version>
+        <commons.lang.version>3.12.0</commons.lang.version>
         <qiniuoss.version>[7.7.0, 7.7.99]</qiniuoss.version>
         <geoip2.version>2.12.0</geoip2.version>
         <log4j2.boot.version>2.7.1</log4j2.boot.version>
@@ -136,6 +136,7 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
@@ -277,6 +278,21 @@
         </dependency>
 
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
 
     <build>
         <!--    Maven打包工具插件    -->

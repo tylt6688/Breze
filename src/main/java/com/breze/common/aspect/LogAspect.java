@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 9:11
- * @Copyright(c) 2022 , 青枫网络工作室
  * @Description 用于AOP记录日志的注解
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2
 @Aspect
@@ -25,8 +25,11 @@ public class LogAspect {
     @Around("@annotation(logs)")
     @SneakyThrows
     public Object around(ProceedingJoinPoint point, com.breze.common.annotation.Log logs) {
+
         String strClassName = point.getTarget().getClass().getName();
+
         String strMethodName = point.getSignature().getName();
+
         log.debug("[类名]:{},[方法]:{}", strClassName, strMethodName);
 
         HandleLog handleLogVo = LogUtil.getLog();
@@ -35,6 +38,7 @@ public class LogAspect {
 
         // 发送异步日志事件
         Long startTime = System.currentTimeMillis();
+
         Object obj;
 
         try {

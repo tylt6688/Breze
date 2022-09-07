@@ -101,7 +101,7 @@ public class RoleController extends BaseController {
 
         role.setState(GlobalConstant.STATUS_ON);
         boolean flag = roleService.save(role);
-        return flag ? Result.createSuccessMessage(role) : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage(role) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("更新角色")
@@ -116,7 +116,7 @@ public class RoleController extends BaseController {
         boolean flag = roleService.updateById(role);
         // 更新缓存
         userService.clearUserAuthorityInfoByRoleId(role.getId());
-        return flag ? Result.createSuccessMessage(role) : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage(role) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("删除角色")
@@ -130,7 +130,7 @@ public class RoleController extends BaseController {
         for (Long roleId : roleIds) {
             long count = userRoleService.count(new QueryWrapper<UserRole>().eq("role_id", roleId));
             if (count > 0) {
-                return Result.createFailureMessage(ErrorEnum.IllegalOperation, "角色已被使用，不能删除");
+                return Result.createFailMessage(ErrorEnum.IllegalOperation, "角色已被使用，不能删除");
             }
         }
         List<Long> ids = Arrays.asList(roleIds);

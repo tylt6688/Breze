@@ -1,6 +1,7 @@
 package com.breze.common.enums;
 
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -25,6 +26,7 @@ public enum LogEnum {
     EXCEPTION("exception");
 
     @Getter
+    @EnumValue
     private final String category;
 
 

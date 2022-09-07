@@ -55,7 +55,7 @@ public class UserController extends BaseController {
 
     @Log("获取当前用户信息")
     @ApiOperation(value = "获取当前用户信息")
-    @GetMapping("/getuserinfo")
+    @GetMapping("/get_userinfo")
     public Result getUserInfo(Principal principal) {
         // 此处为安全页面展示，前端需要什么后端就返回什么
         User user = userService.getByUserName(principal.getName());
@@ -113,17 +113,29 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result insert(@Validated @RequestBody User user) {
         boolean flag = userService.insertUser(user);
-        return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
+    }
+
+    @Log("删除用户")
+    @ApiOperation("删除用户信息")
+    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
+    @Transactional(rollbackFor = Exception.class)
+    @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('sys:user:delete')")
+    public Result delete(@RequestBody Long[] ids) {
+        userService.removeByIds(Arrays.asList(ids));
+        boolean flag = userRoleService.remove(new QueryWrapper<UserRole>().in("user_id", ids));
+        return flag ? Result.createSuccessMessage("删除成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("修改用户")
     @ApiOperation("修改用户")
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result update(@Validated @RequestBody User user) {
         boolean flag = userService.updateById(user);
-        return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
 
@@ -131,29 +143,19 @@ public class UserController extends BaseController {
     @ApiOperation("更新登录提醒")
     @ApiImplicitParams({@ApiImplicitParam(name = "loginwarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @Transactional
-    @PostMapping("/updateloginwarn")
+    @PostMapping("/update_login_warn")
     public Result updateLoginWarn(@RequestParam Integer loginwarn, @RequestParam Long id) {
         boolean flag = userService.updateLoginWarnById(loginwarn, id);
-        return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("删除用户")
-    @ApiOperation("删除用户信息")
-    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
-    @Transactional
-    @PostMapping("/delete")
-    @PreAuthorize("hasAuthority('sys:user:delete')")
-    public Result delete(@RequestBody Long[] ids) {
-        userService.removeByIds(Arrays.asList(ids));
-        boolean flag = userRoleService.remove(new QueryWrapper<UserRole>().in("user_id", ids));
-        return flag ? Result.createSuccessMessage("删除成功") : Result.createFailureMessage(ErrorEnum.FindException);
-    }
+
 
     @Log("分配用户角色")
     @ApiOperation("分配用户角色")
     @ApiImplicitParam(name = "userId", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @Transactional
-    @PostMapping("/roleperm/{userId}")
+    @PostMapping("/role_perm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
         List<UserRole> userRoles = new ArrayList<>();
@@ -178,7 +180,7 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
     })
     @Transactional
-    @PostMapping("/rolepermmore")
+    @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
         List<UserRole> userRoles = new ArrayList<>();
@@ -205,19 +207,19 @@ public class UserController extends BaseController {
     @Log("重置用户密码")
     @ApiOperation("重置用户密码")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
-    @PostMapping("/resertpassword")
+    @PostMapping("/reseat_password")
     @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result resertPassword(@RequestBody Long userId) {
         User user = userService.getById(userId);
         user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
         boolean flag = userService.updateById(user);
-        return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("修改用户密码")
     @ApiOperation("修改用户密码")
     @Transactional
-    @PostMapping("/updatepassword")
+    @PostMapping("/update_password")
     public Result updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
         User user = userService.getByUserName(principal.getName());
         boolean matches = bCryptPasswordEncoder.matches(updatePasswordDto.getCurrentPass(), user.getPassword());
@@ -225,7 +227,7 @@ public class UserController extends BaseController {
             user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDto.getPassword()));
             userService.updateById(user);
         } else {
-            return Result.createFailureMessage(ErrorEnum.FindException, "旧密码不正确");
+            return Result.createFailMessage(ErrorEnum.FindException, "旧密码不正确");
         }
         return Result.createSuccessMessage("修改密码成功");
     }
@@ -234,7 +236,7 @@ public class UserController extends BaseController {
     @ApiOperation("修改用户头像")
     @ApiImplicitParam(name = "avatar", value = "头像", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @Transactional
-    @PostMapping("/updateavatar")
+    @PostMapping("/update_avatar")
     public Result updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getByUserName(username);
@@ -248,24 +250,24 @@ public class UserController extends BaseController {
             return Result.createSuccessMessage("修改头像成功");
 
         } else {
-            return Result.createFailureMessage(ErrorEnum.FindException, "修改头像失败");
+            return Result.createFailMessage(ErrorEnum.FindException, "修改头像失败");
         }
     }
 
     @Log("更新用户信息")
     @ApiOperation("更新用户信息")
-    @Transactional
-    @PostMapping("/updateuserinfo")
+    @Transactional(rollbackFor = Exception.class)
+    @PostMapping("/update_userinfo")
     public Result updateUserInfo(@Validated @RequestBody User user) {
         boolean flag = userService.updateById(user);
-        return flag ? Result.createSuccessMessage(user) : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("导入Excel表")
     @ApiOperation("导入Excel表")
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @Transactional
-    @PostMapping("/uploadexcel")
+    @PostMapping("/upload_excel")
     public Result uploadExcel(@RequestParam MultipartFile file) {
         String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
         File covfile = MultipartFileToFileUtil.multipartFileToFile(file);

@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("log_handle")
-@ApiModel(value = "HandleLog操作日志对象", description = "操作日志表")
+@ApiModel(value = "HandleLog操作日志对象", description = "log_handle操作日志表")
 public class HandleLog implements Serializable {
 
     private static final long serialVersionUID = 506856700098163790L;

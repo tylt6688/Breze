@@ -54,16 +54,6 @@ public class MenuController extends BaseController {
         return Result.createSuccessMessage(map);
     }
 
-    @Log("查询菜单管理中的所有菜单信息")
-    @ApiOperation(value = "查询菜单管理中的所有菜单信息")
-    @GetMapping("/select")
-    @PreAuthorize("hasAuthority('sys:menu:select')")
-    public Result select() {
-        List<Menu> menus = menuService.tree();
-        return Result.createSuccessMessage(menus);
-    }
-
-
     @Log("按ID查询菜单信息")
     @ApiOperation(value = "按ID查询菜单信息")
     @ApiImplicitParam(name = "ID", value = "菜单ID", required = true, dataType = "Long", dataTypeClass = Long.class)
@@ -74,6 +64,16 @@ public class MenuController extends BaseController {
         return Result.createSuccessMessage(menu);
     }
 
+    @Log("查询菜单管理中的所有菜单信息")
+    @ApiOperation(value = "查询菜单管理中的所有菜单信息")
+    @GetMapping("/select")
+    @PreAuthorize("hasAuthority('sys:menu:select')")
+    public Result select() {
+        List<Menu> menus = menuService.tree();
+        return Result.createSuccessMessage(menus);
+    }
+
+
     @Log("新增菜单")
     @ApiOperation(value = "新增菜单")
     @Transactional
@@ -81,7 +81,7 @@ public class MenuController extends BaseController {
     @PreAuthorize("hasAuthority('sys:menu:insert')")
     public Result insert(@Validated @RequestBody Menu menu) {
         boolean flag = menuService.save(menu);
-        return flag ? Result.createSuccessMessage(menu) : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage(menu) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("更新菜单")
@@ -94,20 +94,20 @@ public class MenuController extends BaseController {
         boolean flag = menuService.updateById(menu);
         // 菜单发生变化时清除Redis中的缓存
         userService.clearUserAuthorityInfoByMenuId(menu.getId());
-        return flag ? Result.createSuccessMessage(menu) : Result.createFailureMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage(menu) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("删除菜单")
     @ApiOperation(value = "删除菜单")
     @ApiImplicitParam(name = "id", value = "菜单ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @Transactional
-    @PostMapping("/delete/{id}")
+    @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sys:menu:delete')")
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@RequestParam Long id) {
         // 判断是否存在子目录
         long count = menuService.count(new QueryWrapper<Menu>().eq("parent_id", id));
         if (count > 0) {
-            return Result.createFailureMessage(ErrorEnum.FindException, "子菜单不为空，请先删除子菜单");
+            return Result.createFailMessage(ErrorEnum.FindException, "子菜单不为空，请先删除子菜单");
         }
         menuService.removeById(id);
         userService.clearUserAuthorityInfoByMenuId(id);

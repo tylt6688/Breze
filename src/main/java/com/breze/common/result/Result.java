@@ -58,18 +58,18 @@ public class Result {
      * 请求失败消息模板
      */
 
-    public static Result createFailureMessage(ErrorEnum err) {
+    public static Result createFailMessage(ErrorEnum err) {
 
-        return Result.createFailureMessage(err, "请求失败");
+        return Result.createFailMessage(err, "请求失败");
     }
 
-    public static Result createFailureMessage(ErrorEnum err, String message) {
+    public static Result createFailMessage(ErrorEnum err, String message) {
 
-        return Result.createFailureMessage(err, message, null);
+        return Result.createFailMessage(err, message, null);
     }
 
 
-    public static Result createFailureMessage(ErrorEnum err, String message, Object data) {
+    public static Result createFailMessage(ErrorEnum err, String message, Object data) {
 
         Result resultBox = new Result();
         resultBox.success = false;

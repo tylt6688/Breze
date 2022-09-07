@@ -35,7 +35,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         ServletOutputStream outputStream = response.getOutputStream();
 
         // 授权失败的情况下返回异常信息
-        Result result = Result.createFailureMessage(ErrorEnum.IllegalOperation, "用户当前未授权");
+        Result result = Result.createFailMessage(ErrorEnum.IllegalOperation, "用户当前未授权");
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

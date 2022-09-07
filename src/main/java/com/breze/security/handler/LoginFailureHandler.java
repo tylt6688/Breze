@@ -36,11 +36,11 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
         Result result = null;
         if ("验证码错误".equals(msg)) {
-            result = Result.createFailureMessage(ErrorEnum.FindException, exception.getMessage());
+            result = Result.createFailMessage(ErrorEnum.FindException, exception.getMessage());
         } else if ("账户状态异常".equals(msg)) {
-            result = Result.createFailureMessage(ErrorEnum.FindException, "您的账户已被禁用，请联系管理员");
+            result = Result.createFailMessage(ErrorEnum.FindException, "您的账户已被禁用，请联系管理员");
         } else {
-            result = Result.createFailureMessage(ErrorEnum.FindException, "用户名或密码错误");
+            result = Result.createFailMessage(ErrorEnum.FindException, "用户名或密码错误");
         }
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));

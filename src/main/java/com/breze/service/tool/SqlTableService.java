@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface SqlTableService {
 
+    List showDatabases();
+
     List<Table> findDatabaseTable();
 
 }

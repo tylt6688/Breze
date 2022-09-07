@@ -32,7 +32,7 @@ public class LogController extends BaseController {
         return Result.createSuccessMessage(pageData);
     }
 
-    @GetMapping("/listHandleLog")
+    @GetMapping("/list_handle_log")
     public Result listHandleLog() {
 
         Page<HandleLog> pageData = handleLogService.page(getPage(), new QueryWrapper<HandleLog>().orderByDesc("create_time"));

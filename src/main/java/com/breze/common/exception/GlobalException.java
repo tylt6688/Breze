@@ -29,7 +29,7 @@ public class GlobalException {
     @ExceptionHandler(value = AccessDeniedException.class)
     public Result handler(AccessDeniedException e) {
         log.error("security权限不足：----------------{}", e.getMessage());
-        return Result.createFailureMessage(ErrorEnum.NoPermission, "权限不足");
+        return Result.createFailMessage(ErrorEnum.NoPermission, "权限不足");
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -38,20 +38,20 @@ public class GlobalException {
         log.error("实体校验异常：----------------{}", e.getMessage());
         BindingResult bindingResult = e.getBindingResult();
         ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
-        return Result.createFailureMessage(ErrorEnum.UnknowError, objectError.getDefaultMessage());
+        return Result.createFailMessage(ErrorEnum.UnknowError, objectError.getDefaultMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e) {
         log.error("Assert异常：----------------{}", e.getMessage());
-        return Result.createFailureMessage(ErrorEnum.FindException, e.getMessage());
+        return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = RuntimeException.class)
     public Result handler(RuntimeException e) {
         log.error("运行时异常：----------------{}", e.getMessage());
-        return Result.createFailureMessage(ErrorEnum.FindException, e.getMessage());
+        return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
     }
 }

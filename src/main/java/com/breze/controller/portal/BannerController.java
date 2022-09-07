@@ -46,8 +46,13 @@ public class BannerController extends BaseController {
     @Transactional
     @PostMapping("/insert")
     public Result insert(@Validated @RequestBody Banner banner) {
-        bannerService.save(banner);
-        return Result.createSuccessMessage("添加轮播图成功", banner);
+        try {
+            bannerService.save(banner);
+            return Result.createSuccessMessage("添加轮播图成功");
+        } catch (Exception e) {
+            return Result.createFailMessage(ErrorEnum.UnknowError, "添加轮播图失败");
+        }
+
     }
 
     @Transactional
@@ -61,12 +66,11 @@ public class BannerController extends BaseController {
     @PostMapping("/upload")
     public Result upload(@RequestParam String alt, @RequestParam MultipartFile file) throws IOException {
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpg")) {
-            return Result.createFailureMessage(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
+            return Result.createFailMessage(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
         }
         String path = qiNiuService.uploadFile(file);
         Banner banner = new Banner();
-        banner.setUrl(path);
-        banner.setAlt(alt);
+        banner.setUrl(path).setAlt(alt);
         bannerService.save(banner);
         return Result.createSuccessMessage("上传Banner轮播图成功");
     }
@@ -75,14 +79,16 @@ public class BannerController extends BaseController {
     @PostMapping("/delete")
     public Result delete(@RequestBody String url) throws QiniuException {
         if (!url.isEmpty() && url.substring(0, 24).equals(ossConfig.getUrl())) {
-            Boolean deleteFile = qiNiuService.deleteFile(url);
-            if (deleteFile) {
+
+            try {
+                qiNiuService.deleteFile(url);
                 bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
                 return Result.createSuccessMessage("删除Banner轮播图成功");
-            } else {
+            } catch (Exception e) {
                 bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
                 return Result.createSuccessMessage("已删除失效Banner轮播图");
             }
+
         } else {
             bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
             return Result.createSuccessMessage("已删除非法Banner轮播图");

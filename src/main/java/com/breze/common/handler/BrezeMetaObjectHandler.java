@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/8/2 14:54
- * @Description 开启 MybatisPlus 自动填充功能
+ * @Description 开启 MybatisPlus 实体字段自动填充功能
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Component

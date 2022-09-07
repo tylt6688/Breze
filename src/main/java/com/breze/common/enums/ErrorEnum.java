@@ -1,5 +1,6 @@
 package com.breze.common.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,6 +17,7 @@ public enum ErrorEnum {
     /**
      * 全局未知错误码
      */
+
     UnknowError("未知错误", 600),
     /**
      * 违章操作错误码
@@ -43,9 +45,11 @@ public enum ErrorEnum {
     FindException("出现异常", 800);
 
     @Getter
+    @EnumValue
     private final String errorName;
 
     @Getter
+    @EnumValue
     private final Integer errorCode;
 
     // 普通方法

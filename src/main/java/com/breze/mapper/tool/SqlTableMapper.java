@@ -15,6 +15,9 @@ import java.util.List;
 @Mapper
 public interface SqlTableMapper {
 
+    @Select(value = "SHOW DATABASES")
+    List<String> showDatabases();
+
     @Select(value = "SELECT table_name ,create_time , engine, table_collation AS coding, table_comment AS remark FROM information_schema.tables WHERE table_schema = (SELECT database())ORDER BY create_time DESC")
     List<Table> findDatabaseTable();
 
