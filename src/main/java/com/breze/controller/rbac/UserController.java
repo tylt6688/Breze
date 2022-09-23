@@ -16,10 +16,9 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.dto.UpdatePasswordDTO;
-import com.breze.entity.pojo.rbac.Group;
-import com.breze.entity.pojo.rbac.Role;
-import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.pojo.rbac.UserRole;
+import com.breze.entity.dto.UserDTO;
+import com.breze.entity.dto.mp.UserConvert;
+import com.breze.entity.pojo.rbac.*;
 import com.breze.utils.MultipartFileToFileUtil;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.*;
@@ -72,8 +71,13 @@ public class UserController extends BaseController {
         result.addData("loginTime", user.getLoginTime());
         result.addData("createTime", user.getCreateTime());
         result.addData("loginWarn", user.getLoginWarn());
-        Group group = groupService.getOne(new QueryWrapper<Group>().eq("id", user.getDepartmentId()));
-        result.addData("department", group.getName());
+        // 2022/9/23 15:29 FIXME: 添加 部门信息 UP BY LUCIFER-LGX
+        Group group = groupService.getOne(new QueryWrapper<Group>().eq("id", user.getGroupId()));
+        result.addData("group", group.getName());
+        // 2022/9/23 16:36 FIXME: 添加 岗位信息 UP BY LUCIFER-LGX
+        UserJob uj = userJobService.getOne(new QueryWrapper<UserJob>().eq("userId", user.getId()));
+        Job job = jobService.getById(uj.getJobId());
+        result.addData("job", job.getName());
 
         return Result.createSuccessMessage(result);
 
@@ -90,7 +94,11 @@ public class UserController extends BaseController {
         Assert.notNull(user, "找不到该用户");
         List<Role> roles = roleService.listRolesByUserId(id);
         user.setRoles(roles);
-        return Result.createSuccessMessage(user);
+        // 2022/9/23 15:30 FIXME: 根据ID获取用户信息 UP BY LUCIFER-LGX
+        UserDTO userDTO = UserConvert.INSTANCE.from(user);
+        UserJob uj = userJobService.getOne(new QueryWrapper<UserJob>().eq("user_id", user.getId()));
+        userDTO.setJobId(uj.getJobId());
+        return Result.createSuccessMessage(userDTO);
     }
 
     @Log("根据用户名获取用户信息")
@@ -99,6 +107,7 @@ public class UserController extends BaseController {
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
     public Result select(String username) {
+        // 2022/9/23 15:24 TODO: Should Be ReWrite UP BY LUCIFER-LGX
         Page<User> pageData = userService.page(getPage(), new QueryWrapper<User>().like(StrUtil.isNotBlank(username), "username", username));
         // 回显角色信息
         pageData.getRecords().forEach(u -> {
@@ -111,8 +120,18 @@ public class UserController extends BaseController {
     @ApiOperation("新增用户")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
-    public Result insert(@Validated @RequestBody User user) {
+    public Result insert(@Validated @RequestBody UserDTO userDTO) {
+        User user = UserConvert.INSTANCE.from(userDTO);
         boolean flag = userService.insertUser(user);
+
+        // 2022/9/23 15:30 FIXME: 添加 用户岗位 UP BY LUCIFER-LGX
+        UserJob uj = UserConvert.INSTANCE.UJfrom(userDTO);
+        userJobService.insert(uj);
+
+        // 2022/9/23 15:31 FIXME: 添加 部门岗位 UP BY LUCIFER-LGX
+        GroupJob gj = UserConvert.INSTANCE.GJfrom(userDTO);
+        groupJobService.insert(gj);
+
         return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
@@ -125,6 +144,7 @@ public class UserController extends BaseController {
     public Result delete(@RequestBody Long[] ids) {
         userService.removeByIds(Arrays.asList(ids));
         boolean flag = userRoleService.remove(new QueryWrapper<UserRole>().in("user_id", ids));
+        // 2022/9/23 17:03 TODO: 需要修改 用户岗位 功能 UP BY LUCIFER-LGX
         return flag ? Result.createSuccessMessage("删除成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
@@ -133,7 +153,16 @@ public class UserController extends BaseController {
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
-    public Result update(@Validated @RequestBody User user) {
+    public Result update(@Validated @RequestBody UserDTO userDTO) {
+        // 2022/9/23 15:28 FIXME: Use MapStruct UP BY LUCIFER-LGX
+        User user = UserConvert.INSTANCE.from(userDTO);
+
+        // 2022/9/23 16:46 FIXME: 修改 用户岗位信息 UP BY LUCIFER-LGX
+        UserJob uj = userJobService.getOne(new QueryWrapper<UserJob>().eq("user_id", userDTO.getId()));
+        uj.setJobId(userDTO.getJobId());
+        userJobService.updateById(uj);
+
+        // 2022/9/23 15:27 FIXME: 修改用户 UP BY LUCIFER-LGX
         boolean flag = userService.updateById(user);
         return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
