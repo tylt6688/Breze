@@ -117,6 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 配置拦截白名单放行
                 .antMatchers(URL_WHITELIST).permitAll()
                 .antMatchers(PORTAL_WHITELIST).permitAll()
+                // .antMatchers("/**").permitAll()
                 // .antMatchers("/**/**").hasRole("SUPER_ADMIN")
                 // 对其它请求进行拦截认证处理  Spring EL
                 .anyRequest()

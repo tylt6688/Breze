@@ -89,6 +89,12 @@ public class BaseController {
     protected RoleMenuService roleMenuService;
     @Autowired
     protected GroupService groupService;
+    @Autowired
+    protected JobService jobService;
+    @Autowired
+    protected GroupJobService groupJobService;
+    @Autowired
+    protected UserJobService userJobService;
     // RBAC权限服务注入 End
 
     /**********************************************************************************************************************************/

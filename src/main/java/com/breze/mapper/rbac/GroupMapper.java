@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-03-25
  */
 @Mapper
-public interface DepartmentMapper extends BaseMapper<Group> {
+public interface GroupMapper extends BaseMapper<Group> {
 
 }
