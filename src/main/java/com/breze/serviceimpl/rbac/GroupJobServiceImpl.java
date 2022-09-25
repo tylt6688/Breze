@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/9/10 10:25
- * @Description:
+ * @Description 岗位组服务实现类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Service
@@ -29,9 +29,7 @@ public class GroupJobServiceImpl extends ServiceImpl<GroupJobMapper, GroupJob> i
 
     @Override
     public List<Job> findJobsByGroupId(Long id) {
-        QueryWrapper<GroupJob> qw = new QueryWrapper<GroupJob>();
-        qw.eq("group_id", id);
-        List<GroupJob> gjs = groupJobMapper.selectList(qw);
+        List<GroupJob> gjs = groupJobMapper.selectList(new QueryWrapper<GroupJob>().eq("group_id", id));
         List<Job> jobs = new ArrayList<>();
         for (GroupJob gj : gjs) {
             Job j = jobMapper.selectById(gj.getJobId());

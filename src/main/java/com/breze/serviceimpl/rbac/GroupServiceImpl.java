@@ -85,9 +85,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return treeNodes;
     }
     private List<Job> findJobsByGroupId(Long id) {
-        QueryWrapper<GroupJob> qw = new QueryWrapper<GroupJob>();
-        qw.eq("group_id", id);
-        List<GroupJob> gjs = groupJobMapper.selectList(qw);
+        List<GroupJob> gjs = groupJobMapper.selectList(new QueryWrapper<GroupJob>().eq("group_id", id));
         List<Job> jobs = new ArrayList<>();
         for (GroupJob gj : gjs) {
             Job job = jobMapper.selectById(gj.getJobId());

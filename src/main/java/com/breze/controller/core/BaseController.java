@@ -95,6 +95,7 @@ public class BaseController {
     protected GroupJobService groupJobService;
     @Autowired
     protected UserJobService userJobService;
+
     // RBAC权限服务注入 End
 
     /**********************************************************************************************************************************/
@@ -102,14 +103,7 @@ public class BaseController {
     // 业务型服务注入 Start
     @Autowired
     protected BannerService bannerService;
-    @Autowired
-    protected IndexNewsService indexNewsService;
-    @Autowired
-    protected IndexNotifyService indexNotifyService;
-    @Autowired
-    protected IndexPresenceService indexPresenceService;
-    @Autowired
-    protected IndexThoughtService indexThoughtService;
+
 
     // 业务型服务注入 End
 

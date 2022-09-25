@@ -1,17 +1,11 @@
 package com.breze.controller.rbac;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.rbac.Group;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -28,8 +22,6 @@ public class GroupController extends BaseController {
 
     @GetMapping("/select")
     public Result selectAll() {
-//        List<Group> tree = groupService.tree();
-//        return Result.createSuccessMessage(tree);
         return Result.createSuccessMessage(groupService.findAll());
     }
 

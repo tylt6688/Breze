@@ -1,8 +1,6 @@
 package com.breze.entity.pojo.rbac;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,11 +9,12 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/9/10 10:07
- * @Description:
+ * @Description 岗位对象
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
@@ -33,5 +32,15 @@ public class Job implements Serializable {
     private Long id;
 
     private String name;
+
+    private Integer state;
+
+    private String remark;
+
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 }

@@ -5,7 +5,7 @@ import com.breze.entity.pojo.rbac.UserRole;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author tylt6688

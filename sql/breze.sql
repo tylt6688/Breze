@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 29/08/2022 16:58:13
+ Date: 25/09/2022 22:05:25
 */
 
 SET NAMES utf8mb4;
@@ -32,9 +32,9 @@ CREATE TABLE `log_handle`  (
   `params` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数',
   `exception` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '异常记录',
   `time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求耗时',
-  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 849 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1192 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_handle
@@ -881,6 +881,349 @@ INSERT INTO `log_handle` VALUES (845, '获取当前用户信息', 'PC', '0:0:0:0
 INSERT INTO `log_handle` VALUES (846, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36', '', NULL, '16', '2022-08-29 16:32:41');
 INSERT INTO `log_handle` VALUES (847, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/getuserinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36', '', NULL, '9', '2022-08-29 16:32:42');
 INSERT INTO `log_handle` VALUES (848, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/getuserinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36', '', NULL, '29', '2022-08-29 16:40:30');
+INSERT INTO `log_handle` VALUES (849, '获取当前用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-23 16:35:09');
+INSERT INTO `log_handle` VALUES (850, '获取当前用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36', '', NULL, '0', '2022-09-23 16:35:41');
+INSERT INTO `log_handle` VALUES (851, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36', '', NULL, '55', '2022-09-23 16:39:43');
+INSERT INTO `log_handle` VALUES (852, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '29', '2022-09-24 08:40:11');
+INSERT INTO `log_handle` VALUES (853, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '58', '2022-09-24 08:47:33');
+INSERT INTO `log_handle` VALUES (854, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '51', '2022-09-24 08:47:33');
+INSERT INTO `log_handle` VALUES (855, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '21', '2022-09-24 08:47:42');
+INSERT INTO `log_handle` VALUES (856, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '13', '2022-09-24 20:23:17');
+INSERT INTO `log_handle` VALUES (857, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '71', '2022-09-24 20:23:17');
+INSERT INTO `log_handle` VALUES (858, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-24 20:23:18');
+INSERT INTO `log_handle` VALUES (859, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '29', '2022-09-24 20:23:18');
+INSERT INTO `log_handle` VALUES (860, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-24 20:23:19');
+INSERT INTO `log_handle` VALUES (861, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-24 20:23:21');
+INSERT INTO `log_handle` VALUES (862, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-24 20:23:22');
+INSERT INTO `log_handle` VALUES (863, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '21', '2022-09-24 20:23:22');
+INSERT INTO `log_handle` VALUES (864, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-24 20:23:23');
+INSERT INTO `log_handle` VALUES (865, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-24 20:23:23');
+INSERT INTO `log_handle` VALUES (866, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-24 20:23:41');
+INSERT INTO `log_handle` VALUES (867, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-24 20:23:41');
+INSERT INTO `log_handle` VALUES (868, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-24 20:23:41');
+INSERT INTO `log_handle` VALUES (869, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '25', '2022-09-24 20:23:41');
+INSERT INTO `log_handle` VALUES (870, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-24 20:23:42');
+INSERT INTO `log_handle` VALUES (871, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '12', '2022-09-24 20:25:17');
+INSERT INTO `log_handle` VALUES (872, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '50', '2022-09-24 20:30:22');
+INSERT INTO `log_handle` VALUES (873, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '35', '2022-09-24 20:30:41');
+INSERT INTO `log_handle` VALUES (874, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '11', '2022-09-24 20:30:44');
+INSERT INTO `log_handle` VALUES (875, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '11', '2022-09-24 20:31:36');
+INSERT INTO `log_handle` VALUES (876, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-24 20:31:56');
+INSERT INTO `log_handle` VALUES (877, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '11', '2022-09-24 20:32:03');
+INSERT INTO `log_handle` VALUES (878, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-24 20:32:05');
+INSERT INTO `log_handle` VALUES (879, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '14', '2022-09-24 20:32:10');
+INSERT INTO `log_handle` VALUES (880, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-24 20:32:10');
+INSERT INTO `log_handle` VALUES (881, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-24 20:32:35');
+INSERT INTO `log_handle` VALUES (882, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-24 20:32:47');
+INSERT INTO `log_handle` VALUES (883, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-24 20:33:05');
+INSERT INTO `log_handle` VALUES (884, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '11', '2022-09-24 20:33:05');
+INSERT INTO `log_handle` VALUES (885, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-24 20:33:07');
+INSERT INTO `log_handle` VALUES (886, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '21', '2022-09-24 20:33:07');
+INSERT INTO `log_handle` VALUES (887, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-24 20:33:08');
+INSERT INTO `log_handle` VALUES (888, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-09-24 20:33:08');
+INSERT INTO `log_handle` VALUES (889, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '51', '2022-09-25 08:10:06');
+INSERT INTO `log_handle` VALUES (890, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '43', '2022-09-25 08:10:06');
+INSERT INTO `log_handle` VALUES (891, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '19', '2022-09-25 08:10:51');
+INSERT INTO `log_handle` VALUES (892, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '24', '2022-09-25 08:11:52');
+INSERT INTO `log_handle` VALUES (893, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '25', '2022-09-25 08:11:52');
+INSERT INTO `log_handle` VALUES (894, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 08:12:26');
+INSERT INTO `log_handle` VALUES (895, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '17', '2022-09-25 08:12:34');
+INSERT INTO `log_handle` VALUES (896, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '14', '2022-09-25 08:12:42');
+INSERT INTO `log_handle` VALUES (897, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '135', '2022-09-25 08:12:42');
+INSERT INTO `log_handle` VALUES (898, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '24', '2022-09-25 08:13:37');
+INSERT INTO `log_handle` VALUES (899, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '19', '2022-09-25 08:13:37');
+INSERT INTO `log_handle` VALUES (900, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 08:13:37');
+INSERT INTO `log_handle` VALUES (901, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '10', '2022-09-25 08:13:37');
+INSERT INTO `log_handle` VALUES (902, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '27', '2022-09-25 08:13:37');
+INSERT INTO `log_handle` VALUES (903, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '21', '2022-09-25 08:13:44');
+INSERT INTO `log_handle` VALUES (904, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '27', '2022-09-25 08:13:44');
+INSERT INTO `log_handle` VALUES (905, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '9', '2022-09-25 08:13:44');
+INSERT INTO `log_handle` VALUES (906, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 08:13:44');
+INSERT INTO `log_handle` VALUES (907, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '20', '2022-09-25 08:13:44');
+INSERT INTO `log_handle` VALUES (908, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '12', '2022-09-25 08:13:49');
+INSERT INTO `log_handle` VALUES (909, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '20', '2022-09-25 08:13:49');
+INSERT INTO `log_handle` VALUES (910, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:13:52');
+INSERT INTO `log_handle` VALUES (911, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:29:09');
+INSERT INTO `log_handle` VALUES (912, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:32:01');
+INSERT INTO `log_handle` VALUES (913, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:32:04');
+INSERT INTO `log_handle` VALUES (914, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 08:32:13');
+INSERT INTO `log_handle` VALUES (915, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 08:32:16');
+INSERT INTO `log_handle` VALUES (916, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:38:06');
+INSERT INTO `log_handle` VALUES (917, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '17', '2022-09-25 08:38:06');
+INSERT INTO `log_handle` VALUES (918, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:38:13');
+INSERT INTO `log_handle` VALUES (919, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '17', '2022-09-25 08:38:13');
+INSERT INTO `log_handle` VALUES (920, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:38:14');
+INSERT INTO `log_handle` VALUES (921, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '16', '2022-09-25 08:38:14');
+INSERT INTO `log_handle` VALUES (922, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 08:38:24');
+INSERT INTO `log_handle` VALUES (923, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '24', '2022-09-25 08:38:24');
+INSERT INTO `log_handle` VALUES (924, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:38:25');
+INSERT INTO `log_handle` VALUES (925, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 08:38:25');
+INSERT INTO `log_handle` VALUES (926, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:38:52');
+INSERT INTO `log_handle` VALUES (927, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '17', '2022-09-25 08:38:52');
+INSERT INTO `log_handle` VALUES (928, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:38:54');
+INSERT INTO `log_handle` VALUES (929, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 08:38:54');
+INSERT INTO `log_handle` VALUES (930, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:39:00');
+INSERT INTO `log_handle` VALUES (931, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '19', '2022-09-25 08:39:00');
+INSERT INTO `log_handle` VALUES (932, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-25 08:39:03');
+INSERT INTO `log_handle` VALUES (933, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:39:09');
+INSERT INTO `log_handle` VALUES (934, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:39:11');
+INSERT INTO `log_handle` VALUES (935, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:39:27');
+INSERT INTO `log_handle` VALUES (936, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:40:40');
+INSERT INTO `log_handle` VALUES (937, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '20', '2022-09-25 08:40:40');
+INSERT INTO `log_handle` VALUES (938, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:40:41');
+INSERT INTO `log_handle` VALUES (939, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '15', '2022-09-25 08:40:41');
+INSERT INTO `log_handle` VALUES (940, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:40:43');
+INSERT INTO `log_handle` VALUES (941, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '13', '2022-09-25 08:40:43');
+INSERT INTO `log_handle` VALUES (942, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:40:50');
+INSERT INTO `log_handle` VALUES (943, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '22', '2022-09-25 08:40:50');
+INSERT INTO `log_handle` VALUES (944, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:40:52');
+INSERT INTO `log_handle` VALUES (945, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '15', '2022-09-25 08:40:52');
+INSERT INTO `log_handle` VALUES (946, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '16', '2022-09-25 08:41:00');
+INSERT INTO `log_handle` VALUES (947, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '15', '2022-09-25 08:41:00');
+INSERT INTO `log_handle` VALUES (948, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:41:01');
+INSERT INTO `log_handle` VALUES (949, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '11', '2022-09-25 08:41:01');
+INSERT INTO `log_handle` VALUES (950, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 08:41:01');
+INSERT INTO `log_handle` VALUES (951, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:41:02');
+INSERT INTO `log_handle` VALUES (952, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 08:41:02');
+INSERT INTO `log_handle` VALUES (953, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:41:07');
+INSERT INTO `log_handle` VALUES (954, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 08:43:01');
+INSERT INTO `log_handle` VALUES (955, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '17', '2022-09-25 08:43:01');
+INSERT INTO `log_handle` VALUES (956, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:43:04');
+INSERT INTO `log_handle` VALUES (957, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:43:29');
+INSERT INTO `log_handle` VALUES (958, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 08:43:29');
+INSERT INTO `log_handle` VALUES (959, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:43:33');
+INSERT INTO `log_handle` VALUES (960, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '19', '2022-09-25 08:45:30');
+INSERT INTO `log_handle` VALUES (961, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '15', '2022-09-25 08:45:30');
+INSERT INTO `log_handle` VALUES (962, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:45:30');
+INSERT INTO `log_handle` VALUES (963, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '12', '2022-09-25 08:45:30');
+INSERT INTO `log_handle` VALUES (964, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 08:45:30');
+INSERT INTO `log_handle` VALUES (965, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:45:32');
+INSERT INTO `log_handle` VALUES (966, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:46:26');
+INSERT INTO `log_handle` VALUES (967, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '14', '2022-09-25 08:53:27');
+INSERT INTO `log_handle` VALUES (968, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '33', '2022-09-25 08:53:27');
+INSERT INTO `log_handle` VALUES (969, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 08:53:42');
+INSERT INTO `log_handle` VALUES (970, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '21', '2022-09-25 08:53:42');
+INSERT INTO `log_handle` VALUES (971, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:55:37');
+INSERT INTO `log_handle` VALUES (972, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 08:55:37');
+INSERT INTO `log_handle` VALUES (973, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:55:38');
+INSERT INTO `log_handle` VALUES (974, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '14', '2022-09-25 08:55:38');
+INSERT INTO `log_handle` VALUES (975, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-25 08:55:42');
+INSERT INTO `log_handle` VALUES (976, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:56:05');
+INSERT INTO `log_handle` VALUES (977, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:56:33');
+INSERT INTO `log_handle` VALUES (978, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '13', '2022-09-25 08:56:33');
+INSERT INTO `log_handle` VALUES (979, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:57:03');
+INSERT INTO `log_handle` VALUES (980, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '11', '2022-09-25 08:57:03');
+INSERT INTO `log_handle` VALUES (981, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:57:31');
+INSERT INTO `log_handle` VALUES (982, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 08:57:34');
+INSERT INTO `log_handle` VALUES (983, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:57:49');
+INSERT INTO `log_handle` VALUES (984, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:57:58');
+INSERT INTO `log_handle` VALUES (985, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/3', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:58:40');
+INSERT INTO `log_handle` VALUES (986, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:58:44');
+INSERT INTO `log_handle` VALUES (987, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:58:46');
+INSERT INTO `log_handle` VALUES (988, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 08:58:49');
+INSERT INTO `log_handle` VALUES (989, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-25 08:59:37');
+INSERT INTO `log_handle` VALUES (990, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '24', '2022-09-25 08:59:37');
+INSERT INTO `log_handle` VALUES (991, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 08:59:39');
+INSERT INTO `log_handle` VALUES (992, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 08:59:41');
+INSERT INTO `log_handle` VALUES (993, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:59:44');
+INSERT INTO `log_handle` VALUES (994, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:59:46');
+INSERT INTO `log_handle` VALUES (995, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 08:59:49');
+INSERT INTO `log_handle` VALUES (996, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '14', '2022-09-25 08:59:49');
+INSERT INTO `log_handle` VALUES (997, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 08:59:52');
+INSERT INTO `log_handle` VALUES (998, '根据ID获取用户信息', '-1', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'PostmanRuntime/7.29.2', '', NULL, '6', '2022-09-25 09:01:07');
+INSERT INTO `log_handle` VALUES (999, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'PostmanRuntime/7.29.2', '', NULL, '4', '2022-09-25 09:01:14');
+INSERT INTO `log_handle` VALUES (1000, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '20', '2022-09-25 09:04:08');
+INSERT INTO `log_handle` VALUES (1001, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 09:04:11');
+INSERT INTO `log_handle` VALUES (1002, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 09:04:13');
+INSERT INTO `log_handle` VALUES (1003, '根据ID获取用户信息', 'PC', '127.0.0.1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '30', '2022-09-25 09:06:11');
+INSERT INTO `log_handle` VALUES (1004, '根据ID获取用户信息', 'PC', '127.0.0.1', '/sys/user/info/4', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '12', '2022-09-25 09:06:17');
+INSERT INTO `log_handle` VALUES (1005, '根据ID获取用户信息', 'PC', '127.0.0.1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '13', '2022-09-25 09:06:19');
+INSERT INTO `log_handle` VALUES (1006, '根据ID获取用户信息', 'PC', '127.0.0.1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 09:06:22');
+INSERT INTO `log_handle` VALUES (1007, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '37', '2022-09-25 09:53:07');
+INSERT INTO `log_handle` VALUES (1008, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '49', '2022-09-25 09:53:07');
+INSERT INTO `log_handle` VALUES (1009, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '119', '2022-09-25 09:53:07');
+INSERT INTO `log_handle` VALUES (1010, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '101', '2022-09-25 09:53:07');
+INSERT INTO `log_handle` VALUES (1011, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '27', '2022-09-25 09:54:19');
+INSERT INTO `log_handle` VALUES (1012, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '27', '2022-09-25 09:54:19');
+INSERT INTO `log_handle` VALUES (1013, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '11', '2022-09-25 09:54:19');
+INSERT INTO `log_handle` VALUES (1014, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '28', '2022-09-25 09:54:19');
+INSERT INTO `log_handle` VALUES (1015, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '26', '2022-09-25 09:55:33');
+INSERT INTO `log_handle` VALUES (1016, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '32', '2022-09-25 09:55:33');
+INSERT INTO `log_handle` VALUES (1017, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 09:55:33');
+INSERT INTO `log_handle` VALUES (1018, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '31', '2022-09-25 09:55:33');
+INSERT INTO `log_handle` VALUES (1019, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '46', '2022-09-25 09:56:36');
+INSERT INTO `log_handle` VALUES (1020, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '36', '2022-09-25 09:56:36');
+INSERT INTO `log_handle` VALUES (1021, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '84', '2022-09-25 09:56:36');
+INSERT INTO `log_handle` VALUES (1022, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '64', '2022-09-25 09:56:36');
+INSERT INTO `log_handle` VALUES (1023, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '44', '2022-09-25 09:59:11');
+INSERT INTO `log_handle` VALUES (1024, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '47', '2022-09-25 09:59:11');
+INSERT INTO `log_handle` VALUES (1025, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '71', '2022-09-25 09:59:12');
+INSERT INTO `log_handle` VALUES (1026, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '51', '2022-09-25 09:59:12');
+INSERT INTO `log_handle` VALUES (1027, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '47', '2022-09-25 10:00:54');
+INSERT INTO `log_handle` VALUES (1028, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '43', '2022-09-25 10:00:55');
+INSERT INTO `log_handle` VALUES (1029, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '44', '2022-09-25 10:00:55');
+INSERT INTO `log_handle` VALUES (1030, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '91', '2022-09-25 10:00:55');
+INSERT INTO `log_handle` VALUES (1031, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '54', '2022-09-25 10:00:55');
+INSERT INTO `log_handle` VALUES (1032, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '16', '2022-09-25 10:00:58');
+INSERT INTO `log_handle` VALUES (1033, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 10:01:03');
+INSERT INTO `log_handle` VALUES (1034, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '25', '2022-09-25 10:01:03');
+INSERT INTO `log_handle` VALUES (1035, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '28', '2022-09-25 14:48:19');
+INSERT INTO `log_handle` VALUES (1036, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '22', '2022-09-25 14:48:20');
+INSERT INTO `log_handle` VALUES (1037, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 14:48:20');
+INSERT INTO `log_handle` VALUES (1038, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '18', '2022-09-25 14:48:20');
+INSERT INTO `log_handle` VALUES (1039, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '26', '2022-09-25 14:48:20');
+INSERT INTO `log_handle` VALUES (1040, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/4', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 14:51:48');
+INSERT INTO `log_handle` VALUES (1041, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 14:52:06');
+INSERT INTO `log_handle` VALUES (1042, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-25 14:52:06');
+INSERT INTO `log_handle` VALUES (1043, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/4', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-25 14:52:12');
+INSERT INTO `log_handle` VALUES (1044, '更新角色', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '36', '2022-09-25 14:52:35');
+INSERT INTO `log_handle` VALUES (1045, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-09-25 14:52:37');
+INSERT INTO `log_handle` VALUES (1046, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 15:00:59');
+INSERT INTO `log_handle` VALUES (1047, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 15:02:09');
+INSERT INTO `log_handle` VALUES (1048, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 15:02:09');
+INSERT INTO `log_handle` VALUES (1049, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 15:02:11');
+INSERT INTO `log_handle` VALUES (1050, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:02:11');
+INSERT INTO `log_handle` VALUES (1051, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-25 15:02:19');
+INSERT INTO `log_handle` VALUES (1052, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 15:02:19');
+INSERT INTO `log_handle` VALUES (1053, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:02:22');
+INSERT INTO `log_handle` VALUES (1054, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '7', '2022-09-25 15:02:22');
+INSERT INTO `log_handle` VALUES (1055, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:02:24');
+INSERT INTO `log_handle` VALUES (1056, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 15:02:24');
+INSERT INTO `log_handle` VALUES (1057, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:02:27');
+INSERT INTO `log_handle` VALUES (1058, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-25 15:02:27');
+INSERT INTO `log_handle` VALUES (1059, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-09-25 15:02:40');
+INSERT INTO `log_handle` VALUES (1060, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 15:02:40');
+INSERT INTO `log_handle` VALUES (1061, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 15:02:43');
+INSERT INTO `log_handle` VALUES (1062, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '7', '2022-09-25 15:03:49');
+INSERT INTO `log_handle` VALUES (1063, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 15:03:49');
+INSERT INTO `log_handle` VALUES (1064, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 15:03:51');
+INSERT INTO `log_handle` VALUES (1065, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-09-25 15:04:16');
+INSERT INTO `log_handle` VALUES (1066, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 15:04:16');
+INSERT INTO `log_handle` VALUES (1067, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:04:17');
+INSERT INTO `log_handle` VALUES (1068, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:04:40');
+INSERT INTO `log_handle` VALUES (1069, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '21', '2022-09-25 15:04:40');
+INSERT INTO `log_handle` VALUES (1070, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 15:04:42');
+INSERT INTO `log_handle` VALUES (1071, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 15:04:44');
+INSERT INTO `log_handle` VALUES (1072, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/3', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:04:47');
+INSERT INTO `log_handle` VALUES (1073, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/4', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 15:04:50');
+INSERT INTO `log_handle` VALUES (1074, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-25 15:04:53');
+INSERT INTO `log_handle` VALUES (1075, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:04:57');
+INSERT INTO `log_handle` VALUES (1076, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/5', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 15:05:07');
+INSERT INTO `log_handle` VALUES (1077, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 15:06:15');
+INSERT INTO `log_handle` VALUES (1078, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 15:06:15');
+INSERT INTO `log_handle` VALUES (1079, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '22', '2022-09-25 15:27:15');
+INSERT INTO `log_handle` VALUES (1080, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '19', '2022-09-25 15:27:15');
+INSERT INTO `log_handle` VALUES (1081, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 15:27:20');
+INSERT INTO `log_handle` VALUES (1082, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 15:27:20');
+INSERT INTO `log_handle` VALUES (1083, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 15:27:25');
+INSERT INTO `log_handle` VALUES (1084, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 15:27:25');
+INSERT INTO `log_handle` VALUES (1085, '新增角色', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/insert', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '21', '2022-09-25 15:40:55');
+INSERT INTO `log_handle` VALUES (1086, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '52', '2022-09-25 15:40:57');
+INSERT INTO `log_handle` VALUES (1087, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '37', '2022-09-25 20:53:56');
+INSERT INTO `log_handle` VALUES (1088, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '46', '2022-09-25 20:53:56');
+INSERT INTO `log_handle` VALUES (1089, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '16', '2022-09-25 20:53:56');
+INSERT INTO `log_handle` VALUES (1090, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '25', '2022-09-25 20:53:56');
+INSERT INTO `log_handle` VALUES (1091, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '43', '2022-09-25 20:53:56');
+INSERT INTO `log_handle` VALUES (1092, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 20:54:01');
+INSERT INTO `log_handle` VALUES (1093, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '47', '2022-09-25 20:54:01');
+INSERT INTO `log_handle` VALUES (1094, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 20:55:23');
+INSERT INTO `log_handle` VALUES (1095, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/61', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 20:55:43');
+INSERT INTO `log_handle` VALUES (1096, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/62', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '1', '2022-09-25 20:55:52');
+INSERT INTO `log_handle` VALUES (1097, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 20:56:13');
+INSERT INTO `log_handle` VALUES (1098, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 20:56:16');
+INSERT INTO `log_handle` VALUES (1099, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '23', '2022-09-25 20:56:16');
+INSERT INTO `log_handle` VALUES (1100, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 20:56:17');
+INSERT INTO `log_handle` VALUES (1101, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-25 20:56:17');
+INSERT INTO `log_handle` VALUES (1102, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '22', '2022-09-25 20:57:19');
+INSERT INTO `log_handle` VALUES (1103, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 20:57:19');
+INSERT INTO `log_handle` VALUES (1104, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 20:57:24');
+INSERT INTO `log_handle` VALUES (1105, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 20:57:25');
+INSERT INTO `log_handle` VALUES (1106, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '11', '2022-09-25 20:57:27');
+INSERT INTO `log_handle` VALUES (1107, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-25 20:57:29');
+INSERT INTO `log_handle` VALUES (1108, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:57:31');
+INSERT INTO `log_handle` VALUES (1109, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 20:58:12');
+INSERT INTO `log_handle` VALUES (1110, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:58:13');
+INSERT INTO `log_handle` VALUES (1111, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:58:16');
+INSERT INTO `log_handle` VALUES (1112, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '8', '2022-09-25 20:58:18');
+INSERT INTO `log_handle` VALUES (1113, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 20:58:33');
+INSERT INTO `log_handle` VALUES (1114, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:58:39');
+INSERT INTO `log_handle` VALUES (1115, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:58:43');
+INSERT INTO `log_handle` VALUES (1116, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '7', '2022-09-25 20:58:46');
+INSERT INTO `log_handle` VALUES (1117, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:58:46');
+INSERT INTO `log_handle` VALUES (1118, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 20:58:47');
+INSERT INTO `log_handle` VALUES (1119, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '17', '2022-09-25 20:58:47');
+INSERT INTO `log_handle` VALUES (1120, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:58:48');
+INSERT INTO `log_handle` VALUES (1121, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 20:58:49');
+INSERT INTO `log_handle` VALUES (1122, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '18', '2022-09-25 20:58:49');
+INSERT INTO `log_handle` VALUES (1123, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-25 20:58:50');
+INSERT INTO `log_handle` VALUES (1124, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 20:58:50');
+INSERT INTO `log_handle` VALUES (1125, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 20:59:00');
+INSERT INTO `log_handle` VALUES (1126, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 20:59:02');
+INSERT INTO `log_handle` VALUES (1127, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 20:59:03');
+INSERT INTO `log_handle` VALUES (1128, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '20', '2022-09-25 20:59:03');
+INSERT INTO `log_handle` VALUES (1129, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-09-25 20:59:04');
+INSERT INTO `log_handle` VALUES (1130, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '11', '2022-09-25 20:59:04');
+INSERT INTO `log_handle` VALUES (1131, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '17', '2022-09-25 21:08:10');
+INSERT INTO `log_handle` VALUES (1132, '新增菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/insert', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 21:09:55');
+INSERT INTO `log_handle` VALUES (1133, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 21:09:57');
+INSERT INTO `log_handle` VALUES (1134, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 21:10:19');
+INSERT INTO `log_handle` VALUES (1135, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '18', '2022-09-25 21:10:21');
+INSERT INTO `log_handle` VALUES (1136, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/3', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '1', '2022-09-25 21:10:22');
+INSERT INTO `log_handle` VALUES (1137, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 21:10:23');
+INSERT INTO `log_handle` VALUES (1138, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 21:10:25');
+INSERT INTO `log_handle` VALUES (1139, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 21:10:27');
+INSERT INTO `log_handle` VALUES (1140, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/4', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 21:10:27');
+INSERT INTO `log_handle` VALUES (1141, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 21:10:29');
+INSERT INTO `log_handle` VALUES (1142, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/67', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 21:10:30');
+INSERT INTO `log_handle` VALUES (1143, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 21:10:31');
+INSERT INTO `log_handle` VALUES (1144, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 21:10:32');
+INSERT INTO `log_handle` VALUES (1145, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 21:10:34');
+INSERT INTO `log_handle` VALUES (1146, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/71', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 21:10:47');
+INSERT INTO `log_handle` VALUES (1147, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '13', '2022-09-25 21:10:57');
+INSERT INTO `log_handle` VALUES (1148, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 21:10:59');
+INSERT INTO `log_handle` VALUES (1149, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 21:11:02');
+INSERT INTO `log_handle` VALUES (1150, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '11', '2022-09-25 21:11:02');
+INSERT INTO `log_handle` VALUES (1151, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '14', '2022-09-25 21:11:04');
+INSERT INTO `log_handle` VALUES (1152, '根据角色ID获取菜单列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/perm/1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '64', '2022-09-25 21:11:08');
+INSERT INTO `log_handle` VALUES (1153, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-09-25 21:11:10');
+INSERT INTO `log_handle` VALUES (1154, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '13', '2022-09-25 21:11:12');
+INSERT INTO `log_handle` VALUES (1155, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '14', '2022-09-25 21:11:12');
+INSERT INTO `log_handle` VALUES (1156, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '8', '2022-09-25 21:11:12');
+INSERT INTO `log_handle` VALUES (1157, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '10', '2022-09-25 21:11:12');
+INSERT INTO `log_handle` VALUES (1158, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '24', '2022-09-25 21:11:12');
+INSERT INTO `log_handle` VALUES (1159, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 21:25:17');
+INSERT INTO `log_handle` VALUES (1160, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-25 21:25:17');
+INSERT INTO `log_handle` VALUES (1161, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 21:25:19');
+INSERT INTO `log_handle` VALUES (1162, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/3', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '14', '2022-09-25 21:26:19');
+INSERT INTO `log_handle` VALUES (1163, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 21:26:21');
+INSERT INTO `log_handle` VALUES (1164, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/4', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 21:26:24');
+INSERT INTO `log_handle` VALUES (1165, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/6', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 21:26:27');
+INSERT INTO `log_handle` VALUES (1166, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '18', '2022-09-25 21:26:30');
+INSERT INTO `log_handle` VALUES (1167, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '42', '2022-09-25 21:26:30');
+INSERT INTO `log_handle` VALUES (1168, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '14', '2022-09-25 21:26:31');
+INSERT INTO `log_handle` VALUES (1169, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '20', '2022-09-25 22:00:43');
+INSERT INTO `log_handle` VALUES (1170, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '13', '2022-09-25 22:00:43');
+INSERT INTO `log_handle` VALUES (1171, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '19', '2022-09-25 22:00:43');
+INSERT INTO `log_handle` VALUES (1172, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '3', '2022-09-25 22:00:47');
+INSERT INTO `log_handle` VALUES (1173, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 22:00:47');
+INSERT INTO `log_handle` VALUES (1174, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 22:00:48');
+INSERT INTO `log_handle` VALUES (1175, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '15', '2022-09-25 22:00:48');
+INSERT INTO `log_handle` VALUES (1176, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 22:00:49');
+INSERT INTO `log_handle` VALUES (1177, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 22:00:57');
+INSERT INTO `log_handle` VALUES (1178, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '17', '2022-09-25 22:00:57');
+INSERT INTO `log_handle` VALUES (1179, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-09-25 22:00:58');
+INSERT INTO `log_handle` VALUES (1180, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '6', '2022-09-25 22:00:58');
+INSERT INTO `log_handle` VALUES (1181, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 22:00:59');
+INSERT INTO `log_handle` VALUES (1182, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '2', '2022-09-25 22:01:01');
+INSERT INTO `log_handle` VALUES (1183, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '3', '2022-09-25 22:01:05');
+INSERT INTO `log_handle` VALUES (1184, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '15', '2022-09-25 22:01:05');
+INSERT INTO `log_handle` VALUES (1185, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 22:01:06');
+INSERT INTO `log_handle` VALUES (1186, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 22:01:07');
+INSERT INTO `log_handle` VALUES (1187, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-09-25 22:01:07');
+INSERT INTO `log_handle` VALUES (1188, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '9', '2022-09-25 22:01:11');
+INSERT INTO `log_handle` VALUES (1189, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '4', '2022-09-25 22:01:37');
+INSERT INTO `log_handle` VALUES (1190, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '7', '2022-09-25 22:02:31');
+INSERT INTO `log_handle` VALUES (1191, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '5', '2022-09-25 22:02:40');
 
 -- ----------------------------
 -- Table structure for log_login
@@ -890,9 +1233,9 @@ CREATE TABLE `log_login`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '登录日志ID',
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
   `state` int(11) NULL DEFAULT NULL COMMENT '当前状态',
-  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_login
@@ -920,6 +1263,7 @@ INSERT INTO `log_login` VALUES (20, 1, 0, '2022-08-28 20:40:42');
 INSERT INTO `log_login` VALUES (21, 1, 0, '2022-08-28 20:44:47');
 INSERT INTO `log_login` VALUES (22, 1, 0, '2022-08-28 21:03:05');
 INSERT INTO `log_login` VALUES (23, 1, 0, '2022-08-29 13:14:33');
+INSERT INTO `log_login` VALUES (24, 1, 0, '2022-09-24 08:40:10');
 
 -- ----------------------------
 -- Table structure for sys_group
@@ -934,7 +1278,7 @@ CREATE TABLE `sys_group`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_group
@@ -945,9 +1289,50 @@ INSERT INTO `sys_group` VALUES (3, 0, '测试运维部', 0, '', '2022-03-11 18:0
 INSERT INTO `sys_group` VALUES (4, 0, '人事行政部', 0, '', '2022-03-11 18:06:59', '2022-08-17 14:14:56');
 INSERT INTO `sys_group` VALUES (5, 0, '机械开发部', 0, '', '2022-03-11 18:07:01', '2022-08-17 14:14:58');
 INSERT INTO `sys_group` VALUES (6, 0, '销售宣推部', 0, '', '2022-03-25 18:21:53', '2022-08-17 14:15:01');
-INSERT INTO `sys_group` VALUES (7, 1, '质量管理部', 0, NULL, '2022-05-20 23:20:58', '2022-08-17 14:15:03');
-INSERT INTO `sys_group` VALUES (8, 1, '售后技术部', 0, NULL, '2022-05-20 23:21:19', '2022-08-17 14:15:06');
-INSERT INTO `sys_group` VALUES (9, 2, '财务市场部', 0, NULL, '2022-05-20 23:24:22', '2022-08-17 14:15:08');
+INSERT INTO `sys_group` VALUES (7, 1, '质量管理部', 0, '', '2022-05-20 23:20:58', '2022-08-17 14:15:03');
+INSERT INTO `sys_group` VALUES (8, 1, '售后技术部', 0, '', '2022-05-20 23:21:19', '2022-08-17 14:15:06');
+INSERT INTO `sys_group` VALUES (9, 2, '财务市场部', 0, '', '2022-05-20 23:24:22', '2022-08-17 14:15:08');
+
+-- ----------------------------
+-- Table structure for sys_group_job
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_group_job`;
+CREATE TABLE `sys_group_job`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门岗位ID',
+  `group_id` bigint(20) NULL DEFAULT NULL COMMENT '部门ID',
+  `job_id` bigint(20) NULL DEFAULT NULL COMMENT '岗位ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门岗位表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_group_job
+-- ----------------------------
+INSERT INTO `sys_group_job` VALUES (1, 1, 1);
+INSERT INTO `sys_group_job` VALUES (2, 1, 2);
+INSERT INTO `sys_group_job` VALUES (3, 1, 3);
+INSERT INTO `sys_group_job` VALUES (4, 1, 4);
+
+-- ----------------------------
+-- Table structure for sys_job
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_job`;
+CREATE TABLE `sys_job`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '岗位名称',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `state` int(11) NULL DEFAULT NULL COMMENT '状态',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_job
+-- ----------------------------
+INSERT INTO `sys_job` VALUES (1, '技术部经理', '2022-09-25 20:41:59', '2022-09-25 20:42:10', NULL, NULL);
+INSERT INTO `sys_job` VALUES (2, '技术部组长', '2022-09-25 20:42:02', '2022-09-25 20:42:12', NULL, NULL);
+INSERT INTO `sys_job` VALUES (3, '技术部组员', '2022-09-25 20:42:04', '2022-09-25 20:42:14', NULL, NULL);
+INSERT INTO `sys_job` VALUES (4, '技术部实习生', '2022-09-25 20:42:07', '2022-09-25 20:42:16', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -968,15 +1353,15 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES (1, 0, '系统管理', '', 'sys:manage', '', 0, 'el-icon-s-operation', 1, 0, '2021-01-15 18:58:18', '2022-03-19 18:04:58');
-INSERT INTO `sys_menu` VALUES (2, 1, '角色管理', '/sys/roles', 'sys:role:select', 'sys/Role', 1, 'el-icon-postcard', 2, 0, '2021-01-15 19:03:45', '2022-04-15 18:26:32');
-INSERT INTO `sys_menu` VALUES (3, 1, '用户管理', '/sys/users', 'sys:user:select', 'sys/User', 1, 'el-icon-s-custom', 3, 0, '2021-01-15 19:03:45', '2022-04-15 18:26:38');
-INSERT INTO `sys_menu` VALUES (4, 1, '菜单管理', '/sys/menus', 'sys:menu:select', 'sys/Menu', 1, 'el-icon-menu', 4, 0, '2021-01-15 19:03:45', '2022-04-15 18:26:43');
+INSERT INTO `sys_menu` VALUES (2, 1, '角色管理', '/sys/role', 'sys:role:select', 'sys/Role', 1, 'el-icon-postcard', 1, 0, '2021-01-15 19:03:45', '2022-04-15 18:26:32');
+INSERT INTO `sys_menu` VALUES (3, 1, '用户管理', '/sys/user', 'sys:user:select', 'sys/User', 1, 'el-icon-s-custom', 2, 0, '2021-01-15 19:03:45', '2022-04-15 18:26:38');
+INSERT INTO `sys_menu` VALUES (4, 1, '菜单管理', '/sys/menu', 'sys:menu:select', 'sys/Menu', 1, 'el-icon-menu', 3, 0, '2021-01-15 19:03:45', '2022-04-15 18:26:43');
 INSERT INTO `sys_menu` VALUES (5, 0, '系统工具', '', 'sys:tool', NULL, 0, 'el-icon-setting', 2, 0, '2021-01-15 19:06:11', '2022-08-05 15:56:11');
 INSERT INTO `sys_menu` VALUES (7, 2, '添加角色', '', 'sys:role:insert', '', 2, '', 1, 0, '2021-01-15 23:02:25', '2022-03-09 22:20:40');
 INSERT INTO `sys_menu` VALUES (9, 3, '新增用户', NULL, 'sys:user:insert', NULL, 2, NULL, 1, 0, '2021-01-17 21:48:32', '2022-03-24 17:36:12');
@@ -992,7 +1377,7 @@ INSERT INTO `sys_menu` VALUES (18, 4, '修改菜单', NULL, 'sys:menu:update', N
 INSERT INTO `sys_menu` VALUES (19, 4, '删除菜单', NULL, 'sys:menu:delete', NULL, 2, NULL, 3, 0, '2021-01-17 21:56:36', '2022-08-17 14:25:45');
 INSERT INTO `sys_menu` VALUES (23, 0, '关于项目', NULL, 'sys:about', NULL, 0, 'el-icon-info', 11, 0, '2022-03-12 00:46:34', '2022-07-06 16:52:06');
 INSERT INTO `sys_menu` VALUES (24, 23, '项目介绍', '/about/about', 'sys:about:project', 'about/About', 1, 'el-icon-s-claim', 1, 0, '2022-03-12 16:08:37', '2022-03-24 17:12:40');
-INSERT INTO `sys_menu` VALUES (25, 23, '关于我们', '/about/me', 'sys:about:me', 'about/Aboutme', 1, 'el-icon-magic-stick', 2, 0, '2022-03-13 10:13:55', '2022-04-21 22:57:54');
+INSERT INTO `sys_menu` VALUES (25, 23, '关于我们', '/about/our', 'sys:about:me', 'about/Aboutme', 1, 'el-icon-magic-stick', 2, 0, '2022-03-13 10:13:55', '2022-04-21 22:57:54');
 INSERT INTO `sys_menu` VALUES (47, 5, '首页管理', '/tool/indexmanage', 'sys:tool:index', 'tool/IndexManage', 1, 'el-icon-c-scale-to-original', 1, 0, '2022-03-27 12:31:36', '2022-08-05 15:56:00');
 INSERT INTO `sys_menu` VALUES (60, 0, '日志管理', NULL, 'log:manage', NULL, 0, 'el-icon-tickets', 8, 0, '2022-06-23 16:21:16', '2022-06-23 16:21:25');
 INSERT INTO `sys_menu` VALUES (61, 60, '登录日志', '/log/loginlog', 'log:manage:login', 'log/LoginLog', 1, 'el-icon-notebook-2', 1, 0, '2022-06-23 16:24:42', '2022-08-17 14:25:50');
@@ -1001,10 +1386,11 @@ INSERT INTO `sys_menu` VALUES (63, 0, '项目开发', NULL, 'project:develop', N
 INSERT INTO `sys_menu` VALUES (64, 63, '代码生成', '/develop/codegener', 'project:develop:codegener', 'develop/CodeGener', 1, 'el-icon-more-outline', 1, 0, '2022-06-29 14:10:35', '2022-06-29 14:13:00');
 INSERT INTO `sys_menu` VALUES (65, 0, '平台监控', NULL, 'sys:monitor', NULL, 0, 'el-icon-monitor', 10, 0, '2022-07-06 16:51:58', '2022-08-17 14:25:57');
 INSERT INTO `sys_menu` VALUES (66, 65, '服务器监控', '/monitor/servermonitor', 'sys:monitor:server', 'monitor/ServerMonitor', 1, 'el-icon-coin', 1, 0, '2022-07-06 16:54:08', '2022-08-17 14:25:59');
-INSERT INTO `sys_menu` VALUES (67, 1, '部门管理', '/sys/group', 'sys:department:select', 'sys/Group', 1, 'el-icon-office-building', 5, 0, '2022-07-13 20:49:51', '2022-08-05 16:01:24');
+INSERT INTO `sys_menu` VALUES (67, 1, '部门管理', '/sys/group', 'sys:department:select', 'sys/Group', 1, 'el-icon-office-building', 4, 0, '2022-07-13 20:49:51', '2022-08-05 16:01:24');
 INSERT INTO `sys_menu` VALUES (68, 63, '接口文档', '/develop/swagger', 'project:develop:document', 'develop/Swagger', 1, 'el-icon-document', 2, 0, '2022-08-05 13:50:38', '2022-08-05 13:50:49');
 INSERT INTO `sys_menu` VALUES (69, 65, '数据库监控', '/monitor/druid', 'sys:monitor:druid', 'monitor/Druid', 1, 'el-icon-coin', 2, 0, '2022-08-05 15:44:29', '2022-08-17 14:26:02');
 INSERT INTO `sys_menu` VALUES (70, 5, '数据字典', '/tool/dict', 'sys:tool:dict', 'tool/Dict', 1, 'el-icon-collection', 2, 0, '2022-08-05 15:54:38', '2022-08-17 14:26:05');
+INSERT INTO `sys_menu` VALUES (71, 1, '岗位管理', '/sys/job', 'sys:job:select', 'sys/Job', 1, 'el-icon-medal', 5, 0, '2022-09-25 21:09:55', '2022-09-25 21:09:55');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -1021,7 +1407,7 @@ CREATE TABLE `sys_role`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE,
   UNIQUE INDEX `code`(`code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -1029,9 +1415,10 @@ CREATE TABLE `sys_role`  (
 INSERT INTO `sys_role` VALUES (1, '超级管理员', 'superadmin', 0, '系统默认最高权限拥有者，除管理人员外任何人不可操作', '2022-03-04 12:54:18', '2022-03-27 14:43:57');
 INSERT INTO `sys_role` VALUES (2, '普通用户', 'user', 0, '只能进行基础功能操作', '2022-03-04 12:55:00', '2022-07-13 23:10:03');
 INSERT INTO `sys_role` VALUES (3, '微信用户', 'wechat', 0, '通过微信小程序登录的用户', '2022-03-09 22:12:56', '2022-03-09 22:17:00');
-INSERT INTO `sys_role` VALUES (4, '开发工程师', 'developer', 0, '一级管理员，放行系统管理之外的其它权限', '2022-03-19 20:16:21', '2022-08-17 14:19:34');
+INSERT INTO `sys_role` VALUES (4, '开发人员', 'developer', 0, '相当于超级管理员，放行系统管理之外的其它权限', '2022-03-19 20:16:21', '2022-08-17 14:19:34');
 INSERT INTO `sys_role` VALUES (5, '普通管理员', 'admin', 0, '赋予除系统管理核心权限之外的其它功能', '2022-03-24 21:59:04', '2022-08-17 14:19:37');
 INSERT INTO `sys_role` VALUES (6, '二级管理员', 'twoadmin', 0, '二级管理员', '2022-06-09 09:43:40', '2022-08-17 14:19:39');
+INSERT INTO `sys_role` VALUES (7, '访客用户', 'guest', 0, '访客用户，只展示首页与关于项目菜单', '2022-09-25 15:40:55', '2022-09-25 15:40:55');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -1042,47 +1429,48 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` bigint(20) NOT NULL,
   `menu_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2407 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES (131, 2, 5);
-INSERT INTO `sys_role_menu` VALUES (1915, 7, 23);
-INSERT INTO `sys_role_menu` VALUES (1916, 7, 24);
-INSERT INTO `sys_role_menu` VALUES (1917, 7, 25);
-INSERT INTO `sys_role_menu` VALUES (2375, 1, 1);
-INSERT INTO `sys_role_menu` VALUES (2376, 1, 2);
-INSERT INTO `sys_role_menu` VALUES (2377, 1, 7);
-INSERT INTO `sys_role_menu` VALUES (2378, 1, 14);
-INSERT INTO `sys_role_menu` VALUES (2379, 1, 15);
-INSERT INTO `sys_role_menu` VALUES (2380, 1, 16);
-INSERT INTO `sys_role_menu` VALUES (2381, 1, 3);
-INSERT INTO `sys_role_menu` VALUES (2382, 1, 9);
-INSERT INTO `sys_role_menu` VALUES (2383, 1, 10);
-INSERT INTO `sys_role_menu` VALUES (2384, 1, 11);
-INSERT INTO `sys_role_menu` VALUES (2385, 1, 12);
-INSERT INTO `sys_role_menu` VALUES (2386, 1, 13);
-INSERT INTO `sys_role_menu` VALUES (2387, 1, 4);
-INSERT INTO `sys_role_menu` VALUES (2388, 1, 17);
-INSERT INTO `sys_role_menu` VALUES (2389, 1, 18);
-INSERT INTO `sys_role_menu` VALUES (2390, 1, 19);
-INSERT INTO `sys_role_menu` VALUES (2391, 1, 67);
-INSERT INTO `sys_role_menu` VALUES (2392, 1, 5);
-INSERT INTO `sys_role_menu` VALUES (2393, 1, 47);
-INSERT INTO `sys_role_menu` VALUES (2394, 1, 70);
-INSERT INTO `sys_role_menu` VALUES (2395, 1, 60);
-INSERT INTO `sys_role_menu` VALUES (2396, 1, 61);
-INSERT INTO `sys_role_menu` VALUES (2397, 1, 62);
-INSERT INTO `sys_role_menu` VALUES (2398, 1, 63);
-INSERT INTO `sys_role_menu` VALUES (2399, 1, 64);
-INSERT INTO `sys_role_menu` VALUES (2400, 1, 68);
-INSERT INTO `sys_role_menu` VALUES (2401, 1, 65);
-INSERT INTO `sys_role_menu` VALUES (2402, 1, 66);
-INSERT INTO `sys_role_menu` VALUES (2403, 1, 69);
-INSERT INTO `sys_role_menu` VALUES (2404, 1, 23);
-INSERT INTO `sys_role_menu` VALUES (2405, 1, 24);
-INSERT INTO `sys_role_menu` VALUES (2406, 1, 25);
+INSERT INTO `sys_role_menu` VALUES (1, 2, 5);
+INSERT INTO `sys_role_menu` VALUES (2, 7, 23);
+INSERT INTO `sys_role_menu` VALUES (3, 7, 24);
+INSERT INTO `sys_role_menu` VALUES (4, 7, 25);
+INSERT INTO `sys_role_menu` VALUES (37, 1, 1);
+INSERT INTO `sys_role_menu` VALUES (38, 1, 2);
+INSERT INTO `sys_role_menu` VALUES (39, 1, 7);
+INSERT INTO `sys_role_menu` VALUES (40, 1, 14);
+INSERT INTO `sys_role_menu` VALUES (41, 1, 15);
+INSERT INTO `sys_role_menu` VALUES (42, 1, 16);
+INSERT INTO `sys_role_menu` VALUES (43, 1, 3);
+INSERT INTO `sys_role_menu` VALUES (44, 1, 9);
+INSERT INTO `sys_role_menu` VALUES (45, 1, 10);
+INSERT INTO `sys_role_menu` VALUES (46, 1, 11);
+INSERT INTO `sys_role_menu` VALUES (47, 1, 12);
+INSERT INTO `sys_role_menu` VALUES (48, 1, 13);
+INSERT INTO `sys_role_menu` VALUES (49, 1, 4);
+INSERT INTO `sys_role_menu` VALUES (50, 1, 17);
+INSERT INTO `sys_role_menu` VALUES (51, 1, 18);
+INSERT INTO `sys_role_menu` VALUES (52, 1, 19);
+INSERT INTO `sys_role_menu` VALUES (53, 1, 67);
+INSERT INTO `sys_role_menu` VALUES (54, 1, 71);
+INSERT INTO `sys_role_menu` VALUES (55, 1, 5);
+INSERT INTO `sys_role_menu` VALUES (56, 1, 47);
+INSERT INTO `sys_role_menu` VALUES (57, 1, 70);
+INSERT INTO `sys_role_menu` VALUES (58, 1, 60);
+INSERT INTO `sys_role_menu` VALUES (59, 1, 61);
+INSERT INTO `sys_role_menu` VALUES (60, 1, 62);
+INSERT INTO `sys_role_menu` VALUES (61, 1, 63);
+INSERT INTO `sys_role_menu` VALUES (62, 1, 64);
+INSERT INTO `sys_role_menu` VALUES (63, 1, 68);
+INSERT INTO `sys_role_menu` VALUES (64, 1, 65);
+INSERT INTO `sys_role_menu` VALUES (65, 1, 66);
+INSERT INTO `sys_role_menu` VALUES (66, 1, 69);
+INSERT INTO `sys_role_menu` VALUES (67, 1, 23);
+INSERT INTO `sys_role_menu` VALUES (68, 1, 24);
+INSERT INTO `sys_role_menu` VALUES (69, 1, 25);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -1100,7 +1488,6 @@ CREATE TABLE `sys_user`  (
   `state` int(5) NOT NULL COMMENT '用户状态',
   `login_time` datetime NULL DEFAULT NULL COMMENT '最后一次登录时间',
   `login_warn` int(11) NULL DEFAULT 1 COMMENT '登录邮件提醒',
-  `department_id` bigint(20) NULL DEFAULT NULL COMMENT '部门编号',
   `open_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信openID',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
@@ -1111,11 +1498,47 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'tylt6688', '$2a$10$WPyXip2DQEdsckzwtfVvROP962uEhqeIhb7WIRqY0LaNk8yW4vGrO', '天宇龙腾', 'http://qiniuyun.tylt.xyz/2dd364ee125c4a3885c6eb28cf5ce741.jpg', 'tylt6688@gmail.com', '17666666666', '山东济南', 0, '2022-08-29 13:14:33', 1, 1, NULL, '2022-02-28 22:42:39', '2022-04-03 11:49:47');
-INSERT INTO `sys_user` VALUES (2, 'breeze101', '$2a$10$QOrz.68OkCyt4kpKVlIh1ehkT1SRa1vS5KY/t8M5WV40pWau68U5m', '李四', '', 'admin@admin.om', '15766174399', '山东潍坊', 0, '2022-05-07 16:45:53', 1, 1, NULL, '2022-03-12 01:06:10', '2022-05-07 16:45:35');
-INSERT INTO `sys_user` VALUES (3, 'breeze102', '$2a$10$J2SodmknbR2FW6yNsSixwuS3EYucFhtY4XkjmExKPlGBRM7qai0dG', '赵四', 'http://qiniuyun.tylt.xyz/ce6b53ba93794ee1868fe2ce5f2152d8.jpg', 'user@user.com', '11012011912', '山东东营', 0, '2022-06-04 15:48:48', 1, 1, NULL, '2022-03-12 01:06:13', '2022-03-29 10:32:23');
-INSERT INTO `sys_user` VALUES (4, 'breeze103', '$2a$10$0OX73ra8f.tWdd5bObU3venfIpRKTxo8SE6nbapTuj.mpmdfanU7W', '刘能', 'http://qiniuyun.tylt.xyz/0f0f564bae7b4a7cab62da135209df72.jpg', 'teacher@teacher.com', '15666666666', '山东威海', 0, '2022-08-17 13:15:06', 1, 1, NULL, '2022-03-19 20:17:18', '2022-03-29 16:02:25');
-INSERT INTO `sys_user` VALUES (5, 'breeze104', '$2a$10$a8FSO2gyzSd145dUDHZTOuOHf2xhHv7ur/8i5slslrS/pnvLtBKEy', '张三', 'http://qiniuyun.tylt.xyz/605a0a61fd344cdab47e2cee5a4161aa.jpg', '2584896007@qq.com', '13799999999', '山东济宁', 0, '2022-06-24 10:03:23', 1, 1, NULL, '2022-04-19 13:37:58', '2022-06-12 15:05:01');
+INSERT INTO `sys_user` VALUES (1, 'tylt6688', '$2a$10$WPyXip2DQEdsckzwtfVvROP962uEhqeIhb7WIRqY0LaNk8yW4vGrO', '天宇龙腾', 'http://qiniuyun.tylt.xyz/2dd364ee125c4a3885c6eb28cf5ce741.jpg', 'tylt6688@gmail.com', '17666666666', '山东济南', 0, '2022-09-24 08:40:10', 1, NULL, '2022-02-28 22:42:39', '2022-04-03 11:49:47');
+INSERT INTO `sys_user` VALUES (2, 'breeze101', '$2a$10$QOrz.68OkCyt4kpKVlIh1ehkT1SRa1vS5KY/t8M5WV40pWau68U5m', '李四', '', 'admin@admin.om', '15766174399', '山东潍坊', 0, '2022-05-07 16:45:53', 1, NULL, '2022-03-12 01:06:10', '2022-05-07 16:45:35');
+INSERT INTO `sys_user` VALUES (3, 'breeze102', '$2a$10$J2SodmknbR2FW6yNsSixwuS3EYucFhtY4XkjmExKPlGBRM7qai0dG', '赵四', 'http://qiniuyun.tylt.xyz/ce6b53ba93794ee1868fe2ce5f2152d8.jpg', 'user@user.com', '11012011912', '山东东营', 0, '2022-06-04 15:48:48', 1, NULL, '2022-03-12 01:06:13', '2022-03-29 10:32:23');
+INSERT INTO `sys_user` VALUES (4, 'breeze103', '$2a$10$0OX73ra8f.tWdd5bObU3venfIpRKTxo8SE6nbapTuj.mpmdfanU7W', '刘能', 'http://qiniuyun.tylt.xyz/0f0f564bae7b4a7cab62da135209df72.jpg', 'teacher@teacher.com', '15666666666', '山东威海', 0, '2022-08-17 13:15:06', 1, NULL, '2022-03-19 20:17:18', '2022-03-29 16:02:25');
+INSERT INTO `sys_user` VALUES (5, 'breeze104', '$2a$10$a8FSO2gyzSd145dUDHZTOuOHf2xhHv7ur/8i5slslrS/pnvLtBKEy', '张三', 'http://qiniuyun.tylt.xyz/605a0a61fd344cdab47e2cee5a4161aa.jpg', '2584896007@qq.com', '13799999999', '山东济宁', 0, '2022-06-24 10:03:23', 1, NULL, '2022-04-19 13:37:58', '2022-06-12 15:05:01');
+
+-- ----------------------------
+-- Table structure for sys_user_group
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_group`;
+CREATE TABLE `sys_user_group`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户岗位ID',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
+  `group_id` bigint(20) NULL DEFAULT NULL COMMENT '岗位ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_user_group
+-- ----------------------------
+INSERT INTO `sys_user_group` VALUES (1, 1, 1);
+
+-- ----------------------------
+-- Table structure for sys_user_job
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_job`;
+CREATE TABLE `sys_user_job`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户岗位ID',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
+  `job_id` bigint(20) NULL DEFAULT NULL COMMENT '岗位ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_user_job
+-- ----------------------------
+INSERT INTO `sys_user_job` VALUES (1, 1, 1);
+INSERT INTO `sys_user_job` VALUES (2, 2, 1);
+INSERT INTO `sys_user_job` VALUES (3, 3, 1);
+INSERT INTO `sys_user_job` VALUES (4, 4, 1);
+INSERT INTO `sys_user_job` VALUES (5, 5, 1);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -1126,7 +1549,7 @@ CREATE TABLE `sys_user_role`  (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -1135,6 +1558,7 @@ INSERT INTO `sys_user_role` VALUES (1, 2, 1);
 INSERT INTO `sys_user_role` VALUES (2, 4, 4);
 INSERT INTO `sys_user_role` VALUES (3, 1, 1);
 INSERT INTO `sys_user_role` VALUES (4, 3, 5);
+INSERT INTO `sys_user_role` VALUES (5, 1, 2);
 
 -- ----------------------------
 -- Table structure for tb_ossfile

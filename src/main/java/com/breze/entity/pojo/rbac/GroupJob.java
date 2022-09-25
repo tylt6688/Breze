@@ -16,7 +16,7 @@ import java.io.Serializable;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/9/10 10:19
- * @Description:
+ * @Description 部门岗位关联表
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data

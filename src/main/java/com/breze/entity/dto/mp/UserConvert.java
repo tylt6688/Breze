@@ -12,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/9/16 14:50
- * @Description:
+ * @Description 用户转换器
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Mapper(componentModel = "spring")

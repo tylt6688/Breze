@@ -37,6 +37,7 @@ public class ExitSuccessHandler implements LogoutSuccessHandler {
         }
 
         response.setContentType(CharsetConstant.JSON_TYPE);
+
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
         ServletOutputStream outputStream = response.getOutputStream();

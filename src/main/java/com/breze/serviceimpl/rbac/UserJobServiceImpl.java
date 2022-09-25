@@ -30,7 +30,7 @@ public class UserJobServiceImpl extends ServiceImpl<UserJobMapper, UserJob> impl
 
     @Override
     public List<Job> findJobsByUserId(Long id) {
-        QueryWrapper<UserJob> qw = new QueryWrapper<UserJob>();
+        QueryWrapper<UserJob> qw = new QueryWrapper<>();
         qw.eq("user_id", id);
         List<UserJob> ujs = userJobMapper.selectList(qw);
         List<Job> jobs = new ArrayList<>();
@@ -43,7 +43,7 @@ public class UserJobServiceImpl extends ServiceImpl<UserJobMapper, UserJob> impl
 
     @Override
     public Long findUserCountByJobId(Long id) {
-        QueryWrapper<UserJob> qw = new QueryWrapper<UserJob>();
+        QueryWrapper<UserJob> qw = new QueryWrapper<>();
         qw.eq("job_id", id);
         return userJobMapper.selectCount(qw);
     }

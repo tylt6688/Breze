@@ -91,9 +91,6 @@ public class RoleController extends BaseController {
 
     @Log("新增角色")
     @ApiOperation(value = "新增角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "角色ID", required = false, dataType = "Long", dataTypeClass = Long.class)
-    })
     @Transactional
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
@@ -106,9 +103,6 @@ public class RoleController extends BaseController {
 
     @Log("更新角色")
     @ApiOperation(value = "修改角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "Long", dataTypeClass = Long.class)
-    })
     @Transactional
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")

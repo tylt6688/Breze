@@ -56,7 +56,7 @@ public class UserController extends BaseController {
     @ApiOperation(value = "获取当前用户信息")
     @GetMapping("/get_userinfo")
     public Result getUserInfo(Principal principal) {
-        // 此处为安全页面展示，前端需要什么后端就返回什么
+        // 此处为安全数据页面展示，前端需要什么后端就返回什么
         User user = userService.getByUserName(principal.getName());
         user.setRoles(roleService.listRolesByUserId(user.getId()));
         Result result = new Result();
@@ -71,18 +71,15 @@ public class UserController extends BaseController {
         result.addData("loginTime", user.getLoginTime());
         result.addData("createTime", user.getCreateTime());
         result.addData("loginWarn", user.getLoginWarn());
-        // 2022/9/23 15:29 FIXME: 添加 部门信息 UP BY LUCIFER-LGX
-        Group group = groupService.getOne(new QueryWrapper<Group>().eq("id", user.getGroupId()));
-        result.addData("group", group.getName());
-        // 2022/9/23 16:36 FIXME: 添加 岗位信息 UP BY LUCIFER-LGX
-        UserJob uj = userJobService.getOne(new QueryWrapper<UserJob>().eq("userId", user.getId()));
-        Job job = jobService.getById(uj.getJobId());
+
+        UserJob userJob = userJobService.getOne(new QueryWrapper<UserJob>().eq("user_id", user.getId()));
+        Job job = jobService.getById(userJob.getJobId());
         result.addData("job", job.getName());
+//        result.addData("group", );
 
         return Result.createSuccessMessage(result);
 
     }
-
 
     @Log("根据ID获取用户信息")
     @ApiOperation("根据ID获取用户信息")
@@ -168,18 +165,6 @@ public class UserController extends BaseController {
     }
 
 
-    @Log("更新登录")
-    @ApiOperation("更新登录提醒")
-    @ApiImplicitParams({@ApiImplicitParam(name = "loginwarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
-    @Transactional
-    @PostMapping("/update_login_warn")
-    public Result updateLoginWarn(@RequestParam Integer loginwarn, @RequestParam Long id) {
-        boolean flag = userService.updateLoginWarnById(loginwarn, id);
-        return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailMessage(ErrorEnum.FindException);
-    }
-
-
-
     @Log("分配用户角色")
     @ApiOperation("分配用户角色")
     @ApiImplicitParam(name = "userId", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
@@ -221,7 +206,6 @@ public class UserController extends BaseController {
                 userRoles.add(userRole);
             });
             userRoleService.remove(new QueryWrapper<UserRole>().eq("user_id", uid));
-
         });
         userRoleService.saveBatch(userRoles);
         // 删除缓存
@@ -290,6 +274,16 @@ public class UserController extends BaseController {
     public Result updateUserInfo(@Validated @RequestBody User user) {
         boolean flag = userService.updateById(user);
         return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
+    }
+
+    @Log("登录提醒")
+    @ApiOperation("更新登录提醒")
+    @ApiImplicitParams({@ApiImplicitParam(name = "loginwarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
+    @Transactional
+    @PostMapping("/update_login_warn")
+    public Result updateLoginWarn(@RequestParam Integer loginwarn, @RequestParam Long id) {
+        boolean flag = userService.updateLoginWarnById(loginwarn, id);
+        return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @Log("导入Excel表")

@@ -37,14 +37,12 @@ public class LoginLog implements Serializable {
 
     private Integer state;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
     @TableField(exist = false)
     private String userName;
 
     @TableField(exist = false)
     private String trueName;
 
-
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 }

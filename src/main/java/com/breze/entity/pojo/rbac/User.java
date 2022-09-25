@@ -105,10 +105,6 @@ public class User implements Serializable {
     private String openId;
 
     @ExcelIgnore
-    @ApiModelProperty(value = "部门ID", name = "groupId", example = "1", notes = "部门ID")
-    private Long groupId;
-
-    @ExcelIgnore
     @TableField(exist = false)
     private List<Role> roles = new ArrayList<>();
 

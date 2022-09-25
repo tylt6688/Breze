@@ -17,10 +17,9 @@ import java.util.List;
 public interface GroupService extends IService<Group> {
 
     List<Group> tree();
-    public List<Tree<String>> findAll();
-
-    public Group findById(Long id);
-    public int insert(Group group);
-    public int update(Group group);
-    public int delete(Long id);
+    List<Tree<String>> findAll();
+    Group findById(Long id);
+    int insert(Group group);
+    int update(Group group);
+    int delete(Long id);
 }
