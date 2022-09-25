@@ -1,6 +1,7 @@
 package com.breze.config;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
@@ -62,8 +63,7 @@ public class JwtConfig implements Serializable {
                     .getBody();
 
         } catch (Exception e) {
-            log.warn(e.getMessage());
-            claims = null;
+            throw new JwtException("token令牌异常");
         }
         return claims;
     }

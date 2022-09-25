@@ -1,21 +1,20 @@
 package com.breze.serviceimpl.rbac;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
-import com.breze.service.rbac.UserService;
-import com.breze.utils.RedisUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.MenuService;
 import com.breze.service.rbac.RoleService;
+import com.breze.service.rbac.UserService;
+import com.breze.utils.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -29,7 +28,6 @@ import java.util.stream.Collectors;
  * @author tylt6688
  * @since 2022-03-01
  */
-@DS("master")
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
@@ -58,7 +56,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setAvatar(SystemConstant.DEFAULT_AVATAR);
         user.setPassword(new BCryptPasswordEncoder().encode(SystemConstant.DEFAULT_PASSWORD));
         return save(user);
-
     }
 
     @Override

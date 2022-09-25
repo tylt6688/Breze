@@ -19,8 +19,8 @@ import java.util.List;
  * @author tylt6688
  * @since 2022-04-15
  */
-@Service
 @DS("portal")
+@Service
 public class BannerServiceImp extends ServiceImpl<BannerMapper, Banner> implements BannerService {
 
     @Autowired

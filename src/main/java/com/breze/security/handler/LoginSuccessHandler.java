@@ -2,6 +2,7 @@ package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
+import com.breze.common.consts.SystemConstant;
 import com.breze.config.JwtConfig;
 import com.breze.utils.IPUtil;
 import com.maxmind.geoip2.DatabaseReader;
@@ -50,12 +51,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         DatabaseReader reader = null;
         try {
             reader = new DatabaseReader.Builder(database).build();
-            log.warn(IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
+            log.info(IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
         } catch (Exception e) {
-            log.warn("未知IP或处于测试环境");
+            log.info(SystemConstant.UNKNOW_IP);
         }
 
-        Result result = Result.createSuccessMessage("登录认证成功");
+        Result result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

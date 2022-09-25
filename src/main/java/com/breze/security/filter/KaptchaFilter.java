@@ -38,11 +38,11 @@ public class KaptchaFilter extends OncePerRequestFilter {
 
         if ("/login".equals(url) && "POST".equals(httpServletRequest.getMethod())) {
             try {
-                // 校验验证码
+                // 先校验验证码
                 validate(httpServletRequest);
-            } catch (KaptchaException e) {
+            } catch (KaptchaException exception) {
                 // 交给认证失败处理器
-                loginFailureHandler.onAuthenticationFailure(httpServletRequest, httpServletResponse, e);
+                loginFailureHandler.onAuthenticationFailure(httpServletRequest, httpServletResponse, exception);
             }
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
@@ -57,7 +57,7 @@ public class KaptchaFilter extends OncePerRequestFilter {
 
         //先判断用户的code与key是否为空
         if (StringUtils.isBlank(code) || StringUtils.isBlank(key)) {
-            throw new KaptchaException("验证码错误");
+            throw new KaptchaException("非法验证码");
         }
 
         //从Redis中获取进行比较
