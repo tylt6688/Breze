@@ -94,18 +94,17 @@ public class BaseController {
     @Autowired
     protected GroupJobService groupJobService;
     @Autowired
-    protected UserJobService userJobService;
+    protected UserGroupJobService userGroupJobService;
 
     // RBAC权限服务注入 End
 
     /**********************************************************************************************************************************/
 
-    // 业务型服务注入 Start
+    // Portal服务注入 Start
     @Autowired
     protected BannerService bannerService;
 
-
-    // 业务型服务注入 End
+    // Portal服务注入 End
 
     /**********************************************************************************************************************************/
 
@@ -121,6 +120,7 @@ public class BaseController {
         int current = ServletRequestUtils.getIntParameter(request, "current", GlobalConstant.CURRENT);
         // 每页显示的条数，设定每页10条数据
         int size = ServletRequestUtils.getIntParameter(request, "size", GlobalConstant.SIZE);
+
         return new Page<>(current, size);
     }
 }

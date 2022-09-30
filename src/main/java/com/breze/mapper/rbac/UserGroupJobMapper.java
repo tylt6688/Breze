@@ -2,7 +2,7 @@ package com.breze.mapper.rbac;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.rbac.UserJob;
+import com.breze.entity.pojo.rbac.UserGroupJob;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,6 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Mapper
-public interface UserJobMapper extends BaseMapper<UserJob> {
+public interface UserGroupJobMapper extends BaseMapper<UserGroupJob> {
 
 }

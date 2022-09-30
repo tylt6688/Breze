@@ -233,6 +233,15 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
+        <!-- mapStruct 根据接口生成实现类 -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
 
         <!--验证数据是否为空-->
         <dependency>

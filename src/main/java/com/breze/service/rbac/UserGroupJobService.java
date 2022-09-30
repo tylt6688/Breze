@@ -2,7 +2,7 @@ package com.breze.service.rbac;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.rbac.Job;
-import com.breze.entity.pojo.rbac.UserJob;
+import com.breze.entity.pojo.rbac.UserGroupJob;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import java.util.List;
  * @Description
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-public interface UserJobService extends IService<UserJob> {
+public interface UserGroupJobService extends IService<UserGroupJob> {
 
     List<Job> findJobsByUserId(Long id);
 
     Long findUserCountByJobId(Long id);
 
-    int insert(UserJob userJob);
+    int insert(UserGroupJob userGroupJob);
 
-    int update(UserJob userJob);
+    int update(UserGroupJob userGroupJob);
 
     int deleteById(Long id);
 }

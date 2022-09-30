@@ -1,10 +1,11 @@
 package com.breze.controller.monitor;
 
+import com.breze.common.result.Result;
+import com.breze.controller.core.BaseController;
 import com.breze.utils.ServerUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.breze.common.result.Result;
 
 
 /**
@@ -17,7 +18,7 @@ import com.breze.common.result.Result;
  */
 @RestController
 @RequestMapping("/monitor/server")
-public class ServerController {
+public class ServerController extends BaseController {
 
     @GetMapping("/cpuinfo")
     public Result getCpuInfo() {

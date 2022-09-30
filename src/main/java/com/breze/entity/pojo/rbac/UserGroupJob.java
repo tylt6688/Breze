@@ -23,11 +23,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("sys_user_group")
-@ApiModel(value = "用户部门对象", description = "用户部门关联表")
-public class UserGroup implements Serializable {
+@TableName("sys_user_group_job")
+@ApiModel(value = "用户岗位对象", description = "用户岗位关联表")
+public class UserGroupJob implements Serializable {
 
-    private static final long serialVersionUID = -1168318167776170025L;
+    private static final long serialVersionUID = 11683181677760025L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -35,4 +35,6 @@ public class UserGroup implements Serializable {
     private Long userId;
 
     private Long groupId;
+
+    private Long jobId;
 }

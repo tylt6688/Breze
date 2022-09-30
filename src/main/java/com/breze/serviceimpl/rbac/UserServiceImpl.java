@@ -64,7 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
 
-    //TODO 获取角色权限具体实现代码
+    // 获取角色权限具体实现代码
     @Override
     public String getUserAuthorityInfo(Long userId) {
         String authority = "";
@@ -99,7 +99,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     /*
      * @Author tylt
-     * @Description //TODO 登录邮件提醒
+     * @Description 登录邮件提醒
      * @Date 2022/3/6 15:55
      * @Method updateLoginWarnById
      * @Param [loginwarn, id]
@@ -112,7 +112,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     /*
      * @Author tylt
-     * @Description //TODO 用户变动时清除权限缓存
+     * @Description 用户变动时清除权限缓存
      * @Date 2022/3/6 17:47
      * @Method clearUserAuthorityInfo
      * @Param [username]
@@ -125,7 +125,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     /*
      * @Author tylt
-     * @Description //TODO 角色变动时清除权限缓存
+     * @Description 角色变动时清除权限缓存
      * @Date 2022/3/6 17:47
      * @Method clearUserAuthorityInfoByRoleId
      * @Param [roleId]
@@ -143,7 +143,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     /*
      * @Author tylt
-     * @Description //TODO 菜单变动时清除权限缓存
+     * @Description 菜单变动时清除权限缓存
      * @Date 2022/3/6 17:49
      * @Method clearUserAuthorityInfoByMenuId
      * @Param [menuId]

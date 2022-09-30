@@ -1,6 +1,7 @@
 package com.breze.controller.rbac;
 
 
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
@@ -17,11 +18,14 @@ import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.dto.UpdatePasswordDTO;
 import com.breze.entity.dto.UserDTO;
-import com.breze.entity.dto.mp.UserConvert;
+import com.breze.entity.mapstruct.UserConvert;
 import com.breze.entity.pojo.rbac.*;
 import com.breze.utils.MultipartFileToFileUtil;
 import com.qiniu.common.QiniuException;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,7 +64,6 @@ public class UserController extends BaseController {
         User user = userService.getByUserName(principal.getName());
         user.setRoles(roleService.listRolesByUserId(user.getId()));
         Result result = new Result();
-        result.addData("id", user.getId());
         result.addData("username", user.getUsername());
         result.addData("roles", user.getRoles());
         result.addData("avatar", user.getAvatar());
@@ -71,11 +74,18 @@ public class UserController extends BaseController {
         result.addData("loginTime", user.getLoginTime());
         result.addData("createTime", user.getCreateTime());
         result.addData("loginWarn", user.getLoginWarn());
-
-        UserJob userJob = userJobService.getOne(new QueryWrapper<UserJob>().eq("user_id", user.getId()));
-        Job job = jobService.getById(userJob.getJobId());
-        result.addData("job", job.getName());
-//        result.addData("group", );
+        // FIXME: 2022/9/30 临时在Controller展示，后续需要针对Service进行优化
+        List<UserGroupJob> userGroupJobList = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
+        List<Map> list = new ArrayList<>();
+        for (UserGroupJob userGroupJob : userGroupJobList) {
+            String groupname = groupService.getById(userGroupJob.getJobId()).getName();
+            String jobname = jobService.getById(userGroupJob.getJobId()).getName();
+            list.add(MapUtil.builder()
+                    .put("groupName", groupname)
+                    .put("jobName", jobname)
+                    .build());
+        }
+        result.addData("groupJob", list);
 
         return Result.createSuccessMessage(result);
 
@@ -93,7 +103,7 @@ public class UserController extends BaseController {
         user.setRoles(roles);
         // 2022/9/23 15:30 FIXME: 根据ID获取用户信息 UP BY LUCIFER-LGX
         UserDTO userDTO = UserConvert.INSTANCE.from(user);
-        UserJob uj = userJobService.getOne(new QueryWrapper<UserJob>().eq("user_id", user.getId()));
+        UserGroupJob uj = userGroupJobService.getOne(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
         userDTO.setJobId(uj.getJobId());
         return Result.createSuccessMessage(userDTO);
     }
@@ -122,8 +132,8 @@ public class UserController extends BaseController {
         boolean flag = userService.insertUser(user);
 
         // 2022/9/23 15:30 FIXME: 添加 用户岗位 UP BY LUCIFER-LGX
-        UserJob uj = UserConvert.INSTANCE.UJfrom(userDTO);
-        userJobService.insert(uj);
+        UserGroupJob uj = UserConvert.INSTANCE.UJfrom(userDTO);
+        userGroupJobService.insert(uj);
 
         // 2022/9/23 15:31 FIXME: 添加 部门岗位 UP BY LUCIFER-LGX
         GroupJob gj = UserConvert.INSTANCE.GJfrom(userDTO);
@@ -155,9 +165,9 @@ public class UserController extends BaseController {
         User user = UserConvert.INSTANCE.from(userDTO);
 
         // 2022/9/23 16:46 FIXME: 修改 用户岗位信息 UP BY LUCIFER-LGX
-        UserJob uj = userJobService.getOne(new QueryWrapper<UserJob>().eq("user_id", userDTO.getId()));
+        UserGroupJob uj = userGroupJobService.getOne(new QueryWrapper<UserGroupJob>().eq("user_id", userDTO.getId()));
         uj.setJobId(userDTO.getJobId());
-        userJobService.updateById(uj);
+        userGroupJobService.updateById(uj);
 
         // 2022/9/23 15:27 FIXME: 修改用户 UP BY LUCIFER-LGX
         boolean flag = userService.updateById(user);

@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.Log;
-import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
@@ -95,8 +94,6 @@ public class RoleController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
     public Result insert(@Validated @RequestBody Role role) {
-
-        role.setState(GlobalConstant.STATUS_ON);
         boolean flag = roleService.save(role);
         return flag ? Result.createSuccessMessage(role) : Result.createFailMessage(ErrorEnum.FindException);
     }

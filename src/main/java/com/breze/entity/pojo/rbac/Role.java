@@ -32,8 +32,8 @@ import java.util.List;
 @ApiModel(value = "Role角色对象", description = "sys_role角色表")
 public class Role implements Serializable {
 
-
     private static final long serialVersionUID = 1902943373792332975L;
+
     @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "角色ID", name = "id", example = "1", notes = "角色ID")
     private Long id;

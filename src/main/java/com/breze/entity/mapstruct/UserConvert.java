@@ -1,9 +1,9 @@
-package com.breze.entity.dto.mp;
+package com.breze.entity.mapstruct;
 
 import com.breze.entity.dto.UserDTO;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.pojo.rbac.UserJob;
+import com.breze.entity.pojo.rbac.UserGroupJob;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -31,7 +31,7 @@ public interface UserConvert {
             @Mapping(source = "id", target = "userId"),
             @Mapping(source = "jobId", target = "jobId")
     })
-    UserJob UJfrom(UserDTO userDTO);
+    UserGroupJob UJfrom(UserDTO userDTO);
 
     @Mappings({
             @Mapping(target = "id", ignore = true),

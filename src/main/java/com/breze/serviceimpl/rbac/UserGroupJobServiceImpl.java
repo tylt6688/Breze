@@ -3,10 +3,10 @@ package com.breze.serviceimpl.rbac;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.entity.pojo.rbac.Job;
-import com.breze.entity.pojo.rbac.UserJob;
+import com.breze.entity.pojo.rbac.UserGroupJob;
 import com.breze.mapper.rbac.JobMapper;
-import com.breze.mapper.rbac.UserJobMapper;
-import com.breze.service.rbac.UserJobService;
+import com.breze.mapper.rbac.UserGroupJobMapper;
+import com.breze.service.rbac.UserGroupJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,21 +20,21 @@ import java.util.List;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Service
-public class UserJobServiceImpl extends ServiceImpl<UserJobMapper, UserJob> implements UserJobService {
+public class UserGroupJobServiceImpl extends ServiceImpl<UserGroupJobMapper, UserGroupJob> implements UserGroupJobService {
 
     @Autowired
     private JobMapper jobMapper;
 
     @Autowired
-    private UserJobMapper userJobMapper;
+    private UserGroupJobMapper userGroupJobMapper;
 
     @Override
     public List<Job> findJobsByUserId(Long id) {
-        QueryWrapper<UserJob> qw = new QueryWrapper<>();
+        QueryWrapper<UserGroupJob> qw = new QueryWrapper<>();
         qw.eq("user_id", id);
-        List<UserJob> ujs = userJobMapper.selectList(qw);
+        List<UserGroupJob> ujs = userGroupJobMapper.selectList(qw);
         List<Job> jobs = new ArrayList<>();
-        for (UserJob uj : ujs) {
+        for (UserGroupJob uj : ujs) {
             Job j = jobMapper.selectById(uj.getJobId());
             jobs.add(j);
         }
@@ -43,23 +43,23 @@ public class UserJobServiceImpl extends ServiceImpl<UserJobMapper, UserJob> impl
 
     @Override
     public Long findUserCountByJobId(Long id) {
-        QueryWrapper<UserJob> qw = new QueryWrapper<>();
+        QueryWrapper<UserGroupJob> qw = new QueryWrapper<>();
         qw.eq("job_id", id);
-        return userJobMapper.selectCount(qw);
+        return userGroupJobMapper.selectCount(qw);
     }
 
     @Override
-    public int insert(UserJob userJob) {
-        return userJobMapper.insert(userJob);
+    public int insert(UserGroupJob userGroupJob) {
+        return userGroupJobMapper.insert(userGroupJob);
     }
 
     @Override
-    public int update(UserJob userJob) {
-        return userJobMapper.updateById(userJob);
+    public int update(UserGroupJob userGroupJob) {
+        return userGroupJobMapper.updateById(userGroupJob);
     }
 
     @Override
     public int deleteById(Long id) {
-        return userJobMapper.deleteById(id);
+        return userGroupJobMapper.deleteById(id);
     }
 }
