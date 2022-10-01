@@ -2,6 +2,7 @@ package com.breze.controller.rbac;
 
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
@@ -78,7 +79,9 @@ public class UserController extends BaseController {
         List<UserGroupJob> userGroupJobList = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
         List<Map> list = new ArrayList<>();
         for (UserGroupJob userGroupJob : userGroupJobList) {
+        // FIXME: 2022/9/30 此处应采用递归进行父级查询，直至查询到顶级[抄送人：tylt6688 待办人：LUCIFER-LGX 2022-09-30]
             String groupname = groupService.getById(userGroupJob.getJobId()).getName();
+
             String jobname = jobService.getById(userGroupJob.getJobId()).getName();
             list.add(MapUtil.builder()
                     .put("groupName", groupname)
@@ -117,9 +120,7 @@ public class UserController extends BaseController {
         // 2022/9/23 15:24 TODO: Should Be ReWrite UP BY LUCIFER-LGX
         Page<User> pageData = userService.page(getPage(), new QueryWrapper<User>().like(StrUtil.isNotBlank(username), "username", username));
         // 回显角色信息
-        pageData.getRecords().forEach(u -> {
-            u.setRoles(roleService.listRolesByUserId(u.getId()));
-        });
+        pageData.getRecords().forEach(u -> u.setRoles(roleService.listRolesByUserId(u.getId())));
         return Result.createSuccessMessage(pageData);
     }
 
@@ -263,7 +264,7 @@ public class UserController extends BaseController {
     public Result updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getByUserName(username);
-        if (user.getAvatar() != null && StrUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
+        if (user.getAvatar() != null && CharSequenceUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
             qiNiuService.deleteFile(user.getAvatar());
         }
         String path = qiNiuService.uploadFile(avatar);

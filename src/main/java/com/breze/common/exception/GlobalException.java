@@ -22,7 +22,7 @@ import java.nio.file.AccessDeniedException;
  */
 @Log4j2
 @RestControllerAdvice
-public class GlobalException {
+public class GlobalException extends Throwable {
 
 
     @ResponseStatus(HttpStatus.FORBIDDEN)

@@ -16,10 +16,17 @@ import org.springframework.context.annotation.Configuration;
 public class BrezeConfig {
 
     private String name;
+
     private String title;
+
     private String description;
+
     private String version;
+
     private String copyrightYear;
+
     private String copyrightName;
+
     private Boolean swaggerEnabled;
+
 }

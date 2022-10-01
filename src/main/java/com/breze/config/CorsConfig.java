@@ -22,6 +22,7 @@ public class CorsConfig implements WebMvcConfigurer {
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
+        // 将请求头里保存的 jwt 暴露出来给前端获取
         corsConfiguration.addExposedHeader("Authorization");
         return corsConfiguration;
     }
@@ -41,10 +42,10 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns("*")
                 // 是否允许Cookie
                 .allowCredentials(true)
+                // 最大响应时间
+                .maxAge(3600)
                 // 设置允许的请求方式
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                // 跨域允许时间
-                .maxAge(3600);
+                .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 
 }

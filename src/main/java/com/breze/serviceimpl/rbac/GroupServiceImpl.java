@@ -15,7 +15,6 @@ import com.breze.service.rbac.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,17 +105,11 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
 
     @Override
     public int insert(Group group) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        group.setCreateTime(localDateTime);
-        // 2022/9/23 16:19 ERROR: Column 'update_time' cannot be null UP BY LUCIFER-LGX
-        group.setUpdateTime(localDateTime);
         return groupMapper.insert(group);
     }
 
     @Override
     public int update(Group group) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        group.setUpdateTime(localDateTime);
         return groupMapper.updateById(group);
     }
 

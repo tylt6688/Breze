@@ -1,6 +1,7 @@
 package com.breze.common.aspect;
 
 import com.breze.common.event.LogEvent;
+import com.breze.common.exception.GlobalException;
 import com.breze.entity.pojo.logdo.HandleLog;
 import com.breze.serviceimpl.SpringContextHolder;
 import com.breze.utils.LogUtil;
@@ -32,9 +33,9 @@ public class LogAspect {
 
         log.debug("[类名]:{},[方法]:{}", strClassName, strMethodName);
 
-        HandleLog handleLogVo = LogUtil.getLog();
+        HandleLog handleLog = LogUtil.getLog();
 
-        handleLogVo.setTitle(logs.value());
+        handleLog.setTitle(logs.value());
 
         // 发送异步日志事件
         Long startTime = System.currentTimeMillis();
@@ -43,14 +44,13 @@ public class LogAspect {
 
         try {
             obj = point.proceed();
-        } catch (Exception e) {
-            handleLogVo.setType("-1");
-            handleLogVo.setException(e.getMessage());
+        } catch (GlobalException e) {
+            handleLog.setException(e.getMessage());
             throw e;
         } finally {
             Long endTime = System.currentTimeMillis();
-            handleLogVo.setTime(String.valueOf(endTime - startTime));
-            SpringContextHolder.publishEvent(new LogEvent(handleLogVo));
+            handleLog.setTime(String.valueOf(endTime - startTime));
+            SpringContextHolder.publishEvent(new LogEvent(handleLog));
         }
 
         return obj;

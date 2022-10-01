@@ -1,5 +1,6 @@
 package com.breze.config;
 
+import com.breze.common.consts.SecurityConstant;
 import com.breze.security.filter.JwtAuthenticationFilter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,28 +62,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-    // 白名单数组
-    private static final String[] URL_WHITELIST = {
-            "/wxlogin",
-            "/login",
-            "/logout",
-            "/kaptcha",
-            "/favicon.ico",
-            "/swagger-ui/**",
-            "/webjars/**",
-            "/*/api-docs",
-            "/swagger-resources/**",
-            "/druid/**"
-    };
-    //  Breze-Portal-Get类型Api接口白名单数组
-    private static final String[] PORTAL_WHITELIST = {
-            // TODO 暂时放行全部，等待后期按 Get 接口白名单进行控制 [抄送人：tylt6688 待办人：ChenWX 2022-08-29]
-            "/breze/portal/**",
-            // 以下为放行举例，此行注释与上述 TODO 待阅读后下次提交删除
-            "/breze/portal/banner/info/**",
-            "/breze/portal/banner/select",
-    };
+    // 实现自定义登录逻辑
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // auth.inMemoryAuthentication().withUser("tylt").password("123456").roles("SUPER_ADMIN");
+        auth.userDetailsService(userDetailService);
+    }
 
 
     @Override
@@ -92,8 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 关闭csrf预防攻击认证
                 .csrf().disable()
-                // 放行Swagger前端展示
-
                 .headers().frameOptions().disable()
                 .and()
                 // 配置登录请求
@@ -106,17 +89,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessHandler(exitSuccessHandler)
 
-                .and()
                 // 前后端分离禁用Session，选择不生成session策略
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                .and()
                 // 配置拦截规则
+                .and()
                 .authorizeHttpRequests()
                 // 配置拦截白名单放行
-                .antMatchers(URL_WHITELIST).permitAll()
-                .antMatchers(PORTAL_WHITELIST).permitAll()
+                .antMatchers(SecurityConstant.URL_WHITELIST).permitAll()
+                .antMatchers(SecurityConstant.PORTAL_WHITELIST).permitAll()
                 // .antMatchers("/**").permitAll()
                 // .antMatchers("/**/**").hasRole("SUPER_ADMIN")
                 // 对其它请求进行拦截认证处理  Spring EL
@@ -139,9 +122,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // auth.inMemoryAuthentication().withUser("tylt").password("123456").roles("SUPER_ADMIN");
-        auth.userDetailsService(userDetailService);
-    }
 }
