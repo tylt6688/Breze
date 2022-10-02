@@ -50,32 +50,32 @@
 
 ```
 - com.breze
-	- common
-	- config
-	- controller
-	- entity
-	- mapper
-	- security
-	- service
-	- serviceImpl
-	- utils
-	- BreazeApplication.java
+    - common
+    - config
+    - controller
+    - entity
+    - mapper
+    - security
+    - service
+    - serviceImpl
+    - utils
+    - BreazeApplication.java
 ```
 ```
 - resources
-	- mapper
-	- static/img
-	- templates
-	- application-datasource.yml
-	- application-dev.yml
-	- application-log.yml
-	- application-mail.yml
-	- application-prod.yml
-	- application-rabbitmq.yml
-	- application-redis.yml
-	- application-test.yml
-	- application.yml
-	- banner.txt
+    - mapper
+    - static/img
+    - templates
+    - application-datasource.yml
+    - application-dev.yml
+    - application-log.yml
+    - application-mail.yml
+    - application-prod.yml
+    - application-rabbitmq.yml
+    - application-redis.yml
+    - application-test.yml
+    - application.yml
+    - banner.txt
 ```
 
 ## 项目选型
