@@ -1,5 +1,5 @@
 <p align="center">
-	<img alt="logo" src="https://github.com/tylt6688/Breze/blob/master/preview/breze-logo.png">
+	<img alt="logo" style="width: 40px;" src="https://github.com/tylt6688/Breze/blob/master/preview/breze-logo.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Breze v1.0.0</h1>
 <h4 align="center">基于SpringBoot开发的（多端）一体化权限管理平台</h4>
