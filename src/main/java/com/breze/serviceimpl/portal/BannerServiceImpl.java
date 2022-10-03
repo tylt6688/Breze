@@ -21,7 +21,7 @@ import java.util.List;
  */
 @DS("portal")
 @Service
-public class BannerServiceImp extends ServiceImpl<BannerMapper, Banner> implements BannerService {
+public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> implements BannerService {
 
     @Autowired
     private BannerMapper bannerMapper;
