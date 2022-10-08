@@ -1,7 +1,7 @@
 package com.breze.mapper.portal;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.portal.Maincontent;
+import com.breze.entity.pojo.portal.MainContent;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
 @Mapper
-public interface MaincontentMapper extends BaseMapper<Maincontent> {
+public interface MainContentMapper extends BaseMapper<MainContent> {
 
 }

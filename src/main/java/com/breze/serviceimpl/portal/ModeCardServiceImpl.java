@@ -1,15 +1,15 @@
 package com.breze.serviceimpl.portal;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.breze.entity.pojo.portal.Navbar;
-import com.breze.mapper.portal.NavbarMapper;
+import com.breze.entity.pojo.portal.ModeCard;
+import com.breze.mapper.portal.ModeCardMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.breze.service.portal.NavbarService;
+import com.breze.service.portal.ModeCardService;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 导航连接表 服务实现类
+ * 模块展示表 服务实现类
  * </p>
  *
  * @author leochan
@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
  */
 @DS("portal")
 @Service
-public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> implements NavbarService {
+public class ModeCardServiceImpl extends ServiceImpl<ModeCardMapper, ModeCard> implements ModeCardService {
 
 }

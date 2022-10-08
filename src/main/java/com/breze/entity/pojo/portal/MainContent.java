@@ -18,16 +18,16 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("tb_maincontent")
-@ApiModel(value = "Maincontent对象", description = "主体内容表")
-public class Maincontent implements Serializable {
+@TableName("main_content")
+@ApiModel(value = "MainContent对象", description = "主体内容表")
+public class MainContent implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

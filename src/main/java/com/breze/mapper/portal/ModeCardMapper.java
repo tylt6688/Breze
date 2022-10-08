@@ -1,7 +1,7 @@
 package com.breze.mapper.portal;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.portal.Modecard;
+import com.breze.entity.pojo.portal.ModeCard;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
 @Mapper
-public interface ModecardMapper extends BaseMapper<Modecard> {
+public interface ModeCardMapper extends BaseMapper<ModeCard> {
 
 }
