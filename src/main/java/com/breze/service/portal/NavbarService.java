@@ -9,7 +9,7 @@ import com.breze.entity.pojo.portal.Navbar;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
 public interface NavbarService extends IService<Navbar> {
 

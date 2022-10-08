@@ -1,8 +1,7 @@
 package com.breze.entity.pojo.portal;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
@@ -19,20 +18,21 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("tb_modecard")
-@ApiModel(value = "Modecard对象", description = "模块展示表")
-public class Modecard implements Serializable {
+@TableName("mode_card")
+@ApiModel(value = "ModeCard对象", description = "模块展示表")
+public class ModeCard implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("功能模块Id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty("模块名字")

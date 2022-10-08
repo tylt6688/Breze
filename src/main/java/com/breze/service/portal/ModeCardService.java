@@ -1,7 +1,7 @@
 package com.breze.service.portal;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.pojo.portal.Modecard;
+import com.breze.entity.pojo.portal.ModeCard;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.breze.entity.pojo.portal.Modecard;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
-public interface ModecardService extends IService<Modecard> {
+public interface ModeCardService extends IService<ModeCard> {
 
 }

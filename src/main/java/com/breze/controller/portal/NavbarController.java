@@ -1,5 +1,6 @@
 package com.breze.controller.portal;
 
+import com.breze.controller.core.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
 @RestController
-@RequestMapping("/navbar")
-public class NavbarController {
+@RequestMapping("/breze/portal/navbar")
+public class NavbarController extends BaseController {
 
 }

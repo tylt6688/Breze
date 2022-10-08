@@ -1,7 +1,7 @@
 package com.breze.service.portal;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.pojo.portal.Maincontent;
+import com.breze.entity.pojo.portal.MainContent;
 
 /**
  * <p>
@@ -9,8 +9,8 @@ import com.breze.entity.pojo.portal.Maincontent;
  * </p>
  *
  * @author leochan
- * @since 2022-10-02
+ * @since 2022-10-08
  */
-public interface MaincontentService extends IService<Maincontent> {
+public interface MainContentService extends IService<MainContent> {
 
 }

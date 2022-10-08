@@ -103,6 +103,12 @@ public class BaseController {
     // Portal服务注入 Start
     @Autowired
     protected BannerService bannerService;
+    @Autowired
+    protected NavbarService navbarService;
+    @Autowired
+    protected MainContentService mainContentService;
+    @Autowired
+    protected ModeCardService modeCardService;
 
     // Portal服务注入 End
 
