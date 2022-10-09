@@ -8,6 +8,7 @@ import com.breze.mapper.portal.BannerMapper;
 import com.breze.service.portal.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @since 2022-04-15
  */
 @DS("portal")
+@Transactional
 @Service
 public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> implements BannerService {
 

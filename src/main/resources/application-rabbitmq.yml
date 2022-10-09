@@ -1,8 +1,8 @@
 spring:
   rabbitmq:
     host: 127.0.0.1
-    username: admin
-    password: 123456
+    username: guest
+    password: guest
     port: 5672
     virtual-host: /
     publisher-returns: true
