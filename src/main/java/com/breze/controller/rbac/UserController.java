@@ -10,7 +10,7 @@ import com.alibaba.excel.util.MapUtils;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.breze.common.annotation.Log;
+import com.breze.common.annotation.BrezeLog;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
@@ -57,7 +57,7 @@ import java.util.Map;
 @RequestMapping("/sys/user")
 public class UserController extends BaseController {
 
-    @Log("获取当前用户信息")
+    @BrezeLog("获取当前用户信息")
     @ApiOperation(value = "获取当前用户信息")
     @GetMapping("/get_userinfo")
     public Result getUserInfo(Principal principal) {
@@ -94,7 +94,7 @@ public class UserController extends BaseController {
 
     }
 
-    @Log("根据ID获取用户信息")
+    @BrezeLog("根据ID获取用户信息")
     @ApiOperation("根据ID获取用户信息")
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
@@ -111,7 +111,7 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage(userDTO);
     }
 
-    @Log("根据用户名获取用户信息")
+    @BrezeLog("根据用户名获取用户信息")
     @ApiOperation("根据用户名获取用户信息")
     @ApiImplicitParam(name = "username", value = "用户名", required = false, dataType = "String", dataTypeClass = String.class)
     @GetMapping("/select")
@@ -124,13 +124,13 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage(pageData);
     }
 
-    @Log("新增用户")
+    @BrezeLog("新增用户")
     @ApiOperation("新增用户")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result insert(@Validated @RequestBody UserDTO userDTO) {
         User user = UserConvert.INSTANCE.from(userDTO);
-        boolean flag = userService.insertUser(user);
+        userService.insertUser(user);
 
         // 2022/9/23 15:30 FIXME: 添加 用户岗位 UP BY LUCIFER-LGX
         UserGroupJob uj = UserConvert.INSTANCE.UJfrom(userDTO);
@@ -140,10 +140,12 @@ public class UserController extends BaseController {
         GroupJob gj = UserConvert.INSTANCE.GJfrom(userDTO);
         groupJobService.insert(gj);
 
-        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
+        return Result.createSuccessMessage(user);
+
+//        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("删除用户")
+    @BrezeLog("删除用户")
     @ApiOperation("删除用户信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
     @Transactional(rollbackFor = Exception.class)
@@ -156,7 +158,7 @@ public class UserController extends BaseController {
         return flag ? Result.createSuccessMessage("删除成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("修改用户")
+    @BrezeLog("修改用户")
     @ApiOperation("修改用户")
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/update")
@@ -176,7 +178,7 @@ public class UserController extends BaseController {
     }
 
 
-    @Log("分配用户角色")
+    @BrezeLog("分配用户角色")
     @ApiOperation("分配用户角色")
     @ApiImplicitParam(name = "userId", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @Transactional
@@ -198,7 +200,7 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage("单个分配角色成功");
     }
 
-    @Log("批量分配用户角色")
+    @BrezeLog("批量分配用户角色")
     @ApiOperation("批量分配用户角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class),
@@ -228,7 +230,7 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage("多用户批量分配角色成功");
     }
 
-    @Log("重置用户密码")
+    @BrezeLog("重置用户密码")
     @ApiOperation("重置用户密码")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @PostMapping("/reseat_password")
@@ -240,7 +242,7 @@ public class UserController extends BaseController {
         return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("修改用户密码")
+    @BrezeLog("修改用户密码")
     @ApiOperation("修改用户密码")
     @Transactional
     @PostMapping("/update_password")
@@ -256,7 +258,7 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage("修改密码成功");
     }
 
-    @Log("修改用户头像")
+    @BrezeLog("修改用户头像")
     @ApiOperation("修改用户头像")
     @ApiImplicitParam(name = "avatar", value = "头像", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @Transactional
@@ -278,7 +280,7 @@ public class UserController extends BaseController {
         }
     }
 
-    @Log("更新用户信息")
+    @BrezeLog("更新用户信息")
     @ApiOperation("更新用户信息")
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/update_userinfo")
@@ -287,7 +289,7 @@ public class UserController extends BaseController {
         return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("登录提醒")
+    @BrezeLog("登录提醒")
     @ApiOperation("更新登录提醒")
     @ApiImplicitParams({@ApiImplicitParam(name = "loginwarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @Transactional
@@ -297,7 +299,7 @@ public class UserController extends BaseController {
         return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("导入Excel表")
+    @BrezeLog("导入Excel表")
     @ApiOperation("导入Excel表")
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @Transactional
@@ -316,7 +318,7 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage("数据导入成功");
     }
 
-    @Log("导出Excel表")
+    @BrezeLog("导出Excel表")
     @ApiOperation("导出Excel表")
     @GetMapping("/export_excel")
     public void downloadUserExcel(HttpServletResponse response) throws IOException {
@@ -335,7 +337,7 @@ public class UserController extends BaseController {
         }
     }
 
-    @Log("导出模板Excel表")
+    @BrezeLog("导出模板Excel表")
     @ApiOperation("导出模板Excel表")
     @GetMapping("/download_model_excel")
     public void downloadModelExcel(HttpServletResponse response) throws IOException {

@@ -5,22 +5,24 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
+        <version>2.7.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.breze</groupId>
     <artifactId>Breze</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Breze</name>
-    <description>清枫 Breze</description>
+    <description>清枫-Breze</description>
     <properties>
         <java.version>1.8</java.version>
+        <spring.boot.version>2.7.4</spring.boot.version>
+        <maven.compiler.version>3.10.1</maven.compiler.version>
         <jwt.version>0.9.1</jwt.version>
         <swagger.version>3.0.0</swagger.version>
         <redis.boot.version>2.6.2</redis.boot.version>
         <jedis.version>4.2.3</jedis.version>
-        <druid.boot.version>1.2.11</druid.boot.version>
-        <fastjson.version>2.0.12</fastjson.version>
+        <druid.version>1.2.13-SNSAPSHOT</druid.version>
+        <fastjson.version>2.0.14</fastjson.version>
         <easyexcel.version>3.0.5</easyexcel.version>
         <mybatis.plus.boot.version>3.5.2</mybatis.plus.boot.version>
         <freemarker.version>2.3.30</freemarker.version>
@@ -28,12 +30,11 @@
         <hutool.version>5.8.5</hutool.version>
         <pagehelper.boot.version>1.4.3</pagehelper.boot.version>
         <commons.lang.version>3.12.0</commons.lang.version>
-        <qiniuoss.version>[7.7.0, 7.7.99]</qiniuoss.version>
+        <qiniuoss.version>7.11.0</qiniuoss.version>
         <geoip2.version>2.12.0</geoip2.version>
         <log4j2.boot.version>2.7.1</log4j2.boot.version>
-        <oshi.version>6.2.1</oshi.version>
+        <oshi.version>6.2.2</oshi.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
-        <maven.compiler.version>3.10.1</maven.compiler.version>
         <lombok.version>1.18.24</lombok.version>
         <zxing.version>3.5.0</zxing.version>
         <velocity.version>1.7</velocity.version>
@@ -78,10 +79,14 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -128,7 +133,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.boot.version}</version>
+            <version>${druid.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
@@ -233,15 +238,6 @@
             <version>${mapstruct.version}</version>
         </dependency>
 
-        <!-- mapStruct 根据接口生成实现类 -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-
 
         <!--验证数据是否为空-->
         <dependency>
@@ -324,6 +320,7 @@
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </path>
+
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
@@ -332,6 +329,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

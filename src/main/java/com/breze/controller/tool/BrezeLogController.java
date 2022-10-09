@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "权限-日志管理")
 @RestController
 @RequestMapping("/tool/log")
-public class LogController extends BaseController {
+public class BrezeLogController extends BaseController {
 
     @RequestMapping("/list_login_log")
     public Result list() {

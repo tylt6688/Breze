@@ -1,9 +1,10 @@
 package com.breze.common.aspect;
 
-import com.breze.common.event.LogEvent;
+import com.breze.common.annotation.BrezeLog;
+import com.breze.common.event.BrezeLogEvent;
 import com.breze.common.exception.GlobalException;
 import com.breze.entity.pojo.logdo.HandleLog;
-import com.breze.serviceimpl.SpringContextHolder;
+import com.breze.utils.SpringContextHolder;
 import com.breze.utils.LogUtil;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -21,11 +22,11 @@ import org.springframework.stereotype.Component;
 @Log4j2
 @Aspect
 @Component
-public class LogAspect {
+public class BrezeLogAspect {
 
     @Around("@annotation(logs)")
     @SneakyThrows
-    public Object around(ProceedingJoinPoint point, com.breze.common.annotation.Log logs) {
+    public Object around(ProceedingJoinPoint point, BrezeLog logs) {
 
         String strClassName = point.getTarget().getClass().getName();
 
@@ -50,7 +51,7 @@ public class LogAspect {
         } finally {
             Long endTime = System.currentTimeMillis();
             handleLog.setTime(String.valueOf(endTime - startTime));
-            SpringContextHolder.publishEvent(new LogEvent(handleLog));
+            SpringContextHolder.publishEvent(new BrezeLogEvent(handleLog));
         }
 
         return obj;

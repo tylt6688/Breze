@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
+import com.breze.common.enums.ErrorEnum;
+import com.breze.common.result.Result;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.User;
@@ -32,10 +34,9 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
-    RoleService roleService;
-
-    @Autowired
     UserMapper userMapper;
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     MenuService menuService;
@@ -50,19 +51,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
-    public Boolean insertUser(User user) {
-        user.setState(GlobalConstant.STATUS_ON);
-        user.setAvatar(SystemConstant.DEFAULT_AVATAR);
-        user.setPassword(new BCryptPasswordEncoder().encode(SystemConstant.DEFAULT_PASSWORD));
-        return save(user);
-    }
-
-    @Override
     public User getByOpenId(String openid) {
         return getOne(new QueryWrapper<User>().eq("openid", openid));
     }
 
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result insertUser(User user) {
+        user.setState(GlobalConstant.STATUS_ON);
+        user.setAvatar(SystemConstant.DEFAULT_AVATAR);
+        user.setPassword(new BCryptPasswordEncoder().encode(SystemConstant.DEFAULT_PASSWORD));
+        int flag = userMapper.insert(user);
+        if (flag > 0) {
+            return Result.createSuccessMessage("添加用户成功");
+        }else {
+            return Result.createFailMessage(ErrorEnum.FindException,ErrorEnum.FindException.getErrorName());
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateUser(User user) {
+        return userMapper.updateById(user);
+    }
+
+    @Override
+    public int deleteUserById(Long id) {
+        return userMapper.deleteById(id);
+    }
 
     // 获取角色权限具体实现代码
     @Override

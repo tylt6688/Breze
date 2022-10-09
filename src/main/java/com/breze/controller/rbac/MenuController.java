@@ -3,7 +3,7 @@ package com.breze.controller.rbac;
 
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.breze.common.annotation.Log;
+import com.breze.common.annotation.BrezeLog;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
@@ -37,7 +37,7 @@ import java.util.Map;
 @RequestMapping("/sys/menu")
 public class MenuController extends BaseController {
 
-    @Log("获取侧边菜单导航")
+    @BrezeLog("获取侧边菜单导航")
     @ApiOperation(value = "获取侧边菜单导航")
     @ApiImplicitParam(name = "principal", value = "用户信息", required = true, dataType = "Principal", dataTypeClass = Principal.class)
     @GetMapping("/nav")
@@ -54,7 +54,7 @@ public class MenuController extends BaseController {
         return Result.createSuccessMessage(map);
     }
 
-    @Log("按ID查询菜单信息")
+    @BrezeLog("按ID查询菜单信息")
     @ApiOperation(value = "按ID查询菜单信息")
     @ApiImplicitParam(name = "ID", value = "菜单ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
@@ -64,7 +64,7 @@ public class MenuController extends BaseController {
         return Result.createSuccessMessage(menu);
     }
 
-    @Log("查询菜单管理中的所有菜单信息")
+    @BrezeLog("查询菜单管理中的所有菜单信息")
     @ApiOperation(value = "查询菜单管理中的所有菜单信息")
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:menu:select')")
@@ -74,7 +74,7 @@ public class MenuController extends BaseController {
     }
 
 
-    @Log("新增菜单")
+    @BrezeLog("新增菜单")
     @ApiOperation(value = "新增菜单")
     @Transactional
     @PostMapping("/insert")
@@ -84,7 +84,7 @@ public class MenuController extends BaseController {
         return flag ? Result.createSuccessMessage(menu) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("更新菜单")
+    @BrezeLog("更新菜单")
     @ApiOperation(value = "更新菜单")
     @Transactional
     @PostMapping("/update")
@@ -97,7 +97,7 @@ public class MenuController extends BaseController {
         return flag ? Result.createSuccessMessage(menu) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("删除菜单")
+    @BrezeLog("删除菜单")
     @ApiOperation(value = "删除菜单")
     @ApiImplicitParam(name = "id", value = "菜单ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @Transactional

@@ -60,10 +60,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         // 进行JWT解析
         Claims claim = jwtConfig.getClaimByToken(jwt);
 
-//        if (claim == null) {
-//            log.warn("*-*-*-"+claim);
-//            throw new JwtException("token令牌异常");
-//        }
         // 判断token是否过期
         if (jwtConfig.isTokenExpired(claim)) {
             throw new JwtException("token令牌已过期");

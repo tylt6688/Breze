@@ -55,8 +55,7 @@ public class KaptchaFilter extends OncePerRequestFilter {
         String key = httpServletRequest.getParameter("key");
         String code = httpServletRequest.getParameter("code");
 
-
-        //先判断用户的code与key是否为空
+        //先判断 code与 key是否为空
         if (StringUtils.isBlank(code) || StringUtils.isBlank(key)) {
             throw new KaptchaException("非法验证码");
         }

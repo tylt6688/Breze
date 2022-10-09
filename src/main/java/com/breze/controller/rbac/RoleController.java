@@ -4,7 +4,7 @@ package com.breze.controller.rbac;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.breze.common.annotation.Log;
+import com.breze.common.annotation.BrezeLog;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/sys/role")
 public class RoleController extends BaseController {
 
-    @Log("根据ID获取角色信息")
+    @BrezeLog("根据ID获取角色信息")
     @ApiOperation(value = "根据ID获取角色信息")
     @ApiImplicitParam(name = "ID", value = "角色ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
@@ -52,7 +52,7 @@ public class RoleController extends BaseController {
         return Result.createSuccessMessage(role);
     }
 
-    @Log("获取角色列表")
+    @BrezeLog("获取角色列表")
     @ApiOperation(value = "获取角色列表")
     @ApiImplicitParam(name = "name", value = "角色名称", dataType = "String", dataTypeClass = String.class)
     @GetMapping("/select")
@@ -63,7 +63,7 @@ public class RoleController extends BaseController {
         return Result.createSuccessMessage(pageData);
     }
 
-    @Log("根据角色ID获取菜单列表")
+    @BrezeLog("根据角色ID获取菜单列表")
     @ApiOperation(value = "根据角色ID获取菜单列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色ID", required = true, dataType = "Long", dataTypeClass = Long.class),
@@ -88,7 +88,7 @@ public class RoleController extends BaseController {
         return Result.createSuccessMessage(roleMenus);
     }
 
-    @Log("新增角色")
+    @BrezeLog("新增角色")
     @ApiOperation(value = "新增角色")
     @Transactional
     @PostMapping("/insert")
@@ -98,7 +98,7 @@ public class RoleController extends BaseController {
         return flag ? Result.createSuccessMessage(role) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("更新角色")
+    @BrezeLog("更新角色")
     @ApiOperation(value = "修改角色")
     @Transactional
     @PostMapping("/update")
@@ -110,7 +110,7 @@ public class RoleController extends BaseController {
         return flag ? Result.createSuccessMessage(role) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
-    @Log("删除角色")
+    @BrezeLog("删除角色")
     @ApiOperation(value = "删除角色")
     @ApiImplicitParam(name = "roleIds", value = "角色ID集合", required = true, dataType = "List", dataTypeClass = List.class)
     @Transactional

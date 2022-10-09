@@ -35,7 +35,7 @@ public class KaptchaController extends BaseController {
         String key = UUID.randomUUID().toString();
         String code = producer.createText();
 
-       // TODO 测试环境暂时停止随机验证码
+       // FIXME 开发环境暂时停止随机验证码
         key = "tylt";
         code = "12345";
 
