@@ -13,4 +13,5 @@ import com.breze.entity.pojo.portal.ModeCard;
  */
 public interface ModeCardService extends IService<ModeCard> {
 
+
 }

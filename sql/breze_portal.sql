@@ -3,15 +3,15 @@
 
  Source Server         : leochan
  Source Server Type    : MySQL
- Source Server Version : 50739 (5.7.39)
- Source Host           : localhost:3306
+ Source Server Version : 50739
+ Source Host           : 127.0.0.1:3306
  Source Schema         : breze_portal
 
  Target Server Type    : MySQL
- Target Server Version : 50739 (5.7.39)
+ Target Server Version : 50739
  File Encoding         : 65001
 
- Date: 08/10/2022 09:44:45
+ Date: 09/10/2022 17:29:12
 */
 
 SET NAMES utf8mb4;
@@ -29,14 +29,10 @@ CREATE TABLE `main_content`  (
                                  `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块图片',
                                  `router_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '指定路由跳转',
                                  `button_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '按钮信息',
-                                 `create_time` datetime NOT NULL COMMENT '创建时间',
-                                 `update_time` datetime NOT NULL COMMENT '更新时间',
+                                 `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+                                 `update_time` datetime(0) NOT NULL COMMENT '更新时间',
                                  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '主体内容表' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of main_content
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '主体内容表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for mode_card
@@ -48,14 +44,17 @@ CREATE TABLE `mode_card`  (
                               `mode_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块介绍',
                               `mode_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块链接',
                               `mode_component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '页面组件',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime NOT NULL COMMENT '更新时间',
+                              `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+                              `update_time` datetime(0) NOT NULL COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块展示表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块展示表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mode_card
 -- ----------------------------
+INSERT INTO `mode_card` VALUES (1, '轮播图管理', '轮播图模块功能信息管理', '/portal/banner', 'portal/BannerManage', '2022-10-08 20:19:58', '2022-10-08 20:20:01');
+INSERT INTO `mode_card` VALUES (2, '导航栏管理', '导航栏跳转信息管理', '/portal/navbar', 'portal/Navbar', '2022-10-08 20:21:37', '2022-10-08 20:21:40');
+INSERT INTO `mode_card` VALUES (3, '主体内容管理', '主题内容信息管理', '/portal/mainContent', 'portal/MainContent', '2022-10-08 20:22:32', '2022-10-08 20:22:35');
 
 -- ----------------------------
 -- Table structure for tb_banner
@@ -66,15 +65,15 @@ CREATE TABLE `tb_banner`  (
                               `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '轮播图地址',
                               `alt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '轮播图提示',
                               `order_num` int(11) NULL DEFAULT NULL COMMENT '排序号',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime NOT NULL COMMENT '更新时间',
+                              `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+                              `update_time` datetime(0) NOT NULL COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '首页轮播图表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '首页轮播图表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_banner
 -- ----------------------------
-INSERT INTO `tb_banner` VALUES (1, 'http://qiniuyun.tylt.xyz/a2198f95c14d469398ca7458ac15527e.jpeg', '测试数据', 1, '2022-08-18 11:03:04', '2022-08-18 11:03:07');
+INSERT INTO `tb_banner` VALUES (1, 'http://qiniuyun.tylt.xyz/a2198f95c14d469398ca7458ac15527e.jpeg', '红叶密林', 1, '2022-08-18 11:03:04', '2022-08-18 11:03:07');
 INSERT INTO `tb_banner` VALUES (2, 'http://qiniuyun.tylt.xyz/667efbee650142de8b48682f93a582b0.jpeg', '测试数据', 2, '2022-08-18 11:03:09', '2022-08-18 11:03:12');
 INSERT INTO `tb_banner` VALUES (3, 'http://qiniuyun.tylt.xyz/0097c12511e74321a6c2c1d20df5082f.jpeg', '测试数据', 3, '2022-08-18 11:03:14', '2022-08-18 11:03:17');
 INSERT INTO `tb_banner` VALUES (4, 'http://qiniuyun.tylt.xyz/57fd75be723f4306b0f19ffa610998ae.jpeg', '测试数据', 4, '2022-08-18 11:03:19', '2022-08-18 11:03:22');
@@ -91,13 +90,9 @@ CREATE TABLE `tb_navbar`  (
                               `title_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题名称',
                               `title_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '跳转路径',
                               `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父id',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime NOT NULL COMMENT '更新时间',
+                              `create_time` datetime(0) NOT NULL COMMENT '创建时间',
+                              `update_time` datetime(0) NOT NULL COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '导航连接表' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of tb_navbar
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '导航连接表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -43,7 +43,7 @@ public class BannerController extends BaseController {
     }
 
 
-    @Transactional
+
     @PostMapping("/insert")
     public Result insert(@Validated @RequestBody Banner banner) {
         try {
@@ -55,14 +55,13 @@ public class BannerController extends BaseController {
 
     }
 
-    @Transactional
     @PostMapping("/update")
     public Result update(@Validated @RequestBody Banner banner) {
         bannerService.updateById(banner);
         return Result.createSuccessMessage(banner);
     }
 
-    @Transactional
+
     @PostMapping("/upload")
     public Result upload(@RequestParam String alt, @RequestParam MultipartFile file) throws IOException {
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpg")) {
@@ -75,11 +74,9 @@ public class BannerController extends BaseController {
         return Result.createSuccessMessage("上传Banner轮播图成功");
     }
 
-    @Transactional
     @PostMapping("/delete")
     public Result delete(@RequestBody String url) throws QiniuException {
         if (!url.isEmpty() && url.substring(0, 24).equals(ossConfig.getUrl())) {
-
             try {
                 qiNiuService.deleteFile(url);
                 bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
@@ -88,7 +85,6 @@ public class BannerController extends BaseController {
                 bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
                 return Result.createSuccessMessage("已删除失效Banner轮播图");
             }
-
         } else {
             bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
             return Result.createSuccessMessage("已删除非法Banner轮播图");
