@@ -18,7 +18,8 @@ public class SecurityConstant {
             "/webjars/**",
             "/*/api-docs",
             "/swagger-resources/**",
-            "/druid/**"
+            "/druid/**",
+            "/breze/test/**"
     };
 
 

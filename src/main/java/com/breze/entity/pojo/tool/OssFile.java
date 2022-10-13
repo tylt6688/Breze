@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
  * @since 2022-03-19
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("tb_ossfile")
@@ -32,15 +30,16 @@ public class OssFile implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    private Long userId;
+
     private String fileName;
 
     private String filUrl;
 
-    private Long userId;
+    private String type;
 
     private Integer state;
 
-    private String type;
 
     @ApiModelProperty(value = "创建时间", name = "createTime", example = "2022-03-01 12:00:00", notes = "创建时间")
     @TableField(fill = FieldFill.INSERT)

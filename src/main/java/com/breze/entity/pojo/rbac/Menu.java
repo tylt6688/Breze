@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
@@ -25,7 +24,6 @@ import java.util.List;
  * @since 2022-03-01
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)

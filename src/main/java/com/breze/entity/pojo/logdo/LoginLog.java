@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
  * @since 2022-06-23
  */
 @Data
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)

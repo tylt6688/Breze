@@ -210,4 +210,3 @@ public class QrCodeUtil {
         ImageIO.write(image, IMAGE_FORMAT, output);
     }
 }
-

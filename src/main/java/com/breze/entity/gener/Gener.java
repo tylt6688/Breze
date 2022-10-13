@@ -3,7 +3,6 @@ package com.breze.entity.gener;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -17,7 +16,6 @@ import java.io.Serializable;
  * @since 2022-04-15
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)

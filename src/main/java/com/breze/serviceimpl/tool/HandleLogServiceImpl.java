@@ -2,7 +2,7 @@ package com.breze.serviceimpl.tool;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.entity.pojo.logdo.HandleLog;
-import com.breze.mapper.logmapper.HandleLogMapper;
+import com.breze.mapper.brezelog.HandleLogMapper;
 import org.springframework.stereotype.Service;
 import com.breze.service.brezelog.HandleLogService;
 

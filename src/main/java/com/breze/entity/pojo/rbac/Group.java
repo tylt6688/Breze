@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -22,7 +21,6 @@ import java.util.List;
  * @since 2022-03-25
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)

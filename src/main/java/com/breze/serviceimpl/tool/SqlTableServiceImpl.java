@@ -18,15 +18,15 @@ import java.util.List;
 public class SqlTableServiceImpl implements SqlTableService {
 
     @Autowired
-    private SqlTableMapper mapper;
+    private SqlTableMapper sqlTableMapper;
 
     @Override
     public List showDatabases() {
-        return mapper.showDatabases();
+        return sqlTableMapper.showDatabases();
     }
 
     @Override
     public List<Table> findDatabaseTable() {
-        return mapper.findDatabaseTable();
+        return sqlTableMapper.findDatabaseTable();
     }
 }

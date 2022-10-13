@@ -1,4 +1,4 @@
-package com.breze.mapper.logmapper;
+package com.breze.mapper.brezelog;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.breze.entity.pojo.logdo.LoginLog;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.service.brezelog.LoginLogService;
 import org.springframework.stereotype.Service;
 import com.breze.entity.pojo.logdo.LoginLog;
-import com.breze.mapper.logmapper.LoginLogMapper;
+import com.breze.mapper.brezelog.LoginLogMapper;
 
 /**
  * <p>

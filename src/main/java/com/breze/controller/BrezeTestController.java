@@ -7,7 +7,6 @@ import com.breze.entity.pojo.rbac.User;
 import com.breze.service.rbac.UserService;
 import com.breze.utils.LogUtil;
 import com.breze.utils.QrCodeUtil;
-import com.breze.utils.ServerUtil;
 import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,9 +77,24 @@ public class BrezeTestController extends BaseController {
 
     public static void main(String[] args) {
 
-        System.out.println(ServerUtil.getDiskInfo());
-        System.out.println(ServerUtil.getMemoryInfo());
-        System.out.println(ServerUtil.getOsInfo());
+//        System.out.println(ServerUtil.getDiskInfo());
+//        System.out.println(ServerUtil.getMemoryInfo());
+//        System.out.println(ServerUtil.getOsInfo());
+
+        String hex = "0001020304050607080AFF";
+            if (hex.length() % 2 != 0) {
+                throw new IllegalArgumentException("Hex string must have an even number of characters");
+            } else {
+                byte[] b = new byte[hex.length() / 2];
+
+                for(int i = 0; i < b.length; ++i) {
+                    b[i] = (byte)Integer.parseInt(hex.substring(i * 2, i * 2 + 2), 16);
+                    System.out.println(b[i]);
+                }
+
+
+
+            }
 
     }
 

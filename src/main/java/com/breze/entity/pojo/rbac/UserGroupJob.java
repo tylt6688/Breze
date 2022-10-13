@@ -19,7 +19,6 @@ import java.io.Serializable;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)

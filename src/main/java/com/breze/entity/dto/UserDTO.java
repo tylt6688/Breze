@@ -2,7 +2,6 @@ package com.breze.entity.dto;
 
 import com.breze.entity.pojo.rbac.Role;
 import lombok.Data;
-import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,7 +15,6 @@ import java.util.List;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
-@ToString
 public class UserDTO implements Serializable {
 
     private static final long serialVersionUID = -4359978619446051478L;

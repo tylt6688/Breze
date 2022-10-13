@@ -11,6 +11,7 @@ import lombok.ToString;
  * @Description 错误码枚举类，注意业务错误码不要与HTTP状态码相同
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@Getter
 @ToString
 @AllArgsConstructor
 public enum ErrorEnum {
@@ -44,11 +45,11 @@ public enum ErrorEnum {
      */
     FindException("出现异常", 800);
 
-    @Getter
+
     @EnumValue
     private final String errorName;
 
-    @Getter
+
     @EnumValue
     private final Integer errorCode;
 
