@@ -19,6 +19,10 @@ public interface GroupService extends IService<Group> {
     List<Group> tree();
     List<Tree<String>> findAll();
     Group findById(Long id);
+
+    // 2022/10/7 21:04 FIXME: 部门递归 获取部门信息 UP BY LUCIFER-LGX
+    Group findTreeById(Long id);
+
     int insert(Group group);
     int update(Group group);
     int delete(Long id);
