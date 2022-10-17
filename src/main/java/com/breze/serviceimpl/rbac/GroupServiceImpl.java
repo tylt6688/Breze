@@ -12,9 +12,12 @@ import com.breze.mapper.rbac.GroupJobMapper;
 import com.breze.mapper.rbac.GroupMapper;
 import com.breze.mapper.rbac.JobMapper;
 import com.breze.service.rbac.GroupService;
+import org.apache.velocity.util.ArrayListWrapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +104,25 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         List<Group> cgs = groupMapper.selectList(qw);
         group.setChildren(cgs);
         return group;
+    }
+
+    // 2022/10/7 21:04 FIXME: 部门递归 获取部门信息 UP BY LUCIFER-LGX
+    @Override
+    public Group findTreeById(Long id) {
+        Group group = groupMapper.selectById(id);
+        return findGroup(group);
+    }
+
+    private Group findGroup(Group group){
+        List<Group> ch = new ArrayList<Group>();
+        if (group.getParentId() == 0) {
+            return group;
+        } else {
+            Group g = groupMapper.selectById(group.getParentId());
+            ch.add(group);
+            g.setChildren(ch);
+            return findGroup(g);
+        }
     }
 
     @Override

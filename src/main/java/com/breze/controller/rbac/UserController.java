@@ -78,17 +78,24 @@ public class UserController extends BaseController {
         // FIXME: 2022/9/30 临时在Controller展示，后续需要针对Service进行优化
         List<UserGroupJob> userGroupJobList = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
         List<Map> list = new ArrayList<>();
+        List<Group> groups = new ArrayList<Group>();
         for (UserGroupJob userGroupJob : userGroupJobList) {
         // FIXME: 2022/9/30 此处应采用递归进行父级查询，直至查询到顶级[抄送人：tylt6688 待办人：LUCIFER-LGX 2022-09-30]
             String groupname = groupService.getById(userGroupJob.getJobId()).getName();
-
             String jobname = jobService.getById(userGroupJob.getJobId()).getName();
             list.add(MapUtil.builder()
                     .put("groupName", groupname)
                     .put("jobName", jobname)
                     .build());
+
+            // 2022/10/15 11:34 FIXME: 传入部门ID 逆向获取部门树 UP BY LUCIFER-LGX [抄送人：LUCIFER-LGX 待办人：tylt66885]
+            // groupService.findTreeById(id)
+            Group g = groupService.findTreeById(userGroupJob.getGroupId());
+            groups.add(g);
         }
         result.addData("groupJob", list);
+        // 逆向获取部门树结构
+        result.addData("groupTree", groups);
 
         return Result.createSuccessMessage(result);
 
