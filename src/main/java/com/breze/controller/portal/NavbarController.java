@@ -8,10 +8,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
+import com.breze.entity.mapstruct.NavbarConvert;
 import com.breze.entity.pojo.portal.MainContent;
 import com.breze.entity.pojo.portal.ModeCard;
 import com.breze.entity.pojo.portal.Navbar;
 
+import com.breze.entity.vo.portal.NavbarTitleVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,19 +33,24 @@ import java.util.List;
 @RequestMapping("/breze/portal/navbar")
 public class NavbarController extends BaseController {
 
-    //查询所有内容
-    @GetMapping("/select")
-    public Result select() {
-        List<Navbar> navbars = navbarService.list();
-        return Result.createSuccessMessage("查询内容成功", navbars);
+    @GetMapping("/page")
+    public Result findPage(String titleName,Long parentId){
+        Page<Navbar> NavbarPage = navbarService.findNavbarPage(getPage(),titleName,parentId);
+        return Result.createSuccessMessage("获取内容信息成功", NavbarPage);
     }
 
     //根据id获取内容模块信息
-    @GetMapping("/info/{id}")
-    public Result getMainInfo(@PathVariable Long id) {
+    @GetMapping("/selectNavbar/{id}")
+    public Result selectNavbar(@PathVariable Long id) {
         Navbar navbar = navbarService.getById(id);
         return Result.createSuccessMessage("获取内容信息成功", navbar);
     }
+    @GetMapping("/findAllData")
+    public Result findAllData() {
+        List<NavbarTitleVo> navbarTitleVos = NavbarConvert.INSTANCE.NavbarListToTitleVo(navbarService.list());
+        return Result.createSuccessMessage("获取内容信息成功", navbarTitleVos);
+    }
+
     //添加
     @PostMapping("/insert")
     public Result saveMain(@Validated @RequestBody Navbar navbar) {
@@ -60,7 +67,7 @@ public class NavbarController extends BaseController {
     public Result UpdateMain(@Validated @RequestBody Navbar navbar) {
         try {
             navbarService.updateById(navbar);
-            return Result.createSuccessMessage("更新主页内容成功");
+            return Result.createSuccessMessage("更新内容成功");
         } catch (Exception e) {
             return Result.createFailMessage(ErrorEnum.UnknowError, "添加内容失败");
         }
@@ -70,16 +77,6 @@ public class NavbarController extends BaseController {
         navbarService.removeById(id);
         return Result.createSuccessMessage("已删除内容");
     }
-    @GetMapping("/page")
-    public Result findPage( String titleName){
-        QueryWrapper<Navbar> queryWrapper=new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
-        if (!"".equals(titleName)) {
-           queryWrapper.like("title_name", titleName);
-       }
-        Page<Navbar> NavbarPage =navbarService.page(getPage(),queryWrapper);
-        //navbarService.page(page);
-        return Result.createSuccessMessage("获取内容信息成功", NavbarPage);
-    }
+
 
 }

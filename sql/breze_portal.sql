@@ -11,7 +11,7 @@
  Target Server Version : 50739
  File Encoding         : 65001
 
- Date: 09/10/2022 17:29:12
+ Date: 20/10/2022 13:20:44
 */
 
 SET NAMES utf8mb4;
@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `main_content`;
 CREATE TABLE `main_content`  (
                                  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主页内容模块id',
-                                 `navbar_id` bigint(20) NULL DEFAULT NULL COMMENT '导航栏Id',
+                                 `navbar_id` bigint(20) NULL DEFAULT NULL COMMENT '导航栏Id，0为主题内容',
                                  `title_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块标题',
                                  `title_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块简介',
                                  `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块图片',
@@ -47,14 +47,15 @@ CREATE TABLE `mode_card`  (
                               `create_time` datetime(0) NOT NULL COMMENT '创建时间',
                               `update_time` datetime(0) NOT NULL COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块展示表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块展示表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mode_card
 -- ----------------------------
 INSERT INTO `mode_card` VALUES (1, '轮播图管理', '轮播图模块功能信息管理', '/portal/banner', 'portal/BannerManage', '2022-10-08 20:19:58', '2022-10-08 20:20:01');
 INSERT INTO `mode_card` VALUES (2, '导航栏管理', '导航栏跳转信息管理', '/portal/navbar', 'portal/Navbar', '2022-10-08 20:21:37', '2022-10-08 20:21:40');
-INSERT INTO `mode_card` VALUES (3, '主体内容管理', '主题内容信息管理', '/portal/mainContent', 'portal/MainContent', '2022-10-08 20:22:32', '2022-10-08 20:22:35');
+INSERT INTO `mode_card` VALUES (3, '内容管理', '主题内容信息管理', '/portal/mainContent', 'portal/MainContent', '2022-10-08 20:22:32', '2022-10-08 20:22:35');
+INSERT INTO `mode_card` VALUES (6, '图片管理', 'dfg', 'sdg', 'sdg', '2022-10-18 16:58:08', '2022-10-18 16:58:08');
 
 -- ----------------------------
 -- Table structure for tb_banner
@@ -68,15 +69,14 @@ CREATE TABLE `tb_banner`  (
                               `create_time` datetime(0) NOT NULL COMMENT '创建时间',
                               `update_time` datetime(0) NOT NULL COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '首页轮播图表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '首页轮播图表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_banner
 -- ----------------------------
 INSERT INTO `tb_banner` VALUES (1, 'http://qiniuyun.tylt.xyz/a2198f95c14d469398ca7458ac15527e.jpeg', '红叶密林', 1, '2022-08-18 11:03:04', '2022-08-18 11:03:07');
-INSERT INTO `tb_banner` VALUES (2, 'http://qiniuyun.tylt.xyz/667efbee650142de8b48682f93a582b0.jpeg', '测试数据', 2, '2022-08-18 11:03:09', '2022-08-18 11:03:12');
+INSERT INTO `tb_banner` VALUES (2, 'http://qiniuyun.tylt.xyz/667efbee650142de8b48682f93a582b0.jpeg', '海上沙滩', 2, '2022-08-18 11:03:09', '2022-08-18 11:03:12');
 INSERT INTO `tb_banner` VALUES (3, 'http://qiniuyun.tylt.xyz/0097c12511e74321a6c2c1d20df5082f.jpeg', '测试数据', 3, '2022-08-18 11:03:14', '2022-08-18 11:03:17');
-INSERT INTO `tb_banner` VALUES (4, 'http://qiniuyun.tylt.xyz/57fd75be723f4306b0f19ffa610998ae.jpeg', '测试数据', 4, '2022-08-18 11:03:19', '2022-08-18 11:03:22');
 INSERT INTO `tb_banner` VALUES (5, 'http://qiniuyun.tylt.xyz/2cbb060f17aa448a854a958f3ddd26a9.jpg', '测试数据', 5, '2022-08-18 11:03:24', '2022-08-18 11:03:27');
 INSERT INTO `tb_banner` VALUES (6, 'http://qiniuyun.tylt.xyz/18eacfa3757f4ad892af6554d70ac857.png', '测试数据', 6, '2022-08-18 11:03:29', '2022-08-18 11:03:32');
 
@@ -86,13 +86,22 @@ INSERT INTO `tb_banner` VALUES (6, 'http://qiniuyun.tylt.xyz/18eacfa3757f4ad892a
 DROP TABLE IF EXISTS `tb_navbar`;
 CREATE TABLE `tb_navbar`  (
                               `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '导航标题id',
-                              `flag` bigint(20) NULL DEFAULT NULL,
+                              `flag` bigint(2) NULL DEFAULT NULL COMMENT '0为导航栏，1为尾部导航',
+                              `order_num` bigint(20) NULL DEFAULT NULL COMMENT '导航序号',
                               `title_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题名称',
                               `title_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '跳转路径',
                               `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父id',
                               `create_time` datetime(0) NOT NULL COMMENT '创建时间',
                               `update_time` datetime(0) NOT NULL COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '导航连接表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '导航连接表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_navbar
+-- ----------------------------
+INSERT INTO `tb_navbar` VALUES (1, 0, 1, '首页', '/indexManage', 0, '2022-10-18 10:53:29', '2022-10-18 10:53:29');
+INSERT INTO `tb_navbar` VALUES (2, 0, 3, '在线演示', '/onlineShow', 0, '2022-10-18 14:10:45', '2022-10-18 14:10:48');
+INSERT INTO `tb_navbar` VALUES (3, 0, 4, '前后端分离', 'dgfd', 2, '2022-10-18 14:11:10', '2022-10-18 14:11:13');
+INSERT INTO `tb_navbar` VALUES (6, 0, 2, '在线文档', '/onlineWord', 0, '2022-10-18 17:30:33', '2022-10-18 17:30:33');
 
 SET FOREIGN_KEY_CHECKS = 1;

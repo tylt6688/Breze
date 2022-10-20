@@ -1,5 +1,6 @@
 package com.breze.service.portal;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.portal.Navbar;
 
@@ -13,4 +14,5 @@ import com.breze.entity.pojo.portal.Navbar;
  */
 public interface NavbarService extends IService<Navbar> {
 
+    Page<Navbar> findNavbarPage(Page<Navbar> page, String titleName,Long parentId);
 }
