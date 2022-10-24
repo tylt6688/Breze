@@ -1,3 +1,5 @@
+urlsuffix: useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -6,17 +8,17 @@ spring:
       strict: false
       datasource:
         master:
-          url: jdbc:mysql://localhost:3306/breze?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+          url: jdbc:mysql://localhost:3306/breze?${urlsuffix}
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         slave:
-          url: jdbc:mysql://localhost:3306/breze?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+          url: jdbc:mysql://localhost:3306/breze?${urlsuffix}
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         portal:
-          url: jdbc:mysql://localhost:3306/breze_portal?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+          url: jdbc:mysql://localhost:3306/breze_portal?${urlsuffix}
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver

@@ -88,7 +88,7 @@ public class UserController extends BaseController {
                     .put("jobName", jobname)
                     .build());
 
-            // 2022/10/15 11:34 FIXME: 传入部门ID 逆向获取部门树 UP BY LUCIFER-LGX [抄送人：LUCIFER-LGX 待办人：tylt66885]
+            // 2022/10/15 11:34 FIXME: 传入部门ID 逆向获取部门树 UP BY LUCIFER-LGX [抄送人：LUCIFER-LGX 待办人：tylt6688]
             // groupService.findTreeById(id)
             Group g = groupService.findTreeById(userGroupJob.getGroupId());
             groups.add(g);

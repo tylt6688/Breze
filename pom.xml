@@ -32,7 +32,6 @@
         <geoip2.version>2.12.0</geoip2.version>
         <oshi.version>6.2.2</oshi.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
-        <lombok.version>1.18.24</lombok.version>
         <zxing.version>3.5.0</zxing.version>
         <velocity.version>2.3</velocity.version>
     </properties>
@@ -105,21 +104,21 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
