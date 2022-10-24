@@ -1,9 +1,25 @@
 package com.breze.controller.portal;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.breze.common.enums.ErrorEnum;
+import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.breze.entity.mapstruct.NavbarConvert;
+import com.breze.entity.pojo.portal.MainContent;
+import com.breze.entity.pojo.portal.ModeCard;
+import com.breze.entity.pojo.portal.Navbar;
+
+import com.breze.entity.vo.portal.NavbarTitleVo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +32,51 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/breze/portal/navbar")
 public class NavbarController extends BaseController {
+
+    @GetMapping("/page")
+    public Result findPage(String titleName,Long parentId){
+        Page<Navbar> NavbarPage = navbarService.findNavbarPage(getPage(),titleName,parentId);
+        return Result.createSuccessMessage("获取内容信息成功", NavbarPage);
+    }
+
+    //根据id获取内容模块信息
+    @GetMapping("/selectNavbar/{id}")
+    public Result selectNavbar(@PathVariable Long id) {
+        Navbar navbar = navbarService.getById(id);
+        return Result.createSuccessMessage("获取内容信息成功", navbar);
+    }
+    @GetMapping("/findAllData")
+    public Result findAllData() {
+        List<NavbarTitleVo> navbarTitleVos = NavbarConvert.INSTANCE.NavbarListToTitleVo(navbarService.list());
+        return Result.createSuccessMessage("获取内容信息成功", navbarTitleVos);
+    }
+
+    //添加
+    @PostMapping("/insert")
+    public Result saveMain(@Validated @RequestBody Navbar navbar) {
+        try {
+            navbarService.save(navbar);
+            return Result.createSuccessMessage("添加导航成功");
+        } catch (Exception e) {
+            return Result.createFailMessage(ErrorEnum.UnknowError, "添加内容失败");
+        }
+    }
+
+    //修改内容
+    @PostMapping("/update")
+    public Result UpdateMain(@Validated @RequestBody Navbar navbar) {
+        try {
+            navbarService.updateById(navbar);
+            return Result.createSuccessMessage("更新内容成功");
+        } catch (Exception e) {
+            return Result.createFailMessage(ErrorEnum.UnknowError, "添加内容失败");
+        }
+    }
+    @PostMapping("/delete")
+    public Result delete(@RequestBody Long id) {
+        navbarService.removeById(id);
+        return Result.createSuccessMessage("已删除内容");
+    }
+
 
 }

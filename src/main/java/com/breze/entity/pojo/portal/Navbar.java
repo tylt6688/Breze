@@ -33,7 +33,11 @@ public class Navbar implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty("标题类型")
     private Long flag;
+
+    @ApiModelProperty("序号")
+    private Long orderNum;
 
     @ApiModelProperty("标题名称")
     private String titleName;
@@ -51,4 +55,7 @@ public class Navbar implements Serializable {
     @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2022-03-01 12:00:00", notes = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    @TableField(exist = false)
+    private boolean hasChildren;
 }

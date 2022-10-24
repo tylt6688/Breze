@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/breze/portal/modeCard")
 public class ModeCardController extends BaseController {
 
-    @ApiOperation(value = "获取模块分页信息")
+    @ApiOperation(value = "获取全部信息")
     @GetMapping("select")
     public Result select() {
         List<ModeCard> list = modeCardService.list();
@@ -41,7 +41,12 @@ public class ModeCardController extends BaseController {
         Page<ModeCard> modeCardPage = modeCardService.page(getPage(),new QueryWrapper<ModeCard>().eq(StrUtil.isNotBlank(modeTitle), "mode_title", modeTitle));
         return Result.createSuccessMessage("查询模块信息成功", modeCardPage);
     }
-
+    @ApiOperation(value = "通过id查询")
+    @GetMapping("/findDataById/{id}")
+    public Result findDataById(@PathVariable Long id) {
+        ModeCard modeCard = modeCardService.getById(id);
+        return Result.createSuccessMessage("查询成功",modeCard);
+    }
     //    @Log("新增模块")
     @ApiOperation(value = "新增模块")
     @PostMapping("/insert")
