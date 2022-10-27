@@ -7,11 +7,11 @@ spring:
     host: smtp.qq.com
     # 服务协议
     protocol: smtp
-    # 端口号465或587
+    # 端口号 465 或 587
     port: 587
     username: tylt6688@foxmail.com
     # 密码是邮箱开通的smtp服务后得到的客户端授权码,不是邮箱登录密码
-    password: ptbuvrttnzuueaaa
+    password: sheidaoyongwodemashishabi
     properties:
       mail:
         smtp:

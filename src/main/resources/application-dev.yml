@@ -10,3 +10,9 @@ spring:
   devtools:
     restart:
       enabled: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/**Mapper.xml
+  # 开启SQL日志，生产环境请关闭
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

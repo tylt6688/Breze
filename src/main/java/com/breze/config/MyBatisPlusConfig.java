@@ -14,8 +14,9 @@ import org.springframework.context.annotation.Configuration;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Configuration
-public class MybatisPlusConfig {
+public class MyBatisPlusConfig {
     /**
+     * 注入MyBatisPlus拦截器
      * 新的分页插件,一缓和二缓遵循 mybatis 的规则,
      * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
      * 避免缓存出现问题(该属性会在旧插件移除后一同移除)
@@ -23,7 +24,7 @@ public class MybatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 增加分页插件
+        // 增加分页内部拦截器插件，在查询语句后追加limit子句
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         // 防止 update 语句 where 条件缺失后产生全表更新和删除插件
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());

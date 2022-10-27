@@ -1,6 +1,6 @@
 package com.breze.service.tool;
 
-import com.breze.entity.gener.Table;
+import com.breze.entity.pojo.tool.DataBaseTable;
 
 import java.util.List;
 
@@ -10,10 +10,10 @@ import java.util.List;
  * @Copyright(c) 2022 , 青枫网络工作室
  * @Description 数据库表操作服务
  */
-public interface SqlTableService {
+public interface DataBaseTableService {
 
     List showDatabases();
 
-    List<Table> findDatabaseTable();
+    List<DataBaseTable> findDatabaseTable();
 
 }

@@ -61,7 +61,6 @@ public class Result {
     /**
      * 请求失败消息模板
      */
-
     public static Result createFailMessage(ErrorEnum err) {
 
         return Result.createFailMessage(err, "请求失败");

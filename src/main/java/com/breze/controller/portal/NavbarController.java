@@ -1,16 +1,12 @@
 package com.breze.controller.portal;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.mapstruct.NavbarConvert;
 import com.breze.entity.pojo.portal.Navbar;
-
 import com.breze.entity.vo.portal.NavbarTitleVo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +61,7 @@ public class NavbarController extends BaseController {
 
     //修改内容
     @PostMapping("/update")
-    public Result UpdateMain(@Validated @RequestBody Navbar navbar) {
+    public Result updateMain(@Validated @RequestBody Navbar navbar) {
         try {
             navbarService.updateById(navbar);
             return Result.createSuccessMessage("更新内容成功");

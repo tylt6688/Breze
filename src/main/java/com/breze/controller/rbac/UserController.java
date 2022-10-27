@@ -3,11 +3,11 @@ package com.breze.controller.rbac;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.excel.util.MapUtils;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
         // FIXME: 2022/9/30 临时在Controller展示，后续需要针对Service进行优化
         List<UserGroupJob> userGroupJobList = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
         List<Map> list = new ArrayList<>();
-        List<Group> groups = new ArrayList<Group>();
+        List<Group> groups = new ArrayList<>();
         for (UserGroupJob userGroupJob : userGroupJobList) {
         // FIXME: 2022/9/30 此处应采用递归进行父级查询，直至查询到顶级[抄送人：tylt6688 待办人：LUCIFER-LGX 2022-09-30]
             String groupname = groupService.getById(userGroupJob.getJobId()).getName();
@@ -96,16 +96,13 @@ public class UserController extends BaseController {
         result.addData("groupJob", list);
         // 逆向获取部门树结构
         result.addData("groupTree", groups);
-
         return Result.createSuccessMessage(result);
-
     }
 
     @BrezeLog("根据ID获取用户信息")
     @ApiOperation("根据ID获取用户信息")
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
-    // @PreAuthorize("hasAuthority('sys:user:select')")
     public Result info(@PathVariable Long id) {
         User user = userService.getById(id);
         Assert.notNull(user, "找不到该用户");
@@ -125,8 +122,7 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:select')")
     public Result select(String username) {
         // 2022/9/23 15:24 TODO: Should Be ReWrite UP BY LUCIFER-LGX
-        Page<User> pageData = userService.page(getPage(), new QueryWrapper<User>().like(StrUtil.isNotBlank(username), "username", username));
-        // 回显角色信息
+        Page<User> pageData = userService.page(getPage(), new LambdaQueryWrapper<User>().like(CharSequenceUtil.isNotBlank(username), User::getUsername, username));
         pageData.getRecords().forEach(u -> u.setRoles(roleService.listRolesByUserId(u.getId())));
         return Result.createSuccessMessage(pageData);
     }
@@ -199,7 +195,7 @@ public class UserController extends BaseController {
             userRole.setUserId(userId);
             userRoles.add(userRole);
         });
-        userRoleService.remove(new QueryWrapper<UserRole>().eq("user_id", userId));
+        userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId));
         userRoleService.saveBatch(userRoles);
         // 删除缓存
         User sysUser = userService.getById(userId);
@@ -225,7 +221,7 @@ public class UserController extends BaseController {
                 userRole.setUserId(uid);
                 userRoles.add(userRole);
             });
-            userRoleService.remove(new QueryWrapper<UserRole>().eq("user_id", uid));
+            userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, uid));
         });
         userRoleService.saveBatch(userRoles);
         // 删除缓存
@@ -240,9 +236,9 @@ public class UserController extends BaseController {
     @BrezeLog("重置用户密码")
     @ApiOperation("重置用户密码")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
-    @PostMapping("/reseat_password")
+    @PostMapping("/reset_password")
     @PreAuthorize("hasAuthority('sys:user:repass')")
-    public Result resertPassword(@RequestBody Long userId) {
+    public Result resetPassword(@RequestBody Long userId) {
         User user = userService.getById(userId);
         user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
         boolean flag = userService.updateById(user);
