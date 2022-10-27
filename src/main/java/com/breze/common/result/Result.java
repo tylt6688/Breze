@@ -42,10 +42,6 @@ public class Result {
         return Result.createSuccessMessage("请求成功", data);
     }
 
-    public static Result createSuccessMessage(String message) {
-        return Result.createSuccessMessage(message, null);
-    }
-
     public static Result createSuccessMessage(String message, Object data) {
 
         Result resultBox = new Result();

@@ -53,7 +53,7 @@ public class ModeCardController extends BaseController {
     public Result insert(@Validated @RequestBody ModeCard modeCard) {
         try {
             modeCardService.save(modeCard);
-            return Result.createSuccessMessage("添加模块成功");
+            return Result.createSuccessMessage("添加模块成功",null);
         } catch (Exception e) {
             return Result.createFailMessage(ErrorEnum.FindException, "添加模块信息失败");
         }
@@ -63,7 +63,7 @@ public class ModeCardController extends BaseController {
     public Result update(@Validated @RequestBody ModeCard modeCard) {
         try {
             modeCardService.updateById(modeCard);
-            return Result.createSuccessMessage("修改模块成功");
+            return Result.createSuccessMessage("修改模块成功",null);
         } catch (Exception e) {
             return Result.createFailMessage(ErrorEnum.FindException, "修改模块信息失败");
         }
@@ -73,6 +73,6 @@ public class ModeCardController extends BaseController {
     @DeleteMapping("/deleteById/{id}")
     public Result deleteModeCard(@PathVariable Long id) {
         boolean flag = modeCardService.removeById(id);
-        return flag ? Result.createSuccessMessage("删除模块成功") : Result.createFailMessage(ErrorEnum.FindException,"删除失败");
+        return flag ? Result.createSuccessMessage("删除模块成功",null) : Result.createFailMessage(ErrorEnum.FindException,"删除失败");
     }
 }
