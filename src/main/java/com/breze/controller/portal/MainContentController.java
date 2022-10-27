@@ -67,7 +67,7 @@ public class MainContentController extends BaseController {
             ossFileService.updateById(ossFile);
             // 修改内容
             mainContentService.updateById(mainContent);
-            return Result.createSuccessMessage("编辑数据成功");
+            return Result.createSuccessMessage("编辑数据成功",null);
         }else {
             String ossId = IdUtil.simpleUUID();
             ossFile.setId(ossId);
@@ -75,7 +75,7 @@ public class MainContentController extends BaseController {
 
             ossFileService.save(ossFile);
             mainContentService.save(mainContent);
-            return Result.createSuccessMessage("添加数据成功");
+            return Result.createSuccessMessage("添加数据成功",null);
         }
     }
 
@@ -85,7 +85,7 @@ public class MainContentController extends BaseController {
         System.out.println(mainContent);
         try {
             mainContentService.updateById(mainContent);
-            return Result.createSuccessMessage("更新内容成功");
+            return Result.createSuccessMessage("更新内容成功",null);
         } catch (Exception e) {
             return Result.createFailMessage(ErrorEnum.UnknowError, "更新内容失败");
         }
@@ -95,7 +95,7 @@ public class MainContentController extends BaseController {
         qiNiuService.deleteFile(mainContent.getImgUrl());
         ossFileService.removeById(mainContent.getOssId());
         mainContentService.removeById(mainContent);
-        return Result.createSuccessMessage("已删除内容");
+        return Result.createSuccessMessage("已删除内容",null);
     }
 
 }
