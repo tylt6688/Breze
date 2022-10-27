@@ -27,7 +27,7 @@ import java.util.List;
 public class ModeCardController extends BaseController {
 
     @ApiOperation(value = "获取全部信息")
-    @GetMapping("select")
+    @GetMapping("/select")
     public Result select() {
         List<ModeCard> list = modeCardService.list();
         return Result.createSuccessMessage("查询模块信息成功", list);
@@ -36,7 +36,7 @@ public class ModeCardController extends BaseController {
 //    @Log("获取模块信息")
     @ApiOperation(value = "获取模块分页信息")
     @ApiImplicitParam(name = "modeTitle", value = "模块标题", dataType = "String", dataTypeClass = String.class)
-    @GetMapping("findModeCardInfo")
+    @GetMapping("/findModeCardInfo")
     public Result findModeCardInfo(String modeTitle) {
         Page<ModeCard> modeCardPage = modeCardService.page(getPage(),new QueryWrapper<ModeCard>().eq(StrUtil.isNotBlank(modeTitle), "mode_title", modeTitle));
         return Result.createSuccessMessage("查询模块信息成功", modeCardPage);

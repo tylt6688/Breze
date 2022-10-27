@@ -10,7 +10,7 @@ import com.breze.common.result.Result;
 import com.breze.config.CodeGeneratorConfig;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.gener.Gener;
-import com.breze.service.tool.SqlTableService;
+import com.breze.service.tool.DataBaseTableService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,16 +35,16 @@ public class CodeGeneratorController {
     private CodeGeneratorConfig codeGeneratorConfig;
 
     @Autowired
-    private SqlTableService sqlTableService;
+    private DataBaseTableService dataBaseTableService;
 
     @GetMapping("/show_databases")
     public Result showDatabases() {
-        return Result.createSuccessMessage("获取数据库成功", sqlTableService.showDatabases());
+        return Result.createSuccessMessage("获取数据库成功", dataBaseTableService.showDatabases());
     }
 
     @GetMapping("/tables")
     private Result findAllTableNames() {
-        return Result.createSuccessMessage(sqlTableService.findDatabaseTable());
+        return Result.createSuccessMessage(dataBaseTableService.findDatabaseTable());
     }
 
     @PostMapping("/generate")

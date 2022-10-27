@@ -1,4 +1,4 @@
-package com.breze.entity.gener;
+package com.breze.entity.pojo.tool;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Table implements Serializable {
+public class DataBaseTable implements Serializable {
 
     private static final long serialVersionUID = 4844981954357208726L;
 

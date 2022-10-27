@@ -90,8 +90,4 @@ spring:
         login-username: breze
         login-password: 123456
 
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/**Mapper.xml
-  # 开启SQL日志
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

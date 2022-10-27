@@ -112,6 +112,5 @@ public Result deleteById(@PathVariable #foreach($field in ${table.fields})#if(${
         }
         return Result.createFailureMessage(ErrorEnum.UnknowError);
         }
-
         }
 

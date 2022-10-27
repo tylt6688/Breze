@@ -1,6 +1,6 @@
 package com.breze.controller.tool;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
@@ -24,7 +24,7 @@ public class BrezeLogController extends BaseController {
 
     @RequestMapping("/list_login_log")
     public Result list() {
-        Page<LoginLog> pageData = loginLogService.page(getPage(), new QueryWrapper<LoginLog>().orderByDesc("create_time"));
+        Page<LoginLog> pageData = loginLogService.page(getPage(), new LambdaQueryWrapper<LoginLog>().orderByDesc(LoginLog::getCreateTime));
         pageData.getRecords().forEach(loginLog -> {
             loginLog.setUserName(userService.getById(loginLog.getUserId()).getUsername());
             loginLog.setTrueName(userService.getById(loginLog.getUserId()).getTrueName());
@@ -34,8 +34,7 @@ public class BrezeLogController extends BaseController {
 
     @GetMapping("/list_handle_log")
     public Result listHandleLog() {
-
-        Page<HandleLog> pageData = handleLogService.page(getPage(), new QueryWrapper<HandleLog>().orderByDesc("create_time"));
+        Page<HandleLog> pageData = handleLogService.page(getPage(), new LambdaQueryWrapper<HandleLog>().orderByDesc(HandleLog::getCreateTime));
         return Result.createSuccessMessage(pageData);
     }
 

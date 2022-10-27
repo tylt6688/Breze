@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/monitor/server")
 public class ServerController extends BaseController {
 
-    @GetMapping("/cpuinfo")
+    @GetMapping("/cpu_info")
     public Result getCpuInfo() {
         return Result.createSuccessMessage(ServerUtil.getOsInfo());
     }
 
-    @GetMapping("/memoryinfo")
+    @GetMapping("/memory_info")
     public Result getMemoryInfo() {
         return Result.createSuccessMessage(ServerUtil.getMemoryInfo());
     }
 
-    @GetMapping("/diskinfo")
+    @GetMapping("/disk_info")
     public Result getDiskInfo() {
         return Result.createSuccessMessage(ServerUtil.getDiskInfo());
     }

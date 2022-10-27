@@ -2,9 +2,6 @@ package com.breze.service.tool;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.tool.OssFile;
-import com.breze.entity.dto.ShareDTO;
-
-import java.util.List;
 
 /**
  * <p>
@@ -16,6 +13,5 @@ import java.util.List;
  */
 public interface OssFileService extends IService<OssFile> {
 
-    List<ShareDTO> selectShare();
 
 }
