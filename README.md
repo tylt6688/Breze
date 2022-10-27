@@ -24,7 +24,7 @@
 ## 项目源码
 - Spring Boot Server后台项目地址：https://github.com/tylt6688/Breze
 - Browser Vue WEB端项目地址：https://github.com/tylt6688/Breze-Vue
-- WeChat 微信小程序端项目地址：https://github.com/tylt6688/Breze-WeChat
+- WeChat Android端项目地址：https://github.com/tylt6688/Breze-App
 
 ## 项目演示
 
