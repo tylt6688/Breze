@@ -27,14 +27,13 @@ public class OssFile implements Serializable {
 
     private static final long serialVersionUID = 4904930249407221901L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private String id;
 
     private Long userId;
 
     private String fileName;
 
-    private String filUrl;
+    private String fileUrl;
 
     private String type;
 

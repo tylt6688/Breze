@@ -73,6 +73,6 @@ public class ModeCardController extends BaseController {
     @DeleteMapping("/deleteById/{id}")
     public Result deleteModeCard(@PathVariable Long id) {
         boolean flag = modeCardService.removeById(id);
-        return flag ? Result.createSuccessMessage("修改模块成功") : Result.createFailMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("删除模块成功") : Result.createFailMessage(ErrorEnum.FindException,"删除失败");
     }
 }

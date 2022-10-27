@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.service.portal.NavbarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
  * @since 2022-10-08
  */
 @DS("portal")
+@Transactional
 @Service
 public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> implements NavbarService {
 
