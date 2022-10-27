@@ -33,8 +33,8 @@ public class MainContent implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("导航栏Id")
-    private Long navbarId;
+    @ApiModelProperty("oss表id")
+    private String ossId;
 
     @ApiModelProperty("内容模块标题")
     private String titleName;
@@ -42,8 +42,8 @@ public class MainContent implements Serializable {
     @ApiModelProperty("内容模块简介")
     private String titleInfo;
 
-    @ApiModelProperty("内容模块图片")
-    private String imgUrl;
+    @ApiModelProperty("序号")
+    private Long orderNum;
 
     @ApiModelProperty("指定路由跳转")
     private String routerPath;
@@ -58,4 +58,7 @@ public class MainContent implements Serializable {
     @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2022-03-01 12:00:00", notes = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    @TableField(exist = false)
+    private String imgUrl;
 }

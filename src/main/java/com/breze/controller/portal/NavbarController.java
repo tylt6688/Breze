@@ -9,15 +9,11 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.mapstruct.NavbarConvert;
-import com.breze.entity.pojo.portal.MainContent;
-import com.breze.entity.pojo.portal.ModeCard;
 import com.breze.entity.pojo.portal.Navbar;
 
 import com.breze.entity.vo.portal.NavbarTitleVo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -45,10 +41,15 @@ public class NavbarController extends BaseController {
         Navbar navbar = navbarService.getById(id);
         return Result.createSuccessMessage("获取内容信息成功", navbar);
     }
-    @GetMapping("/findAllData")
-    public Result findAllData() {
-        List<NavbarTitleVo> navbarTitleVos = NavbarConvert.INSTANCE.NavbarListToTitleVo(navbarService.list());
+    @GetMapping("/findAllData/{flag}")
+    public Result findAllData(@PathVariable Long flag) {
+        List<NavbarTitleVo> navbarTitleVos = NavbarConvert.INSTANCE.NavbarListToTitleVo(navbarService.list(new QueryWrapper<Navbar>().eq("flag",flag)));
         return Result.createSuccessMessage("获取内容信息成功", navbarTitleVos);
+    }
+    @GetMapping("/count")
+    public Result count() {
+        long count = navbarService.count();
+        return Result.createSuccessMessage("获取内容数量成功", count);
     }
 
     //添加

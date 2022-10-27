@@ -58,7 +58,7 @@ public class BannerController extends BaseController {
     @PostMapping("/update")
     public Result update(@Validated @RequestBody Banner banner) {
         bannerService.updateById(banner);
-        return Result.createSuccessMessage(banner);
+        return Result.createSuccessMessage("修改轮播信息成功");
     }
 
 
