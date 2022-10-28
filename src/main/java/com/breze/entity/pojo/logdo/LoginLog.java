@@ -35,6 +35,12 @@ public class LoginLog implements Serializable {
 
     private Integer state;
 
+    private String ipAddress;
+
+    private String ipLocation;
+
+    private String os;
+
     @TableField(exist = false)
     private String userName;
 

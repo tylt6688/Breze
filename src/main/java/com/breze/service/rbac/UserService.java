@@ -1,7 +1,6 @@
 package com.breze.service.rbac;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.common.result.Result;
 import com.breze.entity.pojo.rbac.User;
 
 /**
@@ -15,11 +14,11 @@ import com.breze.entity.pojo.rbac.User;
 public interface UserService extends IService<User> {
 
 
-    Result insertUser(User user);
+    Boolean insertUser(User user);
 
-    int updateUser(User user);
+    Boolean updateUser(User user);
 
-    int deleteUserById(Long id);
+    Boolean deleteUserById(Long id);
 
     User getByOpenId(String openid);
 

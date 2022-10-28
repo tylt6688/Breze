@@ -1,5 +1,6 @@
 package com.breze.entity.vo;
 
+import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @ToString
@@ -27,6 +29,8 @@ public class UserInfoVo {
 
     private String phone;
 
+    private Integer state;
+
     private String city;
 
     private LocalDateTime createTime;
@@ -38,6 +42,12 @@ public class UserInfoVo {
     private Integer loginWarn;
 
     private List<Role> roles;
+
+    private List<Map> groupJob;
+
+    private List<Group> groups;
+
+
 
 
 }

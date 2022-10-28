@@ -1,11 +1,10 @@
 package com.breze.serviceimpl.rbac;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
-import com.breze.common.enums.ErrorEnum;
-import com.breze.common.result.Result;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.User;
@@ -47,41 +46,44 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getByUserName(String username) {
-        return getOne(new QueryWrapper<User>().eq("username", username));
+        return getOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
     }
 
     @Override
     public User getByOpenId(String openid) {
-        return getOne(new QueryWrapper<User>().eq("openid", openid));
+        return getOne(new LambdaQueryWrapper<User>().eq(User::getOpenId, openid));
     }
 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result insertUser(User user) {
-        user.setState(GlobalConstant.STATUS_ON);
-        user.setAvatar(SystemConstant.DEFAULT_AVATAR);
-        user.setPassword(new BCryptPasswordEncoder().encode(SystemConstant.DEFAULT_PASSWORD));
-        int flag = userMapper.insert(user);
-        if (flag > 0) {
-            return Result.createSuccessMessage("添加用户成功");
-        }else {
-            return Result.createFailMessage(ErrorEnum.FindException,ErrorEnum.FindException.getErrorName());
-        }
+    public Boolean insertUser(User user) {
+        user.setState(GlobalConstant.STATUS_ON)
+                .setAvatar(SystemConstant.DEFAULT_AVATAR)
+                .setPassword(new BCryptPasswordEncoder().encode(SystemConstant.DEFAULT_PASSWORD));
+        return userMapper.insert(user) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int updateUser(User user) {
-        return userMapper.updateById(user);
+    public Boolean updateUser(User user) {
+        return userMapper.updateById(user) > 0;
     }
 
     @Override
-    public int deleteUserById(Long id) {
-        return userMapper.deleteById(id);
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean deleteUserById(Long id) {
+        return userMapper.deleteById(id) > 0;
     }
 
-    // 获取角色权限具体实现代码
+    /**
+     * @return java.lang.String
+     * @Author tylt
+     * @Description 获取角色权限具体实现代码
+     * @Date 2022/3/6 15:55
+     * @Method updateLoginWarnById
+     * @Param [userId]
+     */
     @Override
     public String getUserAuthorityInfo(Long userId) {
         String authority = "";
@@ -94,16 +96,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             authority = (String) redisUtil.get(key);
         } else {
             // 获取角色
-            List<Role> roles = roleService.list(new QueryWrapper<Role>().inSql("id", "SELECT role_id FROM sys_user_role WHERE user_id = " + userId));
+            List<Role> roles = roleService.list(new LambdaQueryWrapper<Role>().inSql(Role::getId, "SELECT role_id FROM sys_user_role WHERE user_id = " + userId));
 
-            if (roles.size() > 0) {
+            if (!roles.isEmpty()) {
                 String roleCodes = roles.stream().map(role -> "ROLE_" + role.getCode()).collect(Collectors.joining(","));
                 authority = roleCodes.concat(",");
             }
 
             // 获取菜单权限编码
             List<Long> menuIds = userMapper.getNavMenuIds(userId);
-            if (menuIds.size() > 0) {
+            if (!menuIds.isEmpty()) {
                 List<Menu> menus = menuService.listByIds(menuIds);
                 String menuPerms = menus.stream().map(Menu::getPerms).collect(Collectors.joining(","));
                 authority = authority.concat(menuPerms);
@@ -114,43 +116,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return authority;
     }
 
-    /*
+    /**
+     * @return java.lang.Boolean
      * @Author tylt
      * @Description 登录邮件提醒
      * @Date 2022/3/6 15:55
      * @Method updateLoginWarnById
      * @Param [loginwarn, id]
-     * @return java.lang.Boolean
-     **/
+     */
     @Override
     public Boolean updateLoginWarnById(Integer loginwarn, Long id) {
         return userMapper.updateLoginWarnById(loginwarn, id);
     }
 
-    /*
+    /**
+     * @return void
      * @Author tylt
      * @Description 用户变动时清除权限缓存
      * @Date 2022/3/6 17:47
      * @Method clearUserAuthorityInfo
      * @Param [username]
-     * @return void
-     **/
+     */
     @Override
     public void clearUserAuthorityInfo(String username) {
         redisUtil.delete("GrantedAuthority:" + username);
     }
 
-    /*
+    /**
+     * @return void
      * @Author tylt
      * @Description 角色变动时清除权限缓存
      * @Date 2022/3/6 17:47
      * @Method clearUserAuthorityInfoByRoleId
      * @Param [roleId]
-     * @return void
-     **/
+     */
     @Override
     public void clearUserAuthorityInfoByRoleId(Long roleId) {
-        List<User> users = this.list(new QueryWrapper<User>().inSql("id", "select user_id from sys_user_role where role_id = " + roleId));
+        List<User> users = this.list(new QueryWrapper<User>().inSql("id", "select user_id userDTOToUser sys_user_role where role_id = " + roleId));
 
         users.forEach(u -> {
             this.clearUserAuthorityInfo(u.getUsername());
@@ -158,14 +160,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     }
 
-    /*
+    /**
+     * @return void
      * @Author tylt
      * @Description 菜单变动时清除权限缓存
      * @Date 2022/3/6 17:49
      * @Method clearUserAuthorityInfoByMenuId
      * @Param [menuId]
-     * @return void
-     **/
+     */
     @Override
     public void clearUserAuthorityInfoByMenuId(Long menuId) {
         List<User> users = userMapper.listByMenuId(menuId);

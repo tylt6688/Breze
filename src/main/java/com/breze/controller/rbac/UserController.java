@@ -21,6 +21,7 @@ import com.breze.entity.dto.UpdatePasswordDTO;
 import com.breze.entity.dto.UserDTO;
 import com.breze.entity.mapstruct.UserConvert;
 import com.breze.entity.pojo.rbac.*;
+import com.breze.entity.vo.UserInfoVo;
 import com.breze.utils.MultipartFileToFileUtil;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
@@ -64,17 +65,7 @@ public class UserController extends BaseController {
         // 此处为安全数据页面展示，前端需要什么后端就返回什么
         User user = userService.getByUserName(principal.getName());
         user.setRoles(roleService.listRolesByUserId(user.getId()));
-        Result result = new Result();
-        result.addData("username", user.getUsername());
-        result.addData("roles", user.getRoles());
-        result.addData("avatar", user.getAvatar());
-        result.addData("trueName", user.getTrueName());
-        result.addData("email", user.getEmail());
-        result.addData("phone", user.getPhone());
-        result.addData("city", user.getCity());
-        result.addData("loginTime", user.getLoginTime());
-        result.addData("createTime", user.getCreateTime());
-        result.addData("loginWarn", user.getLoginWarn());
+        UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
         // FIXME: 2022/9/30 临时在Controller展示，后续需要针对Service进行优化
         List<UserGroupJob> userGroupJobList = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
         List<Map> list = new ArrayList<>();
@@ -87,16 +78,12 @@ public class UserController extends BaseController {
                     .put("groupName", groupname)
                     .put("jobName", jobname)
                     .build());
-
-            // 2022/10/15 11:34 FIXME: 传入部门ID 逆向获取部门树 UP BY LUCIFER-LGX [抄送人：LUCIFER-LGX 待办人：tylt6688]
-            // groupService.findTreeById(id)
-            Group g = groupService.findTreeById(userGroupJob.getGroupId());
-            groups.add(g);
+            // 2022/10/15 11:34 FIXME: 传入部门ID 逆向获取部门树结构 UP BY LUCIFER-LGX [抄送人：LUCIFER-LGX 待办人：tylt6688]
+            Group group = groupService.findTreeById(userGroupJob.getGroupId());
+            groups.add(group);
         }
-        result.addData("groupJob", list);
-        // 逆向获取部门树结构
-        result.addData("groupTree", groups);
-        return Result.createSuccessMessage(result);
+        userInfoVo.setGroupJob(list).setGroups(groups);
+        return Result.createSuccessMessage(userInfoVo);
     }
 
     @BrezeLog("根据ID获取用户信息")
@@ -108,11 +95,10 @@ public class UserController extends BaseController {
         Assert.notNull(user, "找不到该用户");
         List<Role> roles = roleService.listRolesByUserId(id);
         user.setRoles(roles);
-        // 2022/9/23 15:30 FIXME: 根据ID获取用户信息 UP BY LUCIFER-LGX
-        UserDTO userDTO = UserConvert.INSTANCE.from(user);
-        UserGroupJob uj = userGroupJobService.getOne(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
-        userDTO.setJobId(uj.getJobId());
-        return Result.createSuccessMessage(userDTO);
+        UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+//        List<UserGroupJob> uj = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
+//        userDTO.setJobId(uj.getJobId());
+        return Result.createSuccessMessage(userInfoVo);
     }
 
     @BrezeLog("根据用户名获取用户信息")
@@ -132,15 +118,14 @@ public class UserController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result insert(@Validated @RequestBody UserDTO userDTO) {
-        User user = UserConvert.INSTANCE.from(userDTO);
+        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
         userService.insertUser(user);
-
         // 2022/9/23 15:30 FIXME: 添加 用户岗位 UP BY LUCIFER-LGX
-        UserGroupJob uj = UserConvert.INSTANCE.UJfrom(userDTO);
+        UserGroupJob uj = UserConvert.INSTANCE.userDTOToUserGroupJob(userDTO);
         userGroupJobService.insert(uj);
 
         // 2022/9/23 15:31 FIXME: 添加 部门岗位 UP BY LUCIFER-LGX
-        GroupJob gj = UserConvert.INSTANCE.GJfrom(userDTO);
+        GroupJob gj = UserConvert.INSTANCE.userDTOToGroupJob(userDTO);
         groupJobService.insert(gj);
 
         return Result.createSuccessMessage(user);
@@ -156,19 +141,18 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@RequestBody Long[] ids) {
         userService.removeByIds(Arrays.asList(ids));
-        boolean flag = userRoleService.remove(new QueryWrapper<UserRole>().in("user_id", ids));
+        boolean flag = userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
         // 2022/9/23 17:03 TODO: 需要修改 用户岗位 功能 UP BY LUCIFER-LGX
         return flag ? Result.createSuccessMessage("删除成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @BrezeLog("修改用户")
     @ApiOperation("修改用户")
-    @Transactional(rollbackFor = Exception.class)
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result update(@Validated @RequestBody UserDTO userDTO) {
         // 2022/9/23 15:28 FIXME: Use MapStruct UP BY LUCIFER-LGX
-        User user = UserConvert.INSTANCE.from(userDTO);
+        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
 
         // 2022/9/23 16:46 FIXME: 修改 用户岗位信息 UP BY LUCIFER-LGX
         UserGroupJob uj = userGroupJobService.getOne(new QueryWrapper<UserGroupJob>().eq("user_id", userDTO.getId()));
@@ -176,7 +160,7 @@ public class UserController extends BaseController {
         userGroupJobService.updateById(uj);
 
         // 2022/9/23 15:27 FIXME: 修改用户 UP BY LUCIFER-LGX
-        boolean flag = userService.updateById(user);
+        boolean flag = userService.updateUser(user);
         return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
@@ -294,11 +278,12 @@ public class UserController extends BaseController {
 
     @BrezeLog("登录提醒")
     @ApiOperation("更新登录提醒")
-    @ApiImplicitParams({@ApiImplicitParam(name = "loginwarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
+    @ApiImplicitParams({@ApiImplicitParam(name = "loginWarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @Transactional
     @PostMapping("/update_login_warn")
-    public Result updateLoginWarn(@RequestParam Integer loginwarn, @RequestParam Long id) {
-        boolean flag = userService.updateLoginWarnById(loginwarn, id);
+    public Result updateLoginWarn(@RequestParam Integer loginWarn, Principal principal) {
+        User user = userService.getByUserName(principal.getName());
+        boolean flag = userService.updateLoginWarnById(loginWarn, user.getId());
         return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailMessage(ErrorEnum.FindException);
     }
 

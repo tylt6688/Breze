@@ -1,16 +1,16 @@
 package com.breze.serviceimpl.rbac;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.entity.dto.MenuDTO;
+import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.User;
+import com.breze.mapper.rbac.MenuMapper;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import com.breze.entity.dto.MenuDTO;
-import com.breze.entity.pojo.rbac.Menu;
-import com.breze.mapper.rbac.MenuMapper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -71,7 +71,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     private List<MenuDTO> convert(List<Menu> menuTree) {
-        List<MenuDTO> menuDTOS = new ArrayList<>();
+        List<MenuDTO> menuDTO = new ArrayList<>();
         menuTree.forEach(m -> {
             MenuDTO dto = new MenuDTO();
             dto.setId(m.getId());
@@ -80,19 +80,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             dto.setIcon(m.getIcon());
             dto.setComponent(m.getComponent());
             dto.setPath(m.getPath());
-            if (m.getChildren().size() > 0) {
-                // 子节点调用当前方法进行再次转换
+            if (!m.getChildren().isEmpty()) {
+                // 子节点调用当前方法再次进行转换
                 dto.setChildren(convert(m.getChildren()));
             }
-            menuDTOS.add(dto);
+            menuDTO.add(dto);
         });
-        return menuDTOS;
+        return menuDTO;
     }
 
     @Override
     public List<Menu> tree() {
         // 获取所有菜单信息,按序号进行升序排序
-        List<Menu> menus = this.list(new QueryWrapper<Menu>().orderByAsc("order_num"));
+        List<Menu> menus = this.list(new LambdaQueryWrapper<Menu>().orderByAsc(Menu::getOrderNum));
         // 转成树状结构
         return buildTreeMenu(menus);
     }
