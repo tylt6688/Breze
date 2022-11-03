@@ -34,7 +34,7 @@ public class Result {
      */
     public static Result createSuccessMessage() {
 
-        return Result.createSuccessMessage("请求成功");
+        return Result.createSuccessMessage("请求成功",null);
     }
 
     public static Result createSuccessMessage(Object data) {

@@ -15,10 +15,10 @@ import java.util.List;
 public interface GroupJobService extends IService<GroupJob> {
     List<Job> findJobsByGroupId(Long id);
 
-    int insert(GroupJob groupJob);
+    Boolean insert(GroupJob groupJob);
 
-    int update(GroupJob groupJob);
+    Boolean update(GroupJob groupJob);
 
-    int deleteById(Long id);
+    Boolean deleteById(Long id);
 
 }

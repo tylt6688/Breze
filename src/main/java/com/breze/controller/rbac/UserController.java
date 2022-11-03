@@ -15,6 +15,7 @@ import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
+import com.breze.common.exception.BussinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.dto.UpdatePasswordDTO;
@@ -71,7 +72,7 @@ public class UserController extends BaseController {
         List<Map> list = new ArrayList<>();
         List<Group> groups = new ArrayList<>();
         for (UserGroupJob userGroupJob : userGroupJobList) {
-        // FIXME: 2022/9/30 此处应采用递归进行父级查询，直至查询到顶级[抄送人：tylt6688 待办人：LUCIFER-LGX 2022-09-30]
+            // FIXME: 2022/9/30 此处应采用递归进行父级查询，直至查询到顶级[抄送人：tylt6688 待办人：LUCIFER-LGX 2022-09-30]
             String groupname = groupService.getById(userGroupJob.getJobId()).getName();
             String jobname = jobService.getById(userGroupJob.getJobId()).getName();
             list.add(MapUtil.builder()
@@ -141,9 +142,9 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@RequestBody Long[] ids) {
         userService.removeByIds(Arrays.asList(ids));
-        boolean flag = userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
+        userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
         // 2022/9/23 17:03 TODO: 需要修改 用户岗位 功能 UP BY LUCIFER-LGX
-        return flag ? Result.createSuccessMessage("删除成功") : Result.createFailMessage(ErrorEnum.FindException);
+        return Result.createSuccessMessage("删除成功");
     }
 
     @BrezeLog("修改用户")
@@ -160,8 +161,8 @@ public class UserController extends BaseController {
         userGroupJobService.updateById(uj);
 
         // 2022/9/23 15:27 FIXME: 修改用户 UP BY LUCIFER-LGX
-        boolean flag = userService.updateUser(user);
-        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
+        userService.updateUser(user);
+        return Result.createSuccessMessage(user);
     }
 
 
@@ -225,8 +226,8 @@ public class UserController extends BaseController {
     public Result resetPassword(@RequestBody Long userId) {
         User user = userService.getById(userId);
         user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
-        boolean flag = userService.updateById(user);
-        return flag ? Result.createSuccessMessage("重置密码成功") : Result.createFailMessage(ErrorEnum.FindException);
+        userService.updateById(user);
+        return Result.createSuccessMessage("重置密码成功");
     }
 
     @BrezeLog("修改用户密码")
@@ -257,14 +258,12 @@ public class UserController extends BaseController {
             qiNiuService.deleteFile(user.getAvatar());
         }
         String path = qiNiuService.uploadFile(avatar);
-        if (path != null) {
-            user.setAvatar(path);
-            userService.updateById(user);
-            return Result.createSuccessMessage("修改头像成功");
-
-        } else {
-            return Result.createFailMessage(ErrorEnum.FindException, "修改头像失败");
+        if (path == null) {
+            throw new BussinessException(ErrorEnum.FindException, "修改头像失败");
         }
+        user.setAvatar(path);
+        userService.updateById(user);
+        return Result.createSuccessMessage("修改头像成功");
     }
 
     @BrezeLog("更新用户信息")

@@ -17,23 +17,30 @@ import java.nio.file.AccessDeniedException;
 /**
  * @Author tylt6688
  * @Date 2022/2/5 11:57
- * @Description 全局异常处理机制，捕获 Controller 部分
+ * @Description 全局异常处理机制，全局捕获 Controller 部分
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2
 @RestControllerAdvice
 public class GlobalException extends Throwable {
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(BussinessException.class)
+    public Result handler(BussinessException e) {
+        log.error("server服务器故障：----------------{}", e.getMessage());
+        e.printStackTrace();
+        return Result.createFailMessage(e.getErrorEnum(), e.getMessage());
+    }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler(value = AccessDeniedException.class)
+    @ExceptionHandler(AccessDeniedException.class)
     public Result handler(AccessDeniedException e) {
         log.error("security权限不足：----------------{}", e.getMessage());
         return Result.createFailMessage(ErrorEnum.NoPermission, "权限不足");
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result handler(MethodArgumentNotValidException e) {
         log.error("实体校验异常：----------------{}", e.getMessage());
         BindingResult bindingResult = e.getBindingResult();
@@ -42,14 +49,14 @@ public class GlobalException extends Throwable {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = IllegalArgumentException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e) {
         log.error("Assert异常：----------------{}", e.getMessage());
         return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = RuntimeException.class)
+    @ExceptionHandler(RuntimeException.class)
     public Result handler(RuntimeException e) {
         log.error("运行时异常：----------------{}", e.getMessage());
         return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());

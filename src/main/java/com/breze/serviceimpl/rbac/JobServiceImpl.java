@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/9/10 10:24
- * @Description:
+ * @Description
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Service
@@ -34,23 +34,23 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
 
     @Override
     public List<Job> findByJobName(String name) {
-        QueryWrapper<Job> qw = new QueryWrapper<Job>();
+        QueryWrapper<Job> qw = new QueryWrapper<>();
         qw.like("name", name);
         return jobMapper.selectList(qw);
     }
 
     @Override
-    public int insert(Job job) {
-        return jobMapper.insert(job);
+    public Boolean insert(Job job) {
+        return jobMapper.insert(job) > 0;
     }
 
     @Override
-    public int update(Job job) {
-        return jobMapper.updateById(job);
+    public Boolean update(Job job) {
+        return jobMapper.updateById(job) > 0;
     }
 
     @Override
-    public int deleteById(Long id) {
-        return jobMapper.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return jobMapper.deleteById(id) > 0;
     }
 }

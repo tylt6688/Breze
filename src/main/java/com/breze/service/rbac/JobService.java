@@ -19,10 +19,10 @@ public interface JobService extends IService<Job> {
 
     List<Job> findByJobName(String name);
 
-    int insert(Job job);
+    Boolean insert(Job job);
 
-    int update(Job job);
+    Boolean update(Job job);
 
-    int deleteById(Long id);
+    Boolean deleteById(Long id);
 
 }

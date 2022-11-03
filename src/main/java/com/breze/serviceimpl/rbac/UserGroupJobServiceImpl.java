@@ -49,17 +49,17 @@ public class UserGroupJobServiceImpl extends ServiceImpl<UserGroupJobMapper, Use
     }
 
     @Override
-    public int insert(UserGroupJob userGroupJob) {
-        return userGroupJobMapper.insert(userGroupJob);
+    public Boolean insert(UserGroupJob userGroupJob) {
+        return userGroupJobMapper.insert(userGroupJob) > 0;
     }
 
     @Override
-    public int update(UserGroupJob userGroupJob) {
-        return userGroupJobMapper.updateById(userGroupJob);
+    public Boolean update(UserGroupJob userGroupJob) {
+        return userGroupJobMapper.updateById(userGroupJob) > 0;
     }
 
     @Override
-    public int deleteById(Long id) {
-        return userGroupJobMapper.deleteById(id);
+    public Boolean deleteById(Long id) {
+        return userGroupJobMapper.deleteById(id) > 0;
     }
 }

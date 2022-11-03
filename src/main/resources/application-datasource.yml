@@ -1,4 +1,4 @@
-urlsuffix: useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+suffix: useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
 
 spring:
   datasource:
@@ -8,17 +8,17 @@ spring:
       strict: false
       datasource:
         master:
-          url: jdbc:mysql://localhost:3306/breze?${urlsuffix}
+          url: jdbc:mysql://localhost:3306/breze?${suffix}
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         slave:
-          url: jdbc:mysql://localhost:3306/breze?${urlsuffix}
+          url: jdbc:mysql://localhost:3306/breze?${suffix}
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         portal:
-          url: jdbc:mysql://localhost:3306/breze_portal?${urlsuffix}
+          url: jdbc:mysql://localhost:3306/breze_portal?${suffix}
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver

@@ -18,9 +18,9 @@ public interface UserGroupJobService extends IService<UserGroupJob> {
 
     Long findUserCountByJobId(Long id);
 
-    int insert(UserGroupJob userGroupJob);
+    Boolean insert(UserGroupJob userGroupJob);
 
-    int update(UserGroupJob userGroupJob);
+    Boolean update(UserGroupJob userGroupJob);
 
-    int deleteById(Long id);
+    Boolean deleteById(Long id);
 }

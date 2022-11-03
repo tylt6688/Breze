@@ -16,10 +16,14 @@ breze:
   swaggerEnabled: true
 
 spring:
-#  配置激活文件
+  #  配置激活文件
   profiles:
-    active: dev,datasource,redis,rabbitmq,mail,private
-# 限制文件大小
+    active: dev
+    group:
+      "dev": datasource,redis,rabbitmq,mail,private
+      "prod": datasource,redis,rabbitmq,mail,private
+      "test": datasource,redis,rabbitmq,mail,private
+  # 限制文件大小
   servlet:
     multipart:
       max-file-size: 100MB

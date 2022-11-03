@@ -25,6 +25,7 @@ import java.util.Date;
 public class JwtConfig implements Serializable {
 
     private static final Long serialVersionUID = 13083965924334257L;
+
     // 给JWT起个名字方便后面获取
     private String header;
     // 过期时间
@@ -61,7 +62,6 @@ public class JwtConfig implements Serializable {
                     .setSigningKey(secret)
                     .parseClaimsJws(jwt)
                     .getBody();
-
         } catch (Exception e) {
             throw new JwtException("token令牌异常");
         }
