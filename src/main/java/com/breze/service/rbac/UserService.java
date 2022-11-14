@@ -14,6 +14,11 @@ import com.breze.entity.pojo.rbac.User;
 public interface UserService extends IService<User> {
 
 
+    /**
+     * 插入用户
+     * @param  user
+     * @return boolean
+     */
     Boolean insertUser(User user);
 
     Boolean updateUser(User user);

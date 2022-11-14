@@ -18,7 +18,6 @@
         <maven.compiler.version>3.10.1</maven.compiler.version>
         <jwt.version>0.9.1</jwt.version>
         <swagger.version>3.0.0</swagger.version>
-        <jedis.version>4.2.3</jedis.version>
         <druid.version>1.2.13</druid.version>
         <fastjson.version>2.0.14</fastjson.version>
         <easyexcel.version>3.1.1</easyexcel.version>
@@ -49,10 +48,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -61,13 +56,26 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -147,7 +155,6 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>${jedis.version}</version>
         </dependency>
 
 
@@ -192,14 +199,14 @@
             <version>${mybatis.plus.boot.version}</version>
         </dependency>
 
-        <!--MyBatisPlus代码生成器-->
+        <!-- MyBatis Plus 代码生成器-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis.plus.generator.version}</version>
         </dependency>
 
-        <!--对MyBatisPlus代码生成器进行支持的velocity模板引擎-->
+        <!-- 对 MyBatis Plus 代码生成器进行支持的 velocity 模板引擎-->
         <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -213,7 +220,7 @@
             <version>${commons.lang.version}</version>
         </dependency>
 
-        <!--二维码生成  -->
+        <!-- 二维码生成  -->
         <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -295,7 +302,7 @@
 
 
     <build>
-        <!--    Maven打包工具插件    -->
+        <!-- Maven打包工具插件 -->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

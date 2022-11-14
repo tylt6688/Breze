@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.tool;
+package com.breze.service.tool.impl;
 
 import com.breze.entity.pojo.tool.DataBaseTable;
 import com.breze.mapper.tool.DataBaseTableMapper;

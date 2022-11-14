@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.rbac;
+package com.breze.service.rbac.impl;
 
 import com.breze.entity.pojo.rbac.RoleMenu;
 import com.breze.mapper.rbac.RoleMenuMapper;

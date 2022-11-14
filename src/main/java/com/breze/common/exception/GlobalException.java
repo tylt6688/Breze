@@ -2,6 +2,8 @@ package com.breze.common.exception;
 
 
 import com.breze.common.enums.ErrorEnum;
+import com.breze.common.result.Result;
+import io.jsonwebtoken.JwtException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.breze.common.result.Result;
 
 import java.nio.file.AccessDeniedException;
 
@@ -30,6 +31,14 @@ public class GlobalException extends Throwable {
         log.error("server服务器故障：----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(e.getErrorEnum(), e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(JwtException.class)
+    public Result handler(JwtException e) {
+        log.error("Jwt出现异常：----------------{}", e.getMessage());
+        e.printStackTrace();
+        return Result.createFailMessage(ErrorEnum.IllegalOperation, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)

@@ -1,9 +1,15 @@
 package com.breze.security.securityimpl;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.breze.common.consts.GlobalConstant;
+import com.breze.common.enums.ErrorEnum;
 import com.breze.common.rabbit.Produce;
 import com.breze.config.BrezeConfig;
+import com.breze.config.MailConfig;
+import com.breze.entity.pojo.logdo.LoginLog;
+import com.breze.entity.pojo.rbac.LoginUser;
+import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.pojo.tool.Email;
 import com.breze.service.brezelog.LoginLogService;
 import com.breze.service.rbac.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -16,11 +22,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import com.breze.config.MailConfig;
-import com.breze.entity.pojo.tool.Email;
-import com.breze.entity.pojo.logdo.LoginLog;
-import com.breze.entity.pojo.rbac.User;
-import com.breze.security.AccountUser;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -55,15 +56,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
         User user = userService.getByUserName(username);
         // 进行异常抛出，交付给认证失败处理器进行处理
         if (user == null) {
-            throw new UsernameNotFoundException("用户名或密码错误！");
-        } else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
-            throw new UsernameNotFoundException("该账号状态异常，请联系管理员！");
+            throw new UsernameNotFoundException(ErrorEnum.ErrorUsernamePassword.getErrorName());
+        }
+        else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
+            throw new UsernameNotFoundException(ErrorEnum.LockUser.getErrorName());
         }
         // 更新账户最后一次登录时间
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("username", username);
-        updateWrapper.set("login_time", LocalDateTime.now());
-        userService.update(updateWrapper);
+        LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        lambdaUpdateWrapper.eq(User::getUsername, username);
+        lambdaUpdateWrapper.set(User::getLoginTime, LocalDateTime.now());
+        userService.update(lambdaUpdateWrapper);
 
         LoginLog loginLog = new LoginLog();
         loginLog.setUserId(user.getId());
@@ -78,16 +80,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
             String content = templateEngine.process("html/email.html", context);
 
             Email email = new Email();
-            email.setMailFrom(mailConfig.getUsername());
-            email.setMailFromNick(brezeConfig.getName());
-            email.setMailTo(user.getEmail());
-            email.setSubject("账户登录提醒");
-            email.setContent(content);
+            email.setMailFrom(mailConfig.getUsername())
+                    .setMailFromNick(brezeConfig.getName())
+                    .setMailTo(user.getEmail())
+                    .setSubject("账户登录提醒")
+                    .setContent(content);
             produce.sendMailByMQ(email);
         }
 
 
-        return new AccountUser(user.getId(), user.getUsername(), user.getPassword(), getUserAuthority(user.getId()));
+        return new LoginUser(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user.getId()));
     }
 
     /**

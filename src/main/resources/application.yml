@@ -6,8 +6,8 @@
 breze:
   # 名称
   title: 清枫Breze权限管理系统
-  name: Breeze
-  description: Breeze权限管理系统接口文档
+  name: Breze
+  description: Breze权限管理系统接口文档
   # 版本
   version: 1.0.0
   # 版权年份
@@ -19,10 +19,11 @@ spring:
   #  配置激活文件
   profiles:
     active: dev
+    # 对配置文件进行分组激活，届时可根据不同环境进行修改
     group:
-      "dev": datasource,redis,rabbitmq,mail,private
-      "prod": datasource,redis,rabbitmq,mail,private
-      "test": datasource,redis,rabbitmq,mail,private
+      "dev": datasource,redis,rabbitmq,mail,timertask,private
+      "prod": datasource,redis,rabbitmq,mail,timertask,private
+      "test": datasource,redis,rabbitmq,mail,timertask,private
   # 限制文件大小
   servlet:
     multipart:
@@ -31,5 +32,17 @@ spring:
 
 logging:
   config: classpath:application-log.yml
+  # 设置日志分组
+  group:
+    common: com.breze.common
+    controller: com.breze.controller
+    service: com.breze.service,com.breze.impl
+  # 根据分组设定日志级别
   level:
-    ssm.app.mapper: debug
+    # 项目整体日志级别
+    root: info
+    # 项目分组各模块日志级别
+    common: info
+    controller: debug
+    service: info
+

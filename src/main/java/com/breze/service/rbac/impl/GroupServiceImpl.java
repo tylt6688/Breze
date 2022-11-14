@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.rbac;
+package com.breze.service.rbac.impl;
 
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNodeConfig;

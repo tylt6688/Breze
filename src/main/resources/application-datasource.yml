@@ -2,7 +2,6 @@ suffix: useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
 
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
       primary: master
       strict: false
@@ -23,6 +22,7 @@ spring:
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
     # Druid连接池配置
+    type: com.alibaba.druid.pool.DruidDataSource
     druid:
       mysql:
         usePingMethod: false

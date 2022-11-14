@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.rbac;
+package com.breze.service.rbac.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.breze.entity.pojo.rbac.Role;

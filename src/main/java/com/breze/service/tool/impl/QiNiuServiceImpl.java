@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.tool;
+package com.breze.service.tool.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;

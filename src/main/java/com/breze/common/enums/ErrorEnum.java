@@ -43,7 +43,13 @@ public enum ErrorEnum {
     /**
      * 出现异常错误码
      */
-    FindException("出现异常", 800);
+    FindException("出现异常", 800),
+
+    VerifyCodeError("验证码错误", 107),
+
+    ErrorUsernamePassword("用户名或密码错误!", 105),
+
+    LockUser("账户已被锁定，请联系管理员!", 106);
 
 
     @EnumValue

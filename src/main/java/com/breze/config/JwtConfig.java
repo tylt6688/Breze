@@ -55,15 +55,17 @@ public class JwtConfig implements Serializable {
     /**
      * 解析jwt
      */
-    public Claims getClaimByToken(String jwt) {
+    public Claims getClaimByToken(String jwt)  {
         Claims claims;
         try {
             claims = Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(jwt)
                     .getBody();
-        } catch (Exception e) {
-            throw new JwtException("token令牌异常");
+        } catch (JwtException e) {
+            log.error("JWT格式验证失败----------{}", e.getMessage());
+            // FIXME: 2022/11/14 22:29  这里需要抛出异常
+            throw new JwtException("JWT格式验证失败");
         }
         return claims;
     }

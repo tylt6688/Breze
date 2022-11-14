@@ -1,10 +1,9 @@
-package com.breze.serviceimpl.tool;
+package com.breze.service.tool.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.entity.pojo.tool.OssFile;
 import com.breze.mapper.tool.OssFileMapper;
 import com.breze.service.tool.OssFileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

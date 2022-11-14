@@ -1,14 +1,13 @@
 package com.breze.security.filter;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import com.breze.common.consts.CharsetConstant;
-import com.breze.common.enums.ErrorEnum;
-import com.breze.common.exception.BussinessException;
 import com.breze.config.JwtConfig;
 import com.breze.entity.pojo.rbac.User;
+import com.breze.security.handler.LoginFailureHandler;
 import com.breze.security.securityimpl.UserDetailServiceImpl;
 import com.breze.service.rbac.UserService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,6 +40,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Autowired
     UserDetailServiceImpl userDetailService;
 
+    @Autowired
+    LoginFailureHandler loginFailureHandler;
+
+
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -51,7 +54,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
-        if (CharSequenceUtil.isBlankOrUndefined(jwt) || !jwt.startsWith(CharsetConstant.JWT_PREFIX)) {
+        if (jwt == null || !jwt.startsWith(CharsetConstant.JWT_PREFIX)) {
+            log.error("JWT为空或者格式不正确-----------{}", jwt);
             chain.doFilter(request, response);
             return;
         }
@@ -63,7 +67,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         // 判断token是否过期
         if (Boolean.TRUE.equals(jwtConfig.isTokenExpired(claim))) {
-            throw new BussinessException(ErrorEnum.NoPermission,"token令牌已过期");
+            // FIXME: 2022/11/14 22:30  这里需要进一步异常处理
+            throw new JwtException("token令牌已过期");
         }
 
         // 获取用户的权限菜单等信息
@@ -78,4 +83,5 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         chain.doFilter(request, response);
     }
+
 }

@@ -70,6 +70,15 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter(authenticationManager());
     }
 
+    /**
+     * 放行静态资源
+     */
+//    @Bean
+//    WebSecurityCustomizer webSecurityCustomizer() {
+//        return web -> web.ignoring().antMatchers("/static/**", "/favicon.ico");
+//    }
+
+
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

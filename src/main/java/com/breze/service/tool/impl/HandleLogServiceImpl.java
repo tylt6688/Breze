@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.tool;
+package com.breze.service.tool.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.entity.pojo.logdo.HandleLog;

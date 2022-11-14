@@ -12,7 +12,7 @@ Configuration:
       - name: log.path
         value: log
       - name: project.name
-        value: opendoc
+        value: breze
       - name: log.pattern
         value: "%d{yyyy-MM-dd HH:mm:ss.SSS} -%5p ${PID:-} [%15.15t] %-30.30C{1.} : %m%n"
 

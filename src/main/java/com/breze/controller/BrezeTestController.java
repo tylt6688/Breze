@@ -30,6 +30,7 @@ public class BrezeTestController extends BaseController {
 
 
 
+
     @GetMapping("/logtest")
     public String logtest() {
         Logger log = LogUtil.getExceptionLogger();
@@ -80,6 +81,7 @@ public class BrezeTestController extends BaseController {
 //        System.out.println(ServerUtil.getDiskInfo());
 //        System.out.println(ServerUtil.getMemoryInfo());
 //        System.out.println(ServerUtil.getOsInfo());
+
 
 
     }

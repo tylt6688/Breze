@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.portal;
+package com.breze.service.portal.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

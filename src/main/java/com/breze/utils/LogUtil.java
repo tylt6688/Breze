@@ -62,7 +62,6 @@ public class LogUtil {
         HttpServletRequest request = ((ServletRequestAttributes) Objects
                 .requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         HandleLog handleLog = new HandleLog();
-        //log.setType(LogTypeEnum.NORMAL.getType());sec-ch-ua-platform
         handleLog.setType("PC");
         handleLog.setRequestIp(ServletUtil.getClientIP(request));
         handleLog.setRequestPath(URLUtil.getPath(request.getRequestURI()));

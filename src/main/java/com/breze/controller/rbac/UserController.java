@@ -107,7 +107,7 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "username", value = "用户名", required = false, dataType = "String", dataTypeClass = String.class)
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
-    public Result select(String username) {
+    public Result select(@RequestParam String username) {
         // 2022/9/23 15:24 TODO: Should Be ReWrite UP BY LUCIFER-LGX
         Page<User> pageData = userService.page(getPage(), new LambdaQueryWrapper<User>().like(CharSequenceUtil.isNotBlank(username), User::getUsername, username));
         pageData.getRecords().forEach(u -> u.setRoles(roleService.listRolesByUserId(u.getId())));
@@ -130,8 +130,6 @@ public class UserController extends BaseController {
         groupJobService.insert(gj);
 
         return Result.createSuccessMessage(user);
-
-//        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @BrezeLog("删除用户")

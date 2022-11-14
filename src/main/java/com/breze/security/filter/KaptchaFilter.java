@@ -2,9 +2,11 @@ package com.breze.security.filter;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.breze.common.consts.CacheConstant;
+import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.KaptchaException;
 import com.breze.security.handler.LoginFailureHandler;
 import com.breze.utils.RedisUtil;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,33 +29,32 @@ import java.io.IOException;
 public class KaptchaFilter extends OncePerRequestFilter {
 
     @Autowired
+    RedisUtil redisUtil;
+    @Autowired
     LoginFailureHandler loginFailureHandler;
 
-    @Autowired
-    RedisUtil redisUtil;
-
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
 
-        String url = httpServletRequest.getRequestURI();
+        String url = request.getRequestURI();
 
-        if ("/login".equals(url) && "POST".equals(httpServletRequest.getMethod())) {
+        if ("/login".equals(url) && "POST".equals(request.getMethod())) {
             try {
                 // 先校验验证码
-                validate(httpServletRequest);
+                validate(request);
             } catch (KaptchaException exception) {
                 // 交给认证失败处理器
-                loginFailureHandler.onAuthenticationFailure(httpServletRequest, httpServletResponse, exception);
+                loginFailureHandler.onAuthenticationFailure(request, response, exception);
             }
         }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.doFilter(request, response);
     }
 
     // 校验验证码逻辑
-    private void validate(HttpServletRequest httpServletRequest) {
+    private void validate(HttpServletRequest request) {
 
-        String key = httpServletRequest.getParameter("key");
-        String code = httpServletRequest.getParameter("code");
+        String key = request.getParameter("key");
+        String code = request.getParameter("code");
 
         //先判断 code与 key是否为空
         if (StringUtils.isBlank(code) || StringUtils.isBlank(key)) {
@@ -62,7 +63,7 @@ public class KaptchaFilter extends OncePerRequestFilter {
 
         //从Redis中获取进行比较
         if (!code.equals(redisUtil.hashGet(CacheConstant.KAPTCHA_KEY, key))) {
-            throw new KaptchaException("验证码错误");
+            throw new KaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
         }
 
         //一次性使用，使用后将其从Redis中删除

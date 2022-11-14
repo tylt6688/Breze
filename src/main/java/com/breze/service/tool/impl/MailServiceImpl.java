@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.tool;
+package com.breze.service.tool.impl;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;

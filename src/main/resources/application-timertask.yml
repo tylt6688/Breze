@@ -1,0 +1,12 @@
+spring:
+  task:
+    scheduling:
+      pool:
+        # 任务调度线程池大小
+        size: 1
+        thread-name-prefix: breze-task-
+        shutdown:
+          # 等待任务完成后再关闭线程池
+          await-termination: false
+          # 调度线程关闭前等待的时间
+          await-termination-period: 10s

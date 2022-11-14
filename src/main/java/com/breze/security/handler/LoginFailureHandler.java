@@ -3,6 +3,7 @@ package com.breze.security.handler;
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -20,11 +21,13 @@ import java.nio.charset.StandardCharsets;
  * @Description 登录认证失败处理器
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+
+@Log4j2
 @Component
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
 
         response.setContentType(CharsetConstant.JSON_TYPE);
         response.setCharacterEncoding(CharsetConstant.UTF_8);
@@ -32,15 +35,17 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         ServletOutputStream outputStream = response.getOutputStream();
 
         // 进行错误自定义异常结果返回
-        String msg = exception.getMessage();
+        String msg = authenticationException.getMessage();
 
-        Result result = null;
-        if ("验证码错误".equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.FindException, exception.getMessage());
-        } else if ("账户状态异常".equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.FindException, "您的账户已被禁用，请联系管理员");
+        log.error("登录失败:--------------{}", msg);
+        // FIXME: 2022/11/14 22:30  这里需要进一步细节处理
+        Result result;
+        if (ErrorEnum.VerifyCodeError.getErrorName().equals(msg)) {
+            result = Result.createFailMessage(ErrorEnum.FindException, authenticationException.getMessage());
+        } else if (ErrorEnum.LockUser.getErrorName().equals(msg)) {
+            result = Result.createFailMessage(ErrorEnum.FindException, "您的账户已被禁用，请联系管理员!");
         } else {
-            result = Result.createFailMessage(ErrorEnum.FindException, "用户名或密码错误");
+            result = Result.createFailMessage(ErrorEnum.FindException, "用户名或密码错误!");
         }
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));

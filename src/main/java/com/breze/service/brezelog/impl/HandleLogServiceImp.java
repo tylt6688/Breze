@@ -1,4 +1,4 @@
-package com.breze.serviceimpl.brezelog;
+package com.breze.service.brezelog.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
