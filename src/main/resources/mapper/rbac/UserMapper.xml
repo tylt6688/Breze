@@ -31,7 +31,7 @@
 
     <update id="updateLoginWarnById">
         update sys_user
-        set login_warn = #{loginwarn,jdbcType=NUMERIC}
+        set login_warn = #{loginWarn,jdbcType=NUMERIC}
         where id = #{id,jdbcType=NUMERIC}
     </update>
 

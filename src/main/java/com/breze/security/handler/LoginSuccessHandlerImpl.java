@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 
 @Log4j2
 @Component
-public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+public class LoginSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
     @Autowired
     JwtConfig jwtConfig;
@@ -54,7 +54,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             reader = new DatabaseReader.Builder(database).build();
             log.info("当前用户IP地址------------" + IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
         } catch (Exception e) {
-            log.info("异常IP地址------------" + SystemConstant.UNKNOW_IP);
+            log.info("异常IP地址------------" + SystemConstant.UNKNOWN_IP);
         }
 
         Result result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);

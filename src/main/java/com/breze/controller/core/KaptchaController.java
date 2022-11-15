@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -35,7 +36,7 @@ public class KaptchaController extends BaseController {
         String key = UUID.randomUUID().toString();
         String code = producer.createText();
 
-       // FIXME 开发环境暂时停止随机验证码
+        // FIXME 开发环境暂时停止随机验证码
         key = "tylt";
         code = "12345";
 
@@ -45,18 +46,17 @@ public class KaptchaController extends BaseController {
 
         String prefix = CharsetConstant.Base_64;
         String base64Img = prefix + Base64Encoder.encode(outputStream.toByteArray());
-
         outputStream.flush();
         outputStream.close();
 
         // 将生成的验证码存储到redis中
         redisUtil.hashSet(CacheConstant.KAPTCHA_KEY, key, code, 120);
 
-        log.info("当前验证码：|--key:{} |--code: {}", key, code);
-
-        return Result.createSuccessMessage(MapUtil.builder()
+        Map<Object, Object> map = MapUtil.builder()
                 .put("key", key)
                 .put("base64Img", base64Img)
-                .build());
+                .build();
+        log.info("当前验证码：|--key:{} |--code: {}", key, code);
+        return Result.createSuccessMessage("",map);
     }
 }

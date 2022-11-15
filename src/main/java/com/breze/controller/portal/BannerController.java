@@ -2,15 +2,14 @@ package com.breze.controller.portal;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.breze.entity.pojo.portal.Banner;
-import com.qiniu.common.QiniuException;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
+import com.breze.entity.pojo.portal.Banner;
+import com.qiniu.common.QiniuException;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,7 +47,7 @@ public class BannerController extends BaseController {
     public Result insert(@Validated @RequestBody Banner banner) {
         try {
             bannerService.save(banner);
-            return Result.createSuccessMessage("添加轮播图成功",null);
+            return Result.createSuccessMessage("添加轮播图成功");
         } catch (Exception e) {
             return Result.createFailMessage(ErrorEnum.UnknowError, "添加轮播图失败");
         }
@@ -58,7 +57,7 @@ public class BannerController extends BaseController {
     @PostMapping("/update")
     public Result update(@Validated @RequestBody Banner banner) {
         bannerService.updateById(banner);
-        return Result.createSuccessMessage("修改轮播信息成功",null);
+        return Result.createSuccessMessage("修改轮播信息成功");
     }
 
 
@@ -71,7 +70,7 @@ public class BannerController extends BaseController {
         Banner banner = new Banner();
         banner.setUrl(path).setAlt(alt);
         bannerService.save(banner);
-        return Result.createSuccessMessage("上传Banner轮播图成功",null);
+        return Result.createSuccessMessage("上传Banner轮播图成功");
     }
 
     @PostMapping("/delete")
@@ -80,14 +79,14 @@ public class BannerController extends BaseController {
             try {
                 qiNiuService.deleteFile(url);
                 bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
-                return Result.createSuccessMessage("删除Banner轮播图成功",null);
+                return Result.createSuccessMessage("删除Banner轮播图成功");
             } catch (Exception e) {
                 bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
-                return Result.createSuccessMessage("已删除失效Banner轮播图",null);
+                return Result.createSuccessMessage("已删除失效Banner轮播图");
             }
         } else {
             bannerService.remove(new QueryWrapper<Banner>().eq("url", url));
-            return Result.createSuccessMessage("已删除非法Banner轮播图",null);
+            return Result.createSuccessMessage("已删除非法Banner轮播图");
         }
 
     }

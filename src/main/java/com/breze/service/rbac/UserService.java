@@ -31,7 +31,7 @@ public interface UserService extends IService<User> {
 
     String getUserAuthorityInfo(Long userId);
 
-    Boolean updateLoginWarnById(Integer loginwarn, Long id);
+    Boolean updateLoginWarnById(Integer loginWarn, Long id);
 
     // 避免系统用户分配权限变动后redis缓存未发生变动导致缓存不一致
     void clearUserAuthorityInfo(String username);

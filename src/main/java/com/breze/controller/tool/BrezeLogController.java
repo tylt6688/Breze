@@ -29,13 +29,13 @@ public class BrezeLogController extends BaseController {
             loginLog.setUserName(userService.getById(loginLog.getUserId()).getUsername());
             loginLog.setTrueName(userService.getById(loginLog.getUserId()).getTrueName());
         });
-        return Result.createSuccessMessage(pageData);
+        return Result.createSuccessMessage("",pageData);
     }
 
     @GetMapping("/list_handle_log")
     public Result listHandleLog() {
         Page<HandleLog> pageData = handleLogService.page(getPage(), new LambdaQueryWrapper<HandleLog>().orderByDesc(HandleLog::getCreateTime));
-        return Result.createSuccessMessage(pageData);
+        return Result.createSuccessMessage("",pageData);
     }
 
 

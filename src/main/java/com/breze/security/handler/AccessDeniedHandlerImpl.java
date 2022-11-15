@@ -1,4 +1,4 @@
-package com.breze.security.securityimpl;
+package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;

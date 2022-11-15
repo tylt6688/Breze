@@ -51,7 +51,7 @@ public class MenuController extends BaseController {
         Map<Object, Object> map = MapUtil.builder()
                 .put("authority", authorityInfoArray)
                 .put("nav", navs).map();
-        return Result.createSuccessMessage(map);
+        return Result.createSuccessMessage("",map);
     }
 
     @BrezeLog("按ID查询菜单信息")
@@ -61,7 +61,7 @@ public class MenuController extends BaseController {
     @PreAuthorize("hasAuthority('sys:menu:select')")
     public Result info(@PathVariable(name = "id") Long id) {
         Menu menu = menuService.getById(id);
-        return Result.createSuccessMessage(menu);
+        return Result.createSuccessMessage("",menu);
     }
 
     @BrezeLog("查询菜单管理中的所有菜单信息")
@@ -70,7 +70,7 @@ public class MenuController extends BaseController {
     @PreAuthorize("hasAuthority('sys:menu:select')")
     public Result select() {
         List<Menu> menus = menuService.tree();
-        return Result.createSuccessMessage(menus);
+        return Result.createSuccessMessage("",menus);
     }
 
 
@@ -81,7 +81,7 @@ public class MenuController extends BaseController {
     @PreAuthorize("hasAuthority('sys:menu:insert')")
     public Result insert(@Validated @RequestBody Menu menu) {
         boolean flag = menuService.save(menu);
-        return flag ? Result.createSuccessMessage(menu) : Result.createFailMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("",menu) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @BrezeLog("更新菜单")
@@ -94,7 +94,7 @@ public class MenuController extends BaseController {
         boolean flag = menuService.updateById(menu);
         // 菜单发生变化时清除Redis中的缓存
         userService.clearUserAuthorityInfoByMenuId(menu.getId());
-        return flag ? Result.createSuccessMessage(menu) : Result.createFailMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("",menu) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @BrezeLog("删除菜单")

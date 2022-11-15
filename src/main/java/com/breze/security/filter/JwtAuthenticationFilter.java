@@ -4,7 +4,7 @@ import com.breze.common.consts.CharsetConstant;
 import com.breze.common.exception.JwtBrezeException;
 import com.breze.config.JwtConfig;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.security.handler.LoginFailureHandler;
+import com.breze.security.handler.LoginFailureHandlerImpl;
 import com.breze.security.securityimpl.UserDetailServiceImpl;
 import com.breze.service.rbac.UserService;
 import io.jsonwebtoken.Claims;
@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private UserDetailServiceImpl userDetailService;
 
     @Autowired
-    private LoginFailureHandler loginFailureHandler;
+    private LoginFailureHandlerImpl loginFailureHandlerImpl;
 
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
         if (jwt == null || !jwt.startsWith(CharsetConstant.JWT_PREFIX)) {
-            log.error("JWT为空或者格式不正确-----------{}", jwt);
+            log.info("JWT为空或者格式不正确-----------{}", jwt);
             chain.doFilter(request, response);
             return;
         }
@@ -66,12 +66,12 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         Claims claim = jwtConfig.getClaimByToken(jwt);
 
         if (claim == null) {
-            loginFailureHandler.onAuthenticationFailure(request, response, new JwtBrezeException("Token解析失败"));
+            loginFailureHandlerImpl.onAuthenticationFailure(request, response, new JwtBrezeException("Token解析失败"));
             return;
         }
         // 判断token是否过期
         else if (Boolean.TRUE.equals(jwtConfig.isTokenExpired(claim))) {
-            loginFailureHandler.onAuthenticationFailure(request, response, new JwtBrezeException("JWT已过期"));
+            loginFailureHandlerImpl.onAuthenticationFailure(request, response, new JwtBrezeException("JWT已过期"));
             return;
         }
 

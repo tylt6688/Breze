@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
  */
 
 @Component
-public class ExitSuccessHandler implements LogoutSuccessHandler {
+public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
     @Autowired
     JwtConfig jwtConfig;

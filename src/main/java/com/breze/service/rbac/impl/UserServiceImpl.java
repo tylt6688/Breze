@@ -3,6 +3,7 @@ package com.breze.service.rbac.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.common.consts.CacheConstant;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.entity.pojo.rbac.Menu;
@@ -77,6 +78,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
+     * @return java.lang.Boolean
+     * @Author tylt
+     * @Description 登录邮件提醒
+     * @Date 2022/3/6 15:55
+     * @Method updateLoginWarnById
+     * @Param [loginWarn, id]
+     */
+    @Override
+    public Boolean updateLoginWarnById(Integer loginWarn, Long id) {
+        return userMapper.updateLoginWarnById(loginWarn, id);
+    }
+
+    /**
      * @return java.lang.String
      * @Author tylt
      * @Description 获取角色权限具体实现代码
@@ -89,7 +103,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String authority = "";
 
         User user = userMapper.selectById(userId);
-        String key = "GrantedAuthority:" + user.getUsername();
+        String key = CacheConstant.AUTHORITY_CODE + user.getUsername();
 
         // 如果redis中存在直接拿，没有的话再去查数据库
         if (redisUtil.haveKey(key)) {
@@ -117,19 +131,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
-     * @return java.lang.Boolean
-     * @Author tylt
-     * @Description 登录邮件提醒
-     * @Date 2022/3/6 15:55
-     * @Method updateLoginWarnById
-     * @Param [loginwarn, id]
-     */
-    @Override
-    public Boolean updateLoginWarnById(Integer loginwarn, Long id) {
-        return userMapper.updateLoginWarnById(loginwarn, id);
-    }
-
-    /**
      * @return void
      * @Author tylt
      * @Description 用户变动时清除权限缓存
@@ -139,7 +140,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public void clearUserAuthorityInfo(String username) {
-        redisUtil.delete("GrantedAuthority:" + username);
+        redisUtil.delete(CacheConstant.AUTHORITY_CODE + username);
     }
 
     /**
@@ -154,9 +155,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void clearUserAuthorityInfoByRoleId(Long roleId) {
         List<User> users = this.list(new QueryWrapper<User>().inSql("id", "select user_id userDTOToUser sys_user_role where role_id = " + roleId));
 
-        users.forEach(u -> {
-            this.clearUserAuthorityInfo(u.getUsername());
-        });
+        users.forEach(u -> this.clearUserAuthorityInfo(u.getUsername()));
 
     }
 
@@ -172,8 +171,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void clearUserAuthorityInfoByMenuId(Long menuId) {
         List<User> users = userMapper.listByMenuId(menuId);
 
-        users.forEach(u -> {
-            this.clearUserAuthorityInfo(u.getUsername());
-        });
+        users.forEach(u -> this.clearUserAuthorityInfo(u.getUsername()));
     }
 }

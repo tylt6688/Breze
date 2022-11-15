@@ -84,7 +84,7 @@ public class UserController extends BaseController {
             groups.add(group);
         }
         userInfoVo.setGroupJob(list).setGroups(groups);
-        return Result.createSuccessMessage(userInfoVo);
+        return Result.createSuccessMessage("",userInfoVo);
     }
 
     @BrezeLog("根据ID获取用户信息")
@@ -99,19 +99,19 @@ public class UserController extends BaseController {
         UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
 //        List<UserGroupJob> uj = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
 //        userDTO.setJobId(uj.getJobId());
-        return Result.createSuccessMessage(userInfoVo);
+        return Result.createSuccessMessage("",userInfoVo);
     }
 
     @BrezeLog("根据用户名获取用户信息")
     @ApiOperation("根据用户名获取用户信息")
-    @ApiImplicitParam(name = "username", value = "用户名", required = false, dataType = "String", dataTypeClass = String.class)
+    @ApiImplicitParam(name = "username", value = "用户名", dataType = "String", dataTypeClass = String.class)
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
     public Result select(@RequestParam String username) {
         // 2022/9/23 15:24 TODO: Should Be ReWrite UP BY LUCIFER-LGX
         Page<User> pageData = userService.page(getPage(), new LambdaQueryWrapper<User>().like(CharSequenceUtil.isNotBlank(username), User::getUsername, username));
         pageData.getRecords().forEach(u -> u.setRoles(roleService.listRolesByUserId(u.getId())));
-        return Result.createSuccessMessage(pageData);
+        return Result.createSuccessMessage("",pageData);
     }
 
     @BrezeLog("新增用户")
@@ -129,7 +129,7 @@ public class UserController extends BaseController {
         GroupJob gj = UserConvert.INSTANCE.userDTOToGroupJob(userDTO);
         groupJobService.insert(gj);
 
-        return Result.createSuccessMessage(user);
+        return Result.createSuccessMessage("",user);
     }
 
     @BrezeLog("删除用户")
@@ -160,7 +160,7 @@ public class UserController extends BaseController {
 
         // 2022/9/23 15:27 FIXME: 修改用户 UP BY LUCIFER-LGX
         userService.updateUser(user);
-        return Result.createSuccessMessage(user);
+        return Result.createSuccessMessage("",user);
     }
 
 
@@ -270,7 +270,7 @@ public class UserController extends BaseController {
     @PostMapping("/update_userinfo")
     public Result updateUserInfo(@Validated @RequestBody User user) {
         boolean flag = userService.updateById(user);
-        return flag ? Result.createSuccessMessage(user) : Result.createFailMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("",user) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @BrezeLog("登录提醒")

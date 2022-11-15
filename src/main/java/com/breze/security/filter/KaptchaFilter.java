@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.breze.common.consts.CacheConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.KaptchaException;
-import com.breze.security.handler.LoginFailureHandler;
+import com.breze.security.handler.LoginFailureHandlerImpl;
 import com.breze.utils.RedisUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class KaptchaFilter extends OncePerRequestFilter {
     @Autowired
     RedisUtil redisUtil;
     @Autowired
-    LoginFailureHandler loginFailureHandler;
+    LoginFailureHandlerImpl loginFailureHandlerImpl;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
@@ -44,7 +44,7 @@ public class KaptchaFilter extends OncePerRequestFilter {
                 validate(request);
             } catch (KaptchaException exception) {
                 // 交给认证失败处理器
-                loginFailureHandler.onAuthenticationFailure(request, response, exception);
+                loginFailureHandlerImpl.onAuthenticationFailure(request, response, exception);
             }
         }
         filterChain.doFilter(request, response);

@@ -49,7 +49,7 @@ public class RoleController extends BaseController {
         List<RoleMenu> menus = roleMenuService.list(new QueryWrapper<RoleMenu>().eq("role_id", id));
         List<Long> menuIds = menus.stream().map(RoleMenu::getMenuId).collect(Collectors.toList());
         role.setMenuIds(menuIds);
-        return Result.createSuccessMessage(role);
+        return Result.createSuccessMessage("",role);
     }
 
     @BrezeLog("获取角色列表")
@@ -60,7 +60,7 @@ public class RoleController extends BaseController {
     //非前端传参
     public Result select(String name) {
         Page<Role> pageData = roleService.page(getPage(), new QueryWrapper<Role>().eq(StrUtil.isNotBlank(name), "name", name));
-        return Result.createSuccessMessage(pageData);
+        return Result.createSuccessMessage("",pageData);
     }
 
     @BrezeLog("根据角色ID获取菜单列表")
@@ -85,7 +85,7 @@ public class RoleController extends BaseController {
         roleMenuService.saveBatch(roleMenus);
         // 删除缓存
         userService.clearUserAuthorityInfoByRoleId(roleId);
-        return Result.createSuccessMessage(roleMenus);
+        return Result.createSuccessMessage("",roleMenus);
     }
 
     @BrezeLog("新增角色")
@@ -95,7 +95,7 @@ public class RoleController extends BaseController {
     @PreAuthorize("hasAuthority('sys:role:insert')")
     public Result insert(@Validated @RequestBody Role role) {
         boolean flag = roleService.save(role);
-        return flag ? Result.createSuccessMessage(role) : Result.createFailMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("",role) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @BrezeLog("更新角色")
@@ -107,7 +107,7 @@ public class RoleController extends BaseController {
         boolean flag = roleService.updateById(role);
         // 更新缓存
         userService.clearUserAuthorityInfoByRoleId(role.getId());
-        return flag ? Result.createSuccessMessage(role) : Result.createFailMessage(ErrorEnum.FindException);
+        return flag ? Result.createSuccessMessage("",role) : Result.createFailMessage(ErrorEnum.FindException);
     }
 
     @BrezeLog("删除角色")

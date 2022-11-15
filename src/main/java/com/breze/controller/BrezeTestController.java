@@ -54,7 +54,7 @@ public class BrezeTestController extends BaseController {
     @GetMapping("/userservicetest")
     public Result userservice() {
         List<User> list = userService.list();
-        return Result.createSuccessMessage(list);
+        return Result.createSuccessMessage("",list);
     }
 
     @PreAuthorize("hasAuthority('sys:user:list')")
@@ -62,7 +62,7 @@ public class BrezeTestController extends BaseController {
     @GetMapping("/userservicetest1")
     public Result userservice1() {
         List<User> list = userService.list();
-        return Result.createSuccessMessage(list);
+        return Result.createSuccessMessage("",list);
     }
 
 
@@ -74,6 +74,9 @@ public class BrezeTestController extends BaseController {
         String url = QrCodeUtil.getBase64QRCode(content + id, logoUrl);
         return Result.createSuccessMessage(url);
     }
+
+
+
 
 
 

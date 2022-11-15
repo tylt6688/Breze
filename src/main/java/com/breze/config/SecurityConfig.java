@@ -3,10 +3,10 @@ package com.breze.config;
 import com.breze.common.consts.SecurityConstant;
 import com.breze.security.filter.JwtAuthenticationFilter;
 import com.breze.security.filter.KaptchaFilter;
-import com.breze.security.handler.ExitSuccessHandler;
-import com.breze.security.handler.LoginFailureHandler;
-import com.breze.security.handler.LoginSuccessHandler;
-import com.breze.security.securityimpl.AccessDeniedHandlerImpl;
+import com.breze.security.handler.LoginSuccessHandlerImpl;
+import com.breze.security.handler.LogoutSuccessHandlerImpl;
+import com.breze.security.handler.LoginFailureHandlerImpl;
+import com.breze.security.handler.AccessDeniedHandlerImpl;
 import com.breze.security.securityimpl.AuthenticationEntryPointImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +39,15 @@ public class SecurityConfig {
     @Autowired
     KaptchaFilter kaptchaFilter;
     @Autowired
-    LoginSuccessHandler loginSuccessHandler;
+    LoginSuccessHandlerImpl loginSuccessHandlerImpl;
     @Autowired
-    LoginFailureHandler loginFailureHandler;
+    LoginFailureHandlerImpl loginFailureHandlerImpl;
     @Autowired
     AccessDeniedHandlerImpl accessDeniedHandlerImpl;
     @Autowired
     AuthenticationEntryPointImpl authenticationEntryPointImpl;
     @Autowired
-    ExitSuccessHandler exitSuccessHandler;
+    LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
 
 
     //告知加密方式
@@ -93,13 +93,13 @@ public class SecurityConfig {
                 .and()
                 // 配置登录请求
                 .formLogin()
-                .failureHandler(loginFailureHandler)
-                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandlerImpl)
+                .successHandler(loginSuccessHandlerImpl)
 
                 // 退出登录
                 .and()
                 .logout()
-                .logoutSuccessHandler(exitSuccessHandler)
+                .logoutSuccessHandler(logoutSuccessHandlerImpl)
 
                 // 前后端分离禁用Session，选择不生成session策略
                 .and()

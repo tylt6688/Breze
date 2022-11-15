@@ -24,12 +24,13 @@ import java.nio.charset.StandardCharsets;
 
 @Log4j2
 @Component
-public class LoginFailureHandler implements AuthenticationFailureHandler {
+public class LoginFailureHandlerImpl implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
 
         response.setContentType(CharsetConstant.JSON_TYPE);
+
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
         ServletOutputStream outputStream = response.getOutputStream();
@@ -37,15 +38,15 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         // 进行错误自定义异常结果返回
         String msg = authenticationException.getMessage();
 
-        log.error("登录失败:--------------{}", msg);
-        // FIXME: 2022/11/14 22:30  这里需要进一步细节处理
         Result result;
         if (ErrorEnum.VerifyCodeError.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.FindException, authenticationException.getMessage());
+            result = Result.createFailMessage(ErrorEnum.VerifyCodeError, authenticationException.getMessage());
         } else if (ErrorEnum.LockUser.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.FindException, "您的账户已被禁用，请联系管理员!");
+            result = Result.createFailMessage(ErrorEnum.LockUser, "您的账户已被禁用，请联系管理员!");
+        } else if (ErrorEnum.ErrorUsernamePassword.getErrorName().equals(msg)) {
+            result = Result.createFailMessage(ErrorEnum.ErrorUsernamePassword, "用户名或密码错误!");
         } else {
-            result = Result.createFailMessage(ErrorEnum.FindException, "用户名或密码错误!");
+            result = Result.createFailMessage(ErrorEnum.IllegalOperation, "请求数据失败，请重新登录!");
         }
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));

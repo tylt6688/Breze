@@ -53,7 +53,7 @@ public class NavbarController extends BaseController {
     public Result saveMain(@Validated @RequestBody Navbar navbar) {
         try {
             navbarService.save(navbar);
-            return Result.createSuccessMessage("添加导航成功",null);
+            return Result.createSuccessMessage("添加导航成功");
         } catch (Exception e) {
             return Result.createFailMessage(ErrorEnum.UnknowError, "添加内容失败");
         }
@@ -64,7 +64,7 @@ public class NavbarController extends BaseController {
     public Result updateMain(@Validated @RequestBody Navbar navbar) {
         try {
             navbarService.updateById(navbar);
-            return Result.createSuccessMessage("更新内容成功",null);
+            return Result.createSuccessMessage("更新内容成功");
         } catch (Exception e) {
             return Result.createFailMessage(ErrorEnum.UnknowError, "添加内容失败");
         }
@@ -72,7 +72,7 @@ public class NavbarController extends BaseController {
     @PostMapping("/delete")
     public Result delete(@RequestBody Long id) {
         navbarService.removeById(id);
-        return Result.createSuccessMessage("已删除内容",null);
+        return Result.createSuccessMessage("已删除内容");
     }
 
 

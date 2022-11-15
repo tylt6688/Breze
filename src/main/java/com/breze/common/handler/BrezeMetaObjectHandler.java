@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Component
 public class BrezeMetaObjectHandler implements MetaObjectHandler {
 
-
     @Override
     public void insertFill(MetaObject metaObject) {
         log.info("start insert fill ....");

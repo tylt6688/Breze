@@ -22,25 +22,24 @@ public class GroupController extends BaseController {
 
     @GetMapping("/select")
     public Result selectAll() {
-        return Result.createSuccessMessage(groupService.findAll());
+        return Result.createSuccessMessage("",groupService.findAll());
     }
 
     @GetMapping("/select/{id}")
     public Result selectById(@PathVariable Long id) {
-        // 2022/9/23 15:23 TODO: Should Be ReWrite UP BY LUCIFER-LGX
-        return Result.createSuccessMessage(groupService.findById(id));
+        return Result.createSuccessMessage("",groupService.findById(id));
     }
 
     @PostMapping("/insert")
     public Result insert(@RequestBody Group group) {
         groupService.insert(group);
-        return Result.createSuccessMessage(group);
+        return Result.createSuccessMessage("",group);
     }
 
     @PostMapping("/update")
     public Result update(@RequestBody Group group) {
         groupService.update(group);
-        return Result.createSuccessMessage(group);
+        return Result.createSuccessMessage("",group);
     }
 
     @PostMapping("/delete/{id}")

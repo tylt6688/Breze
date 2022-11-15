@@ -22,34 +22,34 @@ public class JobController extends BaseController {
     @GetMapping("/select")
     public Result selectAll(){
         List<Job> jobs = jobService.findAll();
-        return Result.createSuccessMessage(jobs);
+        return Result.createSuccessMessage("",jobs);
     }
     @PostMapping("/select")
     public Result selectJobById(@RequestBody Job job) {
         if (job.getId() != null) {
             Job j = jobService.findByJobId(job.getId());
-            return Result.createSuccessMessage(j);
+            return Result.createSuccessMessage("",j);
         } else {
             List<Job> jobs = jobService.findByJobName(job.getName());
-            return Result.createSuccessMessage(jobs);
+            return Result.createSuccessMessage("",jobs);
         }
     }
 
     @PostMapping("/insert")
     public Result insert(@RequestBody Job job) {
         jobService.insert(job);
-        return Result.createSuccessMessage(job);
+        return Result.createSuccessMessage("",job);
     }
 
     @PostMapping("/update")
     public Result update(@RequestBody Job job) {
         jobService.update(job);
-        return Result.createSuccessMessage(job);
+        return Result.createSuccessMessage("",job);
     }
 
     @PostMapping("/delete/{id}")
     public Result deleteById(@PathVariable Long id) {
-        return Result.createSuccessMessage(jobService.deleteById(id));
+        return Result.createSuccessMessage("",jobService.deleteById(id));
     }
 
 }

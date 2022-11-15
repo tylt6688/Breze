@@ -44,7 +44,7 @@ public class CodeGeneratorController {
 
     @GetMapping("/tables")
     private Result findAllTableNames() {
-        return Result.createSuccessMessage(dataBaseTableService.findDatabaseTable());
+        return Result.createSuccessMessage("",dataBaseTableService.findDatabaseTable());
     }
 
     @PostMapping("/generate")
