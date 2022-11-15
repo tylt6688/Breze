@@ -2,6 +2,7 @@ package com.breze.utils;
 
 import cn.hutool.core.util.StrUtil;
 import com.maxmind.geoip2.DatabaseReader;
+import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import java.net.InetAddress;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2
+@UtilityClass
 public class IPUtil {
 
     /**

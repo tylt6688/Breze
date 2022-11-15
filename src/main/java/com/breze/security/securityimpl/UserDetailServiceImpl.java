@@ -36,8 +36,9 @@ import java.util.List;
 @Log4j2
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
+
     @Autowired
-    BrezeConfig brezeConfig;
+    private BrezeConfig brezeConfig;
     @Autowired
     UserService userService;
     @Autowired

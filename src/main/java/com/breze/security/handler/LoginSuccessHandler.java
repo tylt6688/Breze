@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
 /**
  * @Author tylt6688
  * @Date 2022/2/10 23:33
@@ -48,12 +49,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         File database = new File(new File("geolite2city.mmdb").getAbsolutePath());
         // 读取GeoIP数据库内容
-        DatabaseReader reader = null;
+        DatabaseReader reader;
         try {
             reader = new DatabaseReader.Builder(database).build();
-            log.info(IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
+            log.info("当前用户IP地址------------" + IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
         } catch (Exception e) {
-            log.info(SystemConstant.UNKNOW_IP);
+            log.info("异常IP地址------------" + SystemConstant.UNKNOW_IP);
         }
 
         Result result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);

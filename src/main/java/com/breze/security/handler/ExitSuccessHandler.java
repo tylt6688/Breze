@@ -45,7 +45,7 @@ public class ExitSuccessHandler implements LogoutSuccessHandler {
         // 将jwt传给前端清空
         response.setHeader(jwtConfig.getHeader(), "");
 
-        Result result = Result.createSuccessMessage("");
+        Result result = Result.createSuccessMessage("退出成功!", null);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
