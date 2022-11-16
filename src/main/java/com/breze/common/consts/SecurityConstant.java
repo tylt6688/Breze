@@ -8,7 +8,11 @@ package com.breze.common.consts;
  */
 public class SecurityConstant {
 
-    // 白名单数组
+    public static final String AUTHORIZATION = "Authorization";
+
+    /**
+     * 主系统白名单接口常量数组
+     */
     public static final String[] URL_WHITELIST = {
             "/login",
             "/logout",
@@ -22,7 +26,9 @@ public class SecurityConstant {
     };
 
 
-    //  Breze-Portal [Get类型API接口白名单数组]
+    /**
+     *  Breze-Portal [Get类型API接口白名单数组]
+     */
     public static final String[] PORTAL_WHITELIST = {
             // TODO 暂时放行全部，等待后期按 Get 接口白名单进行控制 [抄送人：tylt6688 待办人：ChenWX 2022-08-29]
             "/breze/portal/**",

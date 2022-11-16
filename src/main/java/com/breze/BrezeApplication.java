@@ -1,5 +1,6 @@
 package com.breze;
 
+import lombok.extern.log4j.Log4j2;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +9,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
+ * @Author Breze Team
  * @Description 清枫Breze权限一体化平台
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
+@Log4j2
 @EnableAsync // 开启基于注解的异步任务支持
 @EnableCaching // 开启基于注解的缓存支持
 @EnableScheduling // 开启定时任务功能
@@ -21,7 +24,7 @@ public class BrezeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BrezeApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  清枫Breze启动成功   ლ(´ڡ`ლ)ﾞ  \n" + "\n" +
+        log.info("(♥◠‿◠)ﾉﾞ  清枫Breze启动成功   ლ(´ڡ`ლ)ﾞ  \n" + "\n" +
                 " .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------. \n" +
                 "| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |\n" +
                 "| |   ______     | || |  _______     | || |  _________   | || |  _________   | || |   ________   | || |  _________   | |\n" +

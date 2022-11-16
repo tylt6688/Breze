@@ -6,6 +6,7 @@ import com.breze.common.consts.SystemConstant;
 import com.breze.config.JwtConfig;
 import com.breze.utils.IPUtil;
 import com.maxmind.geoip2.DatabaseReader;
+import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,7 +41,7 @@ public class LoginSuccessHandlerImpl implements AuthenticationSuccessHandler {
         response.setContentType(CharsetConstant.JSON_TYPE);
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
-        ServletOutputStream outputStream = response.getOutputStream();
+        @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
         String jwt = jwtConfig.generateToken(authentication.getName());
 
@@ -61,9 +62,6 @@ public class LoginSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
-        outputStream.flush();
-
-        outputStream.close();
 
     }
 

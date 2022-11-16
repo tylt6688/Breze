@@ -2,14 +2,14 @@ package com.breze.entity.pojo.rbac;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.Assert;
 
 import java.util.Collection;
 
 /**
- * 这里是为了返回这个实体类，后期其实可以改为集成User类再实现UserDetails好一些
- *
- * @author TYLT
+ * @Author tylt6688
+ * @Date 2022/2/7 15:24
+ * @Description 实现UserDetails实体类，用于返回已验证用户信息
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
 public class LoginUser implements UserDetails {
 
@@ -47,7 +47,6 @@ public class LoginUser implements UserDetails {
 
 
     public LoginUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        Assert.isTrue(username != null && !"".equals(username) && password != null, "Cannot pass null or empty values to constructor");
 
         this.username = username;
         this.password = password;

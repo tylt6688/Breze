@@ -1,6 +1,7 @@
 package com.breze.config;
 
 
+import com.breze.common.consts.SecurityConstant;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +71,8 @@ public class SwaggerConfig {
      * 安全模式，这里指定token通过Authorization头请求头传递
      */
     private List<SecurityScheme> securitySchemes() {
-        List<SecurityScheme> apiKeyList = new ArrayList<SecurityScheme>();
-        apiKeyList.add(new ApiKey("Authorization", "Authorization", In.HEADER.toValue()));
+        List<SecurityScheme> apiKeyList = new ArrayList<>();
+        apiKeyList.add(new ApiKey(SecurityConstant.AUTHORIZATION, SecurityConstant.AUTHORIZATION, In.HEADER.toValue()));
         return apiKeyList;
     }
 
@@ -96,7 +97,7 @@ public class SwaggerConfig {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
         List<SecurityReference> securityReferences = new ArrayList<>();
-        securityReferences.add(new SecurityReference("Authorization", authorizationScopes));
+        securityReferences.add(new SecurityReference(SecurityConstant.AUTHORIZATION, authorizationScopes));
         return securityReferences;
     }
 

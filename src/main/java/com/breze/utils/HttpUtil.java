@@ -33,7 +33,7 @@ public class HttpUtil {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         // 将请求头部和参数合成一个请求
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
-        // 执行HTTP请求，将返回的结构使用 String 类格式化（可设置为对应返回值格式的类）
+        // 执行HTTP请求，将返回的结构使用String类格式化（可设置为对应返回值格式的类）
         ResponseEntity<String> response = client.exchange(url, method, requestEntity, String.class);
         return response.getBody();
     }

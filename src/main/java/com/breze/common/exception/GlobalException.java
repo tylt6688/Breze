@@ -54,7 +54,7 @@ public class GlobalException extends Throwable {
         log.error("实体校验异常：----------------{}", e.getMessage());
         BindingResult bindingResult = e.getBindingResult();
         ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
-        return Result.createFailMessage(ErrorEnum.UnknowError, objectError.getDefaultMessage());
+        return Result.createFailMessage(ErrorEnum.UnknownError, objectError.getDefaultMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

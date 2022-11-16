@@ -30,18 +30,28 @@ public class Result {
 
 
     /**
-     * 请求成功消息模板
+     * 空参请求成功消息模板
      */
     public static Result createSuccessMessage() {
 
-        return Result.createSuccessMessage("请求成功",null);
+        return Result.createSuccessMessage("请求成功", null);
     }
 
+    /**
+     * 请求成功消息模板
+     *
+     * @param message
+     */
     public static Result createSuccessMessage(String message) {
 
         return Result.createSuccessMessage(message, null);
     }
 
+    /**
+     * 空参请求成功消息模板
+     *
+     * @param message, data
+     */
     public static Result createSuccessMessage(String message, Object data) {
 
         Result resultBox = new Result();
@@ -56,24 +66,36 @@ public class Result {
 
     /**
      * 请求失败消息模板
+     *
+     * @param errorEnum
      */
-    public static Result createFailMessage(ErrorEnum err) {
+    public static Result createFailMessage(ErrorEnum errorEnum) {
 
-        return Result.createFailMessage(err, "请求失败");
+        return Result.createFailMessage(errorEnum, "请求失败");
     }
 
-    public static Result createFailMessage(ErrorEnum err, String message) {
+    /**
+     * 请求失败消息模板
+     *
+     * @param errorEnum , message
+     */
 
-        return Result.createFailMessage(err, message, null);
+    public static Result createFailMessage(ErrorEnum errorEnum, String message) {
+
+        return Result.createFailMessage(errorEnum, message, null);
     }
 
-
-    public static Result createFailMessage(ErrorEnum err, String message, Object data) {
+    /**
+     * 请求失败消息模板
+     *
+     * @param errorEnum , message ,data
+     */
+    public static Result createFailMessage(ErrorEnum errorEnum, String message, Object data) {
 
         Result resultBox = new Result();
         resultBox.success = false;
-        resultBox.errorCode = err.getErrorCode();
-        resultBox.errorName = err.getErrorName();
+        resultBox.errorCode = errorEnum.getErrorCode();
+        resultBox.errorName = errorEnum.getErrorName();
         resultBox.message = message;
         resultBox.result.put("data", data);
         return resultBox;

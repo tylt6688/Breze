@@ -5,7 +5,7 @@ import com.breze.common.exception.JwtBrezeException;
 import com.breze.config.JwtConfig;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.security.handler.LoginFailureHandlerImpl;
-import com.breze.security.securityimpl.UserDetailServiceImpl;
+import com.breze.security.UserDetailServiceImpl;
 import com.breze.service.rbac.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.extern.log4j.Log4j2;
@@ -54,8 +54,13 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
-        if (jwt == null || !jwt.startsWith(CharsetConstant.JWT_PREFIX)) {
-            log.info("JWT为空或者格式不正确-----------{}", jwt);
+        if (jwt == null) {
+            log.info("JWT为空或者格式不正确[此消息只针对Dev环境使用，初始登录为空是正常]-----------{}", jwt);
+            chain.doFilter(request, response);
+            return;
+        }
+        else if(!jwt.startsWith(CharsetConstant.JWT_PREFIX)){
+            log.info("JWT头部格式不正确-----------{}", jwt);
             chain.doFilter(request, response);
             return;
         }

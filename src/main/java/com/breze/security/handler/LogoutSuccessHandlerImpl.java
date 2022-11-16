@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.result.Result;
 import com.breze.config.JwtConfig;
+import lombok.Cleanup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -40,17 +41,14 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
-        ServletOutputStream outputStream = response.getOutputStream();
-
         // 将jwt传给前端清空
         response.setHeader(jwtConfig.getHeader(), "");
 
-        Result result = Result.createSuccessMessage("退出成功!", null);
+        @Cleanup ServletOutputStream outputStream = response.getOutputStream();
+
+        Result result = Result.createSuccessMessage("退出成功!");
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
-        outputStream.flush();
-
-        outputStream.close();
     }
 }

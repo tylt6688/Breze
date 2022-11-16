@@ -49,7 +49,7 @@ public class BannerController extends BaseController {
             bannerService.save(banner);
             return Result.createSuccessMessage("添加轮播图成功");
         } catch (Exception e) {
-            return Result.createFailMessage(ErrorEnum.UnknowError, "添加轮播图失败");
+            return Result.createFailMessage(ErrorEnum.UnknownError, "添加轮播图失败");
         }
 
     }

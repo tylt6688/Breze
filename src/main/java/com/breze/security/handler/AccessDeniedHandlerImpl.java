@@ -2,6 +2,7 @@ package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
+import lombok.Cleanup;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -29,18 +30,16 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
 		response.setContentType(CharsetConstant.JSON_TYPE);
 		response.setCharacterEncoding(CharsetConstant.UTF_8);
+
 		// 告知前端权限不足状态码 403
 		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-		ServletOutputStream outputStream = response.getOutputStream();
+		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-		Result result = Result.createFailMessage(ErrorEnum.NoPermission,"权限不足");
+		Result result = Result.createFailMessage(ErrorEnum.NoPermission);
 
 		outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
-		outputStream.flush();
-
-		outputStream.close();
 
 	}
 }

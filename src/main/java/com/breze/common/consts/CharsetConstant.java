@@ -23,7 +23,7 @@ public class CharsetConstant {
 
     public static final String EXCEL_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-    public static final String Base_64 = "data:image/jpeg;base64,";
+    public static final String BASE_64 = "data:image/jpeg;base64,";
     public static final String JPG = "jpg";
 
     public static final String PNG = "png";

@@ -1,5 +1,6 @@
 package com.breze.config;
 
+import com.breze.common.consts.SecurityConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -22,8 +23,7 @@ public class CorsConfig implements WebMvcConfigurer {
         corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
-        // 将请求头里保存的 jwt 暴露出来给前端获取
-        corsConfiguration.addExposedHeader("Authorization");
+        corsConfiguration.addExposedHeader(SecurityConstant.AUTHORIZATION);
         return corsConfiguration;
     }
 

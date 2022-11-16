@@ -3,6 +3,7 @@ package com.breze.security.handler;
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
+import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -30,10 +31,9 @@ public class LoginFailureHandlerImpl implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
 
         response.setContentType(CharsetConstant.JSON_TYPE);
-
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
-        ServletOutputStream outputStream = response.getOutputStream();
+        @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
         // 进行错误自定义异常结果返回
         String msg = authenticationException.getMessage();
@@ -51,8 +51,5 @@ public class LoginFailureHandlerImpl implements AuthenticationFailureHandler {
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
-        outputStream.flush();
-
-        outputStream.close();
     }
 }

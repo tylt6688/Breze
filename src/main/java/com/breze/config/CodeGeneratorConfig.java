@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Configuration;
 public class CodeGeneratorConfig {
 
     private String url;
+
     private String username;
+
     private String password;
 }

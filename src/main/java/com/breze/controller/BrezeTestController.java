@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ * @Author tylt6688
  * @Description 清枫Breze权限一体化平台接口本地开发测试类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
@@ -27,12 +28,8 @@ import java.util.List;
 @RequestMapping("/breze/test")
 public class BrezeTestController extends BaseController {
 
-
-
-
-
-    @GetMapping("/logtest")
-    public String logtest() {
+    @GetMapping("/log_test")
+    public void logTest() {
         Logger log = LogUtil.getExceptionLogger();
         Logger log1 = LogUtil.getBussinessLogger();
         Logger log2 = LogUtil.getDBLogger();
@@ -40,7 +37,6 @@ public class BrezeTestController extends BaseController {
         log.error("getExceptionLogger===error日志测试");
         log1.info("getBussinessLogger===info日志测试");
         log2.debug("getDBLogger===debug日志测试");
-        return "logtest";
     }
 
 

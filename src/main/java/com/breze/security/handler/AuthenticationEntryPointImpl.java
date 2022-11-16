@@ -1,7 +1,8 @@
-package com.breze.security.securityimpl;
+package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
+import lombok.Cleanup;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -29,18 +30,15 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
         response.setContentType(CharsetConstant.JSON_TYPE);
         response.setCharacterEncoding(CharsetConstant.UTF_8);
-        // 告知未授权认证状态码401
+        // 告知未认证状态码401
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        ServletOutputStream outputStream = response.getOutputStream();
+        @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-        // 授权失败的情况下返回异常信息
-        Result result = Result.createFailMessage(ErrorEnum.NoPermission, "用户当前未授权");
+        // 认证失败的情况下返回异常信息
+        Result result = Result.createFailMessage(ErrorEnum.IncorrectCredentials);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
-        outputStream.flush();
-
-        outputStream.close();
     }
 }

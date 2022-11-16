@@ -1,4 +1,4 @@
-package com.breze.security.securityimpl;
+package com.breze.security;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.breze.common.consts.GlobalConstant;
@@ -69,8 +69,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
         userService.update(lambdaUpdateWrapper);
 
         LoginLog loginLog = new LoginLog();
-        loginLog.setUserId(user.getId());
-        loginLog.setState(GlobalConstant.TYPE_ZERO);
+        loginLog.setUserId(user.getId())
+                .setState(GlobalConstant.TYPE_ZERO);
         loginLogService.save(loginLog);
 
         if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
@@ -95,8 +95,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     /**
      * 通过用户id获取权限信息（角色、菜单权限）
-     *
-     * @param userId
      * @return 连接表方式通过userID获取权限信息
      */
     public List<GrantedAuthority> getUserAuthority(Long userId) {

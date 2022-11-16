@@ -7,7 +7,7 @@ import com.breze.security.handler.LoginSuccessHandlerImpl;
 import com.breze.security.handler.LogoutSuccessHandlerImpl;
 import com.breze.security.handler.LoginFailureHandlerImpl;
 import com.breze.security.handler.AccessDeniedHandlerImpl;
-import com.breze.security.securityimpl.AuthenticationEntryPointImpl;
+import com.breze.security.handler.AuthenticationEntryPointImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -48,16 +48,15 @@ public class SecurityConfig {
     AuthenticationEntryPointImpl authenticationEntryPointImpl;
     @Autowired
     LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
+    @Autowired
+    private AuthenticationConfiguration authenticationConfiguration;
 
 
-    //告知加密方式
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    private AuthenticationConfiguration authenticationConfiguration;
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
@@ -77,9 +76,6 @@ public class SecurityConfig {
 //    WebSecurityCustomizer webSecurityCustomizer() {
 //        return web -> web.ignoring().antMatchers("/static/**", "/favicon.ico");
 //    }
-
-
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //允许跨域
@@ -112,8 +108,6 @@ public class SecurityConfig {
                 // 配置拦截白名单放行
                 .antMatchers(SecurityConstant.URL_WHITELIST).permitAll()
                 .antMatchers(SecurityConstant.PORTAL_WHITELIST).permitAll()
-                // .antMatchers("/**").permitAll()
-                // .antMatchers("/**/**").hasRole("SUPER_ADMIN")
                 // 对其它请求进行拦截认证处理  Spring EL
                 .anyRequest()
                 .authenticated()
@@ -131,6 +125,7 @@ public class SecurityConfig {
                 .addFilterBefore(kaptchaFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加 JWT 授权验证过滤器
                 .addFilter(jwtAuthenticationFilter());
+
         return http.build();
     }
 

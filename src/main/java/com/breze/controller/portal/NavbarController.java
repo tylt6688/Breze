@@ -55,7 +55,7 @@ public class NavbarController extends BaseController {
             navbarService.save(navbar);
             return Result.createSuccessMessage("添加导航成功");
         } catch (Exception e) {
-            return Result.createFailMessage(ErrorEnum.UnknowError, "添加内容失败");
+            return Result.createFailMessage(ErrorEnum.UnknownError, "添加内容失败");
         }
     }
 
@@ -66,7 +66,7 @@ public class NavbarController extends BaseController {
             navbarService.updateById(navbar);
             return Result.createSuccessMessage("更新内容成功");
         } catch (Exception e) {
-            return Result.createFailMessage(ErrorEnum.UnknowError, "添加内容失败");
+            return Result.createFailMessage(ErrorEnum.UnknownError, "添加内容失败");
         }
     }
     @PostMapping("/delete")

@@ -44,7 +44,7 @@ public class KaptchaController extends BaseController {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ImageIO.write(image, CharsetConstant.JPG, outputStream);
 
-        String prefix = CharsetConstant.Base_64;
+        String prefix = CharsetConstant.BASE_64;
         String base64Img = prefix + Base64Encoder.encode(outputStream.toByteArray());
         outputStream.flush();
         outputStream.close();

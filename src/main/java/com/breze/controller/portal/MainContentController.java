@@ -87,7 +87,7 @@ public class MainContentController extends BaseController {
             mainContentService.updateById(mainContent);
             return Result.createSuccessMessage("更新内容成功");
         } catch (Exception e) {
-            return Result.createFailMessage(ErrorEnum.UnknowError, "更新内容失败");
+            return Result.createFailMessage(ErrorEnum.UnknownError, "更新内容失败");
         }
     }
     @PostMapping("/delete")

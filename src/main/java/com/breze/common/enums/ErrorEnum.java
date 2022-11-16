@@ -15,41 +15,41 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public enum ErrorEnum {
-    /**
-     * 全局未知错误码
-     */
 
-    UnknowError("未知错误", 600),
+    /**
+     * 无权限错误码
+     */
+    NoPermission("无权限操作！", 101),
+    /**
+     * 未登录用户错误码
+     */
+    NoAuthentication("未认证用户！", 102),
+    /**
+     * 账户无效错误码
+     */
+    UnknownAccount("账户无效！", 103),
+    /**
+     * 未认证用户错误码
+     */
+    IncorrectCredentials("用户凭证错误！", 104),
+    /**
+     * 密码错误错误码
+     */
+    ErrorUsernamePassword("用户名或密码错误!", 105),
+
+    LockUser("账户已被锁定，请联系管理员!", 106),
+
+    VerifyCodeError("验证码错误！", 107),
+
+    UnknownError("未知错误！", 600),
     /**
      * 违章操作错误码
      */
     IllegalOperation("违章操作", 700),
     /**
-     * 无权限错误码
-     */
-    NoPermission("没有权限", 101),
-    /**
-     * 未登录用户错误码
-     */
-    Unlogin("用户未登陆", 102),
-    /**
-     * 账户无效错误码
-     */
-    UnknownAccount("账户无效", 103),
-    /**
-     * 密码错误错误码
-     */
-    IncorrectCredentials("密码错误", 104),
-    /**
      * 出现异常错误码
      */
-    FindException("出现异常", 800),
-
-    VerifyCodeError("验证码错误", 107),
-
-    ErrorUsernamePassword("用户名或密码错误!", 105),
-
-    LockUser("账户已被锁定，请联系管理员!", 106);
+    FindException("出现异常", 800);
 
 
     @EnumValue
@@ -59,7 +59,10 @@ public enum ErrorEnum {
     @EnumValue
     private final Integer errorCode;
 
-    // 普通方法
+    /**
+     * 根据错误码获取错误信息
+     * @return ErrorName
+     */
     public static String getErrorName(int code) {
         for (ErrorEnum errorEnum : ErrorEnum.values()) {
             if (errorEnum.getErrorCode() == code) {
