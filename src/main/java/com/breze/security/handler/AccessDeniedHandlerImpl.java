@@ -2,14 +2,13 @@ package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
+import com.breze.common.enums.ErrorEnum;
+import com.breze.common.result.Result;
 import lombok.Cleanup;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import com.breze.common.enums.ErrorEnum;
-import com.breze.common.result.Result;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
 	@Override
-	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
 
 		response.setContentType(CharsetConstant.JSON_TYPE);
 		response.setCharacterEncoding(CharsetConstant.UTF_8);

@@ -30,7 +30,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
         response.setContentType(CharsetConstant.JSON_TYPE);
         response.setCharacterEncoding(CharsetConstant.UTF_8);
-        // 告知未认证状态码401
+        // 告知未认证状态码 401
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();

@@ -167,7 +167,6 @@ public class UserController extends BaseController {
     @BrezeLog("分配用户角色")
     @ApiOperation("分配用户角色")
     @ApiImplicitParam(name = "userId", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
-    @Transactional
     @PostMapping("/role_perm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
@@ -192,7 +191,6 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class),
             @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
     })
-    @Transactional
     @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
@@ -230,7 +228,6 @@ public class UserController extends BaseController {
 
     @BrezeLog("修改用户密码")
     @ApiOperation("修改用户密码")
-    @Transactional
     @PostMapping("/update_password")
     public Result updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
         User user = userService.getByUserName(principal.getName());
@@ -247,7 +244,6 @@ public class UserController extends BaseController {
     @BrezeLog("修改用户头像")
     @ApiOperation("修改用户头像")
     @ApiImplicitParam(name = "avatar", value = "头像", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
-    @Transactional
     @PostMapping("/update_avatar")
     public Result updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -266,17 +262,15 @@ public class UserController extends BaseController {
 
     @BrezeLog("更新用户信息")
     @ApiOperation("更新用户信息")
-    @Transactional(rollbackFor = Exception.class)
     @PostMapping("/update_userinfo")
     public Result updateUserInfo(@Validated @RequestBody User user) {
-        boolean flag = userService.updateById(user);
-        return flag ? Result.createSuccessMessage("",user) : Result.createFailMessage(ErrorEnum.FindException);
+        userService.updateById(user);
+        return Result.createSuccessMessage("",user);
     }
 
     @BrezeLog("登录提醒")
     @ApiOperation("更新登录提醒")
     @ApiImplicitParams({@ApiImplicitParam(name = "loginWarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
-    @Transactional
     @PostMapping("/update_login_warn")
     public Result updateLoginWarn(@RequestParam Integer loginWarn, Principal principal) {
         User user = userService.getByUserName(principal.getName());
@@ -287,7 +281,6 @@ public class UserController extends BaseController {
     @BrezeLog("导入Excel表")
     @ApiOperation("导入Excel表")
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
-    @Transactional
     @PostMapping("/upload_excel")
     public Result uploadExcel(@RequestParam MultipartFile file) {
         String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
@@ -330,8 +323,7 @@ public class UserController extends BaseController {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);
             List<User> list = new ArrayList<>();
-            User user = new User();
-            user.setTrueName("张三").setUsername("2022000000001").setEmail("zhangsan@email.com").setPhone("18888888888").setCity("济南");
+            User user = new User("2022000000001","张三","18888888888","zhangsan@email.com","济南");
             list.add(user);
             EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(list);
         } catch (Exception e) {

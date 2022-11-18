@@ -35,6 +35,7 @@ import java.util.List;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 482852208991067144L;
+
     @ExcelIgnore
     @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "用户ID", name = "id", example = "1", notes = "用户ID")
@@ -105,5 +106,13 @@ public class User implements Serializable {
     @ExcelIgnore
     @TableField(exist = false)
     private List<Role> roles = new ArrayList<>();
+
+    public User(String username, String trueName, String phone, String email, String city) {
+        this.username = username;
+        this.trueName = trueName;
+        this.phone = phone;
+        this.email = email;
+        this.city = city;
+    }
 
 }

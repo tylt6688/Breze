@@ -43,7 +43,7 @@ public class KaptchaFilter extends OncePerRequestFilter {
                 // 先校验验证码
                 validate(request);
             } catch (KaptchaException exception) {
-                // 交给认证失败处理器
+                // 交给登录失败处理器
                 loginFailureHandlerImpl.onAuthenticationFailure(request, response, exception);
             }
         }
@@ -56,13 +56,8 @@ public class KaptchaFilter extends OncePerRequestFilter {
         String key = request.getParameter("key");
         String code = request.getParameter("code");
 
-        //先判断 code与 key是否为空
-        if (StringUtils.isBlank(code) || StringUtils.isBlank(key)) {
-            throw new KaptchaException("非法验证码");
-        }
-
-        //从Redis中获取进行比较
-        if (!code.equals(redisUtil.hashGet(CacheConstant.KAPTCHA_KEY, key))) {
+        //先判断 code与 key是否为空，再从Redis中获取进行比较
+        if (StringUtils.isBlank(code) || StringUtils.isBlank(key)||!code.equals(redisUtil.hashGet(CacheConstant.KAPTCHA_KEY, key))) {
             throw new KaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
         }
 

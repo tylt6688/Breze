@@ -28,55 +28,80 @@ import javax.servlet.http.HttpServletRequest;
 
 public class BaseController {
 
-    // 配置类注入 Start
+    /**
+     * 配置类注入 Start
+     */
     @Autowired
     protected JwtConfig jwtConfig;
     @Autowired
     protected OssConfig ossConfig;
 
-    // 配置类注入 End
+    /**
+     * 配置类注入 End
+     */
+
 
     /**********************************************************************************************************************************/
 
-    // 工具类注入 Start
+    /**
+     * 工具类注入 Start
+     */
     @Autowired
     protected BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     protected RedisUtil redisUtil;
 
-    // 工具类注入 End
+    /**
+     * 工具类注入 End
+     */
 
     /**********************************************************************************************************************************/
 
-    // RabbitMQ 队列服务注入 Start
+    /**
+     * RabbitMQ 队列服务注入 Start
+     */
+
     @Autowired
     protected Producer producer;
-    // RabbitMQ 队列服务注入 End
+    /**
+     * RabbitMQ 队列服务注入 End
+     */
     /**********************************************************************************************************************************/
 
 
-    // 通用型服务注入 Start
+    /**
+     * 通用型服务注入 Start
+     */
     @Autowired
     protected QiNiuService qiNiuService;
     @Autowired
     protected OssFileService ossFileService;
     @Autowired
     protected MailService mailService;
-    // 通用型服务注入 End
+    /**
+     * 通用型服务注入 End
+     */
 
     /**********************************************************************************************************************************/
 
 
-    // 日志类业务注入 Start
+    /**
+     * 系统日志类注入 Start
+     */
     @Autowired
     protected LoginLogService loginLogService;
     @Autowired
     protected HandleLogService handleLogService;
-    // 日志类业务注入 End
+    /**
+     * 系统日志类注入 End
+     */
 
     /**********************************************************************************************************************************/
 
-    // RBAC权限服务注入 Start
+    /**
+     * RBAC权限服务注入 Start
+     */
+
     @Autowired
     protected UserService userService;
     @Autowired
@@ -96,11 +121,15 @@ public class BaseController {
     @Autowired
     protected UserGroupJobService userGroupJobService;
 
-    // RBAC权限服务注入 End
+    /**
+     * RBAC权限服务注入 End
+     */
 
     /**********************************************************************************************************************************/
 
-    // Portal服务注入 Start
+    /**
+     * Portal门户服务注入 Start
+     */
     @Autowired
     protected BannerService bannerService;
     @Autowired
@@ -110,7 +139,9 @@ public class BaseController {
     @Autowired
     protected ModeCardService modeCardService;
 
-    // Portal服务注入 End
+    /**
+     * Portal门户服务注入 End
+     */
 
     /**********************************************************************************************************************************/
 

@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @Author tylt6688
  * @Date 2022/2/10 23:33
- * @Description 登录认证失败处理器
+ * @Description 登录失败处理器
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
