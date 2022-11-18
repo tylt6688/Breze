@@ -40,13 +40,13 @@ public class LoginFailureHandlerImpl implements AuthenticationFailureHandler {
 
         Result result;
         if (ErrorEnum.VerifyCodeError.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.VerifyCodeError, authenticationException.getMessage());
+            result = Result.createFailMessage(ErrorEnum.VerifyCodeError, msg);
         } else if (ErrorEnum.LockUser.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.LockUser, "您的账户已被禁用，请联系管理员!");
+            result = Result.createFailMessage(ErrorEnum.LockUser, ErrorEnum.LockUser.getErrorName());
         } else if (ErrorEnum.ErrorUsernamePassword.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.ErrorUsernamePassword, "用户名或密码错误!");
+            result = Result.createFailMessage(ErrorEnum.ErrorUsernamePassword, ErrorEnum.ErrorUsernamePassword.getErrorName());
         } else {
-            result = Result.createFailMessage(ErrorEnum.IllegalOperation, "请求数据失败，请重新登录!");
+            result = Result.createFailMessage(ErrorEnum.IllegalOperation, ErrorEnum.IllegalOperation.getErrorName());
         }
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
