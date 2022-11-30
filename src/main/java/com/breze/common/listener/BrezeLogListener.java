@@ -1,14 +1,14 @@
 package com.breze.common.listener;
 
 import com.breze.common.event.BrezeLogEvent;
-import com.breze.entity.pojo.logdo.HandleLog;
+import com.breze.entity.pojo.brezelog.HandleLog;
+import com.breze.service.brezelog.HandleLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import com.breze.service.brezelog.HandleLogService;
 
 /**
  * @Author LUCIFER-LGX
@@ -27,6 +27,7 @@ public class BrezeLogListener {
     @Order
     @EventListener(BrezeLogEvent.class)
     public void saveSysLog(BrezeLogEvent event) {
+
         HandleLog handleLog = (HandleLog) event.getSource();
         handleLogService.save(handleLog);
     }

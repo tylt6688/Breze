@@ -26,5 +26,11 @@ public interface UserMapper extends BaseMapper<User> {
 
     User getByOpenid(String openid);
 
-    Boolean updateLoginWarnById(@Param("loginWarn") Integer loginWarn, @Param("id") Long id);
+    /**
+     * 根据用户id变更邮件提醒状态
+     * @param loginWarn
+     * @param id
+     * @return
+     */
+    Boolean updateLoginWarnByUserId(@Param("loginWarn") Integer loginWarn, @Param("id") Long id);
 }

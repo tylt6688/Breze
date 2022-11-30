@@ -3,7 +3,7 @@ package com.breze.common.consts;
 /**
  * @Author tylt6688
  * @Date 2022/8/10 11:57
- * @Description Spring Security 常量类
+ * @Description Spring Security 安全常量类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 public class SecurityConstant {
@@ -16,7 +16,7 @@ public class SecurityConstant {
     public static final String[] URL_WHITELIST = {
             "/login",
             "/logout",
-            "/kaptcha",
+            "/captcha",
             "/favicon.ico",
             "/swagger-ui/**",
             "/webjars/**",

@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/tool/swagger")
+@RequestMapping("/tool")
 public class SwaggerController {
 
-    @GetMapping()
+    @GetMapping("/swagger")
     public String index() {
         return "redirect:/swagger-ui.html";
     }

@@ -22,16 +22,16 @@ public class ServerController extends BaseController {
 
     @GetMapping("/cpu_info")
     public Result getCpuInfo() {
-        return Result.createSuccessMessage("",ServerUtil.getOsInfo());
+        return Result.createSuccessMessage("获取CPU信息成功",ServerUtil.getOsInfo());
     }
 
     @GetMapping("/memory_info")
     public Result getMemoryInfo() {
-        return Result.createSuccessMessage("",ServerUtil.getMemoryInfo());
+        return Result.createSuccessMessage("获取内存信息成功",ServerUtil.getMemoryInfo());
     }
 
     @GetMapping("/disk_info")
     public Result getDiskInfo() {
-        return Result.createSuccessMessage("",ServerUtil.getDiskInfo());
+        return Result.createSuccessMessage("获取磁盘信息成功",ServerUtil.getDiskInfo());
     }
 }

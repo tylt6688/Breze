@@ -39,13 +39,14 @@ public class LoginSuccessHandlerImpl implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
         response.setContentType(CharsetConstant.JSON_TYPE);
+
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
         String jwt = jwtConfig.generateToken(authentication.getName());
 
-        // 生成jwt放置到响应的请求头中
+        // 生成JWT放置到响应Header头中
         response.setHeader(jwtConfig.getHeader(), jwt);
 
         File database = new File(new File("geolite2city.mmdb").getAbsolutePath());
@@ -53,9 +54,9 @@ public class LoginSuccessHandlerImpl implements AuthenticationSuccessHandler {
         DatabaseReader reader;
         try {
             reader = new DatabaseReader.Builder(database).build();
-            log.info("当前用户IP地址------------" + IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
+            log.info("当前用户IP地址:---{}", IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
         } catch (Exception e) {
-            log.info("异常IP地址------------" + SystemConstant.UNKNOWN_IP);
+            log.info("异常IP地址:---{}", SystemConstant.UNKNOWN_IP);
         }
 
         Result result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);

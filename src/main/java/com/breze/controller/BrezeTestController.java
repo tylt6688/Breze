@@ -3,18 +3,18 @@ package com.breze.controller;
 
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
+import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.service.rbac.UserService;
-import com.breze.utils.LogUtil;
 import com.breze.utils.QrCodeUtil;
 import lombok.extern.log4j.Log4j2;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
@@ -28,16 +28,6 @@ import java.util.List;
 @RequestMapping("/breze/test")
 public class BrezeTestController extends BaseController {
 
-    @GetMapping("/log_test")
-    public void logTest() {
-        Logger log = LogUtil.getExceptionLogger();
-        Logger log1 = LogUtil.getBussinessLogger();
-        Logger log2 = LogUtil.getDBLogger();
-
-        log.error("getExceptionLogger===error日志测试");
-        log1.info("getBussinessLogger===info日志测试");
-        log2.debug("getDBLogger===debug日志测试");
-    }
 
 
 // 针对mybatisplus生成代码进行测试
@@ -62,13 +52,20 @@ public class BrezeTestController extends BaseController {
     }
 
 
+    @PermitAll
     // 测试二维码生成
     @RequestMapping("/qrCode")
     public Result qrCode(Integer id) {
         String content = "http://www.baidu.com?id=";
         String logoUrl = "http://www.baidu.com/statics/logo.png";
         String url = QrCodeUtil.getBase64QRCode(content + id, logoUrl);
-        return Result.createSuccessMessage(url);
+        return Result.createSuccessMessage("",url);
+    }
+
+    @RequestMapping("/execute")
+    public Result execute(Long id) {
+        Group tree = groupService.findTreeById(id);
+        return Result.createSuccessMessage("",tree);
     }
 
 

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.breze.common.consts.CacheConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.KaptchaException;
-import com.breze.security.handler.LoginFailureHandlerImpl;
+import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.utils.RedisUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +24,13 @@ import java.io.IOException;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
-// TODO: 2022/8/20 等待修改自定义登陆方式
 @Component
-public class KaptchaFilter extends OncePerRequestFilter {
+public class CaptchaFilter extends OncePerRequestFilter {
 
     @Autowired
     RedisUtil redisUtil;
     @Autowired
-    LoginFailureHandlerImpl loginFailureHandlerImpl;
+    AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
@@ -44,13 +43,15 @@ public class KaptchaFilter extends OncePerRequestFilter {
                 validate(request);
             } catch (KaptchaException exception) {
                 // 交给登录失败处理器
-                loginFailureHandlerImpl.onAuthenticationFailure(request, response, exception);
+                authenticationFailureHandlerImpl.onAuthenticationFailure(request, response, exception);
             }
         }
         filterChain.doFilter(request, response);
     }
 
-    // 校验验证码逻辑
+    /**
+     * 校验验证码逻辑
+     */
     private void validate(HttpServletRequest request) {
 
         String key = request.getParameter("key");

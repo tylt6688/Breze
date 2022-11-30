@@ -26,48 +26,52 @@ import java.nio.file.AccessDeniedException;
 public class GlobalException extends Throwable {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(BussinessException.class)
-    public Result handler(BussinessException e) {
-        log.error("server服务器故障：----------------{}", e.getMessage());
-        e.printStackTrace();
+    @ExceptionHandler(BusinessException.class)
+    public Result handler(BusinessException e) {
+        log.error("server服务器故障:----------------{}", e.getMessage());
+        //        e.printStackTrace();
         return Result.createFailMessage(e.getErrorEnum(), e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(JwtException.class)
     public Result handler(JwtException e) {
-        log.error("Jwt出现异常：----------------{}", e.getMessage());
-        e.printStackTrace();
+        log.error("Jwt出现异常:----------------{}", e.getMessage());
+        //        e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.IllegalOperation, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     public Result handler(AccessDeniedException e) {
-        log.error("security权限不足：----------------{}", e.getMessage());
+        log.error("Security权限不足:----------------{}", e.getMessage());
+        //        e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.NoPermission, "权限不足");
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result handler(MethodArgumentNotValidException e) {
-        log.error("实体校验异常：----------------{}", e.getMessage());
+        log.error("Entity实体校验异常:----------------{}", e.getMessage());
         BindingResult bindingResult = e.getBindingResult();
         ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
+        //        e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.UnknownError, objectError.getDefaultMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public Result handler(IllegalArgumentException e) {
-        log.error("Assert异常：----------------{}", e.getMessage());
+        log.error("Assert断言判断异常:----------------{}", e.getMessage());
+        //        e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
     public Result handler(RuntimeException e) {
-        log.error("运行时异常：----------------{}", e.getMessage());
+        log.error("运行时异常:----------------{}", e.getMessage());
+        //        e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
     }
 }

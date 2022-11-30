@@ -1,29 +1,26 @@
 package com.breze.controller.rbac;
 
 
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.CharSequenceUtil;
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.read.listener.PageReadListener;
-import com.alibaba.excel.util.MapUtils;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.excel.EasyExcelFactory;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.consts.CharsetConstant;
-import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
-import com.breze.common.exception.BussinessException;
+import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.dto.UpdatePasswordDTO;
 import com.breze.entity.dto.UserDTO;
 import com.breze.entity.mapstruct.UserConvert;
-import com.breze.entity.pojo.rbac.*;
+import com.breze.entity.pojo.rbac.GroupJob;
+import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.pojo.rbac.UserGroupJob;
+import com.breze.entity.pojo.rbac.UserRole;
 import com.breze.entity.vo.UserInfoVo;
-import com.breze.utils.MultipartFileToFileUtil;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,19 +29,15 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -60,31 +53,14 @@ import java.util.Map;
 public class UserController extends BaseController {
 
     @BrezeLog("获取当前用户信息")
-    @ApiOperation(value = "获取当前用户信息")
+    @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
     @GetMapping("/get_userinfo")
     public Result getUserInfo(Principal principal) {
-        // 此处为安全数据页面展示，前端需要什么后端就返回什么
-        User user = userService.getByUserName(principal.getName());
-        user.setRoles(roleService.listRolesByUserId(user.getId()));
+        User user = userService.getUserByUserName(principal.getName());
+        userService.getUserRolesByUserId(user.getId());
         UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
-        // FIXME: 2022/9/30 临时在Controller展示，后续需要针对Service进行优化
-        List<UserGroupJob> userGroupJobList = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
-        List<Map> list = new ArrayList<>();
-        List<Group> groups = new ArrayList<>();
-        for (UserGroupJob userGroupJob : userGroupJobList) {
-            // FIXME: 2022/9/30 此处应采用递归进行父级查询，直至查询到顶级[抄送人：tylt6688 待办人：LUCIFER-LGX 2022-09-30]
-            String groupname = groupService.getById(userGroupJob.getJobId()).getName();
-            String jobname = jobService.getById(userGroupJob.getJobId()).getName();
-            list.add(MapUtil.builder()
-                    .put("groupName", groupname)
-                    .put("jobName", jobname)
-                    .build());
-            // 2022/10/15 11:34 FIXME: 传入部门ID 逆向获取部门树结构 UP BY LUCIFER-LGX [抄送人：LUCIFER-LGX 待办人：tylt6688]
-            Group group = groupService.findTreeById(userGroupJob.getGroupId());
-            groups.add(group);
-        }
-        userInfoVo.setGroupJob(list).setGroups(groups);
-        return Result.createSuccessMessage("",userInfoVo);
+        userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
+        return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
     }
 
     @BrezeLog("根据ID获取用户信息")
@@ -92,27 +68,22 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
     public Result info(@PathVariable Long id) {
-        User user = userService.getById(id);
-        Assert.notNull(user, "找不到该用户");
-        List<Role> roles = roleService.listRolesByUserId(id);
-        user.setRoles(roles);
+        User user = userService.getUserRolesByUserId(id);
         UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
-//        List<UserGroupJob> uj = userGroupJobService.list(new QueryWrapper<UserGroupJob>().eq("user_id", user.getId()));
-//        userDTO.setJobId(uj.getJobId());
-        return Result.createSuccessMessage("",userInfoVo);
+        return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
     }
 
-    @BrezeLog("根据用户名获取用户信息")
-    @ApiOperation("根据用户名获取用户信息")
-    @ApiImplicitParam(name = "username", value = "用户名", dataType = "String", dataTypeClass = String.class)
+    @BrezeLog("获取全部用户信息")
+    @ApiOperation("获取全部用户信息，可多条件联合查询，为空则显示全部")
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
+    // FIXME: 2022/11/23 有待优化，做多条件联合查询
     public Result select(@RequestParam String username) {
-        // 2022/9/23 15:24 TODO: Should Be ReWrite UP BY LUCIFER-LGX
         Page<User> pageData = userService.page(getPage(), new LambdaQueryWrapper<User>().like(CharSequenceUtil.isNotBlank(username), User::getUsername, username));
-        pageData.getRecords().forEach(u -> u.setRoles(roleService.listRolesByUserId(u.getId())));
-        return Result.createSuccessMessage("",pageData);
+        pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
+        return Result.createSuccessMessage("", pageData);
     }
+
 
     @BrezeLog("新增用户")
     @ApiOperation("新增用户")
@@ -129,7 +100,7 @@ public class UserController extends BaseController {
         GroupJob gj = UserConvert.INSTANCE.userDTOToGroupJob(userDTO);
         groupJobService.insert(gj);
 
-        return Result.createSuccessMessage("",user);
+        return Result.createSuccessMessage("添加用户成功");
     }
 
     @BrezeLog("删除用户")
@@ -160,21 +131,24 @@ public class UserController extends BaseController {
 
         // 2022/9/23 15:27 FIXME: 修改用户 UP BY LUCIFER-LGX
         userService.updateUser(user);
-        return Result.createSuccessMessage("",user);
+        return Result.createSuccessMessage("", user);
     }
 
 
-    @BrezeLog("分配用户角色")
-    @ApiOperation("分配用户角色")
-    @ApiImplicitParam(name = "userId", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
+    @BrezeLog("分配单个用户角色")
+    @ApiOperation("分配单个用户角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
+    })
     @PostMapping("/role_perm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
         List<UserRole> userRoles = new ArrayList<>();
-        Arrays.stream(roleIds).forEach(r -> {
+        Arrays.stream(roleIds).forEach(roleId -> {
             UserRole userRole = new UserRole();
-            userRole.setRoleId(r);
-            userRole.setUserId(userId);
+            userRole.setRoleId(roleId)
+                    .setUserId(userId);
             userRoles.add(userRole);
         });
         userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId));
@@ -182,7 +156,7 @@ public class UserController extends BaseController {
         // 删除缓存
         User sysUser = userService.getById(userId);
         userService.clearUserAuthorityInfo(sysUser.getUsername());
-        return Result.createSuccessMessage("单个分配角色成功");
+        return Result.createSuccessMessage("分配单个用户角色成功");
     }
 
     @BrezeLog("批量分配用户角色")
@@ -196,10 +170,10 @@ public class UserController extends BaseController {
     public Result rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(userIds).forEach(uid -> {
-            Arrays.stream(roleIds).forEach(r -> {
+            Arrays.stream(roleIds).forEach(roleId -> {
                 UserRole userRole = new UserRole();
-                userRole.setRoleId(r);
-                userRole.setUserId(uid);
+                userRole.setRoleId(roleId)
+                        .setUserId(uid);
                 userRoles.add(userRole);
             });
             userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, uid));
@@ -219,26 +193,36 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @PostMapping("/reset_password")
     @PreAuthorize("hasAuthority('sys:user:repass')")
-    public Result resetPassword(@RequestBody Long userId) {
+    public Result resetPassword(@RequestParam Long userId) {
         User user = userService.getById(userId);
         user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
-        userService.updateById(user);
-        return Result.createSuccessMessage("重置密码成功");
+        try {
+            userService.updateById(user);
+            return Result.createSuccessMessage("重置密码成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "重置密码失败");
+        }
+
     }
 
     @BrezeLog("修改用户密码")
     @ApiOperation("修改用户密码")
     @PostMapping("/update_password")
     public Result updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
-        User user = userService.getByUserName(principal.getName());
+        User user = userService.getUserByUserName(principal.getName());
         boolean matches = bCryptPasswordEncoder.matches(updatePasswordDto.getCurrentPass(), user.getPassword());
         if (matches) {
             user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDto.getPassword()));
-            userService.updateById(user);
+            try {
+                userService.updateById(user);
+                return Result.createSuccessMessage("修改密码成功");
+            } catch (Exception e) {
+                throw new BusinessException(ErrorEnum.FindException, "修改密码失败");
+            }
         } else {
             return Result.createFailMessage(ErrorEnum.FindException, "旧密码不正确");
         }
-        return Result.createSuccessMessage("修改密码成功");
+
     }
 
     @BrezeLog("修改用户头像")
@@ -247,13 +231,13 @@ public class UserController extends BaseController {
     @PostMapping("/update_avatar")
     public Result updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getByUserName(username);
+        User user = userService.getUserByUserName(username);
         if (user.getAvatar() != null && CharSequenceUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
             qiNiuService.deleteFile(user.getAvatar());
         }
         String path = qiNiuService.uploadFile(avatar);
         if (path == null) {
-            throw new BussinessException(ErrorEnum.FindException, "修改头像失败");
+            throw new BusinessException(ErrorEnum.FindException, "修改头像失败");
         }
         user.setAvatar(path);
         userService.updateById(user);
@@ -264,8 +248,12 @@ public class UserController extends BaseController {
     @ApiOperation("更新用户信息")
     @PostMapping("/update_userinfo")
     public Result updateUserInfo(@Validated @RequestBody User user) {
-        userService.updateById(user);
-        return Result.createSuccessMessage("",user);
+        try {
+            userService.updateById(user);
+            return Result.createSuccessMessage("更新用户信息成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "更新用户信息失败");
+        }
     }
 
     @BrezeLog("登录提醒")
@@ -273,9 +261,9 @@ public class UserController extends BaseController {
     @ApiImplicitParams({@ApiImplicitParam(name = "loginWarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @PostMapping("/update_login_warn")
     public Result updateLoginWarn(@RequestParam Integer loginWarn, Principal principal) {
-        User user = userService.getByUserName(principal.getName());
-        boolean flag = userService.updateLoginWarnById(loginWarn, user.getId());
-        return flag ? Result.createSuccessMessage("更新登录提醒成功") : Result.createFailMessage(ErrorEnum.FindException);
+        User user = userService.getUserByUserName(principal.getName());
+        userService.updateLoginWarnByUserId(loginWarn, user.getId());
+        return Result.createSuccessMessage("更新登录提醒成功");
     }
 
     @BrezeLog("导入Excel表")
@@ -283,57 +271,41 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @PostMapping("/upload_excel")
     public Result uploadExcel(@RequestParam MultipartFile file) {
-        String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
-        File covfile = MultipartFileToFileUtil.multipartFileToFile(file);
-        EasyExcel.read(covfile, User.class, new PageReadListener<User>(dataList -> {
-            for (User user : dataList) {
-                user.setPassword(encode);
-                user.setState(GlobalConstant.TYPE_ZERO);
-                user.setLoginWarn(GlobalConstant.TYPE_ONE);
-                userService.save(user);
-            }
-        })).sheet().doRead();
-        return Result.createSuccessMessage("数据导入成功");
+        try {
+            userService.importUserFromExcel(file);
+            return Result.createSuccessMessage("数据导入成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "导入Excel表失败");
+        }
+
     }
 
     @BrezeLog("导出Excel表")
     @ApiOperation("导出Excel表")
     @GetMapping("/export_excel")
-    public void downloadUserExcel(HttpServletResponse response) throws IOException {
+    public void downloadUserExcel(HttpServletResponse response) {
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);
-            EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(userService.list());
+            EasyExcelFactory.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(userService.list());
         } catch (Exception e) {
             response.reset();
-            response.setContentType(CharsetConstant.JSON_TYPE);
-            response.setCharacterEncoding(CharsetConstant.UTF_8);
-            Map<String, String> map = MapUtils.newHashMap();
-            map.put("status", "failure");
-            map.put("message", "下载文件失败" + e.getMessage());
-            response.getWriter().println(JSON.toJSONString(map));
+            throw new BusinessException(ErrorEnum.FindException, "导出Excel表失败");
         }
     }
 
     @BrezeLog("导出模板Excel表")
     @ApiOperation("导出模板Excel表")
     @GetMapping("/download_model_excel")
-    public void downloadModelExcel(HttpServletResponse response) throws IOException {
+    public void downloadModelExcel(HttpServletResponse response) {
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);
-            List<User> list = new ArrayList<>();
-            User user = new User("2022000000001","张三","18888888888","zhangsan@email.com","济南");
-            list.add(user);
-            EasyExcel.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(list);
+            User user = new User("2022000000001", "张三", "18888888888", "zhangsan@email.com", "济南");
+            EasyExcelFactory.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(Arrays.asList(user));
         } catch (Exception e) {
             response.reset();
-            response.setContentType(CharsetConstant.JSON_TYPE);
-            response.setCharacterEncoding(CharsetConstant.UTF_8);
-            Map<String, String> map = MapUtils.newHashMap();
-            map.put("status", "failure");
-            map.put("message", "下载文件失败" + e.getMessage());
-            response.getWriter().println(JSON.toJSONString(map));
+            throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
         }
     }
 

@@ -22,24 +22,24 @@ public class GroupController extends BaseController {
 
     @GetMapping("/select")
     public Result selectAll() {
-        return Result.createSuccessMessage("",groupService.findAll());
+        return Result.createSuccessMessage("查询部门成功",groupService.findAll());
     }
 
     @GetMapping("/select/{id}")
     public Result selectById(@PathVariable Long id) {
-        return Result.createSuccessMessage("",groupService.findById(id));
+        return Result.createSuccessMessage("查询单个部门成功",groupService.findById(id));
     }
 
     @PostMapping("/insert")
     public Result insert(@RequestBody Group group) {
         groupService.insert(group);
-        return Result.createSuccessMessage("",group);
+        return Result.createSuccessMessage("新增部门成功");
     }
 
     @PostMapping("/update")
     public Result update(@RequestBody Group group) {
         groupService.update(group);
-        return Result.createSuccessMessage("",group);
+        return Result.createSuccessMessage("更新部门成功");
     }
 
     @PostMapping("/delete/{id}")

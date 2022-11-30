@@ -9,9 +9,9 @@ import org.springframework.security.core.AuthenticationException;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
-public class JwtBrezeException extends AuthenticationException {
+public class BrezeJwtException extends AuthenticationException {
 
-    public JwtBrezeException(String msg) {
+    public BrezeJwtException(String msg) {
         super(msg);
     }
 }

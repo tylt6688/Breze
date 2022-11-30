@@ -33,7 +33,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuDTO> getCurrentNav() {
-        // 因为当前用户的信息是注册在Security里面的
+        // 当前用户的信息是注册在Security里面的
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userMapper.getByUserName(username);
         List<Long> navMenuIds = userMapper.getNavMenuIds(user.getId());
@@ -72,17 +72,17 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     private List<MenuDTO> convert(List<Menu> menuTree) {
         List<MenuDTO> menuDTO = new ArrayList<>();
-        menuTree.forEach(m -> {
+        menuTree.forEach(menu -> {
             MenuDTO dto = new MenuDTO();
-            dto.setId(m.getId());
-            dto.setName(m.getPerms());
-            dto.setTitle(m.getName());
-            dto.setIcon(m.getIcon());
-            dto.setComponent(m.getComponent());
-            dto.setPath(m.getPath());
-            if (!m.getChildren().isEmpty()) {
+            dto.setId(menu.getId());
+            dto.setName(menu.getPerms());
+            dto.setTitle(menu.getName());
+            dto.setIcon(menu.getIcon());
+            dto.setComponent(menu.getComponent());
+            dto.setPath(menu.getPath());
+            if (!menu.getChildren().isEmpty()) {
                 // 子节点调用当前方法再次进行转换
-                dto.setChildren(convert(m.getChildren()));
+                dto.setChildren(convert(menu.getChildren()));
             }
             menuDTO.add(dto);
         });

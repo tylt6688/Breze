@@ -15,18 +15,18 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "breze")
 public class BrezeConfig {
 
-    private String name;
-
     private String title;
+
+    private String name;
 
     private String description;
 
-    private String version;
+    private String copyrightName;
 
     private String copyrightYear;
 
-    private String copyrightName;
-
     private Boolean swaggerEnabled;
+
+    private String version;
 
 }

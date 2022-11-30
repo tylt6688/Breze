@@ -29,7 +29,7 @@
         WHERE openid = #{openid}
     </select>
 
-    <update id="updateLoginWarnById">
+    <update id="updateLoginWarnByUserId">
         update sys_user
         set login_warn = #{loginWarn,jdbcType=NUMERIC}
         where id = #{id,jdbcType=NUMERIC}

@@ -31,13 +31,12 @@ import java.util.List;
 @ApiModel(value = "Menu菜单对象", description = "sys_menu菜单表")
 public class Menu implements Serializable {
 
-
     private static final long serialVersionUID = 51460849181143467L;
+
     @TableId(value = "id", type = IdType.AUTO)
     @ApiModelProperty(value = "菜单ID", name = "id", example = "1", notes = "菜单ID")
     private Long id;
 
-    // 增加 Validation 验证
     @ApiModelProperty(value = "菜单父ID", name = "parentId", example = "0", notes = "父菜单ID，一级菜单为0")
     @NotNull(message = "上级菜单不能为空")
     private Long parentId;
@@ -67,6 +66,9 @@ public class Menu implements Serializable {
     @ApiModelProperty(value = "菜单排序", name = "orderNum", example = "1", notes = "菜单排序")
     private Integer orderNum;
 
+    @ApiModelProperty(value = "状态", name = "state", example = "0", notes = "状态：0正常 1停用")
+    private Integer state;
+
     @ApiModelProperty(value = "创建时间", name = "createTime", example = "2020-03-01 12:00:00", notes = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
@@ -75,8 +77,6 @@ public class Menu implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "状态", name = "state", example = "0", notes = "状态：0正常 1停用")
-    private Integer state;
 
     @TableField(exist = false)
     private List<Menu> children = new ArrayList<>();

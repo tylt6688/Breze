@@ -1,7 +1,7 @@
 package com.breze.service.brezelog;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.pojo.logdo.LoginLog;
+import com.breze.entity.pojo.brezelog.LoginLog;
 
 /**
  * <p>

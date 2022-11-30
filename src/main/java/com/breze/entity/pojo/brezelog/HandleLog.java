@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.logdo;
+package com.breze.entity.pojo.brezelog;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,13 +14,14 @@ import java.time.LocalDateTime;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 8:54
- * @Description
+ * @Description 操作日志实体类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("log_handle")
+@Accessors(chain = true)
 @ApiModel(value = "HandleLog操作日志对象", description = "log_handle操作日志表")
 public class HandleLog implements Serializable {
 
@@ -32,9 +34,6 @@ public class HandleLog implements Serializable {
     @ApiModelProperty(value = "日志名称", name = "title", example = "新增日志")
     private String title;
 
-    @ApiModelProperty(value = "操作类型", name = "type", example = "新增")
-    private String type;
-
     @ApiModelProperty(value = "请求IP", name = "ip", example = "127.0.0.1")
     private String requestIp;
 
@@ -45,7 +44,7 @@ public class HandleLog implements Serializable {
     private String method;
 
     @ApiModelProperty(value = "用户代理", name = "ua", example = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36")
-    private String browser;
+    private String clientType;
 
     @ApiModelProperty(value = "请求参数", name = "params", example = "{\"name\":\"admin\",\"password\":\"123456\"}")
     private String params;

@@ -1,11 +1,13 @@
 package com.breze.security.filter;
 
 import com.breze.common.consts.CharsetConstant;
-import com.breze.common.exception.JwtBrezeException;
+import com.breze.common.exception.BrezeDeniedException;
+import com.breze.common.exception.BrezeJwtException;
 import com.breze.config.JwtConfig;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.security.handler.LoginFailureHandlerImpl;
 import com.breze.security.UserDetailServiceImpl;
+import com.breze.security.handler.AccessDeniedHandlerImpl;
+import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.service.rbac.UserService;
 import io.jsonwebtoken.Claims;
 import lombok.extern.log4j.Log4j2;
@@ -42,7 +44,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private UserDetailServiceImpl userDetailService;
 
     @Autowired
-    private LoginFailureHandlerImpl loginFailureHandlerImpl;
+    private AuthenticationFailureHandlerImpl authenticationFailureHandler;
+
+    @Autowired
+    private AccessDeniedHandlerImpl accessDeniedHandler;
 
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -55,13 +60,13 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
         if (jwt == null) {
-            log.info("JWT为空或者格式不正确[此消息只针对Dev环境使用，初始登录为空是正常]-----------{}", jwt);
+            log.info("[JWT为空或者格式不正确](此日志消息只针对Dev环境使用，初始登录为空是正常):---{}", jwt);
             chain.doFilter(request, response);
             return;
         }
         else if(!jwt.startsWith(CharsetConstant.JWT_PREFIX)){
-            log.info("JWT头部格式不正确-----------{}", jwt);
-            chain.doFilter(request, response);
+            log.info("[JWT头部格式不正确]:---{}", jwt);
+            accessDeniedHandler.handle(request, response, new BrezeDeniedException("JWT头部格式不正确"));
             return;
         }
 
@@ -71,19 +76,19 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         Claims claim = jwtConfig.getClaimByToken(jwt);
 
         if (claim == null) {
-            loginFailureHandlerImpl.onAuthenticationFailure(request, response, new JwtBrezeException("Token解析失败"));
+            authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("Token解析失败"));
             return;
         }
         // 判断token是否过期
         else if (Boolean.TRUE.equals(jwtConfig.isTokenExpired(claim))) {
-            loginFailureHandlerImpl.onAuthenticationFailure(request, response, new JwtBrezeException("JWT已过期"));
+            authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("JWT已过期"));
             return;
         }
 
         // 获取用户的权限菜单等信息
         String username = claim.getSubject();
 
-        User user = userService.getByUserName(username);
+        User user = userService.getUserByUserName(username);
 
         // 第三个参数是查询出来的权限信息
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, null, userDetailService.getUserAuthority(user.getId()));

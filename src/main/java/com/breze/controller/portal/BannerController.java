@@ -28,7 +28,6 @@ import java.util.Objects;
 public class BannerController extends BaseController {
 
 
-    //根据id获取轮播图信息
     @GetMapping("/info/{id}")
     public Result getBannerInfo(@PathVariable Long id) {
         Banner banner = bannerService.getById(id);

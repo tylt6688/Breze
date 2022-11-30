@@ -48,7 +48,12 @@ public class Group implements Serializable {
     private LocalDateTime updateTime;
 
     @TableField(exist = false)
+    private String job;
+
+    @TableField(exist = false)
     private List<Group> children = new ArrayList<>();
+
+
 
 
 }

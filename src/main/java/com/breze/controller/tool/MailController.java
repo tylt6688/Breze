@@ -37,11 +37,11 @@ public class MailController extends BaseController {
     @Autowired
     Produce produce;
 
-    @PostMapping("/sendemail")
+    @PostMapping("/sendmail")
     public Result commonEmail() {
 
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getByUserName(username);
+        User user = userService.getUserByUserName(username);
 
         // 注意导入的包是org.thymeleaf.context
         Context context = new Context();

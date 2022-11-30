@@ -4,6 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
@@ -48,8 +49,8 @@ public class MainContentController extends BaseController {
     //添加
     @PostMapping("/insert")
     public Result saveMain(@RequestPart("editData") MainContent mainContent, @RequestParam("file") MultipartFile file) throws IOException  {
-        System.out.println(file);
-        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpg") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpeg")) {
+
+        if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.PNG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPEG)) {
             return Result.createFailMessage(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
         }
         String path = qiNiuService.uploadFile(file);
@@ -59,7 +60,7 @@ public class MainContentController extends BaseController {
         ossFile.setFileName(fileName);
         ossFile.setFileUrl(path);
 
-        if(!(mainContent.getId() == null)){
+        if((mainContent.getId() != null)){
             // 删除原来的图片
             qiNiuService.deleteFile(mainContent.getImgUrl());
             // 修改oss表图片存储链接
@@ -72,7 +73,6 @@ public class MainContentController extends BaseController {
             String ossId = IdUtil.simpleUUID();
             ossFile.setId(ossId);
             mainContent.setOssId(ossId);
-
             ossFileService.save(ossFile);
             mainContentService.save(mainContent);
             return Result.createSuccessMessage("添加数据成功");
@@ -81,8 +81,8 @@ public class MainContentController extends BaseController {
 
     //修改内容
     @PostMapping("/update")
-    public Result UpdateMain(@Validated @RequestBody MainContent mainContent) {
-        System.out.println(mainContent);
+    public Result updateMain(@Validated @RequestBody MainContent mainContent) {
+
         try {
             mainContentService.updateById(mainContent);
             return Result.createSuccessMessage("更新内容成功");

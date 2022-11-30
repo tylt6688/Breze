@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @Author tylt6688
  * @Date 2022/2/7 14:24
- * @Description 授权失败，权限不足拒绝访问异常处理
+ * @Description 鉴权失败，权限不足拒绝访问异常处理
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Component
@@ -28,6 +28,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
 
 		response.setContentType(CharsetConstant.JSON_TYPE);
+
 		response.setCharacterEncoding(CharsetConstant.UTF_8);
 
 		// 告知前端权限不足状态码 403
@@ -35,7 +36,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
 		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-		Result result = Result.createFailMessage(ErrorEnum.NoPermission);
+		Result result = Result.createFailMessage(ErrorEnum.NoPermission, accessDeniedException.getMessage());
 
 		outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

@@ -107,6 +107,7 @@ public class User implements Serializable {
     @TableField(exist = false)
     private List<Role> roles = new ArrayList<>();
 
+
     public User(String username, String trueName, String phone, String email, String city) {
         this.username = username;
         this.trueName = trueName;

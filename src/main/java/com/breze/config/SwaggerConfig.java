@@ -27,7 +27,7 @@ import java.util.List;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
-@Profile("dev")// 指明多环境配置类标识
+@Profile({"dev","test"})// 指明多环境配置类标识
 @EnableOpenApi
 @Configuration// 声明自定义配置类
 public class SwaggerConfig {

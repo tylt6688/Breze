@@ -1,6 +1,6 @@
 package com.breze.common.event;
 
-import com.breze.entity.pojo.logdo.HandleLog;
+import com.breze.entity.pojo.brezelog.HandleLog;
 import org.springframework.context.ApplicationEvent;
 
 /**

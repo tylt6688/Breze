@@ -41,7 +41,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
-        // 将jwt传给前端清空
+        // 将 JWT 清空后传给前端
         response.setHeader(jwtConfig.getHeader(), "");
 
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();

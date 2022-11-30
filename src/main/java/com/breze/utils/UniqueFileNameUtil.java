@@ -1,6 +1,7 @@
 package com.breze.utils;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.util.Assert;
 
 import java.util.UUID;
 
@@ -14,8 +15,9 @@ import java.util.UUID;
 @UtilityClass
 public class UniqueFileNameUtil {
     public static String getRandomImgName(String fileName) {
+        Assert.notNull(fileName, "文件不能为空");
         int index = fileName.lastIndexOf(".");
-        if ((fileName == null || fileName.isEmpty()) || index == -1) {
+        if ((fileName.isEmpty()) || index == -1) {
             throw new IllegalArgumentException();
         }
         // 获取文件后缀

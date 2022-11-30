@@ -1,16 +1,16 @@
 package com.breze.service.rbac.impl;
 
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNodeConfig;
-import cn.hutool.core.lang.tree.TreeUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;
+import com.breze.entity.pojo.rbac.UserGroupJob;
 import com.breze.mapper.rbac.GroupJobMapper;
 import com.breze.mapper.rbac.GroupMapper;
 import com.breze.mapper.rbac.JobMapper;
+import com.breze.mapper.rbac.UserGroupJobMapper;
 import com.breze.service.rbac.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author tylt6688
@@ -38,56 +38,52 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Autowired
     private GroupJobMapper groupJobMapper;
 
-    private List<Group> buildTreeDepartment(List<Group> groups) {
-        List<Group> finalMenus = new ArrayList<>();
+    @Autowired
+    private UserGroupJobMapper userGroupJobMapper;
+
+
+    @Override
+    public List<Group> findGroupAndJobByUserId(Long userId) {
+        List<UserGroupJob> userGroupJobs = userGroupJobMapper.selectList(new LambdaQueryWrapper<UserGroupJob>().eq(UserGroupJob::getUserId, userId));
+        List<Group> list = new ArrayList<>();
+        userGroupJobs.forEach(userGroupJob -> {
+            Group groupJob = this.findTreeById(userGroupJob.getGroupId());
+            Job job = jobMapper.selectById(userGroupJob.getJobId());
+            groupJob.setJob(job.getName());
+            list.add(groupJob);
+        });
+        return list;
+    }
+
+    private List<Group> buildTreeGroup(List<Group> groups) {
+        List<Group> finalGroups = new ArrayList<>();
         // 先各自寻找到各自的孩子
         for (Group group : groups) {
             // 提取出父节点
             if (group.getParentId() == 0L) {
-                finalMenus.add(group);
+                finalGroups.add(group);
             }
-            for (Group e : groups) {
-                if (group.getId().equals(e.getParentId())) {
-                    group.getChildren().add(e);
+            for (Group g : groups) {
+                if (group.getId().equals(g.getParentId())) {
+                    group.getChildren().add(g);
                 }
             }
         }
-        return finalMenus;
+        return finalGroups;
     }
 
     @Override
-    public List<Group> tree() {
-        List<Group> groups = this.list();
-        return buildTreeDepartment(groups);
+    public List<Group> findAll() {
+        return buildTreeGroup(groupMapper.selectList(null));
     }
 
-    @Override
-    public List<Tree<String>> findAll() {
-        List<Group> groups = groupMapper.selectList(null);
-        TreeNodeConfig treeNodeConfig = new TreeNodeConfig();
-        treeNodeConfig.setIdKey("id");
-        List<Tree<String>> treeNodes = TreeUtil.build(groups, "0", treeNodeConfig,
-                (treeNode, tree) -> {
-                    tree.setId(treeNode.getId().toString());
-                    tree.setParentId(treeNode.getParentId().toString());
-                    tree.setName(treeNode.getName());
-                    tree.putExtra("state", treeNode.getState());
-                    tree.putExtra("remark", treeNode.getRemark());
-                    tree.putExtra("createTime", treeNode.getCreateTime());
-                    tree.putExtra("updateTime", treeNode.getUpdateTime());
-                    tree.putExtra("children", treeNode.getChildren());
-                    if (treeNode.getChildren().isEmpty()) {
-                        tree.putExtra("jobs", findJobsByGroupId(treeNode.getId()));
-                    }
 
-                });
-        return treeNodes;
-    }
+
     private List<Job> findJobsByGroupId(Long id) {
-        List<GroupJob> gjs = groupJobMapper.selectList(new QueryWrapper<GroupJob>().eq("group_id", id));
+        List<GroupJob> groupJobs = groupJobMapper.selectList(new QueryWrapper<GroupJob>().eq("group_id", id));
         List<Job> jobs = new ArrayList<>();
-        for (GroupJob gj : gjs) {
-            Job job = jobMapper.selectById(gj.getJobId());
+        for (GroupJob groupJob : groupJobs) {
+            Job job = jobMapper.selectById(groupJob.getJobId());
             jobs.add(job);
         }
         return jobs;
@@ -96,7 +92,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Override
     public Group findById(Long id) {
         Group group = groupMapper.selectById(id);
-        QueryWrapper<Group> qw = new QueryWrapper<Group>();
+        QueryWrapper<Group> qw = new QueryWrapper<>();
         qw.eq("parent_id", id);
         List<Group> cgs = groupMapper.selectList(qw);
         group.setChildren(cgs);
@@ -110,30 +106,30 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return findGroup(group);
     }
 
-    private Group findGroup(Group group){
-        List<Group> ch = new ArrayList<>();
-        if (group.getParentId() == 0) {
+    private Group findGroup(Group group) {
+        List<Group> list = new ArrayList<>();
+        if (group.getParentId() == 0L) {
             return group;
         } else {
             Group g = groupMapper.selectById(group.getParentId());
-            ch.add(group);
-            g.setChildren(ch);
+            list.add(group);
+            g.setChildren(list);
             return findGroup(g);
         }
     }
 
     @Override
-    public int insert(Group group) {
-        return groupMapper.insert(group);
+    public Boolean insert(Group group) {
+        return groupMapper.insert(group) > 0;
     }
 
     @Override
-    public int update(Group group) {
-        return groupMapper.updateById(group);
+    public Boolean update(Group group) {
+        return groupMapper.updateById(group) > 0;
     }
 
     @Override
-    public int delete(Long id) {
-        return groupMapper.deleteById(id);
+    public Boolean delete(Long id) {
+        return groupMapper.deleteById(id) > 0;
     }
 }

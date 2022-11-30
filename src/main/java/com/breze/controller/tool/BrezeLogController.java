@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.pojo.logdo.HandleLog;
-import com.breze.entity.pojo.logdo.LoginLog;
+import com.breze.entity.pojo.brezelog.HandleLog;
+import com.breze.entity.pojo.brezelog.LoginLog;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +29,13 @@ public class BrezeLogController extends BaseController {
             loginLog.setUserName(userService.getById(loginLog.getUserId()).getUsername());
             loginLog.setTrueName(userService.getById(loginLog.getUserId()).getTrueName());
         });
-        return Result.createSuccessMessage("",pageData);
+        return Result.createSuccessMessage("分页查询登录日志成功",pageData);
     }
 
     @GetMapping("/list_handle_log")
     public Result listHandleLog() {
         Page<HandleLog> pageData = handleLogService.page(getPage(), new LambdaQueryWrapper<HandleLog>().orderByDesc(HandleLog::getCreateTime));
-        return Result.createSuccessMessage("",pageData);
+        return Result.createSuccessMessage("分页查询操作日志成功",pageData);
     }
 
 

@@ -10,19 +10,20 @@ import lombok.Data;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
-public class BussinessException extends RuntimeException{
+public class BusinessException extends RuntimeException{
 
+    private static final long serialVersionUID = 6222543820599495474L;
     private ErrorEnum errorEnum;
 
     private String message;
 
-    public BussinessException(ErrorEnum errorEnum) {
+    public BusinessException(ErrorEnum errorEnum) {
         this.errorEnum = errorEnum;
         this.message = errorEnum.getErrorName();
     }
 
 
-    public BussinessException(ErrorEnum errorEnum, String message) {
+    public BusinessException(ErrorEnum errorEnum, String message) {
         this.errorEnum = errorEnum;
         this.message = message;
     }

@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.logdo;
+package com.breze.entity.pojo.brezelog;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;

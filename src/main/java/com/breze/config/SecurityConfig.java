@@ -1,11 +1,11 @@
 package com.breze.config;
 
 import com.breze.common.consts.SecurityConstant;
+import com.breze.security.filter.CaptchaFilter;
 import com.breze.security.filter.JwtAuthenticationFilter;
-import com.breze.security.filter.KaptchaFilter;
 import com.breze.security.handler.LoginSuccessHandlerImpl;
 import com.breze.security.handler.LogoutSuccessHandlerImpl;
-import com.breze.security.handler.LoginFailureHandlerImpl;
+import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.security.handler.AccessDeniedHandlerImpl;
 import com.breze.security.handler.AuthenticationEntryPointImpl;
 import lombok.extern.log4j.Log4j2;
@@ -37,17 +37,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    KaptchaFilter kaptchaFilter;
+    private CaptchaFilter captchaFilter;
     @Autowired
-    LoginSuccessHandlerImpl loginSuccessHandlerImpl;
+    private LoginSuccessHandlerImpl loginSuccessHandlerImpl;
     @Autowired
-    LoginFailureHandlerImpl loginFailureHandlerImpl;
+    private AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
     @Autowired
-    AccessDeniedHandlerImpl accessDeniedHandlerImpl;
+    private AccessDeniedHandlerImpl accessDeniedHandlerImpl;
     @Autowired
-    AuthenticationEntryPointImpl authenticationEntryPointImpl;
+    private AuthenticationEntryPointImpl authenticationEntryPointImpl;
     @Autowired
-    LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
+    private LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
 
@@ -89,7 +89,7 @@ public class SecurityConfig {
                 .and()
                 // 配置登录请求
                 .formLogin()
-                .failureHandler(loginFailureHandlerImpl)
+                .failureHandler(authenticationFailureHandlerImpl)
                 .successHandler(loginSuccessHandlerImpl)
 
                 // 退出登录
@@ -122,7 +122,7 @@ public class SecurityConfig {
                 // 自定义过滤器进行添加
                 .and()
                 // 自定义验证码过滤器，在账号密码验证器运行之前
-                .addFilterBefore(kaptchaFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加 JWT 授权验证过滤器
                 .addFilter(jwtAuthenticationFilter());
 

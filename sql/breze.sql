@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : leochan
+ Source Server         : 本地数据库
  Source Server Type    : MySQL
- Source Server Version : 50739
- Source Host           : 127.0.0.1:3306
+ Source Server Version : 50727
+ Source Host           : localhost:3306
  Source Schema         : breze
 
  Target Server Type    : MySQL
- Target Server Version : 50739
+ Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 27/10/2022 12:41:34
+ Date: 21/11/2022 15:03:00
 */
 
 SET NAMES utf8mb4;
@@ -22,987 +22,608 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `log_handle`;
 CREATE TABLE `log_handle`  (
-                               `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '操作日志编号',
-                               `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作标题',
-                               `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '设备类型',
-                               `request_ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求IP地址',
-                               `request_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求路径',
-                               `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方式',
-                               `browser` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '浏览器类型',
-                               `params` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数',
-                               `exception` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '异常记录',
-                               `time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求耗时',
-                               `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2263 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = Dynamic;
+  `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '操作日志编号',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作标题',
+  `client_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '设备类型',
+  `request_ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求IP地址',
+  `request_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求路径',
+  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方式',
+  `params` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求参数',
+  `exception` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '异常记录',
+  `time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求耗时',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1864 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_handle
 -- ----------------------------
-INSERT INTO `log_handle` VALUES (1363, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '36', '2022-09-30 21:42:50');
-INSERT INTO `log_handle` VALUES (1364, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '34', '2022-09-30 21:42:50');
-INSERT INTO `log_handle` VALUES (1365, '获取当前用户信息', 'Server', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '37', '2022-09-30 21:42:50');
-INSERT INTO `log_handle` VALUES (1366, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '18', '2022-09-30 21:43:28');
-INSERT INTO `log_handle` VALUES (1367, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '29', '2022-09-30 21:43:28');
-INSERT INTO `log_handle` VALUES (1368, '获取当前用户信息', 'Server', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '15', '2022-09-30 21:43:29');
-INSERT INTO `log_handle` VALUES (1369, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '26', '2022-09-30 21:44:06');
-INSERT INTO `log_handle` VALUES (1370, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '125', '2022-09-30 21:44:06');
-INSERT INTO `log_handle` VALUES (1371, '获取当前用户信息', 'Server', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '37', '2022-09-30 21:44:07');
-INSERT INTO `log_handle` VALUES (1372, '获取侧边菜单导航', 'localhost', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '96', '2022-09-30 21:46:28');
-INSERT INTO `log_handle` VALUES (1373, '获取侧边菜单导航', 'localhost', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '57', '2022-09-30 21:46:28');
-INSERT INTO `log_handle` VALUES (1374, '获取当前用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '78', '2022-09-30 21:46:29');
-INSERT INTO `log_handle` VALUES (1375, '获取当前用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '48', '2022-09-30 22:01:27');
-INSERT INTO `log_handle` VALUES (1376, '查询菜单管理中的所有菜单信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '24', '2022-09-30 22:01:48');
-INSERT INTO `log_handle` VALUES (1377, '获取角色列表', 'localhost', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '17', '2022-09-30 22:01:53');
-INSERT INTO `log_handle` VALUES (1378, '根据用户名获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '34', '2022-09-30 22:01:53');
-INSERT INTO `log_handle` VALUES (1379, '根据ID获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '15', '2022-09-30 22:01:54');
-INSERT INTO `log_handle` VALUES (1380, '根据ID获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '16', '2022-09-30 22:02:04');
-INSERT INTO `log_handle` VALUES (1381, '根据ID获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36', '', NULL, '13', '2022-09-30 22:02:07');
-INSERT INTO `log_handle` VALUES (1382, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '47', '2022-10-04 22:54:52');
-INSERT INTO `log_handle` VALUES (1383, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '368', '2022-10-04 22:54:52');
-INSERT INTO `log_handle` VALUES (1384, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '110', '2022-10-04 22:54:56');
-INSERT INTO `log_handle` VALUES (1385, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '38', '2022-10-04 22:54:56');
-INSERT INTO `log_handle` VALUES (1386, '新增用户', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/insert', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '114869', '2022-10-04 22:55:11');
-INSERT INTO `log_handle` VALUES (1387, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '44', '2022-10-04 22:57:46');
-INSERT INTO `log_handle` VALUES (1388, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '37', '2022-10-04 22:57:46');
-INSERT INTO `log_handle` VALUES (1389, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-04 22:57:46');
-INSERT INTO `log_handle` VALUES (1390, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '88', '2022-10-04 22:57:46');
-INSERT INTO `log_handle` VALUES (1391, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '64', '2022-10-04 22:57:46');
-INSERT INTO `log_handle` VALUES (1392, '删除用户', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/delete', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '160', '2022-10-04 22:57:53');
-INSERT INTO `log_handle` VALUES (1393, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-04 22:58:09');
-INSERT INTO `log_handle` VALUES (1394, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-04 22:58:09');
-INSERT INTO `log_handle` VALUES (1395, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-04 22:58:09');
-INSERT INTO `log_handle` VALUES (1396, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '43', '2022-10-04 22:58:09');
-INSERT INTO `log_handle` VALUES (1397, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-04 22:58:09');
-INSERT INTO `log_handle` VALUES (1398, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '38', '2022-10-04 23:07:58');
-INSERT INTO `log_handle` VALUES (1399, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-04 23:07:58');
-INSERT INTO `log_handle` VALUES (1400, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-04 23:07:58');
-INSERT INTO `log_handle` VALUES (1401, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-04 23:07:58');
-INSERT INTO `log_handle` VALUES (1402, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '13', '2022-10-04 23:08:10');
-INSERT INTO `log_handle` VALUES (1403, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '8', '2022-10-04 23:08:10');
-INSERT INTO `log_handle` VALUES (1404, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-04 23:09:12');
-INSERT INTO `log_handle` VALUES (1405, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-04 23:09:13');
-INSERT INTO `log_handle` VALUES (1406, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '11', '2022-10-04 23:09:13');
-INSERT INTO `log_handle` VALUES (1407, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '10', '2022-10-04 23:09:13');
-INSERT INTO `log_handle` VALUES (1408, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-04 23:09:13');
-INSERT INTO `log_handle` VALUES (1409, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-04 23:09:18');
-INSERT INTO `log_handle` VALUES (1410, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '21', '2022-10-04 23:09:18');
-INSERT INTO `log_handle` VALUES (1411, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-04 23:09:30');
-INSERT INTO `log_handle` VALUES (1412, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-04 23:11:14');
-INSERT INTO `log_handle` VALUES (1413, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-04 23:11:14');
-INSERT INTO `log_handle` VALUES (1414, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '8', '2022-10-04 23:11:14');
-INSERT INTO `log_handle` VALUES (1415, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-04 23:11:14');
-INSERT INTO `log_handle` VALUES (1416, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '44', '2022-10-05 08:48:30');
-INSERT INTO `log_handle` VALUES (1417, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '52', '2022-10-05 08:48:30');
-INSERT INTO `log_handle` VALUES (1418, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '79', '2022-10-05 09:19:26');
-INSERT INTO `log_handle` VALUES (1419, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-05 09:19:26');
-INSERT INTO `log_handle` VALUES (1420, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '125', '2022-10-05 09:19:30');
-INSERT INTO `log_handle` VALUES (1421, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '196', '2022-10-05 09:19:30');
-INSERT INTO `log_handle` VALUES (1422, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '10', '2022-10-05 09:19:32');
-INSERT INTO `log_handle` VALUES (1423, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '26', '2022-10-05 09:19:34');
-INSERT INTO `log_handle` VALUES (1424, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '10', '2022-10-05 09:19:36');
-INSERT INTO `log_handle` VALUES (1425, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '62', '2022-10-08 22:18:51');
-INSERT INTO `log_handle` VALUES (1426, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '133', '2022-10-08 22:18:51');
-INSERT INTO `log_handle` VALUES (1427, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '49', '2022-10-08 22:30:29');
-INSERT INTO `log_handle` VALUES (1428, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '188', '2022-10-08 22:30:29');
-INSERT INTO `log_handle` VALUES (1429, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '38', '2022-10-08 22:30:50');
-INSERT INTO `log_handle` VALUES (1430, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-08 22:30:50');
-INSERT INTO `log_handle` VALUES (1431, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '10', '2022-10-08 22:30:50');
-INSERT INTO `log_handle` VALUES (1432, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-08 22:30:50');
-INSERT INTO `log_handle` VALUES (1433, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '106', '2022-10-08 22:30:50');
-INSERT INTO `log_handle` VALUES (1434, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '8', '2022-10-08 22:32:03');
-INSERT INTO `log_handle` VALUES (1435, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '9', '2022-10-08 22:32:03');
-INSERT INTO `log_handle` VALUES (1436, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-10-08 22:32:14');
-INSERT INTO `log_handle` VALUES (1437, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-08 22:32:14');
-INSERT INTO `log_handle` VALUES (1438, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-10-08 22:32:20');
-INSERT INTO `log_handle` VALUES (1439, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-08 22:32:20');
-INSERT INTO `log_handle` VALUES (1440, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-10-08 22:32:31');
-INSERT INTO `log_handle` VALUES (1441, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '7', '2022-10-08 22:32:31');
-INSERT INTO `log_handle` VALUES (1442, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-08 22:32:36');
-INSERT INTO `log_handle` VALUES (1443, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-10-08 22:32:36');
-INSERT INTO `log_handle` VALUES (1444, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '100', '2022-10-09 09:36:04');
-INSERT INTO `log_handle` VALUES (1445, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '100', '2022-10-09 09:36:04');
-INSERT INTO `log_handle` VALUES (1446, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '49', '2022-10-09 20:47:00');
-INSERT INTO `log_handle` VALUES (1447, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '151', '2022-10-09 20:47:00');
-INSERT INTO `log_handle` VALUES (1448, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '11', '2022-10-09 20:50:14');
-INSERT INTO `log_handle` VALUES (1449, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-09 20:50:17');
-INSERT INTO `log_handle` VALUES (1450, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-09 20:50:17');
-INSERT INTO `log_handle` VALUES (1451, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-09 20:50:17');
-INSERT INTO `log_handle` VALUES (1452, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-09 20:50:21');
-INSERT INTO `log_handle` VALUES (1453, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-09 20:50:26');
-INSERT INTO `log_handle` VALUES (1454, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '9', '2022-10-09 20:50:26');
-INSERT INTO `log_handle` VALUES (1455, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4', '2022-10-09 20:51:58');
-INSERT INTO `log_handle` VALUES (1456, '新增菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/insert', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4', '2022-10-09 20:52:50');
-INSERT INTO `log_handle` VALUES (1457, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '3', '2022-10-09 20:52:52');
-INSERT INTO `log_handle` VALUES (1458, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '7', '2022-10-09 20:53:01');
-INSERT INTO `log_handle` VALUES (1459, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '7', '2022-10-09 20:53:01');
-INSERT INTO `log_handle` VALUES (1460, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '8', '2022-10-09 20:53:03');
-INSERT INTO `log_handle` VALUES (1461, '根据角色ID获取菜单列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/perm/1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-09 20:53:05');
-INSERT INTO `log_handle` VALUES (1462, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '3', '2022-10-09 20:53:07');
-INSERT INTO `log_handle` VALUES (1463, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '5', '2022-10-09 20:53:11');
-INSERT INTO `log_handle` VALUES (1464, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/47', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '3', '2022-10-09 20:53:20');
-INSERT INTO `log_handle` VALUES (1465, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '115', '2022-10-09 20:53:47');
-INSERT INTO `log_handle` VALUES (1466, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '5', '2022-10-09 20:53:50');
-INSERT INTO `log_handle` VALUES (1467, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-09 20:53:55');
-INSERT INTO `log_handle` VALUES (1468, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-09 20:53:55');
-INSERT INTO `log_handle` VALUES (1469, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '9', '2022-10-09 20:53:56');
-INSERT INTO `log_handle` VALUES (1470, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-09 20:53:56');
-INSERT INTO `log_handle` VALUES (1471, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-09 20:54:33');
-INSERT INTO `log_handle` VALUES (1472, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-09 20:54:58');
-INSERT INTO `log_handle` VALUES (1473, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-09 20:54:59');
-INSERT INTO `log_handle` VALUES (1474, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '5', '2022-10-09 20:55:02');
-INSERT INTO `log_handle` VALUES (1475, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/47', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '2', '2022-10-09 20:55:06');
-INSERT INTO `log_handle` VALUES (1476, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '8', '2022-10-09 20:55:16');
-INSERT INTO `log_handle` VALUES (1477, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4', '2022-10-09 20:55:18');
-INSERT INTO `log_handle` VALUES (1478, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-09 20:55:25');
-INSERT INTO `log_handle` VALUES (1479, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-09 20:55:25');
-INSERT INTO `log_handle` VALUES (1480, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-09 20:55:25');
-INSERT INTO `log_handle` VALUES (1481, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-09 20:55:25');
-INSERT INTO `log_handle` VALUES (1482, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 10:51:41');
-INSERT INTO `log_handle` VALUES (1483, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-18 10:51:41');
-INSERT INTO `log_handle` VALUES (1484, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-18 13:28:44');
-INSERT INTO `log_handle` VALUES (1485, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 13:28:44');
-INSERT INTO `log_handle` VALUES (1486, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-18 13:28:45');
-INSERT INTO `log_handle` VALUES (1487, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 13:28:45');
-INSERT INTO `log_handle` VALUES (1488, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '68', '2022-10-18 13:30:31');
-INSERT INTO `log_handle` VALUES (1489, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '41', '2022-10-18 13:30:31');
-INSERT INTO `log_handle` VALUES (1490, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '70', '2022-10-18 13:30:31');
-INSERT INTO `log_handle` VALUES (1491, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-18 13:30:31');
-INSERT INTO `log_handle` VALUES (1492, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '54', '2022-10-18 13:30:33');
-INSERT INTO `log_handle` VALUES (1493, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-18 13:31:24');
-INSERT INTO `log_handle` VALUES (1494, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-18 13:31:25');
-INSERT INTO `log_handle` VALUES (1495, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 13:31:25');
-INSERT INTO `log_handle` VALUES (1496, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 13:31:25');
-INSERT INTO `log_handle` VALUES (1497, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '410', '2022-10-18 13:31:25');
-INSERT INTO `log_handle` VALUES (1498, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-18 14:04:15');
-INSERT INTO `log_handle` VALUES (1499, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '2749', '2022-10-18 14:04:16');
-INSERT INTO `log_handle` VALUES (1500, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '37', '2022-10-18 14:08:59');
-INSERT INTO `log_handle` VALUES (1501, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-18 14:08:59');
-INSERT INTO `log_handle` VALUES (1502, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 14:08:59');
-INSERT INTO `log_handle` VALUES (1503, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-18 14:08:59');
-INSERT INTO `log_handle` VALUES (1504, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-18 14:08:59');
-INSERT INTO `log_handle` VALUES (1505, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '66', '2022-10-18 14:16:17');
-INSERT INTO `log_handle` VALUES (1506, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-18 14:16:17');
-INSERT INTO `log_handle` VALUES (1507, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-18 14:16:17');
-INSERT INTO `log_handle` VALUES (1508, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-18 14:16:17');
-INSERT INTO `log_handle` VALUES (1509, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '55', '2022-10-18 14:16:18');
-INSERT INTO `log_handle` VALUES (1510, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 14:18:07');
-INSERT INTO `log_handle` VALUES (1511, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-18 14:18:08');
-INSERT INTO `log_handle` VALUES (1512, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-18 14:18:08');
-INSERT INTO `log_handle` VALUES (1513, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-18 14:18:08');
-INSERT INTO `log_handle` VALUES (1514, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '42', '2022-10-18 14:18:08');
-INSERT INTO `log_handle` VALUES (1515, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-18 14:21:25');
-INSERT INTO `log_handle` VALUES (1516, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 14:21:25');
-INSERT INTO `log_handle` VALUES (1517, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 14:21:25');
-INSERT INTO `log_handle` VALUES (1518, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-18 14:21:25');
-INSERT INTO `log_handle` VALUES (1519, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-18 14:21:26');
-INSERT INTO `log_handle` VALUES (1520, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-18 14:21:36');
-INSERT INTO `log_handle` VALUES (1521, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 14:21:36');
-INSERT INTO `log_handle` VALUES (1522, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 14:21:36');
-INSERT INTO `log_handle` VALUES (1523, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '55', '2022-10-18 14:21:36');
-INSERT INTO `log_handle` VALUES (1524, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-18 14:21:37');
-INSERT INTO `log_handle` VALUES (1525, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-18 14:22:48');
-INSERT INTO `log_handle` VALUES (1526, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 14:22:48');
-INSERT INTO `log_handle` VALUES (1527, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 14:22:48');
-INSERT INTO `log_handle` VALUES (1528, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-18 14:22:48');
-INSERT INTO `log_handle` VALUES (1529, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-18 14:22:48');
-INSERT INTO `log_handle` VALUES (1530, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 14:22:59');
-INSERT INTO `log_handle` VALUES (1531, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-18 14:22:59');
-INSERT INTO `log_handle` VALUES (1532, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-18 14:22:59');
-INSERT INTO `log_handle` VALUES (1533, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-18 14:22:59');
-INSERT INTO `log_handle` VALUES (1534, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-18 14:23:00');
-INSERT INTO `log_handle` VALUES (1535, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 14:26:22');
-INSERT INTO `log_handle` VALUES (1536, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 14:26:22');
-INSERT INTO `log_handle` VALUES (1537, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-18 14:26:22');
-INSERT INTO `log_handle` VALUES (1538, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 14:26:22');
-INSERT INTO `log_handle` VALUES (1539, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-18 14:26:26');
-INSERT INTO `log_handle` VALUES (1540, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 14:27:19');
-INSERT INTO `log_handle` VALUES (1541, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 14:27:19');
-INSERT INTO `log_handle` VALUES (1542, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-18 14:27:19');
-INSERT INTO `log_handle` VALUES (1543, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 14:27:19');
-INSERT INTO `log_handle` VALUES (1544, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 14:27:23');
-INSERT INTO `log_handle` VALUES (1545, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 14:27:37');
-INSERT INTO `log_handle` VALUES (1546, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 14:27:37');
-INSERT INTO `log_handle` VALUES (1547, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 14:27:37');
-INSERT INTO `log_handle` VALUES (1548, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-18 14:27:37');
-INSERT INTO `log_handle` VALUES (1549, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 14:27:37');
-INSERT INTO `log_handle` VALUES (1550, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-18 14:28:32');
-INSERT INTO `log_handle` VALUES (1551, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 14:28:33');
-INSERT INTO `log_handle` VALUES (1552, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 14:28:33');
-INSERT INTO `log_handle` VALUES (1553, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-18 14:28:33');
-INSERT INTO `log_handle` VALUES (1554, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '50', '2022-10-18 14:28:33');
-INSERT INTO `log_handle` VALUES (1555, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 14:46:34');
-INSERT INTO `log_handle` VALUES (1556, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-18 14:46:34');
-INSERT INTO `log_handle` VALUES (1557, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 14:46:34');
-INSERT INTO `log_handle` VALUES (1558, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-18 14:46:34');
-INSERT INTO `log_handle` VALUES (1559, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 14:46:34');
-INSERT INTO `log_handle` VALUES (1560, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 15:03:54');
-INSERT INTO `log_handle` VALUES (1561, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 15:03:54');
-INSERT INTO `log_handle` VALUES (1562, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 15:03:54');
-INSERT INTO `log_handle` VALUES (1563, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-18 15:03:54');
-INSERT INTO `log_handle` VALUES (1564, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-18 15:03:55');
-INSERT INTO `log_handle` VALUES (1565, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 15:05:46');
-INSERT INTO `log_handle` VALUES (1566, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-18 15:05:46');
-INSERT INTO `log_handle` VALUES (1567, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 15:05:46');
-INSERT INTO `log_handle` VALUES (1568, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-18 15:05:46');
-INSERT INTO `log_handle` VALUES (1569, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 15:05:46');
-INSERT INTO `log_handle` VALUES (1570, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 15:05:52');
-INSERT INTO `log_handle` VALUES (1571, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 15:05:52');
-INSERT INTO `log_handle` VALUES (1572, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 15:05:52');
-INSERT INTO `log_handle` VALUES (1573, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 15:05:52');
-INSERT INTO `log_handle` VALUES (1574, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-18 15:05:52');
-INSERT INTO `log_handle` VALUES (1575, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-18 15:06:54');
-INSERT INTO `log_handle` VALUES (1576, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 15:06:54');
-INSERT INTO `log_handle` VALUES (1577, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-18 15:06:54');
-INSERT INTO `log_handle` VALUES (1578, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-18 15:06:54');
-INSERT INTO `log_handle` VALUES (1579, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 15:06:54');
-INSERT INTO `log_handle` VALUES (1580, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-18 15:17:36');
-INSERT INTO `log_handle` VALUES (1581, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-18 15:17:36');
-INSERT INTO `log_handle` VALUES (1582, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 15:17:36');
-INSERT INTO `log_handle` VALUES (1583, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 15:17:36');
-INSERT INTO `log_handle` VALUES (1584, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '261', '2022-10-18 15:17:36');
-INSERT INTO `log_handle` VALUES (1585, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-18 15:32:34');
-INSERT INTO `log_handle` VALUES (1586, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-18 15:32:34');
-INSERT INTO `log_handle` VALUES (1587, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 15:32:34');
-INSERT INTO `log_handle` VALUES (1588, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-18 15:32:34');
-INSERT INTO `log_handle` VALUES (1589, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '55', '2022-10-18 15:32:34');
-INSERT INTO `log_handle` VALUES (1590, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 15:36:05');
-INSERT INTO `log_handle` VALUES (1591, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '228', '2022-10-18 15:36:05');
-INSERT INTO `log_handle` VALUES (1592, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '75', '2022-10-18 15:36:06');
-INSERT INTO `log_handle` VALUES (1593, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '39', '2022-10-18 15:36:06');
-INSERT INTO `log_handle` VALUES (1594, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 15:36:07');
-INSERT INTO `log_handle` VALUES (1595, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '56', '2022-10-18 15:37:08');
-INSERT INTO `log_handle` VALUES (1596, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '36', '2022-10-18 15:37:08');
-INSERT INTO `log_handle` VALUES (1597, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-18 15:37:08');
-INSERT INTO `log_handle` VALUES (1598, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-18 15:37:08');
-INSERT INTO `log_handle` VALUES (1599, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '53', '2022-10-18 15:37:08');
-INSERT INTO `log_handle` VALUES (1600, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '101', '2022-10-18 15:50:52');
-INSERT INTO `log_handle` VALUES (1601, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '156', '2022-10-18 15:50:52');
-INSERT INTO `log_handle` VALUES (1602, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '47', '2022-10-18 15:50:52');
-INSERT INTO `log_handle` VALUES (1603, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-18 15:50:52');
-INSERT INTO `log_handle` VALUES (1604, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '84', '2022-10-18 15:50:53');
-INSERT INTO `log_handle` VALUES (1605, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-18 15:58:19');
-INSERT INTO `log_handle` VALUES (1606, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-18 15:58:19');
-INSERT INTO `log_handle` VALUES (1607, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-18 15:58:19');
-INSERT INTO `log_handle` VALUES (1608, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '72', '2022-10-18 15:58:20');
-INSERT INTO `log_handle` VALUES (1609, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '46', '2022-10-18 15:58:20');
-INSERT INTO `log_handle` VALUES (1610, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-18 16:00:21');
-INSERT INTO `log_handle` VALUES (1611, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 16:00:21');
-INSERT INTO `log_handle` VALUES (1612, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 16:00:21');
-INSERT INTO `log_handle` VALUES (1613, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-18 16:00:21');
-INSERT INTO `log_handle` VALUES (1614, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '75', '2022-10-18 16:00:23');
-INSERT INTO `log_handle` VALUES (1615, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-18 16:03:45');
-INSERT INTO `log_handle` VALUES (1616, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 16:03:45');
-INSERT INTO `log_handle` VALUES (1617, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 16:03:45');
-INSERT INTO `log_handle` VALUES (1618, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-18 16:03:45');
-INSERT INTO `log_handle` VALUES (1619, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '41', '2022-10-18 16:03:45');
-INSERT INTO `log_handle` VALUES (1620, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 16:16:56');
-INSERT INTO `log_handle` VALUES (1621, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-18 16:16:56');
-INSERT INTO `log_handle` VALUES (1622, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 16:16:56');
-INSERT INTO `log_handle` VALUES (1623, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-18 16:16:56');
-INSERT INTO `log_handle` VALUES (1624, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 16:16:56');
-INSERT INTO `log_handle` VALUES (1625, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-18 16:19:45');
-INSERT INTO `log_handle` VALUES (1626, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 16:19:45');
-INSERT INTO `log_handle` VALUES (1627, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 16:19:45');
-INSERT INTO `log_handle` VALUES (1628, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-18 16:19:45');
-INSERT INTO `log_handle` VALUES (1629, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 16:19:46');
-INSERT INTO `log_handle` VALUES (1630, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '38', '2022-10-18 16:38:02');
-INSERT INTO `log_handle` VALUES (1631, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 16:38:02');
-INSERT INTO `log_handle` VALUES (1632, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '55', '2022-10-18 16:38:02');
-INSERT INTO `log_handle` VALUES (1633, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 16:38:02');
-INSERT INTO `log_handle` VALUES (1634, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '67', '2022-10-18 16:38:02');
-INSERT INTO `log_handle` VALUES (1635, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 16:38:32');
-INSERT INTO `log_handle` VALUES (1636, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 16:38:32');
-INSERT INTO `log_handle` VALUES (1637, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-18 16:38:32');
-INSERT INTO `log_handle` VALUES (1638, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-18 16:38:32');
-INSERT INTO `log_handle` VALUES (1639, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 16:38:33');
-INSERT INTO `log_handle` VALUES (1640, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '48', '2022-10-18 16:39:16');
-INSERT INTO `log_handle` VALUES (1641, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', 'current=%5B1%5D&size=%5B10%5D', NULL, '16', '2022-10-18 16:39:16');
-INSERT INTO `log_handle` VALUES (1642, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '11', '2022-10-18 16:39:18');
-INSERT INTO `log_handle` VALUES (1643, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/2', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4', '2022-10-18 16:39:24');
-INSERT INTO `log_handle` VALUES (1644, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/3', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4', '2022-10-18 16:39:29');
-INSERT INTO `log_handle` VALUES (1645, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '6', '2022-10-18 16:39:34');
-INSERT INTO `log_handle` VALUES (1646, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4', '2022-10-18 16:39:38');
-INSERT INTO `log_handle` VALUES (1647, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '102', '2022-10-18 16:55:38');
-INSERT INTO `log_handle` VALUES (1648, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '133', '2022-10-18 16:55:38');
-INSERT INTO `log_handle` VALUES (1649, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '78', '2022-10-18 16:55:39');
-INSERT INTO `log_handle` VALUES (1650, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-18 16:55:43');
-INSERT INTO `log_handle` VALUES (1651, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-18 16:55:44');
-INSERT INTO `log_handle` VALUES (1652, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '38', '2022-10-18 16:55:44');
-INSERT INTO `log_handle` VALUES (1653, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '67', '2022-10-18 16:57:17');
-INSERT INTO `log_handle` VALUES (1654, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '844', '2022-10-18 16:57:17');
-INSERT INTO `log_handle` VALUES (1655, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '125', '2022-10-18 16:57:18');
-INSERT INTO `log_handle` VALUES (1656, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-18 17:07:32');
-INSERT INTO `log_handle` VALUES (1657, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-18 17:07:47');
-INSERT INTO `log_handle` VALUES (1658, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-18 17:07:59');
-INSERT INTO `log_handle` VALUES (1659, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-18 17:08:00');
-INSERT INTO `log_handle` VALUES (1660, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-18 17:08:09');
-INSERT INTO `log_handle` VALUES (1661, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '38', '2022-10-18 17:08:12');
-INSERT INTO `log_handle` VALUES (1662, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '62', '2022-10-18 17:08:14');
-INSERT INTO `log_handle` VALUES (1663, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-18 17:08:33');
-INSERT INTO `log_handle` VALUES (1664, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 17:09:16');
-INSERT INTO `log_handle` VALUES (1665, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 17:11:10');
-INSERT INTO `log_handle` VALUES (1666, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-18 17:13:14');
-INSERT INTO `log_handle` VALUES (1667, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-18 17:13:14');
-INSERT INTO `log_handle` VALUES (1668, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-18 17:13:14');
-INSERT INTO `log_handle` VALUES (1669, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 17:13:14');
-INSERT INTO `log_handle` VALUES (1670, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-18 17:13:14');
-INSERT INTO `log_handle` VALUES (1671, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '67', '2022-10-18 17:13:14');
-INSERT INTO `log_handle` VALUES (1672, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-18 17:14:53');
-INSERT INTO `log_handle` VALUES (1673, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-18 17:14:53');
-INSERT INTO `log_handle` VALUES (1674, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-18 17:14:53');
-INSERT INTO `log_handle` VALUES (1675, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-18 17:14:53');
-INSERT INTO `log_handle` VALUES (1676, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-18 17:14:53');
-INSERT INTO `log_handle` VALUES (1677, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 17:14:53');
-INSERT INTO `log_handle` VALUES (1678, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 17:21:05');
-INSERT INTO `log_handle` VALUES (1679, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-18 17:21:05');
-INSERT INTO `log_handle` VALUES (1680, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-18 17:21:05');
-INSERT INTO `log_handle` VALUES (1681, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-18 17:21:05');
-INSERT INTO `log_handle` VALUES (1682, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-18 17:21:06');
-INSERT INTO `log_handle` VALUES (1683, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-18 17:21:06');
-INSERT INTO `log_handle` VALUES (1684, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-18 17:29:29');
-INSERT INTO `log_handle` VALUES (1685, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 17:29:29');
-INSERT INTO `log_handle` VALUES (1686, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 17:29:29');
-INSERT INTO `log_handle` VALUES (1687, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 17:29:29');
-INSERT INTO `log_handle` VALUES (1688, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-18 17:29:29');
-INSERT INTO `log_handle` VALUES (1689, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-18 17:29:29');
-INSERT INTO `log_handle` VALUES (1690, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '45', '2022-10-18 17:57:13');
-INSERT INTO `log_handle` VALUES (1691, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-18 17:57:13');
-INSERT INTO `log_handle` VALUES (1692, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-18 17:57:13');
-INSERT INTO `log_handle` VALUES (1693, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-18 17:57:14');
-INSERT INTO `log_handle` VALUES (1694, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 17:57:14');
-INSERT INTO `log_handle` VALUES (1695, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '39', '2022-10-18 17:57:14');
-INSERT INTO `log_handle` VALUES (1696, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-18 17:59:25');
-INSERT INTO `log_handle` VALUES (1697, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-18 17:59:25');
-INSERT INTO `log_handle` VALUES (1698, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '37', '2022-10-18 17:59:25');
-INSERT INTO `log_handle` VALUES (1699, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-18 17:59:25');
-INSERT INTO `log_handle` VALUES (1700, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 17:59:25');
-INSERT INTO `log_handle` VALUES (1701, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '71', '2022-10-18 17:59:25');
-INSERT INTO `log_handle` VALUES (1702, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '56', '2022-10-18 18:03:55');
-INSERT INTO `log_handle` VALUES (1703, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-18 18:03:55');
-INSERT INTO `log_handle` VALUES (1704, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-18 18:03:56');
-INSERT INTO `log_handle` VALUES (1705, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-18 18:03:56');
-INSERT INTO `log_handle` VALUES (1706, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-18 18:03:56');
-INSERT INTO `log_handle` VALUES (1707, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '55', '2022-10-18 18:03:56');
-INSERT INTO `log_handle` VALUES (1708, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-18 18:05:36');
-INSERT INTO `log_handle` VALUES (1709, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-18 18:05:36');
-INSERT INTO `log_handle` VALUES (1710, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 18:05:36');
-INSERT INTO `log_handle` VALUES (1711, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-18 18:05:37');
-INSERT INTO `log_handle` VALUES (1712, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-18 18:05:37');
-INSERT INTO `log_handle` VALUES (1713, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '105', '2022-10-18 18:05:37');
-INSERT INTO `log_handle` VALUES (1714, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 18:07:11');
-INSERT INTO `log_handle` VALUES (1715, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 18:07:11');
-INSERT INTO `log_handle` VALUES (1716, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-18 18:07:11');
-INSERT INTO `log_handle` VALUES (1717, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 18:07:11');
-INSERT INTO `log_handle` VALUES (1718, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-18 18:07:11');
-INSERT INTO `log_handle` VALUES (1719, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-18 18:07:11');
-INSERT INTO `log_handle` VALUES (1720, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '90', '2022-10-24 10:04:36');
-INSERT INTO `log_handle` VALUES (1721, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '100', '2022-10-24 10:04:36');
-INSERT INTO `log_handle` VALUES (1722, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 10:11:46');
-INSERT INTO `log_handle` VALUES (1723, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 10:11:46');
-INSERT INTO `log_handle` VALUES (1724, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 10:11:46');
-INSERT INTO `log_handle` VALUES (1725, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-24 10:11:46');
-INSERT INTO `log_handle` VALUES (1726, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 10:11:46');
-INSERT INTO `log_handle` VALUES (1727, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-24 10:11:46');
-INSERT INTO `log_handle` VALUES (1728, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-24 10:12:38');
-INSERT INTO `log_handle` VALUES (1729, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 10:12:38');
-INSERT INTO `log_handle` VALUES (1730, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 10:12:38');
-INSERT INTO `log_handle` VALUES (1731, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 10:12:38');
-INSERT INTO `log_handle` VALUES (1732, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '39', '2022-10-24 10:12:38');
-INSERT INTO `log_handle` VALUES (1733, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-24 10:12:38');
-INSERT INTO `log_handle` VALUES (1734, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-24 10:25:22');
-INSERT INTO `log_handle` VALUES (1735, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 10:25:22');
-INSERT INTO `log_handle` VALUES (1736, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-24 10:25:22');
-INSERT INTO `log_handle` VALUES (1737, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 10:25:22');
-INSERT INTO `log_handle` VALUES (1738, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 10:25:22');
-INSERT INTO `log_handle` VALUES (1739, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-24 10:25:22');
-INSERT INTO `log_handle` VALUES (1740, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 10:28:52');
-INSERT INTO `log_handle` VALUES (1741, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 10:28:52');
-INSERT INTO `log_handle` VALUES (1742, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-24 10:28:52');
-INSERT INTO `log_handle` VALUES (1743, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 10:28:52');
-INSERT INTO `log_handle` VALUES (1744, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 10:28:52');
-INSERT INTO `log_handle` VALUES (1745, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 10:28:52');
-INSERT INTO `log_handle` VALUES (1746, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-24 10:30:11');
-INSERT INTO `log_handle` VALUES (1747, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 10:30:11');
-INSERT INTO `log_handle` VALUES (1748, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-24 10:30:11');
-INSERT INTO `log_handle` VALUES (1749, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 10:30:11');
-INSERT INTO `log_handle` VALUES (1750, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-24 10:30:11');
-INSERT INTO `log_handle` VALUES (1751, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 10:30:11');
-INSERT INTO `log_handle` VALUES (1752, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-24 10:32:41');
-INSERT INTO `log_handle` VALUES (1753, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 10:32:41');
-INSERT INTO `log_handle` VALUES (1754, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 10:32:41');
-INSERT INTO `log_handle` VALUES (1755, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 10:32:41');
-INSERT INTO `log_handle` VALUES (1756, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-24 10:32:41');
-INSERT INTO `log_handle` VALUES (1757, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-24 10:32:41');
-INSERT INTO `log_handle` VALUES (1758, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 10:33:09');
-INSERT INTO `log_handle` VALUES (1759, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '11', '2022-10-24 10:33:09');
-INSERT INTO `log_handle` VALUES (1760, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 10:33:09');
-INSERT INTO `log_handle` VALUES (1761, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-24 10:33:09');
-INSERT INTO `log_handle` VALUES (1762, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 10:33:09');
-INSERT INTO `log_handle` VALUES (1763, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 10:33:10');
-INSERT INTO `log_handle` VALUES (1764, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-24 10:34:38');
-INSERT INTO `log_handle` VALUES (1765, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '10', '2022-10-24 10:34:38');
-INSERT INTO `log_handle` VALUES (1766, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 10:34:38');
-INSERT INTO `log_handle` VALUES (1767, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-24 10:34:38');
-INSERT INTO `log_handle` VALUES (1768, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 10:34:38');
-INSERT INTO `log_handle` VALUES (1769, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-24 10:34:39');
-INSERT INTO `log_handle` VALUES (1770, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '92', '2022-10-24 10:34:50');
-INSERT INTO `log_handle` VALUES (1771, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 10:34:50');
-INSERT INTO `log_handle` VALUES (1772, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 10:34:50');
-INSERT INTO `log_handle` VALUES (1773, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-24 10:34:50');
-INSERT INTO `log_handle` VALUES (1774, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-24 10:34:50');
-INSERT INTO `log_handle` VALUES (1775, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 10:34:50');
-INSERT INTO `log_handle` VALUES (1776, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '83', '2022-10-24 10:45:40');
-INSERT INTO `log_handle` VALUES (1777, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '76', '2022-10-24 10:45:41');
-INSERT INTO `log_handle` VALUES (1778, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-24 10:45:41');
-INSERT INTO `log_handle` VALUES (1779, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '67', '2022-10-24 10:45:41');
-INSERT INTO `log_handle` VALUES (1780, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '122', '2022-10-24 10:45:41');
-INSERT INTO `log_handle` VALUES (1781, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-24 10:47:19');
-INSERT INTO `log_handle` VALUES (1782, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '200', '2022-10-24 10:47:19');
-INSERT INTO `log_handle` VALUES (1783, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-24 10:48:58');
-INSERT INTO `log_handle` VALUES (1784, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '118', '2022-10-24 10:48:58');
-INSERT INTO `log_handle` VALUES (1785, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 10:48:58');
-INSERT INTO `log_handle` VALUES (1786, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 10:48:58');
-INSERT INTO `log_handle` VALUES (1787, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-24 10:48:58');
-INSERT INTO `log_handle` VALUES (1788, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '65', '2022-10-24 10:48:59');
-INSERT INTO `log_handle` VALUES (1789, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '50', '2022-10-24 11:00:34');
-INSERT INTO `log_handle` VALUES (1790, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 11:00:34');
-INSERT INTO `log_handle` VALUES (1791, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 11:00:34');
-INSERT INTO `log_handle` VALUES (1792, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 11:00:34');
-INSERT INTO `log_handle` VALUES (1793, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 11:00:34');
-INSERT INTO `log_handle` VALUES (1794, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '54', '2022-10-24 11:00:35');
-INSERT INTO `log_handle` VALUES (1795, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-24 11:38:03');
-INSERT INTO `log_handle` VALUES (1796, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-24 11:38:03');
-INSERT INTO `log_handle` VALUES (1797, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 11:38:03');
-INSERT INTO `log_handle` VALUES (1798, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-24 11:38:03');
-INSERT INTO `log_handle` VALUES (1799, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 11:38:03');
-INSERT INTO `log_handle` VALUES (1800, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '50', '2022-10-24 11:38:04');
-INSERT INTO `log_handle` VALUES (1801, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '52', '2022-10-24 13:00:41');
-INSERT INTO `log_handle` VALUES (1802, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-24 13:00:41');
-INSERT INTO `log_handle` VALUES (1803, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '74', '2022-10-24 13:00:41');
-INSERT INTO `log_handle` VALUES (1804, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '42', '2022-10-24 13:00:42');
-INSERT INTO `log_handle` VALUES (1805, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '202', '2022-10-24 13:00:42');
-INSERT INTO `log_handle` VALUES (1806, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 13:01:29');
-INSERT INTO `log_handle` VALUES (1807, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 13:01:29');
-INSERT INTO `log_handle` VALUES (1808, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 13:01:29');
-INSERT INTO `log_handle` VALUES (1809, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 13:01:29');
-INSERT INTO `log_handle` VALUES (1810, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 13:01:30');
-INSERT INTO `log_handle` VALUES (1811, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 13:02:58');
-INSERT INTO `log_handle` VALUES (1812, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 13:02:58');
-INSERT INTO `log_handle` VALUES (1813, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 13:02:58');
-INSERT INTO `log_handle` VALUES (1814, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 13:02:58');
-INSERT INTO `log_handle` VALUES (1815, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-24 13:02:58');
-INSERT INTO `log_handle` VALUES (1816, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-24 13:03:10');
-INSERT INTO `log_handle` VALUES (1817, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-24 13:03:10');
-INSERT INTO `log_handle` VALUES (1818, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 13:03:10');
-INSERT INTO `log_handle` VALUES (1819, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 13:03:10');
-INSERT INTO `log_handle` VALUES (1820, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '42', '2022-10-24 13:03:10');
-INSERT INTO `log_handle` VALUES (1821, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 13:03:38');
-INSERT INTO `log_handle` VALUES (1822, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 13:03:38');
-INSERT INTO `log_handle` VALUES (1823, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 13:03:39');
-INSERT INTO `log_handle` VALUES (1824, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 13:03:39');
-INSERT INTO `log_handle` VALUES (1825, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '114', '2022-10-24 13:03:39');
-INSERT INTO `log_handle` VALUES (1826, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 13:17:46');
-INSERT INTO `log_handle` VALUES (1827, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-24 13:17:46');
-INSERT INTO `log_handle` VALUES (1828, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 13:17:46');
-INSERT INTO `log_handle` VALUES (1829, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 13:17:46');
-INSERT INTO `log_handle` VALUES (1830, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 13:17:46');
-INSERT INTO `log_handle` VALUES (1831, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-24 13:19:56');
-INSERT INTO `log_handle` VALUES (1832, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '159', '2022-10-24 13:19:56');
-INSERT INTO `log_handle` VALUES (1833, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 13:19:56');
-INSERT INTO `log_handle` VALUES (1834, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 13:19:56');
-INSERT INTO `log_handle` VALUES (1835, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 13:19:56');
-INSERT INTO `log_handle` VALUES (1836, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-24 13:41:12');
-INSERT INTO `log_handle` VALUES (1837, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-24 13:41:12');
-INSERT INTO `log_handle` VALUES (1838, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 13:41:12');
-INSERT INTO `log_handle` VALUES (1839, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 13:41:12');
-INSERT INTO `log_handle` VALUES (1840, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 13:41:13');
-INSERT INTO `log_handle` VALUES (1841, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-24 13:51:39');
-INSERT INTO `log_handle` VALUES (1842, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 13:51:39');
-INSERT INTO `log_handle` VALUES (1843, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-24 13:51:39');
-INSERT INTO `log_handle` VALUES (1844, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 13:51:39');
-INSERT INTO `log_handle` VALUES (1845, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 13:51:40');
-INSERT INTO `log_handle` VALUES (1846, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 14:03:23');
-INSERT INTO `log_handle` VALUES (1847, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 14:03:23');
-INSERT INTO `log_handle` VALUES (1848, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-24 14:03:23');
-INSERT INTO `log_handle` VALUES (1849, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-24 14:03:23');
-INSERT INTO `log_handle` VALUES (1850, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 14:03:24');
-INSERT INTO `log_handle` VALUES (1851, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 14:34:55');
-INSERT INTO `log_handle` VALUES (1852, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 14:34:55');
-INSERT INTO `log_handle` VALUES (1853, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 14:34:55');
-INSERT INTO `log_handle` VALUES (1854, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-24 14:34:55');
-INSERT INTO `log_handle` VALUES (1855, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 14:34:55');
-INSERT INTO `log_handle` VALUES (1856, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '12', '2022-10-24 14:36:53');
-INSERT INTO `log_handle` VALUES (1857, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '53', '2022-10-24 14:36:53');
-INSERT INTO `log_handle` VALUES (1858, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '158', '2022-10-24 14:36:53');
-INSERT INTO `log_handle` VALUES (1859, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-24 14:36:53');
-INSERT INTO `log_handle` VALUES (1860, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 14:36:53');
-INSERT INTO `log_handle` VALUES (1861, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 14:41:26');
-INSERT INTO `log_handle` VALUES (1862, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '10', '2022-10-24 14:41:26');
-INSERT INTO `log_handle` VALUES (1863, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 14:41:26');
-INSERT INTO `log_handle` VALUES (1864, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-24 14:41:26');
-INSERT INTO `log_handle` VALUES (1865, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 14:41:27');
-INSERT INTO `log_handle` VALUES (1866, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '13', '2022-10-24 14:45:53');
-INSERT INTO `log_handle` VALUES (1867, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '10', '2022-10-24 14:45:53');
-INSERT INTO `log_handle` VALUES (1868, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '369', '2022-10-24 14:45:53');
-INSERT INTO `log_handle` VALUES (1869, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-24 14:45:53');
-INSERT INTO `log_handle` VALUES (1870, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '42', '2022-10-24 14:45:53');
-INSERT INTO `log_handle` VALUES (1871, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '66', '2022-10-24 14:51:38');
-INSERT INTO `log_handle` VALUES (1872, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-24 14:51:38');
-INSERT INTO `log_handle` VALUES (1873, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '77', '2022-10-24 14:51:39');
-INSERT INTO `log_handle` VALUES (1874, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-24 14:52:26');
-INSERT INTO `log_handle` VALUES (1875, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 14:52:26');
-INSERT INTO `log_handle` VALUES (1876, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '45', '2022-10-24 14:52:26');
-INSERT INTO `log_handle` VALUES (1877, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '224', '2022-10-24 14:52:26');
-INSERT INTO `log_handle` VALUES (1878, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-24 14:52:27');
-INSERT INTO `log_handle` VALUES (1879, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '50', '2022-10-24 14:57:37');
-INSERT INTO `log_handle` VALUES (1880, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 14:57:37');
-INSERT INTO `log_handle` VALUES (1881, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 14:57:37');
-INSERT INTO `log_handle` VALUES (1882, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 14:57:37');
-INSERT INTO `log_handle` VALUES (1883, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '66', '2022-10-24 14:57:37');
-INSERT INTO `log_handle` VALUES (1884, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-24 14:58:04');
-INSERT INTO `log_handle` VALUES (1885, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 14:58:04');
-INSERT INTO `log_handle` VALUES (1886, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 14:58:04');
-INSERT INTO `log_handle` VALUES (1887, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 14:58:05');
-INSERT INTO `log_handle` VALUES (1888, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 14:58:05');
-INSERT INTO `log_handle` VALUES (1889, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 15:00:02');
-INSERT INTO `log_handle` VALUES (1890, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 15:00:02');
-INSERT INTO `log_handle` VALUES (1891, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-24 15:00:02');
-INSERT INTO `log_handle` VALUES (1892, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 15:00:02');
-INSERT INTO `log_handle` VALUES (1893, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-24 15:00:02');
-INSERT INTO `log_handle` VALUES (1894, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-24 15:02:27');
-INSERT INTO `log_handle` VALUES (1895, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-24 15:02:27');
-INSERT INTO `log_handle` VALUES (1896, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-24 15:02:27');
-INSERT INTO `log_handle` VALUES (1897, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 15:02:27');
-INSERT INTO `log_handle` VALUES (1898, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-24 15:02:27');
-INSERT INTO `log_handle` VALUES (1899, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-24 15:26:44');
-INSERT INTO `log_handle` VALUES (1900, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '117', '2022-10-24 15:26:44');
-INSERT INTO `log_handle` VALUES (1901, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '71', '2022-10-24 15:26:44');
-INSERT INTO `log_handle` VALUES (1902, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-24 15:26:44');
-INSERT INTO `log_handle` VALUES (1903, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 15:26:45');
-INSERT INTO `log_handle` VALUES (1904, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-24 15:52:20');
-INSERT INTO `log_handle` VALUES (1905, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 15:52:20');
-INSERT INTO `log_handle` VALUES (1906, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 15:52:20');
-INSERT INTO `log_handle` VALUES (1907, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-24 15:52:20');
-INSERT INTO `log_handle` VALUES (1908, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-24 15:52:21');
-INSERT INTO `log_handle` VALUES (1909, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-24 15:52:33');
-INSERT INTO `log_handle` VALUES (1910, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 15:52:33');
-INSERT INTO `log_handle` VALUES (1911, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '14', '2022-10-24 15:52:34');
-INSERT INTO `log_handle` VALUES (1912, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-24 15:52:34');
-INSERT INTO `log_handle` VALUES (1913, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-24 15:52:34');
-INSERT INTO `log_handle` VALUES (1914, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '74', '2022-10-24 16:19:35');
-INSERT INTO `log_handle` VALUES (1915, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '38', '2022-10-24 16:19:35');
-INSERT INTO `log_handle` VALUES (1916, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 16:19:35');
-INSERT INTO `log_handle` VALUES (1917, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-24 16:19:35');
-INSERT INTO `log_handle` VALUES (1918, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '66', '2022-10-24 16:23:50');
-INSERT INTO `log_handle` VALUES (1919, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '74', '2022-10-24 16:23:50');
-INSERT INTO `log_handle` VALUES (1920, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '67', '2022-10-24 16:24:41');
-INSERT INTO `log_handle` VALUES (1921, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '37', '2022-10-24 16:24:41');
-INSERT INTO `log_handle` VALUES (1922, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-24 16:24:41');
-INSERT INTO `log_handle` VALUES (1923, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 16:24:41');
-INSERT INTO `log_handle` VALUES (1924, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-24 16:24:41');
-INSERT INTO `log_handle` VALUES (1925, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '51', '2022-10-24 16:25:30');
-INSERT INTO `log_handle` VALUES (1926, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 16:25:30');
-INSERT INTO `log_handle` VALUES (1927, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 16:25:30');
-INSERT INTO `log_handle` VALUES (1928, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 16:25:30');
-INSERT INTO `log_handle` VALUES (1929, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-24 16:25:30');
-INSERT INTO `log_handle` VALUES (1930, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-24 16:31:57');
-INSERT INTO `log_handle` VALUES (1931, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-24 16:31:57');
-INSERT INTO `log_handle` VALUES (1932, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 16:31:57');
-INSERT INTO `log_handle` VALUES (1933, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 16:31:57');
-INSERT INTO `log_handle` VALUES (1934, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '135', '2022-10-24 16:31:57');
-INSERT INTO `log_handle` VALUES (1935, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '74', '2022-10-24 16:49:12');
-INSERT INTO `log_handle` VALUES (1936, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-24 16:49:12');
-INSERT INTO `log_handle` VALUES (1937, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-24 16:49:12');
-INSERT INTO `log_handle` VALUES (1938, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-24 16:49:12');
-INSERT INTO `log_handle` VALUES (1939, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-24 16:49:12');
-INSERT INTO `log_handle` VALUES (1940, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '101', '2022-10-24 16:52:32');
-INSERT INTO `log_handle` VALUES (1941, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '43', '2022-10-24 16:52:32');
-INSERT INTO `log_handle` VALUES (1942, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '46', '2022-10-24 16:52:33');
-INSERT INTO `log_handle` VALUES (1943, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 16:52:33');
-INSERT INTO `log_handle` VALUES (1944, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-24 16:52:33');
-INSERT INTO `log_handle` VALUES (1945, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '96', '2022-10-24 16:59:28');
-INSERT INTO `log_handle` VALUES (1946, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 16:59:28');
-INSERT INTO `log_handle` VALUES (1947, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-24 16:59:28');
-INSERT INTO `log_handle` VALUES (1948, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '54', '2022-10-24 16:59:28');
-INSERT INTO `log_handle` VALUES (1949, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-24 17:11:58');
-INSERT INTO `log_handle` VALUES (1950, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '38', '2022-10-24 17:11:58');
-INSERT INTO `log_handle` VALUES (1951, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '45', '2022-10-24 17:11:58');
-INSERT INTO `log_handle` VALUES (1952, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-24 17:11:58');
-INSERT INTO `log_handle` VALUES (1953, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '56', '2022-10-24 17:11:58');
-INSERT INTO `log_handle` VALUES (1954, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-24 17:21:23');
-INSERT INTO `log_handle` VALUES (1955, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '39', '2022-10-24 17:21:23');
-INSERT INTO `log_handle` VALUES (1956, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '44', '2022-10-24 17:21:23');
-INSERT INTO `log_handle` VALUES (1957, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-24 17:21:23');
-INSERT INTO `log_handle` VALUES (1958, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-24 17:21:24');
-INSERT INTO `log_handle` VALUES (1959, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-24 17:22:33');
-INSERT INTO `log_handle` VALUES (1960, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-24 17:22:33');
-INSERT INTO `log_handle` VALUES (1961, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-24 17:22:33');
-INSERT INTO `log_handle` VALUES (1962, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 17:22:33');
-INSERT INTO `log_handle` VALUES (1963, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '62', '2022-10-24 17:22:33');
-INSERT INTO `log_handle` VALUES (1964, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-24 17:25:12');
-INSERT INTO `log_handle` VALUES (1965, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-24 17:25:12');
-INSERT INTO `log_handle` VALUES (1966, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 17:25:12');
-INSERT INTO `log_handle` VALUES (1967, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-24 17:25:12');
-INSERT INTO `log_handle` VALUES (1968, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-24 17:25:12');
-INSERT INTO `log_handle` VALUES (1969, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '62', '2022-10-24 17:29:02');
-INSERT INTO `log_handle` VALUES (1970, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '41', '2022-10-24 17:29:02');
-INSERT INTO `log_handle` VALUES (1971, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-24 17:29:02');
-INSERT INTO `log_handle` VALUES (1972, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-24 17:29:02');
-INSERT INTO `log_handle` VALUES (1973, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-24 17:29:02');
-INSERT INTO `log_handle` VALUES (1974, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-24 17:30:00');
-INSERT INTO `log_handle` VALUES (1975, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-24 17:30:01');
-INSERT INTO `log_handle` VALUES (1976, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-24 17:30:01');
-INSERT INTO `log_handle` VALUES (1977, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-24 17:30:01');
-INSERT INTO `log_handle` VALUES (1978, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '65', '2022-10-24 17:30:01');
-INSERT INTO `log_handle` VALUES (1979, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '79', '2022-10-25 13:31:55');
-INSERT INTO `log_handle` VALUES (1980, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-25 13:31:55');
-INSERT INTO `log_handle` VALUES (1981, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '42', '2022-10-25 13:32:13');
-INSERT INTO `log_handle` VALUES (1982, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-25 13:32:13');
-INSERT INTO `log_handle` VALUES (1983, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '47', '2022-10-25 13:32:13');
-INSERT INTO `log_handle` VALUES (1984, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '89', '2022-10-25 13:32:13');
-INSERT INTO `log_handle` VALUES (1985, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-25 13:32:14');
-INSERT INTO `log_handle` VALUES (1986, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '81', '2022-10-25 15:00:30');
-INSERT INTO `log_handle` VALUES (1987, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-25 15:00:31');
-INSERT INTO `log_handle` VALUES (1988, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '88', '2022-10-25 15:00:31');
-INSERT INTO `log_handle` VALUES (1989, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '68', '2022-10-25 15:00:31');
-INSERT INTO `log_handle` VALUES (1990, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '109', '2022-10-25 15:21:25');
-INSERT INTO `log_handle` VALUES (1991, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '57', '2022-10-25 15:21:25');
-INSERT INTO `log_handle` VALUES (1992, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-25 15:21:25');
-INSERT INTO `log_handle` VALUES (1993, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '36', '2022-10-25 15:21:25');
-INSERT INTO `log_handle` VALUES (1994, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '71', '2022-10-25 15:21:26');
-INSERT INTO `log_handle` VALUES (1995, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-25 15:24:09');
-INSERT INTO `log_handle` VALUES (1996, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '76', '2022-10-25 15:24:10');
-INSERT INTO `log_handle` VALUES (1997, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '66', '2022-10-25 15:26:06');
-INSERT INTO `log_handle` VALUES (1998, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '46', '2022-10-25 15:26:06');
-INSERT INTO `log_handle` VALUES (1999, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-25 15:26:06');
-INSERT INTO `log_handle` VALUES (2000, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-25 15:26:06');
-INSERT INTO `log_handle` VALUES (2001, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-25 15:26:07');
-INSERT INTO `log_handle` VALUES (2002, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '75', '2022-10-25 15:27:29');
-INSERT INTO `log_handle` VALUES (2003, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '62', '2022-10-25 15:27:29');
-INSERT INTO `log_handle` VALUES (2004, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-25 15:27:29');
-INSERT INTO `log_handle` VALUES (2005, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-25 15:27:29');
-INSERT INTO `log_handle` VALUES (2006, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '81', '2022-10-25 15:27:29');
-INSERT INTO `log_handle` VALUES (2007, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-25 15:29:26');
-INSERT INTO `log_handle` VALUES (2008, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '49', '2022-10-25 15:29:26');
-INSERT INTO `log_handle` VALUES (2009, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 15:29:26');
-INSERT INTO `log_handle` VALUES (2010, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-25 15:29:26');
-INSERT INTO `log_handle` VALUES (2011, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-25 15:29:26');
-INSERT INTO `log_handle` VALUES (2012, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-25 15:36:21');
-INSERT INTO `log_handle` VALUES (2013, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '52', '2022-10-25 15:36:22');
-INSERT INTO `log_handle` VALUES (2014, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-25 15:36:22');
-INSERT INTO `log_handle` VALUES (2015, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-25 15:36:22');
-INSERT INTO `log_handle` VALUES (2016, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '57', '2022-10-25 15:36:22');
-INSERT INTO `log_handle` VALUES (2017, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '99', '2022-10-25 15:46:44');
-INSERT INTO `log_handle` VALUES (2018, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '121', '2022-10-25 15:46:44');
-INSERT INTO `log_handle` VALUES (2019, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '67', '2022-10-25 15:52:24');
-INSERT INTO `log_handle` VALUES (2020, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '44', '2022-10-25 15:52:24');
-INSERT INTO `log_handle` VALUES (2021, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-25 15:52:24');
-INSERT INTO `log_handle` VALUES (2022, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-25 15:52:24');
-INSERT INTO `log_handle` VALUES (2023, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '57', '2022-10-25 15:52:24');
-INSERT INTO `log_handle` VALUES (2024, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 15:56:33');
-INSERT INTO `log_handle` VALUES (2025, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 15:56:33');
-INSERT INTO `log_handle` VALUES (2026, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 15:56:33');
-INSERT INTO `log_handle` VALUES (2027, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-25 15:56:33');
-INSERT INTO `log_handle` VALUES (2028, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-25 15:56:34');
-INSERT INTO `log_handle` VALUES (2029, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '48', '2022-10-25 16:17:46');
-INSERT INTO `log_handle` VALUES (2030, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-25 16:17:46');
-INSERT INTO `log_handle` VALUES (2031, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '43', '2022-10-25 16:17:46');
-INSERT INTO `log_handle` VALUES (2032, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 16:17:46');
-INSERT INTO `log_handle` VALUES (2033, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '54', '2022-10-25 16:17:47');
-INSERT INTO `log_handle` VALUES (2034, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '68', '2022-10-25 16:27:10');
-INSERT INTO `log_handle` VALUES (2035, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '48', '2022-10-25 16:27:10');
-INSERT INTO `log_handle` VALUES (2036, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '36', '2022-10-25 16:27:10');
-INSERT INTO `log_handle` VALUES (2037, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-25 16:27:10');
-INSERT INTO `log_handle` VALUES (2038, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '65', '2022-10-25 16:27:10');
-INSERT INTO `log_handle` VALUES (2039, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-25 16:35:02');
-INSERT INTO `log_handle` VALUES (2040, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '39', '2022-10-25 16:35:02');
-INSERT INTO `log_handle` VALUES (2041, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '41', '2022-10-25 16:35:02');
-INSERT INTO `log_handle` VALUES (2042, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-25 16:35:02');
-INSERT INTO `log_handle` VALUES (2043, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '53', '2022-10-25 16:35:02');
-INSERT INTO `log_handle` VALUES (2044, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '70', '2022-10-25 16:40:52');
-INSERT INTO `log_handle` VALUES (2045, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '37', '2022-10-25 16:40:52');
-INSERT INTO `log_handle` VALUES (2046, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-25 16:40:52');
-INSERT INTO `log_handle` VALUES (2047, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '79', '2022-10-25 16:40:52');
-INSERT INTO `log_handle` VALUES (2048, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '76', '2022-10-25 16:43:53');
-INSERT INTO `log_handle` VALUES (2049, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '61', '2022-10-25 16:43:53');
-INSERT INTO `log_handle` VALUES (2050, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 16:43:53');
-INSERT INTO `log_handle` VALUES (2051, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-25 16:43:53');
-INSERT INTO `log_handle` VALUES (2052, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-25 16:43:53');
-INSERT INTO `log_handle` VALUES (2053, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-25 16:44:07');
-INSERT INTO `log_handle` VALUES (2054, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '37', '2022-10-25 16:44:07');
-INSERT INTO `log_handle` VALUES (2055, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-25 16:44:07');
-INSERT INTO `log_handle` VALUES (2056, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 16:44:07');
-INSERT INTO `log_handle` VALUES (2057, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-25 16:44:13');
-INSERT INTO `log_handle` VALUES (2058, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '60', '2022-10-25 16:45:58');
-INSERT INTO `log_handle` VALUES (2059, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '47', '2022-10-25 16:45:58');
-INSERT INTO `log_handle` VALUES (2060, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-25 16:45:59');
-INSERT INTO `log_handle` VALUES (2061, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 16:45:59');
-INSERT INTO `log_handle` VALUES (2062, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4379', '2022-10-25 16:45:59');
-INSERT INTO `log_handle` VALUES (2063, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-25 16:46:26');
-INSERT INTO `log_handle` VALUES (2064, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-25 16:46:26');
-INSERT INTO `log_handle` VALUES (2065, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-25 16:46:26');
-INSERT INTO `log_handle` VALUES (2066, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-25 16:46:26');
-INSERT INTO `log_handle` VALUES (2067, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '4912', '2022-10-25 16:46:26');
-INSERT INTO `log_handle` VALUES (2068, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-25 16:46:48');
-INSERT INTO `log_handle` VALUES (2069, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '48', '2022-10-25 16:46:48');
-INSERT INTO `log_handle` VALUES (2070, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-25 16:46:48');
-INSERT INTO `log_handle` VALUES (2071, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-25 16:46:48');
-INSERT INTO `log_handle` VALUES (2072, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '1742', '2022-10-25 16:46:49');
-INSERT INTO `log_handle` VALUES (2073, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '65', '2022-10-25 16:49:41');
-INSERT INTO `log_handle` VALUES (2074, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '56', '2022-10-25 16:49:41');
-INSERT INTO `log_handle` VALUES (2075, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-25 16:49:41');
-INSERT INTO `log_handle` VALUES (2076, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-25 16:49:41');
-INSERT INTO `log_handle` VALUES (2077, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '3741', '2022-10-25 16:49:41');
-INSERT INTO `log_handle` VALUES (2078, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-25 16:53:13');
-INSERT INTO `log_handle` VALUES (2079, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-25 16:53:13');
-INSERT INTO `log_handle` VALUES (2080, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-25 16:53:13');
-INSERT INTO `log_handle` VALUES (2081, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-25 16:53:13');
-INSERT INTO `log_handle` VALUES (2082, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '43', '2022-10-25 16:53:14');
-INSERT INTO `log_handle` VALUES (2083, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-25 16:54:08');
-INSERT INTO `log_handle` VALUES (2084, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-25 16:54:08');
-INSERT INTO `log_handle` VALUES (2085, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '119', '2022-10-25 16:54:08');
-INSERT INTO `log_handle` VALUES (2086, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-25 16:54:09');
-INSERT INTO `log_handle` VALUES (2087, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-25 16:54:09');
-INSERT INTO `log_handle` VALUES (2088, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-25 16:57:54');
-INSERT INTO `log_handle` VALUES (2089, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-25 16:57:54');
-INSERT INTO `log_handle` VALUES (2090, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-25 16:57:54');
-INSERT INTO `log_handle` VALUES (2091, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-25 16:57:54');
-INSERT INTO `log_handle` VALUES (2092, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-25 16:57:55');
-INSERT INTO `log_handle` VALUES (2093, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-25 17:16:24');
-INSERT INTO `log_handle` VALUES (2094, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-25 17:16:24');
-INSERT INTO `log_handle` VALUES (2095, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-25 17:16:24');
-INSERT INTO `log_handle` VALUES (2096, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '284', '2022-10-25 17:16:24');
-INSERT INTO `log_handle` VALUES (2097, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-25 17:16:24');
-INSERT INTO `log_handle` VALUES (2098, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-25 17:22:08');
-INSERT INTO `log_handle` VALUES (2099, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-25 17:22:09');
-INSERT INTO `log_handle` VALUES (2100, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-25 17:22:09');
-INSERT INTO `log_handle` VALUES (2101, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-25 17:22:09');
-INSERT INTO `log_handle` VALUES (2102, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-25 17:22:09');
-INSERT INTO `log_handle` VALUES (2103, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '62', '2022-10-25 17:26:18');
-INSERT INTO `log_handle` VALUES (2104, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-25 17:26:18');
-INSERT INTO `log_handle` VALUES (2105, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '55', '2022-10-25 17:26:18');
-INSERT INTO `log_handle` VALUES (2106, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-25 17:26:18');
-INSERT INTO `log_handle` VALUES (2107, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '59', '2022-10-25 17:26:18');
-INSERT INTO `log_handle` VALUES (2108, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-25 17:27:33');
-INSERT INTO `log_handle` VALUES (2109, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-25 17:27:33');
-INSERT INTO `log_handle` VALUES (2110, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-25 17:27:33');
-INSERT INTO `log_handle` VALUES (2111, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-25 17:27:33');
-INSERT INTO `log_handle` VALUES (2112, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-25 17:27:33');
-INSERT INTO `log_handle` VALUES (2113, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '145', '2022-10-26 16:46:34');
-INSERT INTO `log_handle` VALUES (2114, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '97', '2022-10-26 16:46:34');
-INSERT INTO `log_handle` VALUES (2115, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-26 16:52:52');
-INSERT INTO `log_handle` VALUES (2116, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-26 16:52:52');
-INSERT INTO `log_handle` VALUES (2117, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-26 16:52:52');
-INSERT INTO `log_handle` VALUES (2118, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '62', '2022-10-26 16:52:53');
-INSERT INTO `log_handle` VALUES (2119, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '164', '2022-10-26 16:52:53');
-INSERT INTO `log_handle` VALUES (2120, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-26 16:54:21');
-INSERT INTO `log_handle` VALUES (2121, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-26 16:54:21');
-INSERT INTO `log_handle` VALUES (2122, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-26 16:54:21');
-INSERT INTO `log_handle` VALUES (2123, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-26 16:54:21');
-INSERT INTO `log_handle` VALUES (2124, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-26 16:54:22');
-INSERT INTO `log_handle` VALUES (2125, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '44', '2022-10-26 16:54:58');
-INSERT INTO `log_handle` VALUES (2126, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-26 16:54:58');
-INSERT INTO `log_handle` VALUES (2127, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-26 16:54:58');
-INSERT INTO `log_handle` VALUES (2128, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-26 16:54:58');
-INSERT INTO `log_handle` VALUES (2129, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-26 16:54:59');
-INSERT INTO `log_handle` VALUES (2130, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '640', '2022-10-26 16:58:10');
-INSERT INTO `log_handle` VALUES (2131, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '107', '2022-10-26 16:58:11');
-INSERT INTO `log_handle` VALUES (2132, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '112', '2022-10-26 16:58:11');
-INSERT INTO `log_handle` VALUES (2133, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-26 16:58:11');
-INSERT INTO `log_handle` VALUES (2134, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-26 16:58:44');
-INSERT INTO `log_handle` VALUES (2135, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-26 16:58:44');
-INSERT INTO `log_handle` VALUES (2136, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '174', '2022-10-26 16:58:44');
-INSERT INTO `log_handle` VALUES (2137, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '134', '2022-10-26 16:58:44');
-INSERT INTO `log_handle` VALUES (2138, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-26 16:58:45');
-INSERT INTO `log_handle` VALUES (2139, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-26 16:59:59');
-INSERT INTO `log_handle` VALUES (2140, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-26 16:59:59');
-INSERT INTO `log_handle` VALUES (2141, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-26 16:59:59');
-INSERT INTO `log_handle` VALUES (2142, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-26 16:59:59');
-INSERT INTO `log_handle` VALUES (2143, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-26 17:00:00');
-INSERT INTO `log_handle` VALUES (2144, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-26 17:03:02');
-INSERT INTO `log_handle` VALUES (2145, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-26 17:03:02');
-INSERT INTO `log_handle` VALUES (2146, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-26 17:03:02');
-INSERT INTO `log_handle` VALUES (2147, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-26 17:03:02');
-INSERT INTO `log_handle` VALUES (2148, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-26 17:03:03');
-INSERT INTO `log_handle` VALUES (2149, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '66', '2022-10-26 17:19:14');
-INSERT INTO `log_handle` VALUES (2150, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '41', '2022-10-26 17:19:14');
-INSERT INTO `log_handle` VALUES (2151, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-26 17:19:14');
-INSERT INTO `log_handle` VALUES (2152, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '546', '2022-10-26 17:19:15');
-INSERT INTO `log_handle` VALUES (2153, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '205', '2022-10-26 17:19:15');
-INSERT INTO `log_handle` VALUES (2154, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-26 17:26:52');
-INSERT INTO `log_handle` VALUES (2155, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-26 17:26:52');
-INSERT INTO `log_handle` VALUES (2156, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-26 17:26:52');
-INSERT INTO `log_handle` VALUES (2157, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-26 17:26:52');
-INSERT INTO `log_handle` VALUES (2158, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-26 17:26:53');
-INSERT INTO `log_handle` VALUES (2159, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-26 17:28:26');
-INSERT INTO `log_handle` VALUES (2160, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '138', '2022-10-26 17:28:26');
-INSERT INTO `log_handle` VALUES (2161, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-26 17:28:26');
-INSERT INTO `log_handle` VALUES (2162, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-26 17:28:26');
-INSERT INTO `log_handle` VALUES (2163, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '58', '2022-10-26 17:28:26');
-INSERT INTO `log_handle` VALUES (2164, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '108', '2022-10-27 09:10:31');
-INSERT INTO `log_handle` VALUES (2165, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '121', '2022-10-27 09:10:31');
-INSERT INTO `log_handle` VALUES (2166, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-27 09:10:46');
-INSERT INTO `log_handle` VALUES (2167, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-27 09:10:46');
-INSERT INTO `log_handle` VALUES (2168, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-27 09:19:49');
-INSERT INTO `log_handle` VALUES (2169, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-27 09:19:50');
-INSERT INTO `log_handle` VALUES (2170, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '17', '2022-10-27 09:19:50');
-INSERT INTO `log_handle` VALUES (2171, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-27 09:19:50');
-INSERT INTO `log_handle` VALUES (2172, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-27 09:19:50');
-INSERT INTO `log_handle` VALUES (2173, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-27 09:33:28');
-INSERT INTO `log_handle` VALUES (2174, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-27 09:33:28');
-INSERT INTO `log_handle` VALUES (2175, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-27 09:33:28');
-INSERT INTO `log_handle` VALUES (2176, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-27 09:33:28');
-INSERT INTO `log_handle` VALUES (2177, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-27 09:33:28');
-INSERT INTO `log_handle` VALUES (2178, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '79', '2022-10-27 09:43:37');
-INSERT INTO `log_handle` VALUES (2179, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-27 09:43:38');
-INSERT INTO `log_handle` VALUES (2180, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-27 09:43:38');
-INSERT INTO `log_handle` VALUES (2181, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-27 09:43:38');
-INSERT INTO `log_handle` VALUES (2182, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '241', '2022-10-27 09:43:38');
-INSERT INTO `log_handle` VALUES (2183, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '69', '2022-10-27 09:46:58');
-INSERT INTO `log_handle` VALUES (2184, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '82', '2022-10-27 09:46:59');
-INSERT INTO `log_handle` VALUES (2185, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-27 09:51:07');
-INSERT INTO `log_handle` VALUES (2186, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '39', '2022-10-27 09:51:08');
-INSERT INTO `log_handle` VALUES (2187, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '69', '2022-10-27 09:51:08');
-INSERT INTO `log_handle` VALUES (2188, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-27 09:51:08');
-INSERT INTO `log_handle` VALUES (2189, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '107', '2022-10-27 09:51:08');
-INSERT INTO `log_handle` VALUES (2190, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-27 10:02:13');
-INSERT INTO `log_handle` VALUES (2191, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '71', '2022-10-27 10:02:14');
-INSERT INTO `log_handle` VALUES (2192, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-27 10:26:07');
-INSERT INTO `log_handle` VALUES (2193, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-27 10:26:07');
-INSERT INTO `log_handle` VALUES (2194, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '82', '2022-10-27 10:31:54');
-INSERT INTO `log_handle` VALUES (2195, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-27 10:31:54');
-INSERT INTO `log_handle` VALUES (2196, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-27 10:31:54');
-INSERT INTO `log_handle` VALUES (2197, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '112', '2022-10-27 10:31:54');
-INSERT INTO `log_handle` VALUES (2198, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-27 10:40:14');
-INSERT INTO `log_handle` VALUES (2199, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-27 10:40:15');
-INSERT INTO `log_handle` VALUES (2200, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-27 10:40:15');
-INSERT INTO `log_handle` VALUES (2201, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '63', '2022-10-27 10:40:15');
-INSERT INTO `log_handle` VALUES (2202, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-27 10:40:15');
-INSERT INTO `log_handle` VALUES (2203, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '83', '2022-10-27 10:45:59');
-INSERT INTO `log_handle` VALUES (2204, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '40', '2022-10-27 10:45:59');
-INSERT INTO `log_handle` VALUES (2205, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '51', '2022-10-27 10:45:59');
-INSERT INTO `log_handle` VALUES (2206, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-27 10:45:59');
-INSERT INTO `log_handle` VALUES (2207, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-27 10:45:59');
-INSERT INTO `log_handle` VALUES (2208, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-27 10:47:25');
-INSERT INTO `log_handle` VALUES (2209, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '24', '2022-10-27 10:47:25');
-INSERT INTO `log_handle` VALUES (2210, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '33', '2022-10-27 10:47:25');
-INSERT INTO `log_handle` VALUES (2211, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-27 10:47:25');
-INSERT INTO `log_handle` VALUES (2212, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-27 10:47:25');
-INSERT INTO `log_handle` VALUES (2213, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-27 10:50:58');
-INSERT INTO `log_handle` VALUES (2214, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-27 10:50:59');
-INSERT INTO `log_handle` VALUES (2215, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-27 10:50:59');
-INSERT INTO `log_handle` VALUES (2216, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '48', '2022-10-27 10:50:59');
-INSERT INTO `log_handle` VALUES (2217, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-27 10:50:59');
-INSERT INTO `log_handle` VALUES (2218, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-27 10:51:26');
-INSERT INTO `log_handle` VALUES (2219, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-27 10:51:26');
-INSERT INTO `log_handle` VALUES (2220, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-27 10:51:26');
-INSERT INTO `log_handle` VALUES (2221, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-27 10:51:26');
-INSERT INTO `log_handle` VALUES (2222, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-27 10:51:27');
-INSERT INTO `log_handle` VALUES (2223, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '64', '2022-10-27 11:06:54');
-INSERT INTO `log_handle` VALUES (2224, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '37', '2022-10-27 11:06:54');
-INSERT INTO `log_handle` VALUES (2225, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '28', '2022-10-27 11:06:54');
-INSERT INTO `log_handle` VALUES (2226, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '161', '2022-10-27 11:06:54');
-INSERT INTO `log_handle` VALUES (2227, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '83', '2022-10-27 11:06:55');
-INSERT INTO `log_handle` VALUES (2228, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '56', '2022-10-27 11:27:31');
-INSERT INTO `log_handle` VALUES (2229, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-27 11:27:31');
-INSERT INTO `log_handle` VALUES (2230, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-27 11:27:31');
-INSERT INTO `log_handle` VALUES (2231, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-27 11:27:31');
-INSERT INTO `log_handle` VALUES (2232, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '91', '2022-10-27 11:27:32');
-INSERT INTO `log_handle` VALUES (2233, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '29', '2022-10-27 11:29:16');
-INSERT INTO `log_handle` VALUES (2234, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-27 11:29:16');
-INSERT INTO `log_handle` VALUES (2235, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '23', '2022-10-27 11:29:16');
-INSERT INTO `log_handle` VALUES (2236, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '35', '2022-10-27 11:29:16');
-INSERT INTO `log_handle` VALUES (2237, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '31', '2022-10-27 11:29:16');
-INSERT INTO `log_handle` VALUES (2238, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-27 11:31:15');
-INSERT INTO `log_handle` VALUES (2239, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-27 11:31:15');
-INSERT INTO `log_handle` VALUES (2240, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '20', '2022-10-27 11:31:15');
-INSERT INTO `log_handle` VALUES (2241, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-27 11:31:15');
-INSERT INTO `log_handle` VALUES (2242, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '44', '2022-10-27 11:31:15');
-INSERT INTO `log_handle` VALUES (2243, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '26', '2022-10-27 11:31:41');
-INSERT INTO `log_handle` VALUES (2244, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '15', '2022-10-27 11:31:41');
-INSERT INTO `log_handle` VALUES (2245, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '109', '2022-10-27 11:31:42');
-INSERT INTO `log_handle` VALUES (2246, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '21', '2022-10-27 11:31:42');
-INSERT INTO `log_handle` VALUES (2247, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '30', '2022-10-27 11:31:42');
-INSERT INTO `log_handle` VALUES (2248, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-27 11:45:46');
-INSERT INTO `log_handle` VALUES (2249, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '16', '2022-10-27 11:45:46');
-INSERT INTO `log_handle` VALUES (2250, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-27 11:45:46');
-INSERT INTO `log_handle` VALUES (2251, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-27 11:45:47');
-INSERT INTO `log_handle` VALUES (2252, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '18', '2022-10-27 11:45:47');
-INSERT INTO `log_handle` VALUES (2253, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '47', '2022-10-27 11:53:04');
-INSERT INTO `log_handle` VALUES (2254, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-27 11:53:04');
-INSERT INTO `log_handle` VALUES (2255, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '27', '2022-10-27 11:53:04');
-INSERT INTO `log_handle` VALUES (2256, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-27 11:53:04');
-INSERT INTO `log_handle` VALUES (2257, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '52', '2022-10-27 11:53:04');
-INSERT INTO `log_handle` VALUES (2258, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '34', '2022-10-27 11:53:46');
-INSERT INTO `log_handle` VALUES (2259, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '19', '2022-10-27 11:53:46');
-INSERT INTO `log_handle` VALUES (2260, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '22', '2022-10-27 11:53:46');
-INSERT INTO `log_handle` VALUES (2261, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '25', '2022-10-27 11:53:46');
-INSERT INTO `log_handle` VALUES (2262, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36', '', NULL, '32', '2022-10-27 11:53:47');
+INSERT INTO `log_handle` VALUES (1363, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '36', '2022-09-30 21:42:50');
+INSERT INTO `log_handle` VALUES (1364, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '34', '2022-09-30 21:42:50');
+INSERT INTO `log_handle` VALUES (1365, '获取当前用户信息', 'Server', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '37', '2022-09-30 21:42:50');
+INSERT INTO `log_handle` VALUES (1366, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-09-30 21:43:28');
+INSERT INTO `log_handle` VALUES (1367, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-09-30 21:43:28');
+INSERT INTO `log_handle` VALUES (1368, '获取当前用户信息', 'Server', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '15', '2022-09-30 21:43:29');
+INSERT INTO `log_handle` VALUES (1369, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '26', '2022-09-30 21:44:06');
+INSERT INTO `log_handle` VALUES (1370, '获取侧边菜单导航', 'Server', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '125', '2022-09-30 21:44:06');
+INSERT INTO `log_handle` VALUES (1371, '获取当前用户信息', 'Server', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '37', '2022-09-30 21:44:07');
+INSERT INTO `log_handle` VALUES (1372, '获取侧边菜单导航', 'localhost', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '96', '2022-09-30 21:46:28');
+INSERT INTO `log_handle` VALUES (1373, '获取侧边菜单导航', 'localhost', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '57', '2022-09-30 21:46:28');
+INSERT INTO `log_handle` VALUES (1374, '获取当前用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '78', '2022-09-30 21:46:29');
+INSERT INTO `log_handle` VALUES (1375, '获取当前用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '48', '2022-09-30 22:01:27');
+INSERT INTO `log_handle` VALUES (1376, '查询菜单管理中的所有菜单信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '24', '2022-09-30 22:01:48');
+INSERT INTO `log_handle` VALUES (1377, '获取角色列表', 'localhost', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '17', '2022-09-30 22:01:53');
+INSERT INTO `log_handle` VALUES (1378, '根据用户名获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '34', '2022-09-30 22:01:53');
+INSERT INTO `log_handle` VALUES (1379, '根据ID获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '15', '2022-09-30 22:01:54');
+INSERT INTO `log_handle` VALUES (1380, '根据ID获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', '', NULL, '16', '2022-09-30 22:02:04');
+INSERT INTO `log_handle` VALUES (1381, '根据ID获取用户信息', 'localhost', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '13', '2022-09-30 22:02:07');
+INSERT INTO `log_handle` VALUES (1382, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '47', '2022-10-04 22:54:52');
+INSERT INTO `log_handle` VALUES (1383, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '368', '2022-10-04 22:54:52');
+INSERT INTO `log_handle` VALUES (1384, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '110', '2022-10-04 22:54:56');
+INSERT INTO `log_handle` VALUES (1385, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '38', '2022-10-04 22:54:56');
+INSERT INTO `log_handle` VALUES (1386, '新增用户', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/insert', 'POST', '', NULL, '114869', '2022-10-04 22:55:11');
+INSERT INTO `log_handle` VALUES (1387, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '44', '2022-10-04 22:57:46');
+INSERT INTO `log_handle` VALUES (1388, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '37', '2022-10-04 22:57:46');
+INSERT INTO `log_handle` VALUES (1389, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '64', '2022-10-04 22:57:46');
+INSERT INTO `log_handle` VALUES (1390, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '88', '2022-10-04 22:57:46');
+INSERT INTO `log_handle` VALUES (1391, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '64', '2022-10-04 22:57:46');
+INSERT INTO `log_handle` VALUES (1392, '删除用户', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/delete', 'POST', '', NULL, '160', '2022-10-04 22:57:53');
+INSERT INTO `log_handle` VALUES (1393, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '34', '2022-10-04 22:58:09');
+INSERT INTO `log_handle` VALUES (1394, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '20', '2022-10-04 22:58:09');
+INSERT INTO `log_handle` VALUES (1395, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '12', '2022-10-04 22:58:09');
+INSERT INTO `log_handle` VALUES (1396, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '43', '2022-10-04 22:58:09');
+INSERT INTO `log_handle` VALUES (1397, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '25', '2022-10-04 22:58:09');
+INSERT INTO `log_handle` VALUES (1398, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '38', '2022-10-04 23:07:58');
+INSERT INTO `log_handle` VALUES (1399, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '21', '2022-10-04 23:07:58');
+INSERT INTO `log_handle` VALUES (1400, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '13', '2022-10-04 23:07:58');
+INSERT INTO `log_handle` VALUES (1401, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '59', '2022-10-04 23:07:58');
+INSERT INTO `log_handle` VALUES (1402, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '13', '2022-10-04 23:08:10');
+INSERT INTO `log_handle` VALUES (1403, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '8', '2022-10-04 23:08:10');
+INSERT INTO `log_handle` VALUES (1404, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '20', '2022-10-04 23:09:12');
+INSERT INTO `log_handle` VALUES (1405, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-04 23:09:13');
+INSERT INTO `log_handle` VALUES (1406, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '11', '2022-10-04 23:09:13');
+INSERT INTO `log_handle` VALUES (1407, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '10', '2022-10-04 23:09:13');
+INSERT INTO `log_handle` VALUES (1408, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '16', '2022-10-04 23:09:13');
+INSERT INTO `log_handle` VALUES (1409, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '6', '2022-10-04 23:09:18');
+INSERT INTO `log_handle` VALUES (1410, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '21', '2022-10-04 23:09:18');
+INSERT INTO `log_handle` VALUES (1411, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-10-04 23:09:30');
+INSERT INTO `log_handle` VALUES (1412, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '19', '2022-10-04 23:11:14');
+INSERT INTO `log_handle` VALUES (1413, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-10-04 23:11:14');
+INSERT INTO `log_handle` VALUES (1414, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '8', '2022-10-04 23:11:14');
+INSERT INTO `log_handle` VALUES (1415, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '24', '2022-10-04 23:11:14');
+INSERT INTO `log_handle` VALUES (1416, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '44', '2022-10-05 08:48:30');
+INSERT INTO `log_handle` VALUES (1417, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '52', '2022-10-05 08:48:30');
+INSERT INTO `log_handle` VALUES (1418, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '79', '2022-10-05 09:19:26');
+INSERT INTO `log_handle` VALUES (1419, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '58', '2022-10-05 09:19:26');
+INSERT INTO `log_handle` VALUES (1420, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '125', '2022-10-05 09:19:30');
+INSERT INTO `log_handle` VALUES (1421, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '196', '2022-10-05 09:19:30');
+INSERT INTO `log_handle` VALUES (1422, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '10', '2022-10-05 09:19:32');
+INSERT INTO `log_handle` VALUES (1423, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '26', '2022-10-05 09:19:34');
+INSERT INTO `log_handle` VALUES (1424, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '10', '2022-10-05 09:19:36');
+INSERT INTO `log_handle` VALUES (1425, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '62', '2022-10-08 22:18:51');
+INSERT INTO `log_handle` VALUES (1426, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '133', '2022-10-08 22:18:51');
+INSERT INTO `log_handle` VALUES (1427, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '49', '2022-10-08 22:30:29');
+INSERT INTO `log_handle` VALUES (1428, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '188', '2022-10-08 22:30:29');
+INSERT INTO `log_handle` VALUES (1429, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '38', '2022-10-08 22:30:50');
+INSERT INTO `log_handle` VALUES (1430, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '30', '2022-10-08 22:30:50');
+INSERT INTO `log_handle` VALUES (1431, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '10', '2022-10-08 22:30:50');
+INSERT INTO `log_handle` VALUES (1432, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '15', '2022-10-08 22:30:50');
+INSERT INTO `log_handle` VALUES (1433, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '106', '2022-10-08 22:30:50');
+INSERT INTO `log_handle` VALUES (1434, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '8', '2022-10-08 22:32:03');
+INSERT INTO `log_handle` VALUES (1435, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '9', '2022-10-08 22:32:03');
+INSERT INTO `log_handle` VALUES (1436, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '4', '2022-10-08 22:32:14');
+INSERT INTO `log_handle` VALUES (1437, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-10-08 22:32:14');
+INSERT INTO `log_handle` VALUES (1438, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-10-08 22:32:20');
+INSERT INTO `log_handle` VALUES (1439, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-10-08 22:32:20');
+INSERT INTO `log_handle` VALUES (1440, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-10-08 22:32:31');
+INSERT INTO `log_handle` VALUES (1441, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '7', '2022-10-08 22:32:31');
+INSERT INTO `log_handle` VALUES (1442, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-10-08 22:32:36');
+INSERT INTO `log_handle` VALUES (1443, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-10-08 22:32:36');
+INSERT INTO `log_handle` VALUES (1444, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '100', '2022-10-09 09:36:04');
+INSERT INTO `log_handle` VALUES (1445, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '100', '2022-10-09 09:36:04');
+INSERT INTO `log_handle` VALUES (1446, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '49', '2022-10-09 20:47:00');
+INSERT INTO `log_handle` VALUES (1447, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '151', '2022-10-09 20:47:00');
+INSERT INTO `log_handle` VALUES (1448, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '11', '2022-10-09 20:50:14');
+INSERT INTO `log_handle` VALUES (1449, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-10-09 20:50:17');
+INSERT INTO `log_handle` VALUES (1450, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '17', '2022-10-09 20:50:17');
+INSERT INTO `log_handle` VALUES (1451, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '19', '2022-10-09 20:50:17');
+INSERT INTO `log_handle` VALUES (1452, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '14', '2022-10-09 20:50:21');
+INSERT INTO `log_handle` VALUES (1453, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-10-09 20:50:26');
+INSERT INTO `log_handle` VALUES (1454, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '9', '2022-10-09 20:50:26');
+INSERT INTO `log_handle` VALUES (1455, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '4', '2022-10-09 20:51:58');
+INSERT INTO `log_handle` VALUES (1456, '新增菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/insert', 'POST', '', NULL, '4', '2022-10-09 20:52:50');
+INSERT INTO `log_handle` VALUES (1457, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '3', '2022-10-09 20:52:52');
+INSERT INTO `log_handle` VALUES (1458, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '7', '2022-10-09 20:53:01');
+INSERT INTO `log_handle` VALUES (1459, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '7', '2022-10-09 20:53:01');
+INSERT INTO `log_handle` VALUES (1460, '根据ID获取角色信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/info/1', 'GET', '', NULL, '8', '2022-10-09 20:53:03');
+INSERT INTO `log_handle` VALUES (1461, '根据角色ID获取菜单列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/perm/1', 'POST', '', NULL, '33', '2022-10-09 20:53:05');
+INSERT INTO `log_handle` VALUES (1462, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '3', '2022-10-09 20:53:07');
+INSERT INTO `log_handle` VALUES (1463, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '5', '2022-10-09 20:53:11');
+INSERT INTO `log_handle` VALUES (1464, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/47', 'GET', '', NULL, '3', '2022-10-09 20:53:20');
+INSERT INTO `log_handle` VALUES (1465, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', '', NULL, '115', '2022-10-09 20:53:47');
+INSERT INTO `log_handle` VALUES (1466, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '5', '2022-10-09 20:53:50');
+INSERT INTO `log_handle` VALUES (1467, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-10-09 20:53:55');
+INSERT INTO `log_handle` VALUES (1468, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-10-09 20:53:55');
+INSERT INTO `log_handle` VALUES (1469, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '9', '2022-10-09 20:53:56');
+INSERT INTO `log_handle` VALUES (1470, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-10-09 20:53:56');
+INSERT INTO `log_handle` VALUES (1471, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-10-09 20:54:33');
+INSERT INTO `log_handle` VALUES (1472, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '21', '2022-10-09 20:54:58');
+INSERT INTO `log_handle` VALUES (1473, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '18', '2022-10-09 20:54:59');
+INSERT INTO `log_handle` VALUES (1474, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '5', '2022-10-09 20:55:02');
+INSERT INTO `log_handle` VALUES (1475, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/47', 'GET', '', NULL, '2', '2022-10-09 20:55:06');
+INSERT INTO `log_handle` VALUES (1476, '更新菜单', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/update', 'POST', '', NULL, '8', '2022-10-09 20:55:16');
+INSERT INTO `log_handle` VALUES (1477, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '4', '2022-10-09 20:55:18');
+INSERT INTO `log_handle` VALUES (1478, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-09 20:55:25');
+INSERT INTO `log_handle` VALUES (1479, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-10-09 20:55:25');
+INSERT INTO `log_handle` VALUES (1480, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-10-09 20:55:25');
+INSERT INTO `log_handle` VALUES (1481, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '26', '2022-10-09 20:55:25');
+INSERT INTO `log_handle` VALUES (1482, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '14', '2022-10-09 22:49:00');
+INSERT INTO `log_handle` VALUES (1483, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '5', '2022-10-09 22:49:04');
+INSERT INTO `log_handle` VALUES (1484, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-10-09 22:52:27');
+INSERT INTO `log_handle` VALUES (1485, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '17', '2022-10-09 22:52:27');
+INSERT INTO `log_handle` VALUES (1486, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-09 22:52:58');
+INSERT INTO `log_handle` VALUES (1487, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-09 22:53:06');
+INSERT INTO `log_handle` VALUES (1488, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-10-09 22:53:12');
+INSERT INTO `log_handle` VALUES (1489, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-10-09 22:53:15');
+INSERT INTO `log_handle` VALUES (1490, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '12', '2022-10-09 22:53:15');
+INSERT INTO `log_handle` VALUES (1491, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '14', '2022-10-09 22:53:21');
+INSERT INTO `log_handle` VALUES (1492, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '3', '2022-10-09 22:53:29');
+INSERT INTO `log_handle` VALUES (1493, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-10-09 22:55:47');
+INSERT INTO `log_handle` VALUES (1494, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-09 22:55:47');
+INSERT INTO `log_handle` VALUES (1495, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '7', '2022-10-09 22:55:47');
+INSERT INTO `log_handle` VALUES (1496, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-10-09 22:55:47');
+INSERT INTO `log_handle` VALUES (1497, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '5', '2022-10-09 22:55:51');
+INSERT INTO `log_handle` VALUES (1498, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '4', '2022-10-09 22:55:58');
+INSERT INTO `log_handle` VALUES (1499, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '5', '2022-10-09 22:55:58');
+INSERT INTO `log_handle` VALUES (1500, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '96', '2022-10-10 09:53:05');
+INSERT INTO `log_handle` VALUES (1501, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '121', '2022-10-10 09:53:05');
+INSERT INTO `log_handle` VALUES (1502, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-10-24 19:30:42');
+INSERT INTO `log_handle` VALUES (1503, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '37', '2022-10-24 19:30:52');
+INSERT INTO `log_handle` VALUES (1504, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '30', '2022-10-24 19:31:17');
+INSERT INTO `log_handle` VALUES (1505, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '20', '2022-10-24 19:31:33');
+INSERT INTO `log_handle` VALUES (1506, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '24', '2022-10-24 19:31:39');
+INSERT INTO `log_handle` VALUES (1507, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '23', '2022-10-24 19:31:48');
+INSERT INTO `log_handle` VALUES (1508, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '22', '2022-10-24 19:32:05');
+INSERT INTO `log_handle` VALUES (1509, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '50', '2022-10-24 19:36:42');
+INSERT INTO `log_handle` VALUES (1510, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '27', '2022-10-24 19:37:01');
+INSERT INTO `log_handle` VALUES (1511, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '21', '2022-10-24 19:40:42');
+INSERT INTO `log_handle` VALUES (1512, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '22', '2022-10-24 19:40:50');
+INSERT INTO `log_handle` VALUES (1513, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-10-24 19:44:15');
+INSERT INTO `log_handle` VALUES (1514, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '19', '2022-10-24 19:46:09');
+INSERT INTO `log_handle` VALUES (1515, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '227', '2022-10-24 19:46:09');
+INSERT INTO `log_handle` VALUES (1516, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '15', '2022-10-24 19:46:16');
+INSERT INTO `log_handle` VALUES (1517, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '76', '2022-10-24 19:46:16');
+INSERT INTO `log_handle` VALUES (1518, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '5', '2022-10-24 19:46:17');
+INSERT INTO `log_handle` VALUES (1519, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '19', '2022-10-24 19:46:17');
+INSERT INTO `log_handle` VALUES (1520, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '7', '2022-10-24 19:46:23');
+INSERT INTO `log_handle` VALUES (1521, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '24', '2022-10-24 19:46:51');
+INSERT INTO `log_handle` VALUES (1522, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '18', '2022-10-24 19:56:44');
+INSERT INTO `log_handle` VALUES (1523, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-10-24 19:56:57');
+INSERT INTO `log_handle` VALUES (1524, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-24 19:58:12');
+INSERT INTO `log_handle` VALUES (1525, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-24 19:58:19');
+INSERT INTO `log_handle` VALUES (1526, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-24 19:58:37');
+INSERT INTO `log_handle` VALUES (1527, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-24 19:58:41');
+INSERT INTO `log_handle` VALUES (1528, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-10-24 19:58:49');
+INSERT INTO `log_handle` VALUES (1529, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-10-24 19:59:15');
+INSERT INTO `log_handle` VALUES (1530, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-10-24 20:00:33');
+INSERT INTO `log_handle` VALUES (1531, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-10-24 20:00:53');
+INSERT INTO `log_handle` VALUES (1532, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-10-24 20:01:02');
+INSERT INTO `log_handle` VALUES (1533, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '27', '2022-10-24 20:01:02');
+INSERT INTO `log_handle` VALUES (1534, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-10-24 20:03:47');
+INSERT INTO `log_handle` VALUES (1535, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-10-24 20:03:47');
+INSERT INTO `log_handle` VALUES (1536, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '78', '2022-10-26 11:57:32');
+INSERT INTO `log_handle` VALUES (1537, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '254', '2022-10-26 11:57:32');
+INSERT INTO `log_handle` VALUES (1538, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '62', '2022-10-26 16:21:31');
+INSERT INTO `log_handle` VALUES (1539, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '23', '2022-10-26 16:21:31');
+INSERT INTO `log_handle` VALUES (1540, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '53', '2022-10-26 16:21:32');
+INSERT INTO `log_handle` VALUES (1541, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '31', '2022-10-26 22:15:12');
+INSERT INTO `log_handle` VALUES (1542, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '19', '2022-10-26 22:15:12');
+INSERT INTO `log_handle` VALUES (1543, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '51', '2022-10-26 22:15:12');
+INSERT INTO `log_handle` VALUES (1544, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '24', '2022-10-26 22:15:36');
+INSERT INTO `log_handle` VALUES (1545, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '19', '2022-10-26 22:15:36');
+INSERT INTO `log_handle` VALUES (1546, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '21', '2022-10-26 22:15:37');
+INSERT INTO `log_handle` VALUES (1547, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '23', '2022-10-26 22:16:09');
+INSERT INTO `log_handle` VALUES (1548, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-10-26 22:16:09');
+INSERT INTO `log_handle` VALUES (1549, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '27', '2022-10-26 22:16:09');
+INSERT INTO `log_handle` VALUES (1550, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '24', '2022-10-26 22:16:32');
+INSERT INTO `log_handle` VALUES (1551, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '140', '2022-10-26 22:16:32');
+INSERT INTO `log_handle` VALUES (1552, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '67', '2022-10-27 19:17:16');
+INSERT INTO `log_handle` VALUES (1553, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '66', '2022-10-27 19:17:16');
+INSERT INTO `log_handle` VALUES (1554, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '31', '2022-10-27 19:19:14');
+INSERT INTO `log_handle` VALUES (1555, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '37', '2022-10-27 19:19:14');
+INSERT INTO `log_handle` VALUES (1556, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-10-27 19:19:14');
+INSERT INTO `log_handle` VALUES (1557, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '24', '2022-10-27 19:19:57');
+INSERT INTO `log_handle` VALUES (1558, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '28', '2022-10-27 19:19:58');
+INSERT INTO `log_handle` VALUES (1559, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '25', '2022-10-27 19:19:58');
+INSERT INTO `log_handle` VALUES (1560, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '18', '2022-10-27 19:20:15');
+INSERT INTO `log_handle` VALUES (1561, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '64', '2022-10-27 19:26:24');
+INSERT INTO `log_handle` VALUES (1562, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '83', '2022-10-27 19:26:24');
+INSERT INTO `log_handle` VALUES (1563, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '37', '2022-10-27 19:26:24');
+INSERT INTO `log_handle` VALUES (1564, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '80', '2022-10-27 19:26:28');
+INSERT INTO `log_handle` VALUES (1565, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '43', '2022-10-27 19:26:28');
+INSERT INTO `log_handle` VALUES (1566, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '5', '2022-10-27 19:26:33');
+INSERT INTO `log_handle` VALUES (1567, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '61', '2022-10-27 19:34:48');
+INSERT INTO `log_handle` VALUES (1568, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '47', '2022-10-27 19:34:48');
+INSERT INTO `log_handle` VALUES (1569, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '78', '2022-10-27 19:34:48');
+INSERT INTO `log_handle` VALUES (1570, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '104', '2022-10-27 19:34:48');
+INSERT INTO `log_handle` VALUES (1571, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '61', '2022-10-27 19:34:48');
+INSERT INTO `log_handle` VALUES (1572, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '7', '2022-10-27 19:34:50');
+INSERT INTO `log_handle` VALUES (1573, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '5', '2022-10-27 19:34:54');
+INSERT INTO `log_handle` VALUES (1574, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '27', '2022-10-27 19:36:28');
+INSERT INTO `log_handle` VALUES (1575, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '72', '2022-10-27 19:36:33');
+INSERT INTO `log_handle` VALUES (1576, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '34', '2022-10-27 19:36:33');
+INSERT INTO `log_handle` VALUES (1577, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '40', '2022-10-27 19:36:33');
+INSERT INTO `log_handle` VALUES (1578, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '39', '2022-10-27 19:36:33');
+INSERT INTO `log_handle` VALUES (1579, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '270', '2022-10-27 19:36:33');
+INSERT INTO `log_handle` VALUES (1580, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '8', '2022-10-27 19:36:35');
+INSERT INTO `log_handle` VALUES (1581, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/2', 'GET', '', NULL, '6', '2022-10-27 19:37:39');
+INSERT INTO `log_handle` VALUES (1582, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '21', '2022-10-27 19:39:49');
+INSERT INTO `log_handle` VALUES (1583, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '66', '2022-10-27 19:41:53');
+INSERT INTO `log_handle` VALUES (1584, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '27', '2022-10-27 19:41:53');
+INSERT INTO `log_handle` VALUES (1585, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '48', '2022-10-27 19:41:53');
+INSERT INTO `log_handle` VALUES (1586, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '78', '2022-10-27 19:41:53');
+INSERT INTO `log_handle` VALUES (1587, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '74', '2022-10-27 19:41:53');
+INSERT INTO `log_handle` VALUES (1588, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '7', '2022-10-27 19:41:54');
+INSERT INTO `log_handle` VALUES (1589, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '5', '2022-10-27 19:41:57');
+INSERT INTO `log_handle` VALUES (1590, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '53', '2022-10-27 21:15:26');
+INSERT INTO `log_handle` VALUES (1591, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '32', '2022-10-27 21:15:26');
+INSERT INTO `log_handle` VALUES (1592, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '63', '2022-10-27 21:15:26');
+INSERT INTO `log_handle` VALUES (1593, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '76', '2022-10-27 21:15:26');
+INSERT INTO `log_handle` VALUES (1594, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '54', '2022-10-27 21:15:27');
+INSERT INTO `log_handle` VALUES (1595, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '5', '2022-10-27 21:15:28');
+INSERT INTO `log_handle` VALUES (1596, '根据ID获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/info/1', 'GET', '', NULL, '5', '2022-10-27 21:15:30');
+INSERT INTO `log_handle` VALUES (1597, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '13', '2022-10-27 21:15:36');
+INSERT INTO `log_handle` VALUES (1598, '按ID查询菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/info/1', 'GET', '', NULL, '2', '2022-10-27 21:15:38');
+INSERT INTO `log_handle` VALUES (1599, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '23', '2022-10-27 21:16:44');
+INSERT INTO `log_handle` VALUES (1600, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '62', '2022-10-27 21:28:11');
+INSERT INTO `log_handle` VALUES (1601, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '42', '2022-10-27 21:28:11');
+INSERT INTO `log_handle` VALUES (1602, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '49', '2022-10-27 21:28:12');
+INSERT INTO `log_handle` VALUES (1603, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '33', '2022-10-27 21:37:19');
+INSERT INTO `log_handle` VALUES (1604, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '22', '2022-10-27 21:39:13');
+INSERT INTO `log_handle` VALUES (1605, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '19', '2022-10-27 21:39:14');
+INSERT INTO `log_handle` VALUES (1606, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '23', '2022-10-27 21:39:14');
+INSERT INTO `log_handle` VALUES (1607, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-10-27 21:39:54');
+INSERT INTO `log_handle` VALUES (1608, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '19', '2022-10-27 21:39:54');
+INSERT INTO `log_handle` VALUES (1609, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '31', '2022-10-27 21:39:54');
+INSERT INTO `log_handle` VALUES (1610, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '21', '2022-10-27 21:40:29');
+INSERT INTO `log_handle` VALUES (1611, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '16', '2022-10-27 21:40:29');
+INSERT INTO `log_handle` VALUES (1612, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '25', '2022-10-27 21:40:29');
+INSERT INTO `log_handle` VALUES (1613, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '67', '2022-10-27 21:52:55');
+INSERT INTO `log_handle` VALUES (1614, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '56', '2022-10-27 21:52:55');
+INSERT INTO `log_handle` VALUES (1615, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '33', '2022-10-27 21:52:55');
+INSERT INTO `log_handle` VALUES (1616, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '34', '2022-10-27 21:53:00');
+INSERT INTO `log_handle` VALUES (1617, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '26', '2022-10-27 21:53:01');
+INSERT INTO `log_handle` VALUES (1618, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '37', '2022-10-27 21:53:01');
+INSERT INTO `log_handle` VALUES (1619, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '28', '2022-10-27 21:54:39');
+INSERT INTO `log_handle` VALUES (1620, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '28', '2022-10-27 21:54:39');
+INSERT INTO `log_handle` VALUES (1621, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '21', '2022-10-27 21:54:39');
+INSERT INTO `log_handle` VALUES (1622, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '22', '2022-10-27 21:55:41');
+INSERT INTO `log_handle` VALUES (1623, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '38', '2022-10-27 21:55:41');
+INSERT INTO `log_handle` VALUES (1624, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '26', '2022-10-27 21:55:41');
+INSERT INTO `log_handle` VALUES (1625, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-10-27 22:00:18');
+INSERT INTO `log_handle` VALUES (1626, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '56', '2022-10-27 22:00:18');
+INSERT INTO `log_handle` VALUES (1627, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '12', '2022-10-27 22:00:18');
+INSERT INTO `log_handle` VALUES (1628, '登录提醒', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/update_login_warn', 'POST', 'loginWarn=%5B0%5D', NULL, '95', '2022-10-27 22:00:22');
+INSERT INTO `log_handle` VALUES (1629, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '17', '2022-10-27 22:00:25');
+INSERT INTO `log_handle` VALUES (1630, '登录提醒', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/update_login_warn', 'POST', 'loginWarn=%5B1%5D', NULL, '4', '2022-10-27 22:00:26');
+INSERT INTO `log_handle` VALUES (1631, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '19', '2022-10-27 22:00:29');
+INSERT INTO `log_handle` VALUES (1632, '登录提醒', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/update_login_warn', 'POST', 'loginWarn=%5B0%5D', NULL, '5', '2022-10-27 22:00:30');
+INSERT INTO `log_handle` VALUES (1633, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '16', '2022-10-27 22:00:34');
+INSERT INTO `log_handle` VALUES (1634, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '19', '2022-10-27 22:34:19');
+INSERT INTO `log_handle` VALUES (1635, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '46', '2022-10-27 22:34:19');
+INSERT INTO `log_handle` VALUES (1636, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '84', '2022-10-27 22:34:19');
+INSERT INTO `log_handle` VALUES (1637, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '80', '2022-10-27 22:34:19');
+INSERT INTO `log_handle` VALUES (1638, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '9', '2022-10-27 22:34:20');
+INSERT INTO `log_handle` VALUES (1639, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '10', '2022-10-27 22:34:20');
+INSERT INTO `log_handle` VALUES (1640, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '43', '2022-11-02 17:07:38');
+INSERT INTO `log_handle` VALUES (1641, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '77', '2022-11-02 17:07:38');
+INSERT INTO `log_handle` VALUES (1642, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '28', '2022-11-02 17:07:50');
+INSERT INTO `log_handle` VALUES (1643, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '38', '2022-11-02 17:07:50');
+INSERT INTO `log_handle` VALUES (1644, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '10', '2022-11-02 22:01:43');
+INSERT INTO `log_handle` VALUES (1645, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '11', '2022-11-02 22:01:44');
+INSERT INTO `log_handle` VALUES (1646, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '26', '2022-11-02 22:01:44');
+INSERT INTO `log_handle` VALUES (1647, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '9', '2022-11-02 22:01:50');
+INSERT INTO `log_handle` VALUES (1648, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '28', '2022-11-02 22:01:50');
+INSERT INTO `log_handle` VALUES (1649, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '8', '2022-11-02 22:01:52');
+INSERT INTO `log_handle` VALUES (1650, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '10', '2022-11-02 22:01:52');
+INSERT INTO `log_handle` VALUES (1651, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', '', NULL, '17', '2022-11-02 22:01:54');
+INSERT INTO `log_handle` VALUES (1652, '根据用户名获取用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/select', 'GET', 'username=%5B%5D&current=%5B1%5D&size=%5B10%5D', NULL, '33', '2022-11-02 22:01:54');
+INSERT INTO `log_handle` VALUES (1653, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '6', '2022-11-02 22:01:59');
+INSERT INTO `log_handle` VALUES (1654, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2022-11-02 22:01:59');
+INSERT INTO `log_handle` VALUES (1655, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '37', '2022-11-02 22:18:43');
+INSERT INTO `log_handle` VALUES (1656, '登录提醒', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/update_login_warn', 'POST', 'loginWarn=%5B1%5D', NULL, '10', '2022-11-02 22:18:47');
+INSERT INTO `log_handle` VALUES (1657, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '19', '2022-11-02 22:18:53');
+INSERT INTO `log_handle` VALUES (1658, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '68', '2022-11-03 09:48:48');
+INSERT INTO `log_handle` VALUES (1659, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '55', '2022-11-03 09:48:48');
+INSERT INTO `log_handle` VALUES (1660, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '9', '2022-11-03 09:48:55');
+INSERT INTO `log_handle` VALUES (1661, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '97', '2022-11-03 09:48:55');
+INSERT INTO `log_handle` VALUES (1662, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '26', '2022-11-03 09:49:37');
+INSERT INTO `log_handle` VALUES (1663, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '29', '2022-11-03 09:49:37');
+INSERT INTO `log_handle` VALUES (1664, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '35', '2022-11-03 09:58:14');
+INSERT INTO `log_handle` VALUES (1665, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '57', '2022-11-03 10:03:47');
+INSERT INTO `log_handle` VALUES (1666, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '72', '2022-11-03 10:03:47');
+INSERT INTO `log_handle` VALUES (1667, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '66', '2022-11-03 14:41:36');
+INSERT INTO `log_handle` VALUES (1668, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '84', '2022-11-03 14:41:36');
+INSERT INTO `log_handle` VALUES (1669, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '14', '2022-11-03 14:41:39');
+INSERT INTO `log_handle` VALUES (1670, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '61', '2022-11-03 14:41:39');
+INSERT INTO `log_handle` VALUES (1671, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '36', '2022-11-11 17:23:53');
+INSERT INTO `log_handle` VALUES (1672, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '180', '2022-11-11 17:23:53');
+INSERT INTO `log_handle` VALUES (1673, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '25', '2022-11-11 17:24:02');
+INSERT INTO `log_handle` VALUES (1674, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '59', '2022-11-14 16:30:51');
+INSERT INTO `log_handle` VALUES (1675, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '75', '2022-11-14 16:30:51');
+INSERT INTO `log_handle` VALUES (1676, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '33', '2022-11-14 16:31:45');
+INSERT INTO `log_handle` VALUES (1677, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '27', '2022-11-14 16:31:45');
+INSERT INTO `log_handle` VALUES (1678, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '12', '2022-11-14 16:31:49');
+INSERT INTO `log_handle` VALUES (1679, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '169', '2022-11-14 16:31:49');
+INSERT INTO `log_handle` VALUES (1680, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '37', '2022-11-14 21:27:20');
+INSERT INTO `log_handle` VALUES (1681, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '63', '2022-11-14 21:27:20');
+INSERT INTO `log_handle` VALUES (1682, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '8', '2022-11-14 21:27:24');
+INSERT INTO `log_handle` VALUES (1683, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '24', '2022-11-14 21:27:24');
+INSERT INTO `log_handle` VALUES (1684, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '45', '2022-11-15 10:41:39');
+INSERT INTO `log_handle` VALUES (1685, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '64', '2022-11-15 10:41:39');
+INSERT INTO `log_handle` VALUES (1686, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '74', '2022-11-15 10:44:50');
+INSERT INTO `log_handle` VALUES (1687, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '27', '2022-11-15 10:44:55');
+INSERT INTO `log_handle` VALUES (1688, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '67', '2022-11-15 10:44:55');
+INSERT INTO `log_handle` VALUES (1689, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '61', '2022-11-15 11:05:44');
+INSERT INTO `log_handle` VALUES (1690, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '35', '2022-11-15 11:05:44');
+INSERT INTO `log_handle` VALUES (1691, '查询菜单管理中的所有菜单信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/select', 'GET', '', NULL, '13', '2022-11-15 11:05:44');
+INSERT INTO `log_handle` VALUES (1692, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '57', '2022-11-15 11:05:44');
+INSERT INTO `log_handle` VALUES (1693, '获取角色列表', 'PC', '0:0:0:0:0:0:0:1', '/sys/role/select', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '71', '2022-11-15 11:05:44');
+INSERT INTO `log_handle` VALUES (1694, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '43', '2022-11-15 13:12:37');
+INSERT INTO `log_handle` VALUES (1695, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '46', '2022-11-15 13:12:38');
+INSERT INTO `log_handle` VALUES (1696, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-11-15 13:17:59');
+INSERT INTO `log_handle` VALUES (1697, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '27', '2022-11-15 13:17:59');
+INSERT INTO `log_handle` VALUES (1698, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '55', '2022-11-15 14:46:43');
+INSERT INTO `log_handle` VALUES (1699, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '63', '2022-11-15 14:46:43');
+INSERT INTO `log_handle` VALUES (1700, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '82', '2022-11-16 15:00:23');
+INSERT INTO `log_handle` VALUES (1701, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '259', '2022-11-16 15:00:23');
+INSERT INTO `log_handle` VALUES (1702, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '48', '2022-11-16 15:18:18');
+INSERT INTO `log_handle` VALUES (1703, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '32', '2022-11-16 15:27:15');
+INSERT INTO `log_handle` VALUES (1704, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '24', '2022-11-16 15:27:15');
+INSERT INTO `log_handle` VALUES (1705, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '20', '2022-11-16 15:27:17');
+INSERT INTO `log_handle` VALUES (1706, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '23', '2022-11-16 15:27:18');
+INSERT INTO `log_handle` VALUES (1707, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-11-16 15:27:58');
+INSERT INTO `log_handle` VALUES (1708, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-11-16 15:27:58');
+INSERT INTO `log_handle` VALUES (1709, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '20', '2022-11-16 15:28:05');
+INSERT INTO `log_handle` VALUES (1710, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '29', '2022-11-16 15:28:05');
+INSERT INTO `log_handle` VALUES (1711, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 15:28:56');
+INSERT INTO `log_handle` VALUES (1712, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '22', '2022-11-16 15:28:56');
+INSERT INTO `log_handle` VALUES (1713, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '21', '2022-11-16 15:28:57');
+INSERT INTO `log_handle` VALUES (1714, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '22', '2022-11-16 15:28:57');
+INSERT INTO `log_handle` VALUES (1715, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-11-16 15:29:02');
+INSERT INTO `log_handle` VALUES (1716, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '15', '2022-11-16 15:29:02');
+INSERT INTO `log_handle` VALUES (1717, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-11-16 15:29:05');
+INSERT INTO `log_handle` VALUES (1718, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-11-16 15:29:05');
+INSERT INTO `log_handle` VALUES (1719, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '19', '2022-11-16 15:29:09');
+INSERT INTO `log_handle` VALUES (1720, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '21', '2022-11-16 15:29:09');
+INSERT INTO `log_handle` VALUES (1721, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 15:46:24');
+INSERT INTO `log_handle` VALUES (1722, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 15:46:24');
+INSERT INTO `log_handle` VALUES (1723, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '26', '2022-11-16 15:46:25');
+INSERT INTO `log_handle` VALUES (1724, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 15:59:05');
+INSERT INTO `log_handle` VALUES (1725, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '22', '2022-11-16 15:59:05');
+INSERT INTO `log_handle` VALUES (1726, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '18', '2022-11-16 15:59:05');
+INSERT INTO `log_handle` VALUES (1727, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 15:59:13');
+INSERT INTO `log_handle` VALUES (1728, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 15:59:13');
+INSERT INTO `log_handle` VALUES (1729, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '18', '2022-11-16 15:59:13');
+INSERT INTO `log_handle` VALUES (1730, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 16:00:07');
+INSERT INTO `log_handle` VALUES (1731, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 16:00:07');
+INSERT INTO `log_handle` VALUES (1732, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '14', '2022-11-16 16:00:07');
+INSERT INTO `log_handle` VALUES (1733, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 16:00:09');
+INSERT INTO `log_handle` VALUES (1734, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '19', '2022-11-16 16:00:09');
+INSERT INTO `log_handle` VALUES (1735, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '16', '2022-11-16 16:00:09');
+INSERT INTO `log_handle` VALUES (1736, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-11-16 16:00:11');
+INSERT INTO `log_handle` VALUES (1737, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-11-16 16:00:11');
+INSERT INTO `log_handle` VALUES (1738, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '16', '2022-11-16 16:00:11');
+INSERT INTO `log_handle` VALUES (1739, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '27', '2022-11-16 16:00:44');
+INSERT INTO `log_handle` VALUES (1740, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:00:44');
+INSERT INTO `log_handle` VALUES (1741, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '13', '2022-11-16 16:00:45');
+INSERT INTO `log_handle` VALUES (1742, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:00:50');
+INSERT INTO `log_handle` VALUES (1743, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:00:50');
+INSERT INTO `log_handle` VALUES (1744, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '16', '2022-11-16 16:00:50');
+INSERT INTO `log_handle` VALUES (1745, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '23', '2022-11-16 16:00:51');
+INSERT INTO `log_handle` VALUES (1746, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-11-16 16:00:51');
+INSERT INTO `log_handle` VALUES (1747, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '15', '2022-11-16 16:00:51');
+INSERT INTO `log_handle` VALUES (1748, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '10', '2022-11-16 16:00:59');
+INSERT INTO `log_handle` VALUES (1749, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:00:59');
+INSERT INTO `log_handle` VALUES (1750, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '15', '2022-11-16 16:00:59');
+INSERT INTO `log_handle` VALUES (1751, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 16:01:05');
+INSERT INTO `log_handle` VALUES (1752, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 16:01:05');
+INSERT INTO `log_handle` VALUES (1753, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '11', '2022-11-16 16:01:05');
+INSERT INTO `log_handle` VALUES (1754, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '10', '2022-11-16 16:05:51');
+INSERT INTO `log_handle` VALUES (1755, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 16:05:51');
+INSERT INTO `log_handle` VALUES (1756, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '13', '2022-11-16 16:05:51');
+INSERT INTO `log_handle` VALUES (1757, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-11-16 16:16:01');
+INSERT INTO `log_handle` VALUES (1758, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '21', '2022-11-16 16:16:01');
+INSERT INTO `log_handle` VALUES (1759, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '49', '2022-11-16 16:16:01');
+INSERT INTO `log_handle` VALUES (1760, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:16:34');
+INSERT INTO `log_handle` VALUES (1761, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 16:16:34');
+INSERT INTO `log_handle` VALUES (1762, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '18', '2022-11-16 16:16:34');
+INSERT INTO `log_handle` VALUES (1763, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:16:35');
+INSERT INTO `log_handle` VALUES (1764, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 16:16:35');
+INSERT INTO `log_handle` VALUES (1765, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '14', '2022-11-16 16:16:36');
+INSERT INTO `log_handle` VALUES (1766, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 16:16:39');
+INSERT INTO `log_handle` VALUES (1767, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 16:16:39');
+INSERT INTO `log_handle` VALUES (1768, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '16', '2022-11-16 16:16:40');
+INSERT INTO `log_handle` VALUES (1769, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:16:40');
+INSERT INTO `log_handle` VALUES (1770, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:16:40');
+INSERT INTO `log_handle` VALUES (1771, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '12', '2022-11-16 16:16:41');
+INSERT INTO `log_handle` VALUES (1772, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '10', '2022-11-16 16:16:41');
+INSERT INTO `log_handle` VALUES (1773, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:16:42');
+INSERT INTO `log_handle` VALUES (1774, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '14', '2022-11-16 16:16:42');
+INSERT INTO `log_handle` VALUES (1775, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-11-16 16:16:48');
+INSERT INTO `log_handle` VALUES (1776, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-11-16 16:16:48');
+INSERT INTO `log_handle` VALUES (1777, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '12', '2022-11-16 16:16:49');
+INSERT INTO `log_handle` VALUES (1778, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 16:16:50');
+INSERT INTO `log_handle` VALUES (1779, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 16:16:50');
+INSERT INTO `log_handle` VALUES (1780, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '21', '2022-11-16 16:16:50');
+INSERT INTO `log_handle` VALUES (1781, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 16:16:57');
+INSERT INTO `log_handle` VALUES (1782, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 16:16:57');
+INSERT INTO `log_handle` VALUES (1783, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '11', '2022-11-16 16:16:57');
+INSERT INTO `log_handle` VALUES (1784, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-11-16 16:41:59');
+INSERT INTO `log_handle` VALUES (1785, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:41:59');
+INSERT INTO `log_handle` VALUES (1786, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-11-16 16:50:40');
+INSERT INTO `log_handle` VALUES (1787, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 16:50:40');
+INSERT INTO `log_handle` VALUES (1788, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 16:50:46');
+INSERT INTO `log_handle` VALUES (1789, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '22', '2022-11-16 16:50:46');
+INSERT INTO `log_handle` VALUES (1790, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 16:51:43');
+INSERT INTO `log_handle` VALUES (1791, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-11-16 16:51:43');
+INSERT INTO `log_handle` VALUES (1792, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 16:55:36');
+INSERT INTO `log_handle` VALUES (1793, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:55:37');
+INSERT INTO `log_handle` VALUES (1794, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:57:05');
+INSERT INTO `log_handle` VALUES (1795, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 16:57:05');
+INSERT INTO `log_handle` VALUES (1796, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '8', '2022-11-16 16:57:08');
+INSERT INTO `log_handle` VALUES (1797, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 16:57:11');
+INSERT INTO `log_handle` VALUES (1798, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:57:11');
+INSERT INTO `log_handle` VALUES (1799, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:57:13');
+INSERT INTO `log_handle` VALUES (1800, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 16:57:14');
+INSERT INTO `log_handle` VALUES (1801, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 16:57:21');
+INSERT INTO `log_handle` VALUES (1802, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 16:57:21');
+INSERT INTO `log_handle` VALUES (1803, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 16:57:28');
+INSERT INTO `log_handle` VALUES (1804, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 16:57:28');
+INSERT INTO `log_handle` VALUES (1805, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '10', '2022-11-16 16:57:30');
+INSERT INTO `log_handle` VALUES (1806, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:57:30');
+INSERT INTO `log_handle` VALUES (1807, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-11-16 16:58:47');
+INSERT INTO `log_handle` VALUES (1808, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 16:58:47');
+INSERT INTO `log_handle` VALUES (1809, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '7', '2022-11-16 17:00:12');
+INSERT INTO `log_handle` VALUES (1810, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 17:00:12');
+INSERT INTO `log_handle` VALUES (1811, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 17:03:32');
+INSERT INTO `log_handle` VALUES (1812, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 17:03:33');
+INSERT INTO `log_handle` VALUES (1813, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '8', '2022-11-16 17:03:36');
+INSERT INTO `log_handle` VALUES (1814, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '10', '2022-11-16 17:03:36');
+INSERT INTO `log_handle` VALUES (1815, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 17:05:54');
+INSERT INTO `log_handle` VALUES (1816, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 17:05:54');
+INSERT INTO `log_handle` VALUES (1817, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-11-16 17:07:50');
+INSERT INTO `log_handle` VALUES (1818, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 17:07:51');
+INSERT INTO `log_handle` VALUES (1819, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 17:08:26');
+INSERT INTO `log_handle` VALUES (1820, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 17:08:26');
+INSERT INTO `log_handle` VALUES (1821, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 17:08:36');
+INSERT INTO `log_handle` VALUES (1822, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '26', '2022-11-16 17:08:36');
+INSERT INTO `log_handle` VALUES (1823, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '15', '2022-11-16 17:09:08');
+INSERT INTO `log_handle` VALUES (1824, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '18', '2022-11-16 17:09:08');
+INSERT INTO `log_handle` VALUES (1825, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '6', '2022-11-16 17:09:13');
+INSERT INTO `log_handle` VALUES (1826, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 17:09:13');
+INSERT INTO `log_handle` VALUES (1827, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 17:09:24');
+INSERT INTO `log_handle` VALUES (1828, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 17:09:24');
+INSERT INTO `log_handle` VALUES (1829, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-11-16 17:10:02');
+INSERT INTO `log_handle` VALUES (1830, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '17', '2022-11-16 17:10:02');
+INSERT INTO `log_handle` VALUES (1831, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '9', '2022-11-16 17:10:50');
+INSERT INTO `log_handle` VALUES (1832, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 17:10:50');
+INSERT INTO `log_handle` VALUES (1833, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '11', '2022-11-16 17:10:53');
+INSERT INTO `log_handle` VALUES (1834, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '16', '2022-11-16 17:10:53');
+INSERT INTO `log_handle` VALUES (1835, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 17:11:03');
+INSERT INTO `log_handle` VALUES (1836, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 17:11:03');
+INSERT INTO `log_handle` VALUES (1837, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 17:14:08');
+INSERT INTO `log_handle` VALUES (1838, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 17:14:08');
+INSERT INTO `log_handle` VALUES (1839, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '10', '2022-11-16 17:14:15');
+INSERT INTO `log_handle` VALUES (1840, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 17:14:15');
+INSERT INTO `log_handle` VALUES (1841, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '10', '2022-11-16 17:15:55');
+INSERT INTO `log_handle` VALUES (1842, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '14', '2022-11-16 17:15:55');
+INSERT INTO `log_handle` VALUES (1843, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 17:18:28');
+INSERT INTO `log_handle` VALUES (1844, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '19', '2022-11-16 17:18:28');
+INSERT INTO `log_handle` VALUES (1845, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 17:18:32');
+INSERT INTO `log_handle` VALUES (1846, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '12', '2022-11-16 17:18:32');
+INSERT INTO `log_handle` VALUES (1847, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '13', '2022-11-16 17:30:19');
+INSERT INTO `log_handle` VALUES (1848, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '13', '2022-11-16 17:30:20');
+INSERT INTO `log_handle` VALUES (1849, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '62', '2022-11-18 13:53:17');
+INSERT INTO `log_handle` VALUES (1850, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '29', '2022-11-18 13:53:19');
+INSERT INTO `log_handle` VALUES (1851, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '146', '2022-11-18 13:53:19');
+INSERT INTO `log_handle` VALUES (1852, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '38', '2022-11-18 13:53:24');
+INSERT INTO `log_handle` VALUES (1853, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '41', '2022-11-18 13:53:24');
+INSERT INTO `log_handle` VALUES (1854, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '20', '2022-11-18 13:53:43');
+INSERT INTO `log_handle` VALUES (1855, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '33', '2022-11-18 13:53:43');
+INSERT INTO `log_handle` VALUES (1856, '获取侧边菜单导航', 'PC', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '49', '2022-11-18 15:40:37');
+INSERT INTO `log_handle` VALUES (1857, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '80', '2022-11-18 15:40:37');
+INSERT INTO `log_handle` VALUES (1858, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '31', '2022-11-18 15:52:12');
+INSERT INTO `log_handle` VALUES (1859, '修改用户头像', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/update_avatar', 'POST', '', NULL, '2523', '2022-11-18 15:52:17');
+INSERT INTO `log_handle` VALUES (1860, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '20', '2022-11-18 15:52:21');
+INSERT INTO `log_handle` VALUES (1861, '获取当前用户信息', 'PC', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '78', '2022-11-18 15:52:21');
+INSERT INTO `log_handle` VALUES (1862, '获取侧边菜单导航', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36', '0:0:0:0:0:0:0:1', '/sys/menu/nav', 'GET', '', NULL, '47', '2022-11-21 14:25:10');
+INSERT INTO `log_handle` VALUES (1863, '获取当前用户信息', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36', '0:0:0:0:0:0:0:1', '/sys/user/get_userinfo', 'GET', '', NULL, '46', '2022-11-21 14:25:10');
 
 -- ----------------------------
 -- Table structure for log_login
 -- ----------------------------
 DROP TABLE IF EXISTS `log_login`;
 CREATE TABLE `log_login`  (
-                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '登录日志ID',
-                              `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
-                              `state` int(11) NULL DEFAULT NULL COMMENT '当前状态',
-                              `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                              PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '登录日志ID',
+  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
+  `state` int(11) NULL DEFAULT NULL COMMENT '当前状态',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `ip_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录IP地址',
+  `ip_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'IP所在地',
+  `os` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作系统',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_login
 -- ----------------------------
-INSERT INTO `log_login` VALUES (1, 1, 0, '2022-06-23 17:20:07');
-INSERT INTO `log_login` VALUES (2, 11, 0, '2022-06-24 10:03:24');
-INSERT INTO `log_login` VALUES (3, 1, 0, '2022-07-06 10:46:06');
-INSERT INTO `log_login` VALUES (4, 1, 0, '2022-07-06 14:08:37');
-INSERT INTO `log_login` VALUES (5, 1, 0, '2022-07-06 14:17:34');
-INSERT INTO `log_login` VALUES (6, 1, 0, '2022-07-13 20:46:19');
-INSERT INTO `log_login` VALUES (7, 1, 0, '2022-07-13 21:48:19');
-INSERT INTO `log_login` VALUES (8, 1, 0, '2022-07-13 21:48:25');
-INSERT INTO `log_login` VALUES (9, 1, 0, '2022-07-19 20:01:57');
-INSERT INTO `log_login` VALUES (10, 1, 0, '2022-07-27 09:55:03');
-INSERT INTO `log_login` VALUES (11, 1, 0, '2022-08-05 11:33:10');
-INSERT INTO `log_login` VALUES (12, 1, 0, '2022-08-05 14:22:40');
-INSERT INTO `log_login` VALUES (13, 1, 0, '2022-08-15 17:23:27');
-INSERT INTO `log_login` VALUES (14, 1, 0, '2022-08-15 17:23:34');
-INSERT INTO `log_login` VALUES (15, 1, 0, '2022-08-16 17:16:55');
-INSERT INTO `log_login` VALUES (16, 1, 0, '2022-08-17 11:53:21');
-INSERT INTO `log_login` VALUES (17, 1, 0, '2022-08-17 11:54:06');
-INSERT INTO `log_login` VALUES (18, 1, 0, '2022-08-18 09:44:26');
-INSERT INTO `log_login` VALUES (19, 1, 0, '2022-08-24 21:57:34');
-INSERT INTO `log_login` VALUES (20, 1, 0, '2022-08-28 20:40:42');
-INSERT INTO `log_login` VALUES (21, 1, 0, '2022-08-28 20:44:47');
-INSERT INTO `log_login` VALUES (22, 1, 0, '2022-08-28 21:03:05');
-INSERT INTO `log_login` VALUES (23, 1, 0, '2022-08-29 13:14:33');
-INSERT INTO `log_login` VALUES (24, 1, 0, '2022-09-24 08:40:10');
-INSERT INTO `log_login` VALUES (25, 1, 0, '2022-09-30 21:09:20');
-INSERT INTO `log_login` VALUES (26, 1, 0, '2022-09-30 21:09:51');
-INSERT INTO `log_login` VALUES (27, 1, 0, '2022-09-30 21:29:59');
-INSERT INTO `log_login` VALUES (28, 1, 0, '2022-09-30 21:41:06');
-INSERT INTO `log_login` VALUES (29, 1, 0, '2022-10-05 08:48:30');
-INSERT INTO `log_login` VALUES (30, 1, 0, '2022-10-05 09:19:02');
-INSERT INTO `log_login` VALUES (31, 1, 0, '2022-10-05 09:19:26');
-INSERT INTO `log_login` VALUES (32, 1, 0, '2022-10-25 13:31:54');
-INSERT INTO `log_login` VALUES (33, 1, 0, '2022-10-27 09:10:46');
+INSERT INTO `log_login` VALUES (1, 1, 0, '2022-06-23 17:20:07', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (2, 11, 0, '2022-06-24 10:03:24', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (3, 1, 0, '2022-07-06 10:46:06', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (4, 1, 0, '2022-07-06 14:08:37', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (5, 1, 0, '2022-07-06 14:17:34', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (6, 1, 0, '2022-07-13 20:46:19', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (7, 1, 0, '2022-07-13 21:48:19', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (8, 1, 0, '2022-07-13 21:48:25', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (9, 1, 0, '2022-07-19 20:01:57', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (10, 1, 0, '2022-07-27 09:55:03', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (11, 1, 0, '2022-08-05 11:33:10', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (12, 1, 0, '2022-08-05 14:22:40', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (13, 1, 0, '2022-08-15 17:23:27', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (14, 1, 0, '2022-08-15 17:23:34', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (15, 1, 0, '2022-08-16 17:16:55', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (16, 1, 0, '2022-08-17 11:53:21', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (17, 1, 0, '2022-08-17 11:54:06', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (18, 1, 0, '2022-08-18 09:44:26', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (19, 1, 0, '2022-08-24 21:57:34', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (20, 1, 0, '2022-08-28 20:40:42', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (21, 1, 0, '2022-08-28 20:44:47', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (22, 1, 0, '2022-08-28 21:03:05', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (23, 1, 0, '2022-08-29 13:14:33', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (24, 1, 0, '2022-09-24 08:40:10', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (25, 1, 0, '2022-09-30 21:09:20', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (26, 1, 0, '2022-09-30 21:09:51', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (27, 1, 0, '2022-09-30 21:29:59', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (28, 1, 0, '2022-09-30 21:41:06', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (29, 1, 0, '2022-10-05 08:48:30', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (30, 1, 0, '2022-10-05 09:19:02', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (31, 1, 0, '2022-10-05 09:19:26', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (32, 1, 0, '2022-10-24 19:30:41', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (33, 1, 0, '2022-10-24 19:32:05', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (34, 1, 0, '2022-10-24 19:58:37', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (35, 1, 0, '2022-11-02 17:07:35', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (36, 1, 0, '2022-11-03 09:49:33', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (37, 1, 0, '2022-11-03 09:49:36', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (38, 1, 0, '2022-11-11 17:23:52', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (39, 1, 0, '2022-11-14 16:31:57', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (40, 1, 0, '2022-11-14 16:45:46', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (41, 1, 0, '2022-11-14 16:45:50', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (42, 1, 0, '2022-11-14 16:45:55', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (43, 1, 0, '2022-11-14 21:27:18', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (44, 1, 0, '2022-11-14 21:27:20', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (45, 1, 0, '2022-11-15 10:35:24', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (46, 1, 0, '2022-11-15 10:38:28', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (47, 1, 0, '2022-11-15 10:41:37', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (48, 1, 0, '2022-11-15 10:41:39', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (49, 1, 0, '2022-11-15 13:12:37', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (50, 1, 0, '2022-11-18 13:53:43', NULL, NULL, NULL);
+INSERT INTO `log_login` VALUES (51, 1, 0, '2022-11-18 15:40:37', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_group
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_group`;
 CREATE TABLE `sys_group`  (
-                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门ID',
-                              `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父级部门ID',
-                              `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门名称',
-                              `state` int(5) NULL DEFAULT 0 COMMENT '部门状态',
-                              `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注信息',
-                              `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                              `update_time` datetime(0) NOT NULL COMMENT '更新时间',
-                              PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门ID',
+  `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父级部门ID',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门名称',
+  `state` int(5) NULL DEFAULT 0 COMMENT '部门状态',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注信息',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_group
@@ -1022,11 +643,11 @@ INSERT INTO `sys_group` VALUES (9, 2, '财务市场部', 0, '', '2022-05-20 23:2
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_group_job`;
 CREATE TABLE `sys_group_job`  (
-                                  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门岗位ID',
-                                  `group_id` bigint(20) NULL DEFAULT NULL COMMENT '部门ID',
-                                  `job_id` bigint(20) NULL DEFAULT NULL COMMENT '岗位ID',
-                                  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门岗位表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门岗位ID',
+  `group_id` bigint(20) NULL DEFAULT NULL COMMENT '部门ID',
+  `job_id` bigint(20) NULL DEFAULT NULL COMMENT '岗位ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门岗位表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_group_job
@@ -1042,14 +663,14 @@ INSERT INTO `sys_group_job` VALUES (5, 5, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job`;
 CREATE TABLE `sys_job`  (
-                            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
-                            `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '岗位名称',
-                            `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                            `update_time` datetime(0) NOT NULL COMMENT '更新时间',
-                            `state` int(11) NULL DEFAULT NULL COMMENT '状态',
-                            `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-                            PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '岗位名称',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `state` int(11) NULL DEFAULT NULL COMMENT '状态',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_job
@@ -1064,21 +685,21 @@ INSERT INTO `sys_job` VALUES (4, '技术部实习生', '2022-09-25 20:42:07', '2
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`  (
-                             `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单编号',
-                             `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父菜单ID，一级菜单为0',
-                             `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名',
-                             `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单URL',
-                             `perms` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权编码（多个用逗号分隔，如：user:list,user:create）',
-                             `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单组件位置（匹配前端动态生成）',
-                             `type` int(5) NOT NULL COMMENT '类型     0：目录   1：菜单   2：按钮',
-                             `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
-                             `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
-                             `state` int(5) NOT NULL COMMENT '菜单状态',
-                             `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                             `update_time` datetime(0) NOT NULL COMMENT '更新时间',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单编号',
+  `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父菜单ID，一级菜单为0',
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名',
+  `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单URL',
+  `perms` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权编码（多个用逗号分隔，如：user:list,user:create）',
+  `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单组件位置（匹配前端动态生成）',
+  `type` int(5) NOT NULL COMMENT '类型     0：目录   1：菜单   2：按钮',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
+  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `state` int(5) NOT NULL COMMENT '菜单状态',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `name`(`name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -1123,17 +744,17 @@ INSERT INTO `sys_menu` VALUES (72, 0, '门户管理', NULL, 'portal:manage', NUL
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-                             `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
-                             `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名',
-                             `code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色编码',
-                             `state` int(5) NOT NULL COMMENT '角色状态',
-                             `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-                             `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                             `update_time` datetime(0) NOT NULL COMMENT '更新时间',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE INDEX `name`(`name`) USING BTREE,
-                             UNIQUE INDEX `code`(`code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名',
+  `code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色编码',
+  `state` int(5) NOT NULL COMMENT '角色状态',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `name`(`name`) USING BTREE,
+  UNIQUE INDEX `code`(`code`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -1151,11 +772,11 @@ INSERT INTO `sys_role` VALUES (7, '访客用户', 'guest', 0, '访客用户，�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`  (
-                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                  `role_id` bigint(20) NOT NULL,
-                                  `menu_id` bigint(20) NOT NULL,
-                                  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(20) NOT NULL,
+  `menu_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -1204,28 +825,28 @@ INSERT INTO `sys_role_menu` VALUES (103, 1, 25);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-                             `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-                             `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '唯一登录用户名',
-                             `password` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录密码',
-                             `true_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
-                             `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
-                             `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱地址',
-                             `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户电话',
-                             `city` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在城市',
-                             `state` int(5) NOT NULL COMMENT '用户状态',
-                             `login_time` datetime(0) NULL DEFAULT NULL COMMENT '最后一次登录时间',
-                             `login_warn` int(11) NULL DEFAULT 1 COMMENT '登录邮件提醒',
-                             `open_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信openID',
-                             `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                             `update_time` datetime(0) NOT NULL COMMENT '更新时间',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE INDEX `UK_USERNAME`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+  `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '唯一登录用户名',
+  `password` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录密码',
+  `true_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
+  `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱地址',
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户电话',
+  `city` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在城市',
+  `state` int(5) NOT NULL COMMENT '用户状态',
+  `login_time` datetime NULL DEFAULT NULL COMMENT '最后一次登录时间',
+  `login_warn` int(11) NULL DEFAULT 1 COMMENT '登录邮件提醒',
+  `open_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '微信openID',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `UK_USERNAME`(`username`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'tylt6688', '$2a$10$WPyXip2DQEdsckzwtfVvROP962uEhqeIhb7WIRqY0LaNk8yW4vGrO', '天宇龙腾', 'http://qiniuyun.tylt.xyz/2dd364ee125c4a3885c6eb28cf5ce741.jpg', 'tylt6688@gmail.com', '17666666666', '山东济南', 0, '2022-10-27 09:10:45', 1, NULL, '2022-02-28 22:42:39', '2022-04-03 11:49:47');
+INSERT INTO `sys_user` VALUES (1, 'tylt6688', '$2a$10$WPyXip2DQEdsckzwtfVvROP962uEhqeIhb7WIRqY0LaNk8yW4vGrO', '天宇龙腾', 'http://qiniuyun.tylt.xyz/b239c5185e1347ab90d55cb5e7a7ee6e.jpg', 'tylt6688@gmail.com', '17666666666', '山东济南', 0, '2022-11-18 15:40:36', 1, NULL, '2022-02-28 22:42:39', '2022-04-03 11:49:47');
 INSERT INTO `sys_user` VALUES (2, 'breeze101', '$2a$10$QOrz.68OkCyt4kpKVlIh1ehkT1SRa1vS5KY/t8M5WV40pWau68U5m', '李四', '', 'admin@admin.om', '15766174399', '山东潍坊', 0, '2022-05-07 16:45:53', 1, NULL, '2022-03-12 01:06:10', '2022-05-07 16:45:35');
 INSERT INTO `sys_user` VALUES (3, 'breeze102', '$2a$10$J2SodmknbR2FW6yNsSixwuS3EYucFhtY4XkjmExKPlGBRM7qai0dG', '赵四', 'http://qiniuyun.tylt.xyz/ce6b53ba93794ee1868fe2ce5f2152d8.jpg', 'user@user.com', '11012011912', '山东东营', 0, '2022-06-04 15:48:48', 1, NULL, '2022-03-12 01:06:13', '2022-03-29 10:32:23');
 INSERT INTO `sys_user` VALUES (4, 'breeze103', '$2a$10$0OX73ra8f.tWdd5bObU3venfIpRKTxo8SE6nbapTuj.mpmdfanU7W', '刘能', 'http://qiniuyun.tylt.xyz/0f0f564bae7b4a7cab62da135209df72.jpg', 'teacher@teacher.com', '15666666666', '山东威海', 0, '2022-08-17 13:15:06', 1, NULL, '2022-03-19 20:17:18', '2022-03-29 16:02:25');
@@ -1236,12 +857,12 @@ INSERT INTO `sys_user` VALUES (5, 'breeze104', '$2a$10$a8FSO2gyzSd145dUDHZTOuOHf
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_group_job`;
 CREATE TABLE `sys_user_group_job`  (
-                                       `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户岗位ID',
-                                       `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-                                       `group_id` bigint(20) NOT NULL COMMENT '部门团队ID',
-                                       `job_id` bigint(20) NOT NULL COMMENT '岗位ID',
-                                       PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户岗位ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `group_id` bigint(20) NOT NULL COMMENT '部门团队ID',
+  `job_id` bigint(20) NOT NULL COMMENT '岗位ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_group_job
@@ -1258,11 +879,11 @@ INSERT INTO `sys_user_group_job` VALUES (6, 1, 2, 4);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`  (
-                                  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户角色ID',
-                                  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-                                  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-                                  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户角色ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -1279,22 +900,19 @@ INSERT INTO `sys_user_role` VALUES (6, 5, 7);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_ossfile`;
 CREATE TABLE `tb_ossfile`  (
-                               `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'OSS文件ID',
-                               `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件名称',
-                               `file_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件地址',
-                               `user_id` bigint(11) NULL DEFAULT NULL COMMENT '所属用户ID',
-                               `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件类型',
-                               `state` int(11) NULL DEFAULT NULL COMMENT 'OSS文件状态',
-                               `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-                               `update_time` datetime(0) NOT NULL COMMENT '更新时间',
-                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'OSS文件表' ROW_FORMAT = Dynamic;
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT 'OSS文件ID',
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件名称',
+  `file_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件地址',
+  `user_id` bigint(11) NULL DEFAULT NULL COMMENT '所属用户ID',
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件类型',
+  `state` int(11) NULL DEFAULT NULL COMMENT 'OSS文件状态',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'OSS文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_ossfile
 -- ----------------------------
-INSERT INTO `tb_ossfile` VALUES ('2e93029f062c451eaa7733a4df395dc9', '5232a8e8d8d1490cb958b9faf882cffd', 'http://qiniuyun.tylt.xyz/5232a8e8d8d1490cb958b9faf882cffd.jpeg', NULL, NULL, NULL, '2022-10-25 15:56:22', '2022-10-25 15:56:22');
-INSERT INTO `tb_ossfile` VALUES ('4e5016c850a543048bf46834bcb441f4', 'de2bd1e4773c49f3aa36be4e193a2b9a', 'http://qiniuyun.tylt.xyz/de2bd1e4773c49f3aa36be4e193a2b9a.jpeg', NULL, NULL, NULL, '2022-10-27 11:33:36', '2022-10-27 11:33:36');
-INSERT INTO `tb_ossfile` VALUES ('92c2bddd8b6b42a5b79660f9de3d46c6', '255eac324f51462d939a632c5c9fa9c0', 'http://qiniuyun.tylt.xyz/255eac324f51462d939a632c5c9fa9c0.jpeg', NULL, NULL, NULL, '2022-10-27 10:34:08', '2022-10-27 10:34:08');
 
 SET FOREIGN_KEY_CHECKS = 1;

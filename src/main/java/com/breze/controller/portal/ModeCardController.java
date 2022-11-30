@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.enums.ErrorEnum;
+import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.portal.ModeCard;
@@ -55,7 +56,7 @@ public class ModeCardController extends BaseController {
             modeCardService.save(modeCard);
             return Result.createSuccessMessage("添加模块成功");
         } catch (Exception e) {
-            return Result.createFailMessage(ErrorEnum.FindException, "添加模块信息失败");
+            throw new BusinessException(ErrorEnum.FindException);
         }
     }
     @ApiOperation(value = "编辑模块")
@@ -65,14 +66,14 @@ public class ModeCardController extends BaseController {
             modeCardService.updateById(modeCard);
             return Result.createSuccessMessage("修改模块成功");
         } catch (Exception e) {
-            return Result.createFailMessage(ErrorEnum.FindException, "修改模块信息失败");
+            throw  new BusinessException(ErrorEnum.FindException, "修改模块信息失败");
         }
     }
 
     @ApiOperation(value = "删除模块")
     @DeleteMapping("/deleteById/{id}")
     public Result deleteModeCard(@PathVariable Long id) {
-        boolean flag = modeCardService.removeById(id);
-        return flag ? Result.createSuccessMessage("删除模块成功") : Result.createFailMessage(ErrorEnum.FindException,"删除失败");
+        modeCardService.removeById(id);
+        return Result.createSuccessMessage("删除模块成功");
     }
 }

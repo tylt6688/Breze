@@ -1,11 +1,9 @@
 package com.breze.common.result;
 
 import com.breze.common.enums.ErrorEnum;
-import lombok.Data;
+import com.breze.common.result.stand.FailedResult;
+import com.breze.common.result.stand.SuccessResult;
 import lombok.extern.log4j.Log4j2;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author tylt6688
@@ -15,18 +13,7 @@ import java.util.Map;
  */
 
 @Log4j2
-@Data
 public class Result {
-
-    private boolean success;
-
-    private String message;
-
-    private Integer errorCode;
-
-    private String errorName;
-
-    private Map<String, Object> result = new HashMap<>();
 
 
     /**
@@ -50,17 +37,17 @@ public class Result {
     /**
      * 空参请求成功消息模板
      *
-     * @param message, data
+     * @param message , data
      */
     public static Result createSuccessMessage(String message, Object data) {
 
-        Result resultBox = new Result();
-        resultBox.success = true;
-        resultBox.message = message;
+        SuccessResult successResult = new SuccessResult();
+        successResult.setSuccess(true)
+                .setMessage(message);
         if (data != null) {
-            resultBox.result.put("data", data);
+            successResult.getResult().put("data", data);
         }
-        return resultBox;
+        return successResult;
     }
 
 
@@ -88,23 +75,19 @@ public class Result {
     /**
      * 请求失败消息模板
      *
-     * @param errorEnum , message ,data
+     * @param errorEnum , message , data
      */
     public static Result createFailMessage(ErrorEnum errorEnum, String message, Object data) {
 
-        Result resultBox = new Result();
-        resultBox.success = false;
-        resultBox.errorCode = errorEnum.getErrorCode();
-        resultBox.errorName = errorEnum.getErrorName();
-        resultBox.message = message;
-        resultBox.result.put("data", data);
-        return resultBox;
+        FailedResult failedResult = new FailedResult();
+        failedResult.setSuccess(false)
+                .setErrorCode(errorEnum.getErrorCode())
+                .setErrorName(errorEnum.getErrorName())
+                .setMessage(message)
+                .getResult().put("data", data);
+        return failedResult;
+
     }
 
-
-    public Result addData(String key, Object value) {
-        this.result.put(key, value);
-        return this;
-    }
 
 }

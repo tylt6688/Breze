@@ -5,15 +5,12 @@ import com.breze.entity.pojo.rbac.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
@@ -37,17 +34,11 @@ public class UserInfoVo {
 
     private LocalDateTime loginTime;
 
-    private String job;
-
     private Integer loginWarn;
 
     private List<Role> roles;
 
-    private List<Map> groupJob;
-
-    private List<Group> groups;
-
-
+    private List<Group> groupJob;
 
 
 }

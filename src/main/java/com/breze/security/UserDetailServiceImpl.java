@@ -6,7 +6,7 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.rabbit.Produce;
 import com.breze.config.BrezeConfig;
 import com.breze.config.MailConfig;
-import com.breze.entity.pojo.logdo.LoginLog;
+import com.breze.entity.pojo.brezelog.LoginLog;
 import com.breze.entity.pojo.rbac.LoginUser;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.tool.Email;
@@ -38,28 +38,27 @@ import java.util.List;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    private BrezeConfig brezeConfig;
-    @Autowired
-    UserService userService;
-    @Autowired
-    LoginLogService loginLogService;
-    @Autowired
     Produce produce;
+    @Autowired
+    private BrezeConfig brezeConfig;
     @Autowired
     MailConfig mailConfig;
     @Autowired
     TemplateEngine templateEngine;
+    @Autowired
+    UserService userService;
+    @Autowired
+    LoginLogService loginLogService;
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
 
-        User user = userService.getByUserName(username);
+        User user = userService.getUserByUserName(username);
         // 进行异常抛出，交付给认证失败处理器进行处理
         if (user == null) {
             throw new UsernameNotFoundException(ErrorEnum.ErrorUsernamePassword.getErrorName());
-        }
-        else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
+        } else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
             throw new UsernameNotFoundException(ErrorEnum.LockUser.getErrorName());
         }
         // 更新账户最后一次登录时间
@@ -74,36 +73,42 @@ public class UserDetailServiceImpl implements UserDetailsService {
         loginLogService.save(loginLog);
 
         if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
-            Context context = new Context();
-            context.setVariable("username", user.getUsername());
-            context.setVariable("login_time", LocalDateTime.now());
-            context.setVariable("link", "https://blog.csdn.net/tylt6688");
-            String content = templateEngine.process("html/email.html", context);
-
-            Email email = new Email();
-            email.setMailFrom(mailConfig.getUsername())
-                    .setMailFromNick(brezeConfig.getName())
-                    .setMailTo(user.getEmail())
-                    .setSubject("账户登录提醒")
-                    .setContent(content);
-            produce.sendMailByMQ(email);
+            sendRemindEmail(user);
         }
-
 
         return new LoginUser(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user.getId()));
     }
 
     /**
-     * 通过用户id获取权限信息（角色、菜单权限）
-     * @return 连接表方式通过userID获取权限信息
+     * 通过用户id连接表方式获取权限信息（角色、菜单权限）
+     *
+     * @param userId
+     * @return List<GrantedAuthority>
      */
     public List<GrantedAuthority> getUserAuthority(Long userId) {
 
         // 获取角色(ROLE_admin)、菜单操作权限 sys:user:list
         String authority = userService.getUserAuthorityInfo(userId);
         // ROLE_admin,ROLE_user,sys:user:list,....
-        log.info("当前角色及对应权限---{}", authority);
+        log.info("[当前角色及对应权限]:---{}", authority);
 
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
+    }
+
+    public void sendRemindEmail(User user) {
+        Context context = new Context();
+        context.setVariable("username", user.getUsername());
+        context.setVariable("login_time", LocalDateTime.now());
+        context.setVariable("link", "https://blog.csdn.net/tylt6688");
+        String content = templateEngine.process("html/email.html", context);
+
+        Email email = new Email();
+        email.setMailFrom(mailConfig.getUsername())
+                .setMailFromNick(brezeConfig.getName())
+                .setMailTo(user.getEmail())
+                .setSubject("账户登录提醒")
+                .setContent(content);
+        produce.sendMailByMQ(email);
+
     }
 }

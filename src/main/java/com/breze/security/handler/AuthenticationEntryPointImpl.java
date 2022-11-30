@@ -2,14 +2,13 @@ package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
+import com.breze.common.enums.ErrorEnum;
+import com.breze.common.result.Result;
 import lombok.Cleanup;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import com.breze.common.enums.ErrorEnum;
-import com.breze.common.result.Result;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +25,10 @@ import java.nio.charset.StandardCharsets;
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
 
         response.setContentType(CharsetConstant.JSON_TYPE);
+
         response.setCharacterEncoding(CharsetConstant.UTF_8);
         // 告知未认证状态码 401
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

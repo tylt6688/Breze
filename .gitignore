@@ -1,5 +1,6 @@
 # private file
 application-private.yml
+local.properties
 
 # Compiled class file
 *.class

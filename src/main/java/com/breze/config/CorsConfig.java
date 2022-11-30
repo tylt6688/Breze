@@ -42,10 +42,10 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOriginPatterns("*")
                 // 是否允许Cookie
                 .allowCredentials(true)
-                // 最大响应时间
-                .maxAge(3600)
                 // 设置允许的请求方式
-                .allowedMethods("GET", "POST", "PUT", "DELETE");
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                // 最大响应时间
+                .maxAge(3600);
     }
 
 }
