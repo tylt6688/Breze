@@ -143,7 +143,7 @@ public class UserController extends BaseController {
     })
     @PostMapping("/role_perm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")
-    public Result rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
+    public Result rolePerm(@RequestBody Long[] roleIds,@PathVariable Long userId) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(roleIds).forEach(roleId -> {
             UserRole userRole = new UserRole();
@@ -167,7 +167,7 @@ public class UserController extends BaseController {
     })
     @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
-    public Result rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
+    public Result rolePermMore(@RequestBody Long[] roleIds,@RequestParam Long[] userIds) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(userIds).forEach(uid -> {
             Arrays.stream(roleIds).forEach(roleId -> {

@@ -16,6 +16,8 @@ import java.util.List;
 @Accessors(chain = true)
 public class UserInfoVo {
 
+    private Long id;
+
     private String avatar;
 
     private String username;
