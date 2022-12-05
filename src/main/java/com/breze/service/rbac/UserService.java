@@ -23,11 +23,11 @@ public interface UserService extends IService<User> {
      * @param user
      * @return boolean
      */
-    Boolean insertUser(User user);
+    Boolean insert(User user);
 
-    Boolean updateUser(User user);
+    Boolean update(User user);
 
-    Boolean deleteUserById(Long id);
+    Boolean delete(Long id);
 
     User getUserByOpenId(String openid);
 
@@ -45,7 +45,7 @@ public interface UserService extends IService<User> {
      * @return true/false
      */
     Boolean updateLoginWarnByUserId(Integer loginWarn, Long id);
-    void importUserFromExcel(MultipartFile file);
+    void importUserByExcel(MultipartFile file);
     /**
      * 避免系统用户分配权限变动后redis缓存未发生变动导致缓存不一致
      */

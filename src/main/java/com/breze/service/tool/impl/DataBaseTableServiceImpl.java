@@ -21,12 +21,12 @@ public class DataBaseTableServiceImpl implements DataBaseTableService {
     private DataBaseTableMapper dataBaseTableMapper;
 
     @Override
-    public List showDatabases() {
+    public List showDataBases() {
         return dataBaseTableMapper.showDataBases();
     }
 
     @Override
-    public List<DataBaseTable> findDatabaseTable() {
+    public List<DataBaseTable> listDataBaseTables() {
         return dataBaseTableMapper.findDatabaseTable();
     }
 }

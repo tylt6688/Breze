@@ -19,6 +19,6 @@ public interface GroupJobService extends IService<GroupJob> {
 
     Boolean update(GroupJob groupJob);
 
-    Boolean deleteById(Long id);
+    Boolean delete(Long id);
 
 }

@@ -26,16 +26,16 @@ public class BrezeLogController extends BaseController {
     public Result list() {
         Page<LoginLog> pageData = loginLogService.page(getPage(), new LambdaQueryWrapper<LoginLog>().orderByDesc(LoginLog::getCreateTime));
         pageData.getRecords().forEach(loginLog -> {
-            loginLog.setUserName(userService.getById(loginLog.getUserId()).getUsername());
-            loginLog.setTrueName(userService.getById(loginLog.getUserId()).getTrueName());
+            loginLog.setUserName(userService.getById(loginLog.getUserId()).getUsername())
+                    .setTrueName(userService.getById(loginLog.getUserId()).getTrueName());
         });
-        return Result.createSuccessMessage("分页查询登录日志成功",pageData);
+        return Result.createSuccessMessage("分页查询登录日志成功", pageData);
     }
 
     @GetMapping("/list_handle_log")
     public Result listHandleLog() {
         Page<HandleLog> pageData = handleLogService.page(getPage(), new LambdaQueryWrapper<HandleLog>().orderByDesc(HandleLog::getCreateTime));
-        return Result.createSuccessMessage("分页查询操作日志成功",pageData);
+        return Result.createSuccessMessage("分页查询操作日志成功", pageData);
     }
 
 

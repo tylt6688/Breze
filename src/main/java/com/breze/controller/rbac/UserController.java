@@ -4,7 +4,6 @@ package com.breze.controller.rbac;
 import cn.hutool.core.text.CharSequenceUtil;
 import com.alibaba.excel.EasyExcelFactory;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.consts.CharsetConstant;
@@ -16,9 +15,7 @@ import com.breze.controller.core.BaseController;
 import com.breze.entity.dto.UpdatePasswordDTO;
 import com.breze.entity.dto.UserDTO;
 import com.breze.entity.mapstruct.UserConvert;
-import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.pojo.rbac.UserGroupJob;
 import com.breze.entity.pojo.rbac.UserRole;
 import com.breze.entity.vo.UserInfoVo;
 import com.qiniu.common.QiniuException;
@@ -26,6 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +45,7 @@ import java.util.List;
  * @author tylt6688
  * @since 2022-03-01
  */
+@Log4j2
 @Api(tags = "用户管理")
 @RestController
 @RequestMapping("/sys/user")
@@ -57,8 +56,8 @@ public class UserController extends BaseController {
     @GetMapping("/get_userinfo")
     public Result getUserInfo(Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
-        userService.getUserRolesByUserId(user.getId());
-        UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+        User userRoles = userService.getUserRolesByUserId(user.getId());
+        UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
         userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
         return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
     }
@@ -91,15 +90,7 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result insert(@Validated @RequestBody UserDTO userDTO) {
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-        userService.insertUser(user);
-        // 2022/9/23 15:30 FIXME: 添加 用户岗位 UP BY LUCIFER-LGX
-        UserGroupJob uj = UserConvert.INSTANCE.userDTOToUserGroupJob(userDTO);
-        userGroupJobService.insert(uj);
-
-        // 2022/9/23 15:31 FIXME: 添加 部门岗位 UP BY LUCIFER-LGX
-        GroupJob gj = UserConvert.INSTANCE.userDTOToGroupJob(userDTO);
-        groupJobService.insert(gj);
-
+        userService.insert(user);
         return Result.createSuccessMessage("添加用户成功");
     }
 
@@ -112,7 +103,6 @@ public class UserController extends BaseController {
     public Result delete(@RequestBody Long[] ids) {
         userService.removeByIds(Arrays.asList(ids));
         userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
-        // 2022/9/23 17:03 TODO: 需要修改 用户岗位 功能 UP BY LUCIFER-LGX
         return Result.createSuccessMessage("删除成功");
     }
 
@@ -121,17 +111,9 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result update(@Validated @RequestBody UserDTO userDTO) {
-        // 2022/9/23 15:28 FIXME: Use MapStruct UP BY LUCIFER-LGX
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-
-        // 2022/9/23 16:46 FIXME: 修改 用户岗位信息 UP BY LUCIFER-LGX
-        UserGroupJob uj = userGroupJobService.getOne(new QueryWrapper<UserGroupJob>().eq("user_id", userDTO.getId()));
-        uj.setJobId(userDTO.getJobId());
-        userGroupJobService.updateById(uj);
-
-        // 2022/9/23 15:27 FIXME: 修改用户 UP BY LUCIFER-LGX
-        userService.updateUser(user);
-        return Result.createSuccessMessage("", user);
+        userService.update(user);
+        return Result.createSuccessMessage("修改用户成功");
     }
 
 
@@ -143,14 +125,15 @@ public class UserController extends BaseController {
     })
     @PostMapping("/role_perm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")
-    public Result rolePerm(@RequestBody Long[] roleIds,@PathVariable Long userId) {
+    public Result rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
+
         List<UserRole> userRoles = new ArrayList<>();
-        Arrays.stream(roleIds).forEach(roleId -> {
+        for (Long roleId : roleIds) {
             UserRole userRole = new UserRole();
             userRole.setRoleId(roleId)
                     .setUserId(userId);
             userRoles.add(userRole);
-        });
+        }
         userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId));
         userRoleService.saveBatch(userRoles);
         // 删除缓存
@@ -167,7 +150,7 @@ public class UserController extends BaseController {
     })
     @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
-    public Result rolePermMore(@RequestBody Long[] roleIds,@RequestParam Long[] userIds) {
+    public Result rolePermMore(@RequestBody Long[] roleIds, @RequestParam Long[] userIds) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(userIds).forEach(uid -> {
             Arrays.stream(roleIds).forEach(roleId -> {
@@ -184,7 +167,6 @@ public class UserController extends BaseController {
             User sysUser = userService.getById(uid);
             userService.clearUserAuthorityInfo(sysUser.getUsername());
         });
-
         return Result.createSuccessMessage("多用户批量分配角色成功");
     }
 
@@ -269,10 +251,10 @@ public class UserController extends BaseController {
     @BrezeLog("导入Excel表")
     @ApiOperation("导入Excel表")
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
-    @PostMapping("/upload_excel")
-    public Result uploadExcel(@RequestParam MultipartFile file) {
+    @PostMapping("/import_excel")
+    public Result importExcel(@RequestParam MultipartFile file) {
         try {
-            userService.importUserFromExcel(file);
+            userService.importUserByExcel(file);
             return Result.createSuccessMessage("数据导入成功");
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "导入Excel表失败");

@@ -20,7 +20,7 @@ import java.util.Collections;
 /**
  * <p>
  * 代码生成前端控制器
- * 详情配置地址 https://baomidou.com/pages/981406/#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE-datasourceconfig
+ * 详情配置地址: [https://baomidou.com/pages/981406/#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE-datasourceconfig]
  * </p>
  *
  * @author tylt6688
@@ -39,12 +39,12 @@ public class CodeGeneratorController {
 
     @GetMapping("/show_databases")
     public Result showDatabases() {
-        return Result.createSuccessMessage("获取数据库成功", dataBaseTableService.showDatabases());
+        return Result.createSuccessMessage("获取数据库成功", dataBaseTableService.showDataBases());
     }
 
     @GetMapping("/tables")
     private Result findAllTableNames() {
-        return Result.createSuccessMessage("",dataBaseTableService.findDatabaseTable());
+        return Result.createSuccessMessage("",dataBaseTableService.listDataBaseTables());
     }
 
     @PostMapping("/generate")
@@ -75,7 +75,7 @@ public class CodeGeneratorController {
                     // 设置父包名
                     builder.parent(gener.getPackageName().isEmpty() ? "xyz.tylt" : gener.getPackageName())
                          // .moduleName("system") // 设置父包模块名
-                            .serviceImpl("serviceimpl") // 设置 Service 实现类包名
+                            .serviceImpl("service.impl") // 设置 Service 实现类包名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, xmlpath)); // 设置mapperXml生成路径
                 })
                 // 实体策略配置

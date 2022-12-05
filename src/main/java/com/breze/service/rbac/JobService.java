@@ -23,6 +23,6 @@ public interface JobService extends IService<Job> {
 
     Boolean update(Job job);
 
-    Boolean deleteById(Long id);
+    Boolean delete(Long id);
 
 }

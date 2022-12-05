@@ -1,12 +1,14 @@
 package com.breze.service.rbac.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.entity.bo.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.UserGroupJob;
 import com.breze.mapper.rbac.UserGroupJobMapper;
 import com.breze.service.rbac.UserGroupJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Author LUCIFER-LGX
@@ -22,10 +24,9 @@ public class UserGroupJobServiceImpl extends ServiceImpl<UserGroupJobMapper, Use
     private UserGroupJobMapper userGroupJobMapper;
 
 
-
     @Override
-    public Long findUserNumberByJobId(Long jobId) {
-        return userGroupJobMapper.selectCount(new LambdaQueryWrapper<UserGroupJob>().eq(UserGroupJob::getJobId, jobId));
+    public List<UserGroupJobBO> listUserGroupJobBOs(Long userId) {
+        return userGroupJobMapper.listUserGroupJobBOs(userId);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class UserGroupJobServiceImpl extends ServiceImpl<UserGroupJobMapper, Use
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean delete(Long id) {
         return userGroupJobMapper.deleteById(id) > 0;
     }
 }

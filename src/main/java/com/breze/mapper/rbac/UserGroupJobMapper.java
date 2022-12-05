@@ -2,8 +2,11 @@ package com.breze.mapper.rbac;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.breze.entity.bo.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.UserGroupJob;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Author tylt6688
@@ -13,5 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserGroupJobMapper extends BaseMapper<UserGroupJob> {
+
+    List<UserGroupJobBO> listUserGroupJobBOs(Long userId);
 
 }

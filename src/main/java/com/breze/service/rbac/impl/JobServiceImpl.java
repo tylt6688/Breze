@@ -50,7 +50,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean delete(Long id) {
         return jobMapper.deleteById(id) > 0;
     }
 }

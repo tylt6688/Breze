@@ -2,6 +2,7 @@ package com.breze.service.rbac;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.rbac.Group;
+import com.breze.entity.pojo.rbac.Job;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public interface GroupService extends IService<Group> {
      * @return List<Group>
      */
     List<Group> findAll();
+
+    List<Job> findJobsByGroupId(Long id);
 
     /**
      * 根据id查询单个部门

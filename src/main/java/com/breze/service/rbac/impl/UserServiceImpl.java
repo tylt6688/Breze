@@ -93,7 +93,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean insertUser(User user) {
+    public Boolean insert(User user) {
         user.setState(GlobalConstant.STATUS_ON)
                 .setAvatar(SystemConstant.DEFAULT_AVATAR)
                 .setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
@@ -102,13 +102,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean updateUser(User user) {
+    public Boolean update(User user) {
         return userMapper.updateById(user) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean deleteUserById(Long id) {
+    public Boolean delete(Long id) {
         return userMapper.deleteById(id) > 0;
     }
 
@@ -123,7 +123,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public void importUserFromExcel(MultipartFile file) {
+    public void importUserByExcel(MultipartFile file) {
         String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
         File coverFile = MultipartFileToFileUtil.multipartFileToFile(file);
         EasyExcelFactory.read(coverFile, User.class, new PageReadListener<User>(dataList -> {

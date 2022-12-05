@@ -3,10 +3,10 @@ package com.breze.service.rbac.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.entity.bo.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;
-import com.breze.entity.pojo.rbac.UserGroupJob;
 import com.breze.mapper.rbac.GroupJobMapper;
 import com.breze.mapper.rbac.GroupMapper;
 import com.breze.mapper.rbac.JobMapper;
@@ -44,14 +44,15 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
 
     @Override
     public List<Group> findGroupAndJobByUserId(Long userId) {
-        List<UserGroupJob> userGroupJobs = userGroupJobMapper.selectList(new LambdaQueryWrapper<UserGroupJob>().eq(UserGroupJob::getUserId, userId));
         List<Group> list = new ArrayList<>();
-        userGroupJobs.forEach(userGroupJob -> {
-            Group groupJob = this.findTreeById(userGroupJob.getGroupId());
-            Job job = jobMapper.selectById(userGroupJob.getJobId());
-            groupJob.setJob(job.getName());
-            list.add(groupJob);
+        List<UserGroupJobBO> groupJobBOs = userGroupJobMapper.listUserGroupJobBOs(userId);
+        groupJobBOs.forEach(groupJob -> {
+            Group group = this.findTreeById(groupJob.getGroupId());
+            Job job = jobMapper.selectById(groupJob.getJobId());
+            group.setJob(job.getName());
+            list.add(group);
         });
+
         return list;
     }
 
@@ -78,9 +79,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     }
 
 
-
-    private List<Job> findJobsByGroupId(Long id) {
-        List<GroupJob> groupJobs = groupJobMapper.selectList(new QueryWrapper<GroupJob>().eq("group_id", id));
+    @Override
+    public List<Job> findJobsByGroupId(Long id) {
+        List<GroupJob> groupJobs = groupJobMapper.selectList(new LambdaQueryWrapper<GroupJob>().eq(GroupJob::getGroupId, id));
         List<Job> jobs = new ArrayList<>();
         for (GroupJob groupJob : groupJobs) {
             Job job = jobMapper.selectById(groupJob.getJobId());

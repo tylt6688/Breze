@@ -1,7 +1,10 @@
 package com.breze.service.rbac;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.breze.entity.bo.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.UserGroupJob;
+
+import java.util.List;
 
 /**
  * @Author LUCIFER-LGX
@@ -13,17 +16,16 @@ public interface UserGroupJobService extends IService<UserGroupJob> {
 
 
 
+    List<UserGroupJobBO> listUserGroupJobBOs(Long userId);
 
     /**
-     * 根据岗位id查询用户数量
-     * @param jobId
-     * @return Long
+     * 插入用户组岗位关联
+     * @param userGroupJob
+     * @return Boolean
      */
-    Long findUserNumberByJobId(Long jobId);
-
     Boolean insert(UserGroupJob userGroupJob);
 
     Boolean update(UserGroupJob userGroupJob);
 
-    Boolean deleteById(Long id);
+    Boolean delete(Long id);
 }

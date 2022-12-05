@@ -32,7 +32,6 @@ public class UserGroupJob implements Serializable {
 
     private Long userId;
 
-    private Long groupId;
+    private Long groupJobId;
 
-    private Long jobId;
 }

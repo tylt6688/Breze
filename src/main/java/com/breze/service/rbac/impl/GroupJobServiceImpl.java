@@ -49,7 +49,7 @@ public class GroupJobServiceImpl extends ServiceImpl<GroupJobMapper, GroupJob> i
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean delete(Long id) {
         return groupJobMapper.deleteById(id) > 0;
     }
 }

@@ -49,7 +49,7 @@ public class JobController extends BaseController {
 
     @PostMapping("/delete/{id}")
     public Result deleteById(@PathVariable Long id) {
-        return Result.createSuccessMessage("",jobService.deleteById(id));
+        return Result.createSuccessMessage("",jobService.delete(id));
     }
 
 }
