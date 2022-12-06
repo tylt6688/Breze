@@ -58,11 +58,11 @@ public class CaptchaFilter extends OncePerRequestFilter {
         String code = request.getParameter("code");
 
         //先判断 code与 key是否为空，再从Redis中获取进行比较
-        if (StringUtils.isBlank(code) || StringUtils.isBlank(key)||!code.equals(redisUtil.hashGet(CacheConstant.KAPTCHA_KEY, key))) {
+        if (StringUtils.isBlank(code) || StringUtils.isBlank(key)||!code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
             throw new KaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
         }
 
         //一次性使用，使用后将其从Redis中删除
-        redisUtil.hdel(CacheConstant.KAPTCHA_KEY, key);
+        redisUtil.hdel(CacheConstant.CAPTCHA_KEY, key);
     }
 }

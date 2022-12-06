@@ -47,11 +47,11 @@ public enum ErrorEnum {
     /**
      * 违章操作错误码
      */
-    IllegalOperation("违章操作", 700),
+    IllegalOperation("违章操作", 900),
     /**
      * 出现异常错误码
      */
-    FindException("出现异常", 800);
+    FindException("出现异常", 700);
 
 
     @EnumValue
@@ -63,6 +63,7 @@ public enum ErrorEnum {
 
     /**
      * 根据错误码获取错误信息
+     *
      * @return ErrorName
      */
     public static String getErrorName(int code) {

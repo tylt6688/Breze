@@ -9,34 +9,28 @@ package com.breze.common.consts;
 public class CharsetConstant {
 
     /**
-     * Bearer Token 常量，此处空格必须携带
+     * Bearer Token 常量，此处字符串结尾空格必须携带
      */
     public static final String JWT_PREFIX = "Bearer ";
     /**
      * 字符编码常量
      */
     public static final String UTF_8 = "UTF-8";
+    public static final String BASE_64 = "data:image/jpeg;base64,";
     /**
      * 响应类型常量
      */
     public static final String JSON_TYPE = "application/json";
-
     public static final String EXCEL_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     public static final String JPG = "jpg";
-
-    public static final String PNG = "png";
-
-    public static final String GIF = "gif";
-
-    public static final String BMP = "bmp";
-
     public static final String JPEG = "jpeg";
-
+    public static final String PNG = "png";
+    public static final String GIF = "gif";
+    public static final String BMP = "bmp";
     public static final String TIFF = "tiff";
-
     public static final String PDF = "pdf";
 
-    public static final String BASE_64 = "data:image/jpeg;base64,";
+
 }
 

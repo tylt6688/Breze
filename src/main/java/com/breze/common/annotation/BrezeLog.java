@@ -16,7 +16,6 @@ public @interface BrezeLog {
     /**
      * 日志标题
      */
-
     String value() default "";
 
     /**

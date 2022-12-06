@@ -6,6 +6,7 @@ import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.brezelog.HandleLog;
 import com.breze.entity.pojo.brezelog.LoginLog;
+import com.breze.entity.pojo.rbac.User;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class BrezeLogController extends BaseController {
 
     @RequestMapping("/list_login_log")
-    public Result list() {
+    public Result listLoginLog() {
         Page<LoginLog> pageData = loginLogService.page(getPage(), new LambdaQueryWrapper<LoginLog>().orderByDesc(LoginLog::getCreateTime));
-        pageData.getRecords().forEach(loginLog -> {
-            loginLog.setUserName(userService.getById(loginLog.getUserId()).getUsername())
-                    .setTrueName(userService.getById(loginLog.getUserId()).getTrueName());
+        pageData.getRecords().forEach(item->{
+            User user = userService.getById(item.getUserId());
+            item.setUserName(user.getUsername()).setTrueName(user.getTrueName());
         });
         return Result.createSuccessMessage("分页查询登录日志成功", pageData);
     }

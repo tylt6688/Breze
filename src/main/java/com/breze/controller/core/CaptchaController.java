@@ -49,7 +49,7 @@ public class CaptchaController extends BaseController {
         String base64Img = prefix + Base64Encoder.encode(outputStream.toByteArray());
 
         // 将生成的验证码存储到Redis中，验证码有效期为 2分钟
-        redisUtil.hashSet(CacheConstant.KAPTCHA_KEY, key, code, 120);
+        redisUtil.hashSet(CacheConstant.CAPTCHA_KEY, key, code, 120);
 
         Map<Object, Object> map = MapUtil.builder()
                 .put("key", key)

@@ -24,17 +24,24 @@ import java.util.Date;
 public class JwtConfig {
 
 
-    // 给JWT起个名字方便后面获取
+    /**
+     * 给JWT起个名字方便后面获取
+     */
     private String header;
-    // 过期时间
+    /**
+     * 过期时间
+     */
     private Long expire;
-    // 密钥
+
+    /**
+     * 密钥
+     */
     private String secret;
 
     /**
      * 生成jwt
      */
-    public  String generateToken(String username) {
+    public String generateToken(String username) {
 
         Date nowDate = new Date();
         Date expireDate = new Date(nowDate.getTime() + 1000 * expire);
@@ -61,7 +68,7 @@ public class JwtConfig {
                     .parseClaimsJws(jwt)
                     .getBody();
         } catch (JwtException e) {
-            log.error("JWT解析失败-----------{}", e.getMessage());
+            log.error("JWT解析失败：---{}", e.getMessage());
             return null;
         }
         return claims;
@@ -70,7 +77,7 @@ public class JwtConfig {
     /**
      * 判断jwt是否过期
      */
-    public  Boolean isTokenExpired(Claims claims) {
+    public Boolean isTokenExpired(Claims claims) {
 
         return claims.getExpiration().before(new Date());
     }
