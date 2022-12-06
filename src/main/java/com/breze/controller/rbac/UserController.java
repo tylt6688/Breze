@@ -26,7 +26,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,11 +73,12 @@ public class UserController extends BaseController {
 
     @BrezeLog("获取全部用户信息")
     @ApiOperation("获取全部用户信息，可多条件联合查询，为空则显示全部")
-    @GetMapping("/select")
+    @PostMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
-    // FIXME: 2022/11/23 有待优化，做多条件联合查询
-    public Result select(@RequestParam String username) {
-        Page<User> pageData = userService.page(getPage(), new LambdaQueryWrapper<User>().like(CharSequenceUtil.isNotBlank(username), User::getUsername, username));
+    public Result select(@RequestBody UserDTO userDTO) {
+        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
+        Page page = new Page(Long.parseLong(userDTO.getCurrent()), Long.parseLong(userDTO.getSize()));
+        Page<User> pageData = userService.page(page, userService.searchByCondition(user));
         pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
         return Result.createSuccessMessage("", pageData);
     }
@@ -97,7 +97,6 @@ public class UserController extends BaseController {
     @BrezeLog("删除用户")
     @ApiOperation("删除用户信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
-    @Transactional(rollbackFor = Exception.class)
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@RequestBody Long[] ids) {
@@ -150,7 +149,7 @@ public class UserController extends BaseController {
     })
     @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
-    public Result rolePermMore(@RequestBody Long[] roleIds, @RequestParam Long[] userIds) {
+    public Result rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(userIds).forEach(uid -> {
             Arrays.stream(roleIds).forEach(roleId -> {
@@ -176,9 +175,9 @@ public class UserController extends BaseController {
     @PostMapping("/reset_password")
     @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result resetPassword(@RequestParam Long userId) {
-        User user = userService.getById(userId);
-        user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
         try {
+            User user = userService.getById(userId);
+            user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
             userService.updateById(user);
             return Result.createSuccessMessage("重置密码成功");
         } catch (Exception e) {
@@ -265,7 +264,7 @@ public class UserController extends BaseController {
     @BrezeLog("导出Excel表")
     @ApiOperation("导出Excel表")
     @GetMapping("/export_excel")
-    public void downloadUserExcel(HttpServletResponse response) {
+    public void exportExcel(HttpServletResponse response) {
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);
@@ -278,8 +277,8 @@ public class UserController extends BaseController {
 
     @BrezeLog("导出模板Excel表")
     @ApiOperation("导出模板Excel表")
-    @GetMapping("/download_model_excel")
-    public void downloadModelExcel(HttpServletResponse response) {
+    @GetMapping("/export_model_excel")
+    public void exportModelExcel(HttpServletResponse response) {
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);

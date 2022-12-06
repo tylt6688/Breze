@@ -37,6 +37,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/sys/role")
 public class RoleController extends BaseController {
 
+    @ApiOperation(value = "获取全部角色列表")
+    @BrezeLog("获取全部角色列表")
+    @GetMapping("/select")
+    @PreAuthorize("hasAuthority('sys:role:perm')")
+    public Result selectAll() {
+        return Result.createSuccessMessage("获取全部角色列表成功", roleService.list());
+    }
+
     @ApiOperation(value = "分页获取角色列表")
     @BrezeLog("分页获取角色列表")
     @GetMapping("/select_page")
@@ -46,13 +54,6 @@ public class RoleController extends BaseController {
         return Result.createSuccessMessage("分页获取角色列表成功", pageData);
     }
 
-    @ApiOperation(value = "获取全部角色列表")
-    @BrezeLog("获取全部角色列表")
-    @GetMapping("/select")
-    @PreAuthorize("hasAuthority('sys:role:perm')")
-    public Result selectAll() {
-        return Result.createSuccessMessage("获取全部角色列表成功", roleService.list());
-    }
 
     @ApiOperation(value = "根据角色ID获取菜单权限信息")
     @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "Long", dataTypeClass = Long.class)
@@ -121,7 +122,7 @@ public class RoleController extends BaseController {
             userService.clearUserAuthorityInfoByRoleId(role.getId());
             return Result.createSuccessMessage("更新角色成功");
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException,"更新角色失败");
+            throw new BusinessException(ErrorEnum.FindException, "更新角色失败");
         }
 
     }
@@ -129,7 +130,7 @@ public class RoleController extends BaseController {
     @ApiOperation(value = "删除角色")
     @ApiImplicitParam(name = "roleIds", value = "角色ID集合", required = true, dataType = "List", dataTypeClass = List.class)
     @BrezeLog("删除角色")
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:role:delete')")
     public Result delete(@RequestBody Long[] roleIds) {
         for (Long roleId : roleIds) {

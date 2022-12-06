@@ -78,6 +78,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if (!user.getUsername().isEmpty()) {
                 wrapper.like(User::getUsername, user.getUsername());
             }
+            if (!user.getTrueName().isEmpty()) {
+                wrapper.like(User::getTrueName, user.getTrueName());
+            }
             if (!user.getPhone().isEmpty()) {
                 wrapper.like(User::getPhone, user.getPhone());
             }

@@ -71,7 +71,7 @@ public class GlobalException extends Throwable {
     @ExceptionHandler(RuntimeException.class)
     public Result handler(RuntimeException e) {
         log.error("运行时异常:----------------{}", e.getMessage());
-        //        e.printStackTrace();
+        e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
     }
 }
