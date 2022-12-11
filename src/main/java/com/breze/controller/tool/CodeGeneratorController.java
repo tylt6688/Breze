@@ -43,8 +43,9 @@ public class CodeGeneratorController {
     }
 
     @GetMapping("/tables")
-    private Result findAllTableNames() {
-        return Result.createSuccessMessage("",dataBaseTableService.listDataBaseTables());
+    private Result findAllTableNames(@RequestParam String dataBaseName) {
+
+        return Result.createSuccessMessage("",dataBaseTableService.listDataBaseTables(dataBaseName));
     }
 
     @PostMapping("/generate")
@@ -57,10 +58,13 @@ public class CodeGeneratorController {
         String projectPath = System.getProperty("user.dir") + "//src//main//java//";
         String projectXmlPath = System.getProperty("user.dir") + "//src//main//resource//mapper";
 
+        gener.setUrl("jdbc:mysql://localhost:3306/" + gener.getDataBaseName() + "?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8");
+        gener.setUsername(codeGeneratorConfig.getUsername());
+        gener.setPassword(codeGeneratorConfig.getPassword());
         /*
          * 全局配置(GlobalConfig)
          */
-        FastAutoGenerator.create(codeGeneratorConfig.getUrl(), codeGeneratorConfig.getUsername(), codeGeneratorConfig.getPassword())
+        FastAutoGenerator.create(gener.getUrl(), gener.getUsername(), gener.getPassword())
                 .globalConfig(builder -> {
                     builder.author(gener.getAuthor().isEmpty() ? "tylt6688" : gener.getAuthor())// 设置作者
                             .enableSwagger() // 开启 swagger 模式

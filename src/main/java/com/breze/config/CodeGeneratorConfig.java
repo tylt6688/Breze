@@ -16,8 +16,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.master")
 public class CodeGeneratorConfig {
 
-    private String url;
-
     private String username;
 
     private String password;

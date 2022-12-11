@@ -12,8 +12,7 @@ import java.util.List;
  */
 public interface DataBaseTableService {
 
-    List showDataBases();
+    List<String> showDataBases();
 
-    List<DataBaseTable> listDataBaseTables();
-
+    List<DataBaseTable> listDataBaseTables(String dataBaseName);
 }

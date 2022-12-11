@@ -34,8 +34,10 @@ public class ServerUtil {
      * 获取内存数据
      */
     public static List getMemoryInfo() {
-        String memorySpace = "内存总量：" + OshiUtil.getMemory().getTotal() / 1024 / 1024 + "MB";
-        String memoryUsed = "已用内存：" + OshiUtil.getMemory().getAvailable() / 1024 / 1024 + "MB";
+//        String memorySpace = "内存总量：" + OshiUtil.getMemory().getTotal() / 1024 / 1024 + "MB";
+//        String memoryUsed = "已用内存：" + OshiUtil.getMemory().getAvailable() / 1024 / 1024 + "MB";
+        String memorySpace = String.valueOf(OshiUtil.getMemory().getTotal() / 1024 / 1024);
+        String memoryUsed = String.valueOf(OshiUtil.getMemory().getAvailable() / 1024 / 1024);
         ArrayList<Object> arrayList = new ArrayList<>();
         arrayList.add(memorySpace);
         arrayList.add(memoryUsed);
@@ -50,9 +52,12 @@ public class ServerUtil {
         if (win.exists()) {
             long total = win.getTotalSpace();
             long freeSpace = win.getFreeSpace();
-            String diskSpace = "磁盘总量：" + total / 1024 / 1024 / 1024 + "G";
-            String diskFree = "磁盘剩余：" + freeSpace / 1024 / 1024 / 1024 + "G";
-            String diskUsed = "磁盘已用：" + (total - freeSpace) / 1024 / 1024 / 1024 + "G";
+//            String diskSpace = "磁盘总量：" + total / 1024 / 1024 / 1024 + "G";
+//            String diskFree = "磁盘剩余：" + freeSpace / 1024 / 1024 / 1024 + "G";
+//            String diskUsed = "磁盘已用：" + (total - freeSpace) / 1024 / 1024 / 1024 + "G";
+            String diskSpace = String.valueOf(total / 1024 / 1024 / 1024);
+            String diskFree = String.valueOf(freeSpace / 1024 / 1024 / 1024);
+            String diskUsed = String.valueOf((total - freeSpace) / 1024 / 1024 / 1024);
             ArrayList<Object> arrayList = new ArrayList<>();
             arrayList.add(diskSpace);
             arrayList.add(diskFree);

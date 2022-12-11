@@ -1,5 +1,7 @@
 package com.breze.controller.rbac;
 
+import com.breze.common.enums.ErrorEnum;
+import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.rbac.Job;
@@ -47,9 +49,15 @@ public class JobController extends BaseController {
         return Result.createSuccessMessage("",job);
     }
 
-    @PostMapping("/delete/{id}")
-    public Result deleteById(@PathVariable Long id) {
-        return Result.createSuccessMessage("",jobService.delete(id));
+    @DeleteMapping("/delete")
+    public Result deleteById(@RequestParam Long id) {
+        try {
+            jobService.delete(id);
+            return Result.createSuccessMessage("删除岗位成功");
+        }catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException);
+        }
+
     }
 
 }

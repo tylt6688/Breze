@@ -23,6 +23,14 @@ public class Gener implements Serializable {
 
     private static final long serialVersionUID = 4844981954357208726L;
 
+    private String url;
+
+    private String username;
+
+    private String password;
+
+    private String dataBaseName;
+
     private String author;
 
     private String[] tableNames;

@@ -42,8 +42,8 @@ public class GroupController extends BaseController {
         return Result.createSuccessMessage("更新部门成功");
     }
 
-    @PostMapping("/delete/{id}")
-    public Result deleteById(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public Result deleteById(@RequestParam Long id) {
         groupService.delete(id);
         return Result.createSuccessMessage("删除部门成功");
     }
