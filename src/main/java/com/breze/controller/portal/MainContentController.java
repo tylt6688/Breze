@@ -11,6 +11,7 @@ import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.portal.MainContent;
 import com.breze.entity.pojo.tool.OssFile;
 import com.qiniu.common.QiniuException;
+import io.swagger.annotations.Api;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ import java.util.Objects;
  * @author leochan
  * @since 2022-10-08
  */
+@Api(tags = "门户内容管理")
 @RestController
 @RequestMapping("/breze/portal/mainContent")
 public class MainContentController extends BaseController {

@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
 import com.breze.common.result.Result;
-import com.breze.config.CodeGeneratorConfig;
+import com.breze.config.CodeGenerationConfig;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.gener.Gener;
+import com.breze.entity.generate.CodeGeneration;
 import com.breze.service.tool.DataBaseTableService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ import java.util.Collections;
 public class CodeGeneratorController {
 
     @Autowired
-    private CodeGeneratorConfig codeGeneratorConfig;
+    private CodeGenerationConfig codeGenerationConfig;
 
     @Autowired
     private DataBaseTableService dataBaseTableService;
@@ -49,7 +49,7 @@ public class CodeGeneratorController {
     }
 
     @PostMapping("/generate")
-    public Result codeGenerator(@RequestBody Gener gener) {
+    public Result codeGenerator(@RequestBody CodeGeneration codeGeneration) {
 
         String drive = "E://";
         String xmlpath = drive + "xyz//resource//mapper";
@@ -58,15 +58,15 @@ public class CodeGeneratorController {
         String projectPath = System.getProperty("user.dir") + "//src//main//java//";
         String projectXmlPath = System.getProperty("user.dir") + "//src//main//resource//mapper";
 
-        gener.setUrl("jdbc:mysql://localhost:3306/" + gener.getDataBaseName() + "?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8");
-        gener.setUsername(codeGeneratorConfig.getUsername());
-        gener.setPassword(codeGeneratorConfig.getPassword());
+        codeGeneration.setUrl("jdbc:mysql://localhost:3306/" + codeGeneration.getDataBaseName() + "?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8");
+        codeGeneration.setUsername(codeGenerationConfig.getUsername());
+        codeGeneration.setPassword(codeGenerationConfig.getPassword());
         /*
          * 全局配置(GlobalConfig)
          */
-        FastAutoGenerator.create(gener.getUrl(), gener.getUsername(), gener.getPassword())
+        FastAutoGenerator.create(codeGeneration.getUrl(), codeGeneration.getUsername(), codeGeneration.getPassword())
                 .globalConfig(builder -> {
-                    builder.author(gener.getAuthor().isEmpty() ? "tylt6688" : gener.getAuthor())// 设置作者
+                    builder.author(codeGeneration.getAuthor().isEmpty() ? "tylt6688" : codeGeneration.getAuthor())// 设置作者
                             .enableSwagger() // 开启 swagger 模式
                             .fileOverride() // 覆盖已生成文件
                             .outputDir(drive); // 指定输出目录
@@ -77,7 +77,7 @@ public class CodeGeneratorController {
                  */
                 .packageConfig(builder -> {
                     // 设置父包名
-                    builder.parent(gener.getPackageName().isEmpty() ? "xyz.tylt" : gener.getPackageName())
+                    builder.parent(codeGeneration.getPackageName().isEmpty() ? "xyz.tylt" : codeGeneration.getPackageName())
                          // .moduleName("system") // 设置父包模块名
                             .serviceImpl("service.impl") // 设置 Service 实现类包名
                             .pathInfo(Collections.singletonMap(OutputFile.xml, xmlpath)); // 设置mapperXml生成路径
@@ -109,9 +109,9 @@ public class CodeGeneratorController {
                 })
                 .strategyConfig(builder -> {
                     // 设置数据库中表名，按其中属性内容进行生成
-                    builder.addInclude(gener.getTableNames())
+                    builder.addInclude(codeGeneration.getTableNames())
                             // 设置过滤表前缀进行生成
-                            .addTablePrefix(gener.getTablePrefix());
+                            .addTablePrefix(codeGeneration.getTablePrefix());
                 })
                 // 可选择使用Freemarker引擎模板，默认的是Velocity引擎模板
                 // .templateEngine(new FreemarkerTemplateEngine())

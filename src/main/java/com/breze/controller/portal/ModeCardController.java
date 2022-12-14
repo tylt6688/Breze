@@ -8,6 +8,7 @@ import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.portal.ModeCard;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ import java.util.List;
  * @author leochan
  * @since 2022-10-08
  */
+@Api(tags = "门户卡片管理")
 @RestController
 @RequestMapping("/breze/portal/modeCard")
 public class ModeCardController extends BaseController {

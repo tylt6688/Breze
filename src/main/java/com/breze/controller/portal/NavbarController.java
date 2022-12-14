@@ -8,6 +8,7 @@ import com.breze.controller.core.BaseController;
 import com.breze.entity.mapstruct.NavbarConvert;
 import com.breze.entity.pojo.portal.Navbar;
 import com.breze.entity.vo.portal.NavbarTitleVo;
+import io.swagger.annotations.Api;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import java.util.List;
  * @author leochan
  * @since 2022-10-08
  */
+@Api(tags = "门户导航管理")
 @RestController
 @RequestMapping("/breze/portal/navbar")
 public class NavbarController extends BaseController {

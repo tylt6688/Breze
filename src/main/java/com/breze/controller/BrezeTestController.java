@@ -27,11 +27,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/breze/test")
 public class BrezeTestController extends BaseController {
-
-
-
-// 针对mybatisplus生成代码进行测试
-
     @Autowired
     private UserService userService;
 
@@ -44,7 +39,7 @@ public class BrezeTestController extends BaseController {
     }
 
     @PreAuthorize("hasAuthority('sys:user:list')")
-    //指明只有当前授权权限码的管理员才能访问此方法
+    // 指明只有当前授权权限码的管理员才能访问此方法
     @GetMapping("/userservicetest1")
     public Result userservice1() {
         List<User> list = userService.list();

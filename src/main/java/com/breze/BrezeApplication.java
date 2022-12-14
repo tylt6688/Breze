@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @Description 清枫Breze权限一体化平台
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-
 @Log4j2
 @EnableAsync // 开启基于注解的异步任务支持
 @EnableCaching // 开启基于注解的缓存支持

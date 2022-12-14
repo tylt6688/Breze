@@ -20,14 +20,12 @@ import java.util.UUID;
 /**
  * @Author tylt6688
  * @Date 2022/3/4 10:46
- * @Description 验证码
+ * @Description 验证码控制器
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2
 @RestController
 public class CaptchaController extends BaseController {
-
-
     /**
      * 获取图片验证码
      */
@@ -55,7 +53,7 @@ public class CaptchaController extends BaseController {
                 .put("key", key)
                 .put("base64Img", base64Img)
                 .build();
-        log.info("当前验证码：|--key:{} |--code: {}", key, code);
+        log.info("当前验证码：|-key:---{} |-code:---{}", key, code);
         return Result.createSuccessMessage("获取登录验证码成功", map);
     }
 }

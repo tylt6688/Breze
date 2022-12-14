@@ -1,4 +1,4 @@
-package com.breze.entity.gener;
+package com.breze.entity.generate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +19,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class Gener implements Serializable {
+public class CodeGeneration implements Serializable {
 
     private static final long serialVersionUID = 4844981954357208726L;
 

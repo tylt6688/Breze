@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/7/11 9:11
- * @Description 用于AOP记录日志的注解
+ * @Description 用于AOP记录日志的切片
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2

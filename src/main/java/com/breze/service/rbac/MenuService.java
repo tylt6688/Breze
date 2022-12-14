@@ -18,6 +18,14 @@ public interface MenuService extends IService<Menu> {
 
     List<MenuDTO> getCurrentNav();
 
-    //仅返回树状结构用于菜单管理的展示
+    /**
+     * 仅返回树状结构用于菜单管理的展示
+     */
     List<Menu> tree();
+
+    /**
+     * 通过名称来进行模糊搜索功能
+     */
+
+    List<Menu> listByMenuName(String menuName);
 }

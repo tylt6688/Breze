@@ -73,8 +73,16 @@ public class MenuController extends BaseController {
         return Result.createSuccessMessage("查询菜单成功", menus);
     }
 
+    @ApiOperation("根据名称查询二级菜单")
+    @BrezeLog("根据名称查询二级菜单")
+    @GetMapping("/select_menu_name")
+    public Result selectByMenuName(@RequestParam String menuName) {
 
-    @ApiOperation(value = "新增菜单")
+        return Result.createSuccessMessage("搜索功能成功", menuService.listByMenuName(menuName));
+    }
+
+
+    @ApiOperation("新增菜单")
     @BrezeLog("新增菜单")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:menu:insert')")
@@ -83,7 +91,7 @@ public class MenuController extends BaseController {
             menuService.save(menu);
             return Result.createSuccessMessage("新增菜单成功");
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException,"新增菜单失败");
+            throw new BusinessException(ErrorEnum.FindException, "新增菜单失败");
         }
     }
 
@@ -98,7 +106,7 @@ public class MenuController extends BaseController {
             userService.clearUserAuthorityInfoByMenuId(menu.getId());
             return Result.createSuccessMessage("更新菜单成功");
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException,"更新菜单失败");
+            throw new BusinessException(ErrorEnum.FindException, "更新菜单失败");
         }
 
     }
@@ -121,7 +129,7 @@ public class MenuController extends BaseController {
             roleMenuService.remove(new LambdaQueryWrapper<RoleMenu>().eq(RoleMenu::getMenuId, id));
             return Result.createSuccessMessage("删除菜单成功");
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException,"删除菜单失败");
+            throw new BusinessException(ErrorEnum.FindException, "删除菜单失败");
         }
 
     }

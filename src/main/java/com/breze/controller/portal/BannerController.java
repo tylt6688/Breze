@@ -7,6 +7,7 @@ import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.portal.Banner;
 import com.qiniu.common.QiniuException;
+import io.swagger.annotations.Api;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import java.util.Objects;
  * @author tylt6688
  * @since 2022-04-15
  */
+@Api(tags = "门户轮播图管理")
 @RestController
 @RequestMapping("/breze/portal/banner")
 public class BannerController extends BaseController {

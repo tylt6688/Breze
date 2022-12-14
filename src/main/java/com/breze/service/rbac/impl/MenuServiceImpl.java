@@ -2,6 +2,7 @@ package com.breze.service.rbac.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.common.consts.GlobalConstant;
 import com.breze.entity.dto.MenuDTO;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.User;
@@ -30,6 +31,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    MenuMapper menuMapper;
 
     @Override
     public List<MenuDTO> getCurrentNav() {
@@ -95,6 +99,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         List<Menu> menus = this.list(new LambdaQueryWrapper<Menu>().orderByAsc(Menu::getOrderNum));
         // 转成树状结构
         return buildTreeMenu(menus);
+    }
+
+    @Override
+    public List<Menu> listByMenuName(String menuName) {
+        LambdaQueryWrapper<Menu> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Menu::getType, GlobalConstant.TYPE_ONE)
+                .like(Menu::getName, menuName);
+        return menuMapper.selectList(wrapper);
     }
 
 
