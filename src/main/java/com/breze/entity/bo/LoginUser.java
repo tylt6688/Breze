@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.rbac;
+package com.breze.entity.bo;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +12,6 @@ import java.util.Collection;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 public class LoginUser implements UserDetails {
-
 
     private static final long serialVersionUID = 2157836804554108892L;
     private final String password;

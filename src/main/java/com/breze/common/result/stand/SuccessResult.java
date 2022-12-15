@@ -1,11 +1,10 @@
 package com.breze.common.result.stand;
 
 import com.breze.common.result.Result;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author tylt6688
@@ -15,11 +14,12 @@ import java.util.Map;
  */
 @Data
 @Accessors(chain = true)
+@ApiModel(description= "请求成功响应模板")
 public class SuccessResult extends Result {
-
+    private static final long serialVersionUID = 1L;
+    @ApiModelProperty(value = "是否成功")
     private boolean success;
-
+    @ApiModelProperty(value = "消息提示")
     private String message;
 
-    private Map<String, Object> result = new HashMap<>();
 }

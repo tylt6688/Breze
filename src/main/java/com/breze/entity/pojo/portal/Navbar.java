@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("tb_navbar")
-@ApiModel(value = "Navbar对象", description = "导航连接表")
+@ApiModel(value = "Navbar", description = "导航对象,tb_navbar导航链接表")
 public class Navbar implements Serializable {
 
     private static final long serialVersionUID = 1L;

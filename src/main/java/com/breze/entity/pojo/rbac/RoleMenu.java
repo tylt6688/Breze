@@ -25,7 +25,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_role_menu")
-@ApiModel(value = "角色菜单对象", description = "")
+@ApiModel(value = "RoleMenu", description = "角色菜单对象,sys_role_menu表")
 public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = 342723982250723899L;

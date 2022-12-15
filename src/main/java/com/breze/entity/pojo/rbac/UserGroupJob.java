@@ -22,7 +22,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_user_group_job")
-@ApiModel(value = "用户部门岗位对象", description = "用户部门岗位关联表")
+@ApiModel(value = "UserGroupJob", description = "用户部门岗位对象,sys_user_group_job表")
 public class UserGroupJob implements Serializable {
 
     private static final long serialVersionUID = 11683181677760025L;

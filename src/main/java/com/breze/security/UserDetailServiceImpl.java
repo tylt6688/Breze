@@ -7,7 +7,7 @@ import com.breze.common.rabbit.Produce;
 import com.breze.config.BrezeConfig;
 import com.breze.config.MailConfig;
 import com.breze.entity.pojo.brezelog.LoginLog;
-import com.breze.entity.pojo.rbac.LoginUser;
+import com.breze.entity.bo.LoginUser;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.tool.Email;
 import com.breze.service.brezelog.LoginLogService;

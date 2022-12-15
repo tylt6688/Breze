@@ -8,6 +8,11 @@ package com.breze.common.consts;
  */
 public class CharsetConstant {
 
+    public static final String POST = "POST";
+    public static final String GET = "GET";
+    public static final String DELETE = "DELETE";
+    public static final String PUT = "PUT";
+
     /**
      * Bearer Token 常量，此处字符串结尾空格必须携带
      */

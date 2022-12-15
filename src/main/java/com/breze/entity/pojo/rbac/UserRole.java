@@ -25,7 +25,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_user_role")
-@ApiModel(value = "用户角色对象", description = "")
+@ApiModel(value = "UserRole", description = "用户角色对象,sys_user_role表")
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 342723982250723899L;

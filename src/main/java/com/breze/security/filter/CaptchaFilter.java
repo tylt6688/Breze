@@ -2,6 +2,7 @@ package com.breze.security.filter;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.breze.common.consts.CacheConstant;
+import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.KaptchaException;
 import com.breze.security.handler.AuthenticationFailureHandlerImpl;
@@ -36,8 +37,9 @@ public class CaptchaFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
 
         String url = request.getRequestURI();
+        String method = request.getMethod();
 
-        if ("/login".equals(url) && "POST".equals(request.getMethod())) {
+        if ("/login".equals(url) && method.equals(CharsetConstant.POST)) {
             try {
                 // 先校验验证码
                 validate(request);
@@ -58,7 +60,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
         String code = request.getParameter("code");
 
         //先判断 code与 key是否为空，再从Redis中获取进行比较
-        if (StringUtils.isBlank(code) || StringUtils.isBlank(key)||!code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
+        if (StringUtils.isBlank(code) || StringUtils.isBlank(key) || !code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
             throw new KaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
         }
 

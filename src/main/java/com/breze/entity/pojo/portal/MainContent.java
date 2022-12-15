@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("main_content")
-@ApiModel(value = "MainContent对象", description = "主体内容表")
+@ApiModel(value = "MainContent", description = "主体内容对象,main_content主体内容表")
 public class MainContent implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -60,7 +60,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
         if (jwt == null) {
-            log.info("[JWT为空或者格式不正确](此日志消息只针对Dev环境使用，初始登录为空是正常):---{}", jwt);
+            log.info("[JWT为空](此日志消息只针对Dev环境使用，初始登录以及白名单接口访问为空是正常现象):---{}", jwt);
             chain.doFilter(request, response);
             return;
         }

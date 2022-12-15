@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Accessors(chain = true)
 @TableName("log_login")
-@ApiModel(value = "LoginLog对象", description = "登录日志对象")
+@ApiModel(value = "LoginLog", description = "登录日志对象,log_login表")
 public class LoginLog implements Serializable {
 
     private static final long serialVersionUID = 119903841068975842L;

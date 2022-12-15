@@ -27,7 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_role")
-@ApiModel(value = "Role角色对象", description = "sys_role角色表")
+@ApiModel(value = "Role", description = "角色对象,sys_role角色表")
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1902943373792332975L;

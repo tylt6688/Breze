@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("mode_card")
-@ApiModel(value = "ModeCard对象", description = "模块展示表")
+@ApiModel(value = "ModeCard", description = "模块卡片对象,mode_card模块展示表")
 public class ModeCard implements Serializable {
 
     private static final long serialVersionUID = 1L;

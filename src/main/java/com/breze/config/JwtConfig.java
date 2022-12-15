@@ -68,7 +68,7 @@ public class JwtConfig {
                     .parseClaimsJws(jwt)
                     .getBody();
         } catch (JwtException e) {
-            log.error("JWT解析失败：---{}", e.getMessage());
+            log.error("JWT解析失败:---{}", e.getMessage());
             return null;
         }
         return claims;

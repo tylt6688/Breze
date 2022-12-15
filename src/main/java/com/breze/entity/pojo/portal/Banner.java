@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("tb_banner")
-@ApiModel(value = "Banner对象", description = "Banner表")
+@ApiModel(value = "Banner", description = "轮播图对象,tb_banner表")
 public class Banner implements Serializable {
 
     private static final long serialVersionUID = 7888387863124417724L;

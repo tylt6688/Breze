@@ -19,10 +19,7 @@ import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
 import com.breze.entity.vo.UserInfoVo;
 import com.qiniu.common.QiniuException;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,7 +50,7 @@ public class UserController extends BaseController {
     @BrezeLog("获取当前用户信息")
     @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
     @GetMapping("/get_userinfo")
-    public Result getUserInfo(Principal principal) {
+    public Result<UserInfoVo> getUserInfo(Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
         User userRoles = userService.getUserRolesByUserId(user.getId());
         UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
@@ -65,7 +62,7 @@ public class UserController extends BaseController {
     @ApiOperation("根据ID获取用户信息")
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
-    public Result info(@PathVariable Long id) {
+    public Result<UserInfoVo> info(@PathVariable Long id) {
         User user = userService.getUserRolesByUserId(id);
         UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
         return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
@@ -75,7 +72,7 @@ public class UserController extends BaseController {
     @ApiOperation("获取全部用户信息，可多条件联合查询，为空则显示全部")
     @PostMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
-    public Result select(@RequestBody UserDTO userDTO) {
+    public Result<Page<User>> select(@RequestBody UserDTO userDTO) {
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
         Page page = new Page(Long.parseLong(userDTO.getCurrent()), Long.parseLong(userDTO.getSize()));
         Page<User> pageData = userService.page(page, userService.searchByCondition(user));
@@ -88,7 +85,7 @@ public class UserController extends BaseController {
     @ApiOperation("新增用户")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
-    public Result insert(@Validated @RequestBody UserDTO userDTO) {
+    public Result<String> insert(@Validated @RequestBody UserDTO userDTO) {
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
         userService.insert(user);
         return Result.createSuccessMessage("添加用户成功");
@@ -97,9 +94,9 @@ public class UserController extends BaseController {
     @BrezeLog("删除用户")
     @ApiOperation("删除用户信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
-    public Result delete(@RequestBody Long[] ids) {
+    public Result<String> delete(@RequestBody Long[] ids) {
         userService.removeByIds(Arrays.asList(ids));
         userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
         return Result.createSuccessMessage("删除成功");
@@ -109,7 +106,7 @@ public class UserController extends BaseController {
     @ApiOperation("修改用户")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
-    public Result update(@Validated @RequestBody UserDTO userDTO) {
+    public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
         userService.update(user);
         return Result.createSuccessMessage("修改用户成功");
@@ -124,7 +121,7 @@ public class UserController extends BaseController {
     })
     @PostMapping("/role_perm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")
-    public Result rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
+    public Result<String> rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
 
         List<UserRole> userRoles = new ArrayList<>();
         for (Long roleId : roleIds) {
@@ -149,7 +146,7 @@ public class UserController extends BaseController {
     })
     @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
-    public Result rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
+    public Result<String> rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
         List<UserRole> userRoles = new ArrayList<>();
         Arrays.stream(userIds).forEach(uid -> {
             Arrays.stream(roleIds).forEach(roleId -> {
@@ -174,7 +171,7 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @PostMapping("/reset_password")
     @PreAuthorize("hasAuthority('sys:user:repass')")
-    public Result resetPassword(@RequestParam Long userId) {
+    public Result<String> resetPassword(@RequestParam Long userId) {
         try {
             User user = userService.getById(userId);
             user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
@@ -189,7 +186,7 @@ public class UserController extends BaseController {
     @BrezeLog("修改用户密码")
     @ApiOperation("修改用户密码")
     @PostMapping("/update_password")
-    public Result updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
+    public Result<String> updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
         boolean matches = bCryptPasswordEncoder.matches(updatePasswordDto.getCurrentPass(), user.getPassword());
         if (matches) {
@@ -201,7 +198,7 @@ public class UserController extends BaseController {
                 throw new BusinessException(ErrorEnum.FindException, "修改密码失败");
             }
         } else {
-            return Result.createFailMessage(ErrorEnum.FindException, "旧密码不正确");
+            throw new BusinessException(ErrorEnum.FindException, "旧密码不正确");
         }
 
     }
@@ -210,7 +207,7 @@ public class UserController extends BaseController {
     @ApiOperation("修改用户头像")
     @ApiImplicitParam(name = "avatar", value = "头像", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @PostMapping("/update_avatar")
-    public Result updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
+    public Result<String> updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getUserByUserName(username);
         if (user.getAvatar() != null && CharSequenceUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
@@ -228,7 +225,7 @@ public class UserController extends BaseController {
     @BrezeLog("更新用户信息")
     @ApiOperation("更新用户信息")
     @PostMapping("/update_userinfo")
-    public Result updateUserInfo(@Validated @RequestBody User user) {
+    public Result<String> updateUserInfo(@Validated @RequestBody User user) {
         try {
             userService.updateById(user);
             return Result.createSuccessMessage("更新用户信息成功");
@@ -241,7 +238,7 @@ public class UserController extends BaseController {
     @ApiOperation("更新登录提醒")
     @ApiImplicitParams({@ApiImplicitParam(name = "loginWarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @PostMapping("/update_login_warn")
-    public Result updateLoginWarn(@RequestParam Integer loginWarn, Principal principal) {
+    public Result<String> updateLoginWarn(@RequestParam Integer loginWarn, Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
         userService.updateLoginWarnByUserId(loginWarn, user.getId());
         return Result.createSuccessMessage("更新登录提醒成功");
@@ -251,7 +248,7 @@ public class UserController extends BaseController {
     @ApiOperation("导入Excel表")
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @PostMapping("/import_excel")
-    public Result importExcel(@RequestParam MultipartFile file) {
+    public Result<String> importExcel(@RequestParam MultipartFile file) {
         try {
             userService.importUserByExcel(file);
             return Result.createSuccessMessage("数据导入成功");

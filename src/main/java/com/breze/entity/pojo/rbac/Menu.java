@@ -28,7 +28,7 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_menu")
-@ApiModel(value = "Menu菜单对象", description = "sys_menu菜单表")
+@ApiModel(value = "Menu", description = "菜单对象,sys_menu菜单表")
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 51460849181143467L;
@@ -77,7 +77,7 @@ public class Menu implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-
+    @ApiModelProperty(value = "多级子节点",name = "children",dataType = "List<Menu>")
     @TableField(exist = false)
     private List<Menu> children = new ArrayList<>();
 

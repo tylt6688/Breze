@@ -2,6 +2,7 @@ package com.breze.entity.pojo.rbac;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_job")
-@ApiModel(value = "Job岗位对象", description = "sys_job岗位表")
+@ApiModel(value = "Job", description = "岗位对象,sys_job岗位表")
 public class Job implements Serializable {
 
     private static final long serialVersionUID = -3858488919858333072L;
-
+    @ApiModelProperty(value = "岗位ID", name = "id", example = "1", notes = "岗位ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

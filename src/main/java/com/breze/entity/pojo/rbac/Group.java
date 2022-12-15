@@ -2,6 +2,7 @@ package com.breze.entity.pojo.rbac;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,11 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_group")
-@ApiModel(value = "Group部门对象", description = "sys_group部门表")
+@ApiModel(value = "Group", description = "部门对象,sys_group部门表")
 public class Group implements Serializable {
 
     private static final long serialVersionUID = 4904930249407221901L;
-
+    @ApiModelProperty(value = "部门ID", name = "groupId", example = "1", notes = "部门ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

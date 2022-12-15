@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("tb_ossfile")
-@ApiModel(value = "OssFile对象", description = "对象存储表")
+@ApiModel(value = "OssFile", description = "OssFile对象,tb_ossfile对象存储表")
 public class OssFile implements Serializable {
 
     private static final long serialVersionUID = 4904930249407221901L;

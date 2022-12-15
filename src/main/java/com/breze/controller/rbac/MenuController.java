@@ -74,6 +74,7 @@ public class MenuController extends BaseController {
     }
 
     @ApiOperation("根据名称查询二级菜单")
+    @ApiImplicitParam(paramType = "query",name = "menuName", value = "菜单名称", required = false, dataType = "String", dataTypeClass = String.class)
     @BrezeLog("根据名称查询二级菜单")
     @GetMapping("/select_menu_name")
     public Result selectByMenuName(@RequestParam String menuName) {
@@ -85,6 +86,7 @@ public class MenuController extends BaseController {
     @ApiOperation("新增菜单")
     @BrezeLog("新增菜单")
     @PostMapping("/insert")
+//    @ApiImplicitParam(paramType = "body",required = true,dataType = "JSON",dataTypeClass = Menu.class)
     @PreAuthorize("hasAuthority('sys:menu:insert')")
     public Result insert(@Validated @RequestBody Menu menu) {
         try {

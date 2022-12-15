@@ -20,9 +20,9 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("log_handle")
 @Accessors(chain = true)
-@ApiModel(value = "HandleLog操作日志对象", description = "log_handle操作日志表")
+@TableName("log_handle")
+@ApiModel(value = "HandleLog", description = "操作日志对象,log_handle操作日志表")
 public class HandleLog implements Serializable {
 
     private static final long serialVersionUID = 506856700098163790L;
