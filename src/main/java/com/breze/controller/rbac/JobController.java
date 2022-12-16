@@ -6,6 +6,7 @@ import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.rbac.Job;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,41 +21,41 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/job")
 public class JobController extends BaseController {
-
+    @ApiOperation(value = "查询全部岗位信息", notes = "用于不分页情况下展示")
     @GetMapping("/select")
-    public Result selectAll(){
+    public Result<List<Job>> selectAll() {
         List<Job> jobs = jobService.findAll();
-        return Result.createSuccessMessage("",jobs);
-    }
-    @PostMapping("/select")
-    public Result selectJobById(@RequestBody Job job) {
-        if (job.getId() != null) {
-            Job j = jobService.findByJobId(job.getId());
-            return Result.createSuccessMessage("",j);
-        } else {
-            List<Job> jobs = jobService.findByJobName(job.getName());
-            return Result.createSuccessMessage("",jobs);
-        }
+        return Result.createSuccessMessage("", jobs);
     }
 
+    @ApiOperation(value = "通过JobId查询岗位信息", notes = "单个信息展示")
+    @GetMapping("/select/{id}")
+    public Result<Job> selectJobById(@PathVariable Long id) {
+        Job job = jobService.findByJobId(id);
+        return Result.createSuccessMessage("查询岗位成功", job);
+    }
+
+    @ApiOperation(value = "插入岗位信息", notes = "用于新增岗位信息")
     @PostMapping("/insert")
-    public Result insert(@RequestBody Job job) {
+    public Result<String> insert(@RequestBody Job job) {
         jobService.insert(job);
-        return Result.createSuccessMessage("",job);
+        return Result.createSuccessMessage("插入岗位成功");
     }
 
-    @PostMapping("/update")
-    public Result update(@RequestBody Job job) {
+    @ApiOperation(value = "更新岗位信息", notes = "用于更新岗位信息")
+    @PutMapping("/update")
+    public Result<String> update(@RequestBody Job job) {
         jobService.update(job);
-        return Result.createSuccessMessage("",job);
+        return Result.createSuccessMessage("更新岗位成功");
     }
 
+    @ApiOperation(value = "删除岗位信息", notes = "用于删除岗位信息")
     @DeleteMapping("/delete")
-    public Result deleteById(@RequestParam Long id) {
+    public Result<String> deleteById(@RequestParam Long id) {
         try {
             jobService.delete(id);
             return Result.createSuccessMessage("删除岗位成功");
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException);
         }
 

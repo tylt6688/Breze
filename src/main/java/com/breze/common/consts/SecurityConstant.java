@@ -9,7 +9,7 @@ package com.breze.common.consts;
 public class SecurityConstant {
 
     public static final String AUTHORIZATION = "Authorization";
-
+    public static final String JWT_PREFIX = "Bearer ";
     /**
      * 主系统白名单接口常量数组
      */

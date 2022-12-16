@@ -40,7 +40,7 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "获取侧边菜单导航")
     @BrezeLog("获取侧边菜单导航")
     @GetMapping("/nav")
-    public Result getNav(Principal principal) {
+    public Result<Map<Object,Object>> getNav(Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
         // 获取权限信息
         String authorityInfo = userService.getUserAuthorityInfo(user.getId());
@@ -59,7 +59,7 @@ public class MenuController extends BaseController {
     @BrezeLog("按ID查询菜单信息")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:menu:select')")
-    public Result info(@PathVariable Long id) {
+    public Result<Menu> info(@PathVariable Long id) {
         Menu menu = menuService.getById(id);
         return Result.createSuccessMessage("查询单个菜单成功", menu);
     }
@@ -68,7 +68,7 @@ public class MenuController extends BaseController {
     @BrezeLog("查询菜单管理中的所有菜单信息")
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:menu:select')")
-    public Result select() {
+    public Result<List<Menu>> select() {
         List<Menu> menus = menuService.tree();
         return Result.createSuccessMessage("查询菜单成功", menus);
     }
@@ -77,7 +77,7 @@ public class MenuController extends BaseController {
     @ApiImplicitParam(paramType = "query",name = "menuName", value = "菜单名称", required = false, dataType = "String", dataTypeClass = String.class)
     @BrezeLog("根据名称查询二级菜单")
     @GetMapping("/select_menu_name")
-    public Result selectByMenuName(@RequestParam String menuName) {
+    public Result<List<Menu>> selectByMenuName(@RequestParam String menuName) {
 
         return Result.createSuccessMessage("搜索功能成功", menuService.listByMenuName(menuName));
     }
@@ -86,9 +86,8 @@ public class MenuController extends BaseController {
     @ApiOperation("新增菜单")
     @BrezeLog("新增菜单")
     @PostMapping("/insert")
-//    @ApiImplicitParam(paramType = "body",required = true,dataType = "JSON",dataTypeClass = Menu.class)
     @PreAuthorize("hasAuthority('sys:menu:insert')")
-    public Result insert(@Validated @RequestBody Menu menu) {
+    public Result<String> insert(@Validated @RequestBody Menu menu) {
         try {
             menuService.save(menu);
             return Result.createSuccessMessage("新增菜单成功");
@@ -101,7 +100,7 @@ public class MenuController extends BaseController {
     @BrezeLog("更新菜单")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:menu:update')")
-    public Result update(@Validated @RequestBody Menu menu) {
+    public Result<String> update(@Validated @RequestBody Menu menu) {
         try {
             menuService.updateById(menu);
             // 菜单发生变化时清除Redis中的缓存
@@ -118,11 +117,11 @@ public class MenuController extends BaseController {
     @BrezeLog("删除菜单")
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:menu:delete')")
-    public Result delete(@RequestParam Long id) {
+    public Result<String> delete(@RequestParam Long id) {
         // 判断是否存在子目录
         long count = menuService.count(new LambdaQueryWrapper<Menu>().eq(Menu::getParentId, id));
         if (count > 0) {
-            return Result.createFailMessage(ErrorEnum.FindException, "子菜单不为空，请先删除子菜单");
+            throw new BusinessException(ErrorEnum.FindException, "子菜单不为空，请先删除子菜单");
         }
         try {
             menuService.removeById(id);

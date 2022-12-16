@@ -3,7 +3,6 @@ package com.breze.config;
 
 import com.breze.common.consts.SecurityConstant;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +17,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +27,7 @@ import java.util.List;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
-@Profile({"dev","test"})// 指明多环境配置类标识
+@Profile({"dev", "test"})// 指明多环境配置类标识
 @EnableOpenApi
 @Configuration// 声明自定义配置类
 public class SwaggerConfig {
@@ -35,7 +35,9 @@ public class SwaggerConfig {
     @Autowired
     private BrezeConfig brezeConfig;
 
-    // 将返回值对象作为组件添加到Spring容器中，组件ID默认为方法名
+    /**
+     * 将返回值对象作为组件添加到Spring容器中，组件ID默认为方法名
+     */
     @Bean
     public Docket createRestApi() {
 
@@ -58,39 +60,44 @@ public class SwaggerConfig {
                  * withClassAnnotation()扫描类上的注解,参数是一个注解的反射对象
                  * withMethodAnnotation()扫描包上的注解
                  */
-                // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                // 根据url路径设置哪些请求加入文档，忽略哪些请求
                 .paths(PathSelectors.any())
                 // 开启构建者模式
                 .build()
                 // 设置安全模式，swagger可以设置访问 token
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .securitySchemes(Collections.singletonList(securitySchemes()))
+                .securityContexts(Collections.singletonList(securityContexts()));
     }
 
     /**
-     * 安全模式，这里指定token通过Authorization头请求头传递
+     * 安全模式，这里指定token[Bearer方式] 通过Authorization头请求头传递
      */
-    private List<SecurityScheme> securitySchemes() {
-        List<SecurityScheme> apiKeyList = new ArrayList<>();
-        apiKeyList.add(new ApiKey(SecurityConstant.AUTHORIZATION, SecurityConstant.AUTHORIZATION, In.HEADER.toValue()));
-        return apiKeyList;
+    private HttpAuthenticationScheme securitySchemes() {
+        return HttpAuthenticationScheme.JWT_BEARER_BUILDER.name(SecurityConstant.AUTHORIZATION).build();
     }
+
+//    /**
+//     * 安全模式，这里指定token[API Key方式] 通过Authorization头请求头传递
+//     */
+//    private List<SecurityScheme> securitySchemes() {
+//        List<SecurityScheme> apiKeyList = new ArrayList<>();
+//        apiKeyList.add(new ApiKey(SecurityConstant.AUTHORIZATION, SecurityConstant.AUTHORIZATION, In.HEADER.toValue()));
+//        return apiKeyList;
+//    }
 
     /**
      * 安全上下文
      */
-    private List<SecurityContext> securityContexts() {
-        List<SecurityContext> securityContexts = new ArrayList<>();
-        securityContexts.add(
-                SecurityContext.builder()
-                        .securityReferences(defaultAuth())
-                        .operationSelector(o -> o.requestMappingPattern().matches("/.*"))
-                        .build());
-        return securityContexts;
+    private SecurityContext securityContexts() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .operationSelector(o -> o.requestMappingPattern().matches("/.*"))
+                .build();
+
     }
 
     /**
-     * 默认的安全上引用
+     * 默认的安全上下文引用
      */
     private List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
@@ -100,6 +107,7 @@ public class SwaggerConfig {
         securityReferences.add(new SecurityReference(SecurityConstant.AUTHORIZATION, authorizationScopes));
         return securityReferences;
     }
+
 
     private ApiInfo apiInfo() {
         // 配置作者信息

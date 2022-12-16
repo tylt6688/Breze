@@ -41,7 +41,7 @@ public class RoleController extends BaseController {
     @BrezeLog("获取全部角色列表")
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:role:perm')")
-    public Result selectAll() {
+    public Result<List<Role>> selectAll() {
         return Result.createSuccessMessage("获取全部角色列表成功", roleService.list());
     }
 
@@ -49,18 +49,18 @@ public class RoleController extends BaseController {
     @BrezeLog("分页获取角色列表")
     @GetMapping("/select_page")
     @PreAuthorize("hasAuthority('sys:role:select')")
-    public Result select() {
+    public Result<Page<Role>> select() {
         Page<Role> pageData = roleService.page(getPage());
         return Result.createSuccessMessage("分页获取角色列表成功", pageData);
     }
 
 
     @ApiOperation(value = "根据角色ID获取菜单权限信息")
-    @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "Long", dataTypeClass = Long.class)
+    @ApiImplicitParam(name = "id", value = "角色ID", required = true, paramType = "path", dataType = "Long", dataTypeClass = Long.class)
     @BrezeLog("根据角色ID获取菜单权限信息")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:role:select')")
-    public Result info(@PathVariable Long id) {
+    public Result<Role> info(@PathVariable Long id) {
         Role role = roleService.getById(id);
         //获取角色相关联的菜单id
         List<RoleMenu> menus = roleMenuService.list(new LambdaQueryWrapper<RoleMenu>().eq(RoleMenu::getRoleId, id));
@@ -77,7 +77,7 @@ public class RoleController extends BaseController {
     @BrezeLog("根据角色ID分配角色相应的菜单权限")
     @PostMapping("/perm/{roleId}")
     @PreAuthorize("hasAuthority('sys:role:perm')")
-    public Result rolePerm(@PathVariable Long roleId, @RequestBody Long[] menuIds) {
+    public Result<String> rolePerm(@PathVariable Long roleId, @RequestBody Long[] menuIds) {
         try {
             List<RoleMenu> roleMenus = new ArrayList<>();
             Arrays.stream(menuIds).forEach(menuId -> {
@@ -102,7 +102,7 @@ public class RoleController extends BaseController {
     @BrezeLog("新增角色")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
-    public Result insert(@Validated @RequestBody Role role) {
+    public Result<String> insert(@Validated @RequestBody Role role) {
         try {
             roleService.save(role);
             return Result.createSuccessMessage("新增角色成功");
@@ -115,7 +115,7 @@ public class RoleController extends BaseController {
     @BrezeLog("更新角色")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")
-    public Result update(@Validated @RequestBody Role role) {
+    public Result<String> update(@Validated @RequestBody Role role) {
         try {
             roleService.updateById(role);
             // 更新缓存
@@ -132,11 +132,11 @@ public class RoleController extends BaseController {
     @BrezeLog("删除角色")
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:role:delete')")
-    public Result delete(@RequestBody Long[] roleIds) {
+    public Result<String> delete(@RequestBody Long[] roleIds) {
         for (Long roleId : roleIds) {
             long count = userRoleService.count(new LambdaQueryWrapper<UserRole>().eq(UserRole::getRoleId, roleId));
             if (count > 0) {
-                return Result.createFailMessage(ErrorEnum.IllegalOperation, "角色已被使用，请先解除占用后删除");
+                throw new BusinessException(ErrorEnum.IllegalOperation, "角色已被使用，请先解除占用后删除");
             }
         }
         try {

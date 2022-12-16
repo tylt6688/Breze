@@ -1,6 +1,6 @@
 package com.breze.security.filter;
 
-import com.breze.common.consts.CharsetConstant;
+import com.breze.common.consts.SecurityConstant;
 import com.breze.common.exception.BrezeDeniedException;
 import com.breze.common.exception.BrezeJwtException;
 import com.breze.config.JwtConfig;
@@ -64,13 +64,13 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-        else if(!jwt.startsWith(CharsetConstant.JWT_PREFIX)){
+        else if(!jwt.startsWith(SecurityConstant.JWT_PREFIX)){
             log.info("[JWT头部格式不正确]:---{}", jwt);
             accessDeniedHandler.handle(request, response, new BrezeDeniedException("JWT头部格式不正确"));
             return;
         }
 
-        jwt = jwt.replace(CharsetConstant.JWT_PREFIX, "");
+        jwt = jwt.replace(SecurityConstant.JWT_PREFIX, "");
 
         // 进行JWT解析
         Claims claim = jwtConfig.getClaimByToken(jwt);

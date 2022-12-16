@@ -16,7 +16,7 @@ public class CharsetConstant {
     /**
      * Bearer Token 常量，此处字符串结尾空格必须携带
      */
-    public static final String JWT_PREFIX = "Bearer ";
+
     /**
      * 字符编码常量
      */

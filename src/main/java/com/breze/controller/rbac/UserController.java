@@ -93,7 +93,6 @@ public class UserController extends BaseController {
 
     @BrezeLog("删除用户")
     @ApiOperation("删除用户信息")
-    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result<String> delete(@RequestBody Long[] ids) {
