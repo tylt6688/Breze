@@ -7,10 +7,13 @@ import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.brezelog.HandleLog;
 import com.breze.entity.pojo.brezelog.LoginLog;
 import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.vo.LoginLogVO;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @Author LUCIFER-LGX
@@ -37,6 +40,12 @@ public class BrezeLogController extends BaseController {
     public Result listHandleLog() {
         Page<HandleLog> pageData = handleLogService.page(getPage(), new LambdaQueryWrapper<HandleLog>().orderByDesc(HandleLog::getCreateTime));
         return Result.createSuccessMessage("分页查询操作日志成功", pageData);
+    }
+
+    @GetMapping("/login_count")
+    public Result getUserLoginCount() {
+        List<LoginLogVO> loginLogList = loginLogService.getUserLoginCount();
+        return Result.createSuccessMessage("分页查询操作日志成功",loginLogList);
     }
 
 

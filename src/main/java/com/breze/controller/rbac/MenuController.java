@@ -74,10 +74,10 @@ public class MenuController extends BaseController {
     }
 
     @ApiOperation("根据名称查询二级菜单")
-    @ApiImplicitParam(paramType = "query",name = "menuName", value = "菜单名称", required = false, dataType = "String", dataTypeClass = String.class)
+    @ApiImplicitParam(name = "menuName", value = "菜单名称", required = false, dataType = "String", dataTypeClass = String.class)
     @BrezeLog("根据名称查询二级菜单")
-    @GetMapping("/select_menu_name")
-    public Result<List<Menu>> selectByMenuName(@RequestParam String menuName) {
+    @GetMapping("/select_menu_name/{menuName}")
+    public Result<List<Menu>> selectByMenuName(@PathVariable String menuName) {
 
         return Result.createSuccessMessage("搜索功能成功", menuService.listByMenuName(menuName));
     }
