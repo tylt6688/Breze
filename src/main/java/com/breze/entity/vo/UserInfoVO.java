@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @ApiModel(value = "UserInfoVo", description = "UserInfoVo用户信息展示对象")
-public class UserInfoVo {
+public class UserInfoVO {
     @ApiModelProperty(value = "用户ID", name = "id", example = "1", notes = "用户ID")
     private Long id;
     @ApiModelProperty(value = "用户头像", name = "avatar", example = "https://www.baidu.com/img/bd_logo1.png", notes = "用户头像")

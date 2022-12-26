@@ -17,7 +17,8 @@ import com.breze.entity.dto.UserDTO;
 import com.breze.entity.mapstruct.UserConvert;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
-import com.breze.entity.vo.UserInfoVo;
+
+import com.breze.entity.vo.UserInfoVO;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.*;
 import lombok.extern.log4j.Log4j2;
@@ -50,10 +51,10 @@ public class UserController extends BaseController {
     @BrezeLog("获取当前用户信息")
     @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
     @GetMapping("/get_userinfo")
-    public Result<UserInfoVo> getUserInfo(Principal principal) {
+    public Result<UserInfoVO> getUserInfo(Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
         User userRoles = userService.getUserRolesByUserId(user.getId());
-        UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
+        UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
         userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
         return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
     }
@@ -62,9 +63,9 @@ public class UserController extends BaseController {
     @ApiOperation("根据ID获取用户信息")
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
-    public Result<UserInfoVo> info(@PathVariable Long id) {
+    public Result<UserInfoVO> info(@PathVariable Long id) {
         User user = userService.getUserRolesByUserId(id);
-        UserInfoVo userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+        UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
         return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
     }
 

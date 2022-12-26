@@ -2,7 +2,10 @@ package com.breze.mapper.brezelog;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.breze.entity.pojo.brezelog.LoginLog;
+import com.breze.entity.vo.LoginLogVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface LoginLogMapper extends BaseMapper<LoginLog> {
-
+    List<LoginLogVO> getUserLoginCount();
 }

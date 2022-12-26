@@ -1,19 +1,23 @@
 package com.breze.entity.vo;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Accessors(chain = true)
-public class LoginVo {
+import java.time.LocalDateTime;
 
-    private String username;
-    private String password;
-    private String key;
-    private String code;
+/**
+ * @author chenweixi
+ * @create 2022-12-26 13:42
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+public class LoginLogVO{
+
+    private Long loginCount;
+
+    private LocalDateTime createTime;
 }
