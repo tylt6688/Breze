@@ -18,4 +18,6 @@ import java.util.List;
 public interface LoginLogService extends IService<LoginLog> {
 
     List<LoginLogVO> getUserLoginCount();
+
+    List<LoginLogVO> getUserLoginCategory(String currentDate);
 }

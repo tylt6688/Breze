@@ -4,6 +4,7 @@ package com.breze.controller.rbac;
 import cn.hutool.core.text.CharSequenceUtil;
 import com.alibaba.excel.EasyExcelFactory;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.consts.CharsetConstant;
@@ -80,7 +81,11 @@ public class UserController extends BaseController {
         pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
         return Result.createSuccessMessage("", pageData);
     }
-
+    @ApiOperation("获取用户数量")
+    @GetMapping("/user_count")
+    public Result getUserCount() {
+        return Result.createSuccessMessage("查询用户数量成功",userService.count());
+    }
 
     @BrezeLog("新增用户")
     @ApiOperation("新增用户")

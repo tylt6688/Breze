@@ -18,4 +18,6 @@ import java.util.List;
 @Mapper
 public interface LoginLogMapper extends BaseMapper<LoginLog> {
     List<LoginLogVO> getUserLoginCount();
+
+    List<LoginLogVO> getUserLoginCategory(String currentDate);
 }

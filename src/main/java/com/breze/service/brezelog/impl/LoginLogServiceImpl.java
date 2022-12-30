@@ -31,4 +31,10 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
         List<LoginLogVO> loginLogList = loginLogMapper.getUserLoginCount();
         return loginLogList;
     }
+
+    @Override
+    public List<LoginLogVO> getUserLoginCategory(String currentDate) {
+        List<LoginLogVO> logVOS = loginLogMapper.getUserLoginCategory(currentDate);
+        return logVOS;
+    }
 }
