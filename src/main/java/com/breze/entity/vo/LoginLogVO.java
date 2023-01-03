@@ -19,5 +19,7 @@ public class LoginLogVO{
 
     private Long loginCount;
 
+    private String roleName;
+
     private LocalDateTime createTime;
 }

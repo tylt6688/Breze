@@ -1,6 +1,8 @@
 package com.breze.controller.tool;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
@@ -8,11 +10,15 @@ import com.breze.entity.pojo.brezelog.HandleLog;
 import com.breze.entity.pojo.brezelog.LoginLog;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.vo.LoginLogVO;
+import com.breze.utils.DateUtil;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,8 +50,15 @@ public class BrezeLogController extends BaseController {
 
     @GetMapping("/login_count")
     public Result getUserLoginCount() {
-        List<LoginLogVO> loginLogList = loginLogService.getUserLoginCount();
-        return Result.createSuccessMessage("分页查询操作日志成功",loginLogList);
+        List<LoginLogVO> userLoginCount = loginLogService.getUserLoginCount();
+        return Result.createSuccessMessage("最近用户登录数量获取成功",userLoginCount);
+    }
+    @GetMapping("/login_category")
+    public Result getUserLoginCategory() {
+        String dateByCurrentTime = DateUtil.getDateByCurrentTime(0);
+        String currentDate = dateByCurrentTime.split(" ")[0] + "%";
+        List<LoginLogVO> loginLogVOS = loginLogService.getUserLoginCategory(currentDate);
+        return Result.createSuccessMessage("访客类型数据获取成功",loginLogVOS);
     }
 
 
