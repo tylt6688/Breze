@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 // 开启MockMvc虚拟调用
 @AutoConfigureMockMvc
-class SuperFusionTeachingPlatformApplicationTests {
+class BrezeApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;

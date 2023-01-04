@@ -7,11 +7,16 @@ package com.breze.common.consts;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 public class SecurityConstant {
-
+    /**
+     * Authorization 常量，方便请求头中获取
+     */
     public static final String AUTHORIZATION = "Authorization";
+    /**
+     * Bearer Token 常量，此处字符串结尾空格必须携带
+     */
     public static final String JWT_PREFIX = "Bearer ";
     /**
-     * 主系统白名单接口常量数组
+     * Breze-Portal [系统白名单接口常量数组]
      */
     public static final String[] URL_WHITELIST = {
             "/login",

@@ -59,7 +59,7 @@
     - service
     - serviceImpl
     - utils
-    - BreazeApplication.java
+    - BrezeApplication.java
 ```
 ```
 - resources

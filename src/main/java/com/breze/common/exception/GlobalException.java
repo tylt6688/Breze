@@ -46,7 +46,7 @@ public class GlobalException extends Throwable {
     public Result handler(AccessDeniedException e) {
         log.error("Security权限不足:----------------{}", e.getMessage());
         //        e.printStackTrace();
-        return Result.createFailMessage(ErrorEnum.NoPermission, "权限不足");
+        return Result.createFailMessage(ErrorEnum.NoPermission, ErrorEnum.NoPermission.getErrorName());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -12,7 +12,7 @@ import java.util.List;
  * @Author LUCIFER-LGX
  * @Date 2022/8/24 10:12
  * @Copyright(c) 2022 , 青枫网络工作室
- * @Description
+ * @Description 数据库表操作服务实现类
  */
 @Service
 public class DataBaseTableServiceImpl implements DataBaseTableService {

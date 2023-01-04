@@ -1,5 +1,6 @@
 package com.breze.config;
 
+import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.SecurityConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +44,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 // 是否允许Cookie
                 .allowCredentials(true)
                 // 设置允许的请求方式
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedMethods(CharsetConstant.GET, CharsetConstant.POST, CharsetConstant.PUT, CharsetConstant.DELETE)
                 // 最大响应时间
                 .maxAge(3600);
     }

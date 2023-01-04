@@ -1,4 +1,4 @@
-青枫-Breze项目开始启动------>>>‍🏍
+青枫-Breze项目开始启动 <<<---🚀🚀🚀--->>>
 Application Version: ${breze.version}
 Spring Boot Version: ${spring-boot.version}
 
