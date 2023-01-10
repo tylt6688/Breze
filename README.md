@@ -38,13 +38,19 @@
 
 ## 项目功能
 
-1.  权限管理
-2.  菜单管理
-3.  用户管理
-4.  部门管理
-5.  个人中心
-6.  邮件提醒
-7.  代码生成
+1. 角色管理：显示系统所拥有的角色权限，该功能主要完成角色的权限分配
+2. 用户管理：系统的用户信息操作配置
+3. 菜单管理：系统的菜单配置
+4. 部门管理：系统组织机构的配置，可与岗位管理关联
+5. 岗位管理：显示用户所担任的职务
+6. 数据字典：对一些经常使用的固定数据进行动态管理
+7. 文档首页管理：系统文档门户信息维护
+8. 登录日志：系统登录的记录查询
+9. 操作日志：系统一些操作记录
+10. 代码生成：后端代码生成，包括controller、service、serviceImpl、mapper、xml文件
+11. 接口文档：后端接口测试，友好的展示后端返回数据格式
+12. 服务器监控：监视系统当前CPU使用情况
+13. 数据库监控：
 
 ## 项目结构
 
@@ -57,7 +63,6 @@
     - mapper
     - security
     - service
-    - serviceImpl
     - utils
     - BrezeApplication.java
 ```
@@ -97,6 +102,18 @@
 <table>
     <tr>
         <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/loginpage.png"/></td>
+        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/dashboard.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/roleManager.png"/></td>
+        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/roleManagerAssignPermissions.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/userManager.png"/></td>
+        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/userManagerAssignPermissions.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/codeGener.png"/></td>
     </tr>
 </table>
 
