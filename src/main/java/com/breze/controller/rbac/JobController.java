@@ -1,5 +1,6 @@
 package com.breze.controller.rbac;
 
+import com.breze.common.annotation.BrezeLog;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
@@ -22,6 +23,7 @@ import java.util.List;
 @RequestMapping("/sys/job")
 public class JobController extends BaseController {
     @ApiOperation(value = "查询全部岗位信息", notes = "用于不分页情况下展示")
+    @BrezeLog("查询全部岗位信息")
     @GetMapping("/select")
     public Result<List<Job>> selectAll() {
         List<Job> jobs = jobService.findAll();
@@ -29,13 +31,15 @@ public class JobController extends BaseController {
     }
 
     @ApiOperation(value = "通过JobId查询岗位信息", notes = "单个信息展示")
+    @BrezeLog("通过JobId查询岗位信息")
     @GetMapping("/select/{id}")
     public Result<Job> selectJobById(@PathVariable Long id) {
         Job job = jobService.findByJobId(id);
         return Result.createSuccessMessage("查询岗位成功", job);
     }
 
-    @ApiOperation(value = "插入岗位信息", notes = "用于新增岗位信息")
+    @ApiOperation(value = "新增岗位信息", notes = "用于新增岗位信息")
+    @BrezeLog("新增岗位信息")
     @PostMapping("/insert")
     public Result<String> insert(@RequestBody Job job) {
         jobService.insert(job);
@@ -43,6 +47,7 @@ public class JobController extends BaseController {
     }
 
     @ApiOperation(value = "更新岗位信息", notes = "用于更新岗位信息")
+    @BrezeLog("更新岗位信息")
     @PutMapping("/update")
     public Result<String> update(@RequestBody Job job) {
         jobService.update(job);
@@ -50,6 +55,7 @@ public class JobController extends BaseController {
     }
 
     @ApiOperation(value = "删除岗位信息", notes = "用于删除岗位信息")
+    @BrezeLog("删除岗位信息")
     @DeleteMapping("/delete")
     public Result<String> deleteById(@RequestParam Long id) {
         try {

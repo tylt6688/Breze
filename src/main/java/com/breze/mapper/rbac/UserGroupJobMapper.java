@@ -2,7 +2,7 @@ package com.breze.mapper.rbac;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.bo.UserGroupJobBO;
+import com.breze.entity.bo.sys.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.UserGroupJob;
 import org.apache.ibatis.annotations.Mapper;
 

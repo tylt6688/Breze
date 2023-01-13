@@ -2,7 +2,7 @@ package com.breze.service.rbac;
 
 import com.breze.entity.pojo.rbac.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.dto.MenuDTO;
+import com.breze.entity.dto.sys.MenuDTO;
 
 import java.util.List;
 
@@ -27,5 +27,5 @@ public interface MenuService extends IService<Menu> {
      * 通过名称来进行模糊搜索功能
      */
 
-    List<Menu> listByMenuName(String menuName);
+    List<Menu> listByMenuTitle(String menuTitle);
 }

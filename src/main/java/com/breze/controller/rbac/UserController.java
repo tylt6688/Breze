@@ -4,7 +4,6 @@ package com.breze.controller.rbac;
 import cn.hutool.core.text.CharSequenceUtil;
 import com.alibaba.excel.EasyExcelFactory;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.consts.CharsetConstant;
@@ -13,13 +12,13 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.dto.UpdatePasswordDTO;
-import com.breze.entity.dto.UserDTO;
-import com.breze.entity.mapstruct.UserConvert;
+import com.breze.entity.dto.sys.UpdatePasswordDTO;
+import com.breze.entity.dto.sys.UserDTO;
+import com.breze.entity.mapstruct.sys.UserConvert;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
 
-import com.breze.entity.vo.UserInfoVO;
+import com.breze.entity.vo.sys.UserInfoVO;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.*;
 import lombok.extern.log4j.Log4j2;
@@ -81,10 +80,11 @@ public class UserController extends BaseController {
         pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
         return Result.createSuccessMessage("", pageData);
     }
+
     @ApiOperation("获取用户数量")
     @GetMapping("/user_count")
-    public Result getUserCount() {
-        return Result.createSuccessMessage("查询用户数量成功",userService.count());
+    public Result<Long> getUserCount() {
+        return Result.createSuccessMessage("查询用户数量成功", userService.count());
     }
 
     @BrezeLog("新增用户")
@@ -112,9 +112,15 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
-        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-        userService.update(user);
-        return Result.createSuccessMessage("修改用户成功");
+
+        try {
+            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
+            userService.update(user);
+            return Result.createSuccessMessage("修改用户成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "修改用户失败");
+        }
+
     }
 
 

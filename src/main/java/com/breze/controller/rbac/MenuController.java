@@ -8,10 +8,12 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.dto.MenuDTO;
+import com.breze.entity.dto.sys.MenuDTO;
+import com.breze.entity.mapstruct.sys.MenuConvert;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.RoleMenu;
 import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.vo.sys.TabVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +42,7 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "获取侧边菜单导航")
     @BrezeLog("获取侧边菜单导航")
     @GetMapping("/nav")
-    public Result<Map<Object,Object>> getNav(Principal principal) {
+    public Result<Map<Object, Object>> getNav(Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
         // 获取权限信息
         String authorityInfo = userService.getUserAuthorityInfo(user.getId());
@@ -76,10 +78,11 @@ public class MenuController extends BaseController {
     @ApiOperation("根据名称查询二级菜单")
     @ApiImplicitParam(name = "menuName", value = "菜单名称", required = false, dataType = "String", dataTypeClass = String.class)
     @BrezeLog("根据名称查询二级菜单")
-    @GetMapping("/select_menu_name/{menuName}")
-    public Result<List<Menu>> selectByMenuName(@PathVariable String menuName) {
-
-        return Result.createSuccessMessage("搜索功能成功", menuService.listByMenuName(menuName));
+    @GetMapping("/select_menu_title/{menuTitle}")
+    public Result<List<TabVO>> selectByMenuName(@PathVariable String menuTitle) {
+        List<Menu> menus = menuService.listByMenuTitle(menuTitle);
+        List<TabVO> tabs = MenuConvert.INSTANT.menusTotabVOList(menus);
+        return Result.createSuccessMessage("搜索系统功能成功",tabs);
     }
 
 

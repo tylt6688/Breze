@@ -1,7 +1,7 @@
 package com.breze.service.rbac;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.bo.UserGroupJobBO;
+import com.breze.entity.bo.sys.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.UserGroupJob;
 
 import java.util.List;

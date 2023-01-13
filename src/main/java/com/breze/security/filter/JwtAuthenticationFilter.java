@@ -59,12 +59,11 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
-        if (jwt == null) {
-            log.info("[JWT为空](此日志消息只针对Dev环境使用，初始登录以及白名单接口访问为空是正常现象):---{}", jwt);
+        if (jwt == null || SecurityConstant.BREZE_APP.equals(jwt)) {
+            log.info("[JWT为空](初始登录以及白名单接口访问时为空正常):---{}", jwt);
             chain.doFilter(request, response);
             return;
-        }
-        else if(!jwt.startsWith(SecurityConstant.JWT_PREFIX)){
+        } else if (!jwt.startsWith(SecurityConstant.JWT_PREFIX)) {
             log.info("[JWT头部格式不正确]:---{}", jwt);
             accessDeniedHandler.handle(request, response, new BrezeDeniedException("JWT头部格式不正确"));
             return;

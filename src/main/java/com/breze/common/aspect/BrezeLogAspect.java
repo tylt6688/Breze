@@ -5,7 +5,7 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.event.BrezeLogEvent;
-import com.breze.entity.pojo.brezelog.HandleLog;
+import com.breze.entity.pojo.syslog.HandleLog;
 import com.breze.utils.SpringContextHolder;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;

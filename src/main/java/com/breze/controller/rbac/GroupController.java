@@ -1,6 +1,7 @@
 package com.breze.controller.rbac;
 
 
+import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.rbac.Group;
@@ -24,18 +25,21 @@ import java.util.List;
 public class GroupController extends BaseController {
 
     @ApiOperation(value = "获取全部部门列表")
+    @BrezeLog("获取全部部门列表")
     @GetMapping("/select")
     public Result<List<Group>> selectAll() {
         return Result.createSuccessMessage("查询部门成功",groupService.findAll());
     }
 
     @ApiOperation(value = "获取单个部门信息")
+    @BrezeLog("获取单个部门信息")
     @GetMapping("/select/{id}")
     public Result<Group> selectById(@PathVariable Long id) {
         return Result.createSuccessMessage("查询单个部门成功",groupService.findById(id));
     }
 
     @ApiOperation(value = "新增部门", notes = "新增部门")
+    @BrezeLog("新增部门")
     @PostMapping("/insert")
     public Result<String> insert(@RequestBody Group group) {
         groupService.insert(group);
@@ -43,6 +47,7 @@ public class GroupController extends BaseController {
     }
 
     @ApiOperation(value = "更新部门", notes = "更新部门")
+    @BrezeLog("更新部门")
     @PutMapping("/update")
     public Result<String> update(@RequestBody Group group) {
         groupService.update(group);
@@ -50,6 +55,7 @@ public class GroupController extends BaseController {
     }
 
     @ApiOperation(value = "删除部门", notes = "删除部门")
+    @BrezeLog("删除部门")
     @DeleteMapping("/delete")
     public Result<String> deleteById(@RequestParam Long id) {
         groupService.delete(id);

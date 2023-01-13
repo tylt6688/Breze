@@ -1,7 +1,7 @@
 package com.breze.service.rbac.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.breze.entity.bo.UserGroupJobBO;
+import com.breze.entity.bo.sys.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.UserGroupJob;
 import com.breze.mapper.rbac.UserGroupJobMapper;
 import com.breze.service.rbac.UserGroupJobService;

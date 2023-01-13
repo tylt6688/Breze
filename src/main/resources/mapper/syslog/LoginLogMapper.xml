@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.breze.mapper.syslog.LoginLogMapper">
+    <select id="getUserLoginCount" resultType="com.breze.entity.vo.sys.LoginLogVO">
+        SELECT COUNT(user_id) as loginCount,create_time
+        FROM `log_login`
+        WHERE create_time > (SELECT DATE_SUB(CURDATE(),INTERVAL 6 DAY))
+        GROUP BY DATE_FORMAT( create_time,"%Y-%m-%d")
+        ORDER BY create_time ASC
+    </select>
+    <select id="getUserLoginCategory" resultType="com.breze.entity.vo.sys.LoginLogVO">
+        SELECT
+            count( log.user_id ) AS loginCount,
+            ro.NAME AS roleName,
+            log.create_time AS createTime
+        FROM
+            log_login log,
+            sys_user_role ur,
+            sys_role ro
+        WHERE
+            log.create_time LIKE #{currentDate}
+          AND log.user_id = ur.user_id
+          AND ur.role_id = ro.id
+        GROUP BY
+            ro.NAME
+
+    </select>
+</mapper>

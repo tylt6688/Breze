@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.breze.mapper.rbac.UserGroupJobMapper">
 
-    <select id="listUserGroupJobBOs" resultType="com.breze.entity.bo.UserGroupJobBO">
+    <select id="listUserGroupJobBOs" resultType="com.breze.entity.bo.sys.UserGroupJobBO">
         SELECT
             user_id,
             group_id,

@@ -3,7 +3,7 @@ package com.breze.service.rbac.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.breze.entity.bo.UserGroupJobBO;
+import com.breze.entity.bo.sys.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;

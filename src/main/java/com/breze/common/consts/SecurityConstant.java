@@ -15,6 +15,8 @@ public class SecurityConstant {
      * Bearer Token 常量，此处字符串结尾空格必须携带
      */
     public static final String JWT_PREFIX = "Bearer ";
+
+    public static final String BREZE_APP = "BrezeApp";
     /**
      * Breze-Portal [系统白名单接口常量数组]
      */

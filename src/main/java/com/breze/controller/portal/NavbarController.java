@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.core.BaseController;
-import com.breze.entity.mapstruct.NavbarConvert;
+import com.breze.entity.mapstruct.portal.NavbarConvert;
 import com.breze.entity.pojo.portal.Navbar;
 import com.breze.entity.vo.portal.NavbarTitleVo;
 import io.swagger.annotations.Api;

@@ -1,8 +1,8 @@
 package com.breze.common.listener;
 
 import com.breze.common.event.BrezeLogEvent;
-import com.breze.entity.pojo.brezelog.HandleLog;
-import com.breze.service.brezelog.HandleLogService;
+import com.breze.entity.pojo.syslog.HandleLog;
+import com.breze.service.syslog.HandleLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

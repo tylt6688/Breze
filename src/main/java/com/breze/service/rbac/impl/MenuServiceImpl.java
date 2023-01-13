@@ -3,7 +3,7 @@ package com.breze.service.rbac.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.GlobalConstant;
-import com.breze.entity.dto.MenuDTO;
+import com.breze.entity.dto.sys.MenuDTO;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.mapper.rbac.MenuMapper;
@@ -79,8 +79,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         menuTree.forEach(menu -> {
             MenuDTO dto = new MenuDTO();
             dto.setId(menu.getId());
-            dto.setName(menu.getPerms());
-            dto.setTitle(menu.getName());
+            dto.setTitle(menu.getTitle());
+            dto.setName(menu.getName());
             dto.setIcon(menu.getIcon());
             dto.setComponent(menu.getComponent());
             dto.setPath(menu.getPath());
@@ -102,11 +102,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public List<Menu> listByMenuName(String menuName) {
+    public List<Menu> listByMenuTitle(String menuTitle) {
         LambdaQueryWrapper<Menu> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Menu::getType, GlobalConstant.TYPE_ONE)
-                .like(Menu::getName, menuName);
-        return menuMapper.selectList(wrapper);
+                .like(Menu::getTitle, menuTitle);
+        List<Menu> menus = menuMapper.selectList(wrapper);
+        menus.forEach(menu -> menu.setParentTitle(menuMapper.selectTitleById(menu.getParentId())));
+        return menus;
     }
 
 
