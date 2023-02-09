@@ -11,8 +11,11 @@ public class CacheConstant {
      * 验证码常量
      */
     public static final String CAPTCHA_KEY = "captcha";
+
+
     /**
      * 权限key常量
      */
     public static final String AUTHORITY_CODE = "GrantedAuthority:";
+
 }

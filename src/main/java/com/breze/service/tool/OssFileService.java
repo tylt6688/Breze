@@ -1,7 +1,7 @@
 package com.breze.service.tool;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.pojo.tool.OssFile;
+import com.breze.entity.pojo.tool.OSS;
 
 /**
  * <p>
@@ -11,7 +11,7 @@ import com.breze.entity.pojo.tool.OssFile;
  * @author tylt6688
  * @since 2022-03-19
  */
-public interface OssFileService extends IService<OssFile> {
+public interface OssFileService extends IService<OSS> {
 
 
 }

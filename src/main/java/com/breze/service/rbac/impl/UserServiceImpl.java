@@ -15,7 +15,7 @@ import com.breze.mapper.rbac.MenuMapper;
 import com.breze.mapper.rbac.RoleMapper;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.UserService;
-import com.breze.utils.MultipartFileToFileUtil;
+import com.breze.utils.FileUtil;
 import com.breze.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -128,7 +128,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void importUserByExcel(MultipartFile file) {
         String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
-        File coverFile = MultipartFileToFileUtil.multipartFileToFile(file);
+        File coverFile = FileUtil.multipartFileToFile(file);
         EasyExcelFactory.read(coverFile, User.class, new PageReadListener<User>(dataList -> {
             for (User user : dataList) {
                 user.setPassword(encode)

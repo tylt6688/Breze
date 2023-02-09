@@ -1,4 +1,4 @@
-package com.breze.entity.mapstruct.sys;
+package com.breze.converter.sys;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

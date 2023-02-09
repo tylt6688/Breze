@@ -4,7 +4,7 @@ import com.breze.common.annotation.BrezeLog;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.rbac.Job;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

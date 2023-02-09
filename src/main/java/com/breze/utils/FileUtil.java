@@ -1,20 +1,43 @@
 package com.breze.utils;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.Objects;
+import java.util.UUID;
+
 /**
  * @Author tylt6688
  * @Date 2022/2/5 11:57
- * @Description 文件转换工具类，MultipartFile 转 File
+ * @Description 文件工具类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
 @UtilityClass
-public class MultipartFileToFileUtil {
+public class FileUtil {
+    /**
+     * 生成OSS存储空间内的唯一文件名称
+     */
+    public static String getUniqueFileName(String fileName) {
+        Assert.notNull(fileName, "文件不能为空");
+        int index = fileName.lastIndexOf(".");
+        if ((fileName.isEmpty()) || index == -1) {
+            throw new IllegalArgumentException();
+        }
+        // 获取文件后缀
+        String suffix = fileName.substring(index);
+        // 生成UUID
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        // 生成上传至云服务器的路径
+        String path = uuid + suffix;
+        return path;
+    }
 
+    /**
+     * MultipartFile 转 File
+     */
     public static File multipartFileToFile(MultipartFile file) {
         try {
             File toFile;

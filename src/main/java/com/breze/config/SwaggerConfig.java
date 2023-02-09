@@ -27,9 +27,9 @@ import java.util.List;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
+@Configuration // 声明自定义配置类
 @Profile({"dev", "test"}) // 指明多环境配置类标识
 @EnableOpenApi
-@Configuration // 声明自定义配置类
 public class SwaggerConfig {
 
     @Autowired
@@ -43,10 +43,14 @@ public class SwaggerConfig {
 
         // 指定文档风格
         return new Docket(DocumentationType.OAS_30)
+                // 是否启用Swagger
                 .enable(brezeConfig.getSwaggerEnabled())
+                // 设置文档信息
                 .apiInfo(apiInfo())
+                // 设置分组名称
                 .groupName("controller")
-                .select()// 选择哪些接口暴露给Swagger展示的生成策略
+                // 选择哪些接口暴露给Swagger展示的生成策略
+                .select()
                 // 扫描所有有注解的api，用这种方式更灵活
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 // 扫描指定包中的swagger注解
@@ -70,15 +74,15 @@ public class SwaggerConfig {
     }
 
     /**
-     * 安全模式，这里指定token[Bearer方式] 通过Authorization头请求头传递
+     * 安全模式，指定token[Bearer方式] 通过Authorization头请求头传递
      */
     private HttpAuthenticationScheme securitySchemes() {
         return HttpAuthenticationScheme.JWT_BEARER_BUILDER.name(SecurityConstant.AUTHORIZATION).build();
     }
 
-//    /**
-//     * 安全模式，这里指定token[API Key方式] 通过Authorization头请求头传递
-//     */
+    /**
+     * 安全模式，指定token[API Key方式] 通过Authorization头请求头传递
+     */
 //    private List<SecurityScheme> securitySchemes() {
 //        List<SecurityScheme> apiKeyList = new ArrayList<>();
 //        apiKeyList.add(new ApiKey(SecurityConstant.AUTHORIZATION, SecurityConstant.AUTHORIZATION, In.HEADER.toValue()));
@@ -111,7 +115,6 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         // 配置作者信息
-        Contact DEFAULT_CONTACT = new Contact(brezeConfig.getCopyrightName(), "https://blog.csdn.net/tylt6688/", "tylt6688@foxmail.com");
         return new ApiInfoBuilder()
                 // 设置文档的标题
                 .title(brezeConfig.getTitle())
@@ -122,7 +125,7 @@ public class SwaggerConfig {
                 // 设置文档的 License 信息->1.3 License information
                 .termsOfServiceUrl("https://love.tylt.xyz")
                 // 设置文档的联系方式->1.3.1 Contact information
-                .contact(DEFAULT_CONTACT)
+                .contact(new Contact(brezeConfig.getCopyrightName(), "https://blog.csdn.net/tylt6688/", "tylt6688@foxmail.com"))
                 .build();
     }
 

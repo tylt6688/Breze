@@ -1,6 +1,10 @@
 package com.breze.entity.pojo.rbac;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.breze.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,8 +14,6 @@ import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ import java.util.List;
 @Accessors(chain = true)
 @TableName("sys_menu")
 @ApiModel(value = "Menu", description = "菜单对象,sys_menu菜单表")
-public class Menu implements Serializable {
+public class Menu extends BaseEntity {
 
     private static final long serialVersionUID = 51460849181143467L;
 
@@ -71,14 +73,6 @@ public class Menu implements Serializable {
 
     @ApiModelProperty(value = "状态", name = "state", example = "0", notes = "状态：0正常 1停用")
     private Integer state;
-
-    @ApiModelProperty(value = "创建时间", name = "createTime", example = "2020-03-01 12:00:00", notes = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2020-03-01 12:00:00", notes = "更新时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "多级子节点",name = "children",dataType = "List<Menu>")
     @TableField(exist = false)

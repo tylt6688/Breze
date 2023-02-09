@@ -1,13 +1,15 @@
-package com.breze.controller.core;
+package com.breze.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.consts.GlobalConstant;
-import com.breze.config.JwtConfig;
 import com.breze.config.OssConfig;
+import com.breze.service.portal.BannerService;
+import com.breze.service.portal.MainContentService;
+import com.breze.service.portal.ModeCardService;
+import com.breze.service.portal.NavbarService;
+import com.breze.service.rbac.*;
 import com.breze.service.syslog.HandleLogService;
 import com.breze.service.syslog.LoginLogService;
-import com.breze.service.portal.*;
-import com.breze.service.rbac.*;
 import com.breze.service.tool.MailService;
 import com.breze.service.tool.OssFileService;
 import com.breze.service.tool.QiNiuService;
@@ -31,8 +33,6 @@ public class BaseController {
     /**
      * 配置类注入 Start
      */
-    @Autowired
-    protected JwtConfig jwtConfig;
     @Autowired
     protected OssConfig ossConfig;
 

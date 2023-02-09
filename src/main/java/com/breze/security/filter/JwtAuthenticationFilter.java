@@ -9,6 +9,7 @@ import com.breze.security.UserDetailServiceImpl;
 import com.breze.security.handler.AccessDeniedHandlerImpl;
 import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.service.rbac.UserService;
+import com.breze.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Autowired
     private JwtConfig jwtConfig;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserService userService;
@@ -72,14 +76,14 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         jwt = jwt.replace(SecurityConstant.JWT_PREFIX, "");
 
         // 进行JWT解析
-        Claims claim = jwtConfig.getClaimByToken(jwt);
+        Claims claim = jwtUtil.getClaimByToken(jwt);
 
         if (claim == null) {
             authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("Token解析失败"));
             return;
         }
         // 判断token是否过期
-        else if (Boolean.TRUE.equals(jwtConfig.isTokenExpired(claim))) {
+        else if (Boolean.TRUE.equals(jwtUtil.isTokenExpired(claim))) {
             authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("JWT已过期"));
             return;
         }

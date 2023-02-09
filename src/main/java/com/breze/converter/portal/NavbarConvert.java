@@ -1,4 +1,4 @@
-package com.breze.entity.mapstruct.portal;
+package com.breze.converter.portal;
 
 import com.breze.entity.pojo.portal.Navbar;
 import com.breze.entity.vo.portal.NavbarTitleVo;

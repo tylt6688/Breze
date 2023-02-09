@@ -4,7 +4,7 @@ package com.breze.controller.portal;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.portal.Banner;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;

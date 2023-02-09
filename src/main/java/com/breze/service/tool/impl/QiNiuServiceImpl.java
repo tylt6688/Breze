@@ -3,7 +3,8 @@ package com.breze.service.tool.impl;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.breze.config.OssConfig;
-import com.breze.utils.UniqueFileNameUtil;
+import com.breze.service.tool.QiNiuService;
+import com.breze.utils.FileUtil;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -14,7 +15,6 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.breze.service.tool.QiNiuService;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class QiNiuServiceImpl implements QiNiuService {
         String fileName = file.getOriginalFilename();
         // 使用工具类根据上传文件生成唯一图片名称
         assert fileName != null;
-        String newFileName = UniqueFileNameUtil.getRandomImgName(fileName);
+        String newFileName = FileUtil.getUniqueFileName(fileName);
         // 上传文件
         Response res = null;
         try {

@@ -5,6 +5,7 @@ import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.config.JwtConfig;
 import com.breze.utils.IPUtil;
+import com.breze.utils.JwtUtil;
 import com.maxmind.geoip2.DatabaseReader;
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
@@ -30,11 +31,13 @@ import java.nio.charset.StandardCharsets;
 
 @Log4j2
 @Component
-public class LoginSuccessHandlerImpl implements AuthenticationSuccessHandler {
+public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
     @Autowired
-    JwtConfig jwtConfig;
+    private JwtConfig jwtConfig;
 
+    @Autowired
+    private JwtUtil jwtUtil;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
@@ -44,7 +47,7 @@ public class LoginSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-        String jwt = jwtConfig.generateToken(authentication.getName());
+        String jwt = jwtUtil.generateToken(authentication.getName());
 
         // 生成JWT放置到响应Header头中
         response.setHeader(jwtConfig.getHeader(), jwt);

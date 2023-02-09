@@ -3,7 +3,7 @@ package com.breze.controller.rbac;
 
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.rbac.Group;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

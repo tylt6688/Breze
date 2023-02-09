@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.portal.ModeCard;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

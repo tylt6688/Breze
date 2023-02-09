@@ -4,7 +4,7 @@ package com.breze.controller.syslog;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.syslog.HandleLog;
 import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.entity.pojo.rbac.User;

@@ -1,10 +1,11 @@
-package com.breze.controller.core;
+package com.breze.controller.rbac;
 
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.map.MapUtil;
 import com.breze.common.consts.CacheConstant;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.result.Result;
+import com.breze.controller.BaseController;
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,8 +44,7 @@ public class CaptchaController extends BaseController {
         @Cleanup ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ImageIO.write(image, CharsetConstant.JPG, outputStream);
 
-        String prefix = CharsetConstant.BASE_64;
-        String base64Img = prefix + Base64Encoder.encode(outputStream.toByteArray());
+        String base64Img = CharsetConstant.BASE_64 + Base64Encoder.encode(outputStream.toByteArray());
 
         // 将生成的验证码存储到Redis中，验证码有效期为 2分钟
         redisUtil.hashSet(CacheConstant.CAPTCHA_KEY, key, code, 120);
@@ -53,7 +53,7 @@ public class CaptchaController extends BaseController {
                 .put("key", key)
                 .put("base64Img", base64Img)
                 .build();
-        log.info("当前验证码：|-key:---{} |-code:---{}", key, code);
+        log.info("当前登录验证码：|-key:---{} |-code:---{}", key, code);
         return Result.createSuccessMessage("获取登录验证码成功", map);
     }
 }

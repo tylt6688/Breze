@@ -1,7 +1,4 @@
 # application.yml 主配置文件
-# application-dev.yml  开发环境配置文件
-# application-prod.yml  生产环境配置文件
-# application-test.yml  测试环境配置文件
 # 项目相关配置
 breze:
   # 标题
@@ -25,9 +22,9 @@ spring:
     active: dev
     # 对配置文件进行分组激活，届时可根据不同环境进行修改
     group:
-      "dev": datasource,redis,rabbitmq,mail,timertask,private
-      "prod": datasource,redis,rabbitmq,mail,timertask,private
-      "test": datasource,redis,rabbitmq,mail,timertask,private
+      "dev": datasource,redis,rabbitmq,mail,timedtask,private
+      "prod": datasource,redis,rabbitmq,mail,timedtask,private
+      "test": datasource,redis,rabbitmq,mail,timedtask,private
   # 限制文件大小
   servlet:
     multipart:
@@ -41,6 +38,7 @@ logging:
     common: com.breze.common
     controller: com.breze.controller
     service: com.breze.service,com.breze.impl
+    mapper: com.breze.mapper.**
   # 根据分组设定日志级别
   level:
     # 项目整体日志级别
@@ -48,5 +46,5 @@ logging:
     # 项目分组各模块日志级别
     common: info
     controller: debug
-    service: info
-
+    service: debug
+    mapper: debug

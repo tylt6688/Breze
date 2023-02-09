@@ -10,7 +10,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import com.breze.common.result.Result;
 import com.breze.config.MailConfig;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.tool.Email;
 import com.breze.entity.pojo.rbac.User;
 

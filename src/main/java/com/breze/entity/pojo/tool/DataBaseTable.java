@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * @Author LUCIFER-LGX
  * @Date 2022/8/24 10:06
- * @Description
+ * @Description 数据库表实体类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data

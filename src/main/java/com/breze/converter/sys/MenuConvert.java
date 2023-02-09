@@ -1,4 +1,4 @@
-package com.breze.entity.mapstruct.sys;
+package com.breze.converter.sys;
 
 import com.breze.entity.dto.sys.MenuDTO;
 import com.breze.entity.pojo.rbac.Menu;
@@ -30,4 +30,5 @@ public interface MenuConvert {
     Menu menuDTOToMenu(MenuDTO menuDTO);
 
     List<TabVO> menusTotabVOList(List<Menu> menus);
+
 }

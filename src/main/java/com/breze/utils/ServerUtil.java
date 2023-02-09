@@ -7,6 +7,7 @@ import lombok.experimental.UtilityClass;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public class ServerUtil {
             arrayList.add(diskUsed);
             return arrayList;
         }
-        return null;
+        return Arrays.asList("0", "0", "0");
     }
 
 }

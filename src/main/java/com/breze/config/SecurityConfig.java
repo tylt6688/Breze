@@ -3,7 +3,7 @@ package com.breze.config;
 import com.breze.common.consts.SecurityConstant;
 import com.breze.security.filter.CaptchaFilter;
 import com.breze.security.filter.JwtAuthenticationFilter;
-import com.breze.security.handler.LoginSuccessHandlerImpl;
+import com.breze.security.handler.AuthenticationSuccessHandlerImpl;
 import com.breze.security.handler.LogoutSuccessHandlerImpl;
 import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.security.handler.AccessDeniedHandlerImpl;
@@ -39,7 +39,7 @@ public class SecurityConfig {
     @Autowired
     private CaptchaFilter captchaFilter;
     @Autowired
-    private LoginSuccessHandlerImpl loginSuccessHandlerImpl;
+    private AuthenticationSuccessHandlerImpl authenticationSuccessHandlerImpl;
     @Autowired
     private AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
     @Autowired
@@ -78,7 +78,7 @@ public class SecurityConfig {
 //    }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        //允许跨域
+        // 允许跨域
         http.cors()
 
                 .and()
@@ -89,8 +89,9 @@ public class SecurityConfig {
                 .and()
                 // 配置登录请求
                 .formLogin()
+                .successHandler(authenticationSuccessHandlerImpl)
                 .failureHandler(authenticationFailureHandlerImpl)
-                .successHandler(loginSuccessHandlerImpl)
+
 
                 // 退出登录
                 .and()
@@ -104,11 +105,12 @@ public class SecurityConfig {
 
                 // 配置拦截规则
                 .and()
+                // 开启权限认证
                 .authorizeHttpRequests()
                 // 配置拦截白名单放行
                 .antMatchers(SecurityConstant.URL_WHITELIST).permitAll()
                 .antMatchers(SecurityConstant.PORTAL_WHITELIST).permitAll()
-                // 对其它请求进行拦截认证处理  Spring EL
+                // 对其它请求进行拦截认证处理  Spring EL，表示剩余接口都需要登录认证后才能访问
                 .anyRequest()
                 .authenticated()
 
@@ -121,7 +123,7 @@ public class SecurityConfig {
 
                 // 自定义过滤器进行添加
                 .and()
-                // 自定义验证码过滤器，在账号密码验证器运行之前
+                // 自定义验证码过滤器，在账号密码验证器运行之前，addFilterBefore可以在指定的Filter类之前添加过滤器
                 .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
                 // 添加 JWT 授权验证过滤器
                 .addFilter(jwtAuthenticationFilter());

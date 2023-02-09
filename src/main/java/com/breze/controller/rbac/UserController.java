@@ -11,10 +11,10 @@ import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.dto.sys.UpdatePasswordDTO;
 import com.breze.entity.dto.sys.UserDTO;
-import com.breze.entity.mapstruct.sys.UserConvert;
+import com.breze.converter.sys.UserConvert;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
 

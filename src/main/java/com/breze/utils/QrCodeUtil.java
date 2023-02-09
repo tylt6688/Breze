@@ -3,6 +3,7 @@ package com.breze.utils;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
+import com.breze.common.consts.CharsetConstant;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.common.BitMatrix;
@@ -53,8 +54,8 @@ public class QrCodeUtil {
     /**
      * 图片格式
      */
-    private static final String IMAGE_FORMAT = "png";
-    private static final String CHARSET = "utf-8";
+    private static final String IMAGE_FORMAT = CharsetConstant.PNG;
+    private static final String CHARSET = CharsetConstant.UTF_8;
     /**
      * 原生转码前面没有 data:image/png;base64 这些字段，返回给前端是无法被解析
      */

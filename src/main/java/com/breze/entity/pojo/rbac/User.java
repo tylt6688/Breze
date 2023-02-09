@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.baomidou.mybatisplus.annotation.*;
+import com.breze.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,6 @@ import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.List;
 @Accessors(chain = true)
 @TableName("sys_user")
 @ApiModel(value = "User", description = "用户对象,sys_user用户表")
-public class User implements Serializable {
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = 482852208991067144L;
 
@@ -80,16 +80,6 @@ public class User implements Serializable {
     @ExcelIgnore
     @ApiModelProperty(value = "登录提醒", name = "loginWarn", example = "1", notes = "登录提醒")
     private Integer loginWarn;
-
-    @ExcelIgnore
-    @ApiModelProperty(value = "创建时间", name = "createTime", example = "2022-03-01 12:00:00", notes = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-    @ExcelIgnore
-    @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2022-03-01 12:00:00", notes = "更新时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
 
     @ExcelIgnore
     @ApiModelProperty(value = "最后一次登录时间", name = "loginTime", example = "2022-03-01 12:00:00", notes = "最近登录时间")

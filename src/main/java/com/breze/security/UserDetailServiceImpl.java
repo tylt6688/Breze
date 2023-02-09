@@ -82,7 +82,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     /**
      * 通过用户id连接表方式获取权限信息（角色、菜单权限）
      *
-     * @param userId
+     * @param userId 用户id
      * @return List<GrantedAuthority>
      */
     public List<GrantedAuthority> getUserAuthority(Long userId) {

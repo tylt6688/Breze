@@ -1,15 +1,15 @@
 package com.breze.entity.pojo.portal;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.breze.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -25,10 +25,10 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("mode_card")
 @ApiModel(value = "ModeCard", description = "模块卡片对象,mode_card模块展示表")
-public class ModeCard implements Serializable {
+public class ModeCard extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -7260918479466654077L;
     @ApiModelProperty("功能模块Id")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -45,11 +45,5 @@ public class ModeCard implements Serializable {
     @ApiModelProperty("页面组件")
     private String modeComponent;
 
-    @ApiModelProperty(value = "创建时间", name = "createTime", example = "2022-03-01 12:00:00", notes = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2022-03-01 12:00:00", notes = "更新时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
 }

@@ -1,15 +1,15 @@
 package com.breze.entity.pojo.rbac;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.breze.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @Author LUCIFER-LGX
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("sys_job")
 @ApiModel(value = "Job", description = "岗位对象,sys_job岗位表")
-public class Job implements Serializable {
+public class Job extends BaseEntity {
 
     private static final long serialVersionUID = -3858488919858333072L;
     @ApiModelProperty(value = "岗位ID", name = "id", example = "1", notes = "岗位ID")
@@ -36,10 +36,5 @@ public class Job implements Serializable {
 
     private String remark;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
 
 }

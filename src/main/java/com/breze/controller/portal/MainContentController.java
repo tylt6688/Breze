@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.portal.MainContent;
-import com.breze.entity.pojo.tool.OssFile;
+import com.breze.entity.pojo.tool.OSS;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import org.springframework.validation.annotation.Validated;
@@ -58,24 +58,24 @@ public class MainContentController extends BaseController {
         String path = qiNiuService.uploadFile(file);
         String fileName = path.substring(25,path.lastIndexOf("."));
 
-        OssFile ossFile = new OssFile();
-        ossFile.setFileName(fileName);
-        ossFile.setFileUrl(path);
+        OSS OSS = new OSS();
+        OSS.setFileName(fileName);
+        OSS.setFileUrl(path);
 
         if((mainContent.getId() != null)){
             // 删除原来的图片
             qiNiuService.deleteFile(mainContent.getImgUrl());
             // 修改oss表图片存储链接
-            ossFile.setId(mainContent.getOssId());
-            ossFileService.updateById(ossFile);
+            OSS.setId(mainContent.getOssId());
+            ossFileService.updateById(OSS);
             // 修改内容
             mainContentService.updateById(mainContent);
             return Result.createSuccessMessage("编辑数据成功");
         }else {
             String ossId = IdUtil.simpleUUID();
-            ossFile.setId(ossId);
+            OSS.setId(ossId);
             mainContent.setOssId(ossId);
-            ossFileService.save(ossFile);
+            ossFileService.save(OSS);
             mainContentService.save(mainContent);
             return Result.createSuccessMessage("添加数据成功");
         }

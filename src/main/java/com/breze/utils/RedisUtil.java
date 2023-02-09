@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
 /**
  * @Author tylt6688
  * @Date 2022/2/5 11:57
@@ -71,7 +72,7 @@ public class RedisUtil {
     /**
      * 删除缓存
      *
-     * @param key 可以传一个值 或多个
+     * @param key 可以传一个值或多个字符串数组
      */
     @SuppressWarnings("unchecked")
     public void delete(String... key) {
@@ -267,6 +268,7 @@ public class RedisUtil {
 
     /**
      * 删除hash表中的值
+     *
      * @param key  键 不能为null
      * @param item 项 可以使多个 不能为null
      */
@@ -433,7 +435,7 @@ public class RedisUtil {
      * 获取list缓存的长度
      *
      * @param key 键
-     * @return  值
+     * @return 值
      */
     public long lGetListSize(String key) {
         try {

@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
+import static com.google.code.kaptcha.Constants.*;
+
 /**
  * @Author tylt6688
  * @Date 2022/2/5 11:57
@@ -14,26 +16,26 @@ import java.util.Properties;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Configuration
-public class KaptchaConfig {
+public class CaptchaConfig {
     @Bean
     public DefaultKaptcha producer() {
         Properties properties = new Properties();
         //图片边框，合法值 yes，no，默认值yes
-        properties.put("kaptcha.border", "no");
+        properties.put(KAPTCHA_BORDER, "no");
         //文字间隔，默认值为 2
-        properties.put("kaptcha.textproducer.char.space", "4");
+        properties.put(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "4");
         //干扰线颜色，合法值： r,g,b 或者 white,black,blue，默认值 black
-        properties.put("kaptcha.noise.color", "black");
+        properties.put(KAPTCHA_NOISE_COLOR, "black");
         //去除干扰线
-        properties.put("kaptcha.noise.impl", "com.google.code.kaptcha.impl.NoNoise");
+        properties.put(KAPTCHA_NOISE_IMPL, "com.google.code.kaptcha.impl.NoNoise");
         //图片宽度，默认值 200
-        properties.put("kaptcha.image.width", "120");
+        properties.put(KAPTCHA_IMAGE_WIDTH, "120");
         //图片高度，默认值 50
-        properties.put("kaptcha.image.height", "40");
+        properties.put(KAPTCHA_IMAGE_HEIGHT, "40");
         //字体大小，默认值为 40px
-        properties.put("kaptcha.textproducer.font.size", "30");
+        properties.put(KAPTCHA_TEXTPRODUCER_FONT_SIZE, "30");
         //字体颜色，合法值： r,g,b 或者 white,black,blue，默认值 black
-        properties.put("kaptcha.textproducer.font.color", "black");
+        properties.put(KAPTCHA_TEXTPRODUCER_FONT_COLOR, "black");
 
         Config config = new Config(properties);
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();

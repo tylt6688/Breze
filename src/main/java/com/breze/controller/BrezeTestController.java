@@ -2,10 +2,10 @@ package com.breze.controller;
 
 
 import com.breze.common.result.Result;
-import com.breze.controller.core.BaseController;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.service.rbac.UserService;
+import com.breze.utils.DateUtil;
 import com.breze.utils.QrCodeUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +73,9 @@ public class BrezeTestController extends BaseController {
 //        System.out.println(ServerUtil.getDiskInfo());
 //        System.out.println(ServerUtil.getMemoryInfo());
 //        System.out.println(ServerUtil.getOsInfo());
+
+        System.out.println(DateUtil.getDateByCurrentTime(0));
+
 
     }
 

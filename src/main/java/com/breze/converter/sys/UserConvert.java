@@ -1,4 +1,4 @@
-package com.breze.entity.mapstruct.sys;
+package com.breze.converter.sys;
 
 import com.breze.entity.dto.sys.UserDTO;
 import com.breze.entity.pojo.rbac.User;
