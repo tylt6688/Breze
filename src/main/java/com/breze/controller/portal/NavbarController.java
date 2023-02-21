@@ -32,6 +32,11 @@ public class NavbarController extends BaseController {
         Page<Navbar> NavbarPage = navbarService.findNavbarPage(getPage(),titleName,parentId);
         return Result.createSuccessMessage("获取内容信息成功", NavbarPage);
     }
+    @GetMapping("/select")
+    public Result findAllData(Long flag){
+        List<Navbar> navbarList = navbarService.finAllData(flag);
+        return Result.createSuccessMessage("获取内容信息成功", navbarList);
+    }
 
     //根据id获取内容模块信息
     @GetMapping("/selectNavbar/{id}")
@@ -40,7 +45,7 @@ public class NavbarController extends BaseController {
         return Result.createSuccessMessage("获取内容信息成功", navbar);
     }
     @GetMapping("/findAllData/{flag}")
-    public Result findAllData(@PathVariable Long flag) {
+    public Result findDataByFlag(@PathVariable Long flag) {
         List<NavbarTitleVo> navbarTitleVos = NavbarConvert.INSTANCE.NavbarListToTitleVo(navbarService.list(new QueryWrapper<Navbar>().eq("flag",flag)));
         return Result.createSuccessMessage("获取内容信息成功", navbarTitleVos);
     }
