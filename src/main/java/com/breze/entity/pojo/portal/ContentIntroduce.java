@@ -12,33 +12,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
- * <p>
- * 主体内容表
- * </p>
- *
- * @author leochan
- * @since 2022-10-08
+ * @author chenweixi
+ * @create 2023-02-10 15:43
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("main_content")
-@ApiModel(value = "MainContent", description = "主体内容对象,main_content主体内容表")
-public class MainContent extends BaseEntity {
-
+@TableName("simple_content")
+@ApiModel(value = "SimpleContent", description = "主体内容对象,SimpleContent主体内容表")
+public class ContentIntroduce extends BaseEntity {
 
     private static final long serialVersionUID = 8822671337435221276L;
+
     @ApiModelProperty("主页内容模块id")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty("oss表id")
-    private String ossId;
+    private String OssId;
 
-    @ApiModelProperty("内容模块标题")
-    private String titleName;
+    @ApiModelProperty("内容模块主标题")
+    private String mainTitle;
+
+    @ApiModelProperty("内容模块副标题")
+    private String subtitle;
 
     @ApiModelProperty("内容模块简介")
     private String titleInfo;
@@ -49,9 +50,15 @@ public class MainContent extends BaseEntity {
     @ApiModelProperty("指定路由跳转")
     private String routerPath;
 
-    @ApiModelProperty("按钮信息")
-    private String buttonInfo;
+    @ApiModelProperty("父id")
+    private Long parentId;
+
+    @ApiModelProperty("图片")
+    private String imgUrl;
+
+    @ApiModelProperty("背景")
+    private String backUrl;
 
     @TableField(exist = false)
-    private String imgUrl;
+    private List<ContentIntroduce> children;
 }

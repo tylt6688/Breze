@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * <p>
  * 导航连接表
@@ -51,4 +53,7 @@ public class Navbar extends BaseEntity {
 
     @TableField(exist = false)
     private boolean hasChildren;
+
+    @TableField(exist = false)
+    private List<Navbar> navbarChildren;
 }
