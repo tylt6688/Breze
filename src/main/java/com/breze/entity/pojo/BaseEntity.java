@@ -1,4 +1,4 @@
-package com.breze.entity;
+package com.breze.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

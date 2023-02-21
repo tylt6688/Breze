@@ -21,9 +21,9 @@ public class CorsConfig implements WebMvcConfigurer {
 
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedOrigin(SecurityConstant.ALL);
+        corsConfiguration.addAllowedHeader(SecurityConstant.ALL);
+        corsConfiguration.addAllowedMethod(SecurityConstant.ALL);
         corsConfiguration.addExposedHeader(SecurityConstant.AUTHORIZATION);
         return corsConfiguration;
     }
@@ -31,16 +31,16 @@ public class CorsConfig implements WebMvcConfigurer {
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", buildConfig());
+        source.registerCorsConfiguration(SecurityConstant.ALL_PATH, buildConfig());
         return new CorsFilter(source);
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // 设置允许跨域的路径
-        registry.addMapping("/**")
+        registry.addMapping(SecurityConstant.ALL_PATH)
                 // 设置允许跨域请求的域名
-                .allowedOriginPatterns("*")
+                .allowedOriginPatterns(SecurityConstant.ALL)
                 // 是否允许Cookie
                 .allowCredentials(true)
                 // 设置允许的请求方式

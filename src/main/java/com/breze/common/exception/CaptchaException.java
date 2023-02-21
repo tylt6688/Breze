@@ -8,9 +8,11 @@ import org.springframework.security.core.AuthenticationException;
  * @Description 验证码异常处理机制
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-public class KaptchaException extends AuthenticationException {
+public class CaptchaException extends AuthenticationException {
 
-    public KaptchaException(String msg) {
+    private static final long serialVersionUID = 6287359047312917618L;
+
+    public CaptchaException(String msg) {
         super(msg);
     }
 }

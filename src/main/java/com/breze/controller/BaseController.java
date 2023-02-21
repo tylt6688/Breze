@@ -31,45 +31,34 @@ import javax.servlet.http.HttpServletRequest;
 public class BaseController {
 
     /**
-     * 配置类注入 Start
+     * 配置类注入
      */
     @Autowired
     protected OssConfig ossConfig;
 
-    /**
-     * 配置类注入 End
-     */
-
     //===============================Breze=================================//
 
     /**
-     * 工具类注入 Start
+     * 工具类注入
      */
     @Autowired
     protected BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     protected RedisUtil redisUtil;
 
-    /**
-     * 工具类注入 End
-     */
-
     //===============================Breze=================================//
 
     /**
-     * RabbitMQ 队列服务注入 Start
+     * RabbitMQ 队列服务注入
      */
 
     @Autowired
     protected Producer producer;
-    /**
-     * RabbitMQ 队列服务注入 End
-     */
 
     //===============================Breze=================================//
 
     /**
-     * 通用型服务注入 Start
+     * 通用型服务注入
      */
     @Autowired
     protected QiNiuService qiNiuService;
@@ -77,26 +66,20 @@ public class BaseController {
     protected OssFileService ossFileService;
     @Autowired
     protected MailService mailService;
-    /**
-     * 通用型服务注入 End
-     */
 
     //===============================Breze=================================//
 
     /**
-     * 系统日志类注入 Start
+     * 系统日志类注入
      */
     @Autowired
     protected LoginLogService loginLogService;
     @Autowired
     protected HandleLogService handleLogService;
-    /**
-     * 系统日志类注入 End
-     */
 
     //===============================Breze=================================//
     /**
-     * RBAC权限服务注入 Start
+     * RBAC权限服务注入
      */
 
     @Autowired
@@ -118,14 +101,10 @@ public class BaseController {
     @Autowired
     protected UserGroupJobService userGroupJobService;
 
-    /**
-     * RBAC权限服务注入 End
-     */
-
     //===============================Breze=================================//
 
     /**
-     * Portal门户服务注入 Start
+     * Portal门户服务注入
      */
     @Autowired
     protected BannerService bannerService;
@@ -136,10 +115,6 @@ public class BaseController {
     @Autowired
     protected ModeCardService modeCardService;
 
-    /**
-     * Portal门户服务注入 End
-     */
-
     //===============================Breze=================================//
 
     /**
@@ -149,7 +124,7 @@ public class BaseController {
     HttpServletRequest request;
 
     /**
-     * 自定义泛型分页数据方法,用于Get方式查询显示 Start
+     * 自定义泛型分页数据方法,用于Get方式查询显示
      */
     public <T> Page<T> getPage() {
         // 当前页的页码，默认第 1 页
@@ -160,9 +135,6 @@ public class BaseController {
         return new Page<>(current, size);
     }
 
-    /**
-     * 自定义泛型分页数据方法,用于Get方式查询显示 End
-     */
 }
 
 //===============================Breze=================================//

@@ -18,7 +18,7 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/**/**Mapper.xml
   # 以下配置均有默认值,可以不设置
   global-config:
-    banner: false #是否 mybatis-plus 在控制台输出的logo
+    banner: false # mybatis-plus 是否在控制台输出的logo
     db-config:
       #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
       id-type: auto

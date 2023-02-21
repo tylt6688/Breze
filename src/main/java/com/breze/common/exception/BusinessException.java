@@ -2,6 +2,7 @@ package com.breze.common.exception;
 
 import com.breze.common.enums.ErrorEnum;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Author tylt6688
@@ -10,6 +11,7 @@ import lombok.Data;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 6222543820599495474L;

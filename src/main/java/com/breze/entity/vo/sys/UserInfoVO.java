@@ -2,22 +2,28 @@ package com.breze.entity.vo.sys;
 
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.Role;
+import com.breze.entity.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @Author tylt6688
+ * @Date 2023/2/21 16:30
+ * @Description 用于前端展示用户信息VO实体类
+ * @Copyright(c) 2023 , 青枫网络工作室
+ */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value = "UserInfoVo", description = "UserInfoVo用户信息展示对象")
-public class UserInfoVO {
+public class UserInfoVO extends BaseVO {
+    private static final long serialVersionUID = 7890603648150338910L;
     @ApiModelProperty(value = "用户ID", name = "id", example = "1", notes = "用户ID")
     private Long id;
     @ApiModelProperty(value = "用户头像", name = "avatar", example = "https://www.baidu.com/img/bd_logo1.png", notes = "用户头像")
@@ -34,8 +40,6 @@ public class UserInfoVO {
     private Integer state;
     @ApiModelProperty(value = "籍贯", name = "city", example = "湖北武汉", notes = "籍贯")
     private String city;
-    @ApiModelProperty(value = "创建时间", name = "createTime", example = "2022-03-01 12:00:00", notes = "创建时间")
-    private LocalDateTime createTime;
     @ApiModelProperty(value = "最后一次登录时间", name = "loginTime", example = "2022-03-01 12:00:00", notes = "最近登录时间")
     private LocalDateTime loginTime;
     @ApiModelProperty(value = "登录提醒", name = "loginWarn", example = "1", notes = "登录提醒")

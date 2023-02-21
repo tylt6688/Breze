@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
 import com.breze.common.result.Result;
-import com.breze.config.CodeGenerationConfig;
+import com.breze.config.CodeGeneratorConfig;
 import com.breze.controller.BaseController;
 import com.breze.entity.pojo.tool.CodeGeneration;
 import com.breze.service.tool.DataBaseTableService;
@@ -32,7 +32,7 @@ import java.util.Collections;
 public class CodeGeneratorController {
 
     @Autowired
-    private CodeGenerationConfig codeGenerationConfig;
+    private CodeGeneratorConfig codeGeneratorConfig;
 
     @Autowired
     private DataBaseTableService dataBaseTableService;
@@ -59,8 +59,8 @@ public class CodeGeneratorController {
         String projectXmlPath = System.getProperty("user.dir") + "//src//main//resource//mapper";
 
         codeGeneration.setUrl("jdbc:mysql://localhost:3306/" + codeGeneration.getDataBaseName() + "?useSSl=ture&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8");
-        codeGeneration.setUsername(codeGenerationConfig.getUsername());
-        codeGeneration.setPassword(codeGenerationConfig.getPassword());
+        codeGeneration.setUsername(codeGeneratorConfig.getUsername());
+        codeGeneration.setPassword(codeGeneratorConfig.getPassword());
         /*
          * 全局配置(GlobalConfig)
          */

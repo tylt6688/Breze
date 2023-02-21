@@ -60,7 +60,7 @@ public class RedisUtil {
      * @param key 键
      * @return true 存在 false不存在
      */
-    public boolean haveKey(String key) {
+    public boolean hasKey(String key) {
         try {
             return redisTemplate.hasKey(key);
         } catch (Exception e) {
@@ -227,7 +227,7 @@ public class RedisUtil {
     }
 
     /**
-     * 向一张hash表中放入数据,如果不存在将创建
+     * 向一张哈希表中放入数据,如果不存在将创建
      *
      * @param key   键
      * @param item  项
@@ -251,7 +251,7 @@ public class RedisUtil {
      * @param item  项
      * @param value 值
      * @param time  时间(秒)  注意:如果已存在的hash表有时间,这里将会替换原有的时间
-     * @return true 成功 false失败
+     * @return true 成功 false 失败
      */
     public boolean hashSet(String key, String item, Object value, long time) {
         try {
@@ -272,7 +272,7 @@ public class RedisUtil {
      * @param key  键 不能为null
      * @param item 项 可以使多个 不能为null
      */
-    public void hdel(String key, Object... item) {
+    public void hashDel(String key, Object... item) {
         redisTemplate.opsForHash().delete(key, item);
     }
 
@@ -283,7 +283,7 @@ public class RedisUtil {
      * @param item 项 不能为null
      * @return true 存在 false不存在
      */
-    public boolean hHasKey(String key, String item) {
+    public boolean hasHashKey(String key, String item) {
         return redisTemplate.opsForHash().hasKey(key, item);
     }
 
@@ -295,7 +295,7 @@ public class RedisUtil {
      * @param by   要增加几(大于0)
      * @return
      */
-    public double hincr(String key, String item, double by) {
+    public double hashAscKey(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, by);
     }
 
@@ -307,7 +307,7 @@ public class RedisUtil {
      * @param by   要减少记(小于0)
      * @return
      */
-    public double hdecr(String key, String item, double by) {
+    public double hashDescKey(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, -by);
     }
 

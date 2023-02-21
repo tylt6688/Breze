@@ -4,7 +4,7 @@ import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.baomidou.mybatisplus.annotation.*;
-import com.breze.entity.BaseEntity;
+import com.breze.entity.pojo.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -48,6 +48,7 @@ public class User extends BaseEntity {
     private String username;
 
     @ExcelIgnore
+    @NotBlank(message = "密码不能为空")
     @ApiModelProperty(value = "密码", name = "password", example = "123456", notes = "密码")
     private String password;
 
@@ -88,10 +89,6 @@ public class User extends BaseEntity {
     @ExcelIgnore
     @ApiModelProperty(value = "状态", name = "state", example = "1", notes = "状态:1正常,0禁用")
     private Integer state;
-
-    @ExcelIgnore
-    @ApiModelProperty(value = "微信小程序唯一标识", name = "openId", example = "123456", notes = "微信小程序唯一标识")
-    private String openId;
 
     @ExcelIgnore
     @TableField(exist = false)

@@ -1,7 +1,6 @@
 package com.breze.config;
 
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.master")
-public class CodeGenerationConfig {
+public class CodeGeneratorConfig {
 
     private String username;
 

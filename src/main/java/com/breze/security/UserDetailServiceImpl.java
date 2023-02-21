@@ -1,17 +1,13 @@
 package com.breze.security;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
-import com.breze.common.rabbit.Produce;
-import com.breze.config.BrezeConfig;
-import com.breze.config.MailConfig;
-import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.entity.bo.sys.LoginUser;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.pojo.tool.Email;
-import com.breze.service.syslog.LoginLogService;
+import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.service.rbac.UserService;
+import com.breze.service.syslog.LoginLogService;
+import com.breze.service.tool.MailService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,10 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -38,17 +31,11 @@ import java.util.List;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    Produce produce;
-    @Autowired
-    private BrezeConfig brezeConfig;
-    @Autowired
-    MailConfig mailConfig;
-    @Autowired
-    TemplateEngine templateEngine;
-    @Autowired
     UserService userService;
     @Autowired
     LoginLogService loginLogService;
+    @Autowired
+    MailService mailService;
 
 
     @Override
@@ -61,19 +48,16 @@ public class UserDetailServiceImpl implements UserDetailsService {
         } else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
             throw new UsernameNotFoundException(ErrorEnum.LockUser.getErrorName());
         }
-        // 更新账户最后一次登录时间
-        LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
-        lambdaUpdateWrapper.eq(User::getUsername, username);
-        lambdaUpdateWrapper.set(User::getLoginTime, LocalDateTime.now());
-        userService.update(lambdaUpdateWrapper);
+        userService.updateLastLoginTime(username);
 
+        // FIXME 记录登录日志(后期需修改更好方式) [抄送人：tylt6688 待办人：tylt6688 2023-02-21]
         LoginLog loginLog = new LoginLog();
         loginLog.setUserId(user.getId())
                 .setState(GlobalConstant.TYPE_ZERO);
         loginLogService.save(loginLog);
 
         if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
-            sendRemindEmail(user);
+            mailService.sendRemindEmail(user);
         }
 
         return new LoginUser(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user.getId()));
@@ -90,25 +74,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
         // 获取角色(ROLE_admin)、菜单操作权限 sys:user:list
         String authority = userService.getUserAuthorityInfo(userId);
         // ROLE_admin,ROLE_user,sys:user:list,....
-        log.info("[当前角色及对应权限]:---{}", authority);
+        log.info("[当前角色及对应权限编码]:---{}", authority);
 
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
     }
 
-    public void sendRemindEmail(User user) {
-        Context context = new Context();
-        context.setVariable("username", user.getUsername());
-        context.setVariable("login_time", LocalDateTime.now());
-        context.setVariable("link", "https://blog.csdn.net/tylt6688");
-        String content = templateEngine.process("html/email.html", context);
 
-        Email email = new Email();
-        email.setMailFrom(mailConfig.getUsername())
-                .setMailFromNick(brezeConfig.getName())
-                .setMailTo(user.getEmail())
-                .setSubject("账户登录提醒")
-                .setContent(content);
-        produce.sendMailByMQ(email);
-
-    }
 }

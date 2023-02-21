@@ -6,7 +6,12 @@ package com.breze.common.consts;
  * @Description Spring Security 安全常量类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+
 public class SecurityConstant {
+
+    public static final String ALL = "*";
+
+    public static final String ALL_PATH = "/**";
     /**
      * Authorization 常量，方便请求头中获取
      */

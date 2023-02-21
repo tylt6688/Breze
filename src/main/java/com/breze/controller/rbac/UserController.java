@@ -12,15 +12,18 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
+import com.breze.converter.sys.UserConvert;
 import com.breze.entity.dto.sys.UpdatePasswordDTO;
 import com.breze.entity.dto.sys.UserDTO;
-import com.breze.converter.sys.UserConvert;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
-
 import com.breze.entity.vo.sys.UserInfoVO;
+import com.breze.entity.vo.sys.UserVO;
 import com.qiniu.common.QiniuException;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,11 +55,16 @@ public class UserController extends BaseController {
     @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
     @GetMapping("/get_userinfo")
     public Result<UserInfoVO> getUserInfo(Principal principal) {
-        User user = userService.getUserByUserName(principal.getName());
-        User userRoles = userService.getUserRolesByUserId(user.getId());
-        UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
-        userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
-        return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
+        try {
+            User user = userService.getUserByUserName(principal.getName());
+            User userRoles = userService.getUserRolesByUserId(user.getId());
+            UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
+            userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
+            return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
+        } catch (Exception exception) {
+            throw new BusinessException(ErrorEnum.FindException, "获取个人信息失败");
+        }
+
     }
 
     @BrezeLog("根据ID获取用户信息")
@@ -64,27 +72,42 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/info/{id}")
     public Result<UserInfoVO> info(@PathVariable Long id) {
-        User user = userService.getUserRolesByUserId(id);
-        UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
-        return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
+        try {
+            User user = userService.getUserRolesByUserId(id);
+            UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+            return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
+        } catch (Exception exception) {
+            throw new BusinessException(ErrorEnum.FindException, "获取用户信息失败");
+        }
+
     }
 
     @BrezeLog("获取全部用户信息")
-    @ApiOperation("获取全部用户信息，可多条件联合查询，为空则显示全部")
+    @ApiOperation("获取全部用户信息，可多条件联合查询，实体属性值为空则显示全部")
     @PostMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
-    public Result<Page<User>> select(@RequestBody UserDTO userDTO) {
-        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-        Page page = new Page(Long.parseLong(userDTO.getCurrent()), Long.parseLong(userDTO.getSize()));
-        Page<User> pageData = userService.page(page, userService.searchByCondition(user));
-        pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
-        return Result.createSuccessMessage("", pageData);
+    public Result<Page<UserVO>> select(@RequestBody UserDTO userDTO) {
+        try {
+            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
+//        Page page = new Page(Long.parseLong(userDTO.getCurrent()), Long.parseLong(userDTO.getSize()));
+            Page<User> pageData = userService.page(getPage(), userService.searchByCondition(user));
+            pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
+            Page<UserVO> userVOPage = UserConvert.INSTANCE.userPageToUserVOPage(pageData);
+            return Result.createSuccessMessage("获取用户列表成功", userVOPage);
+        } catch (Exception exception) {
+            throw new BusinessException(ErrorEnum.FindException, "获取用户列表失败");
+        }
+
     }
 
     @ApiOperation("获取用户数量")
     @GetMapping("/user_count")
     public Result<Long> getUserCount() {
-        return Result.createSuccessMessage("查询用户数量成功", userService.count());
+        try {
+            return Result.createSuccessMessage("查询用户数量成功", userService.count());
+        } catch (Exception exception) {
+            throw new BusinessException(ErrorEnum.FindException, "获取用户数量失败");
+        }
     }
 
     @BrezeLog("新增用户")
@@ -92,9 +115,14 @@ public class UserController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result<String> insert(@Validated @RequestBody UserDTO userDTO) {
-        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-        userService.insert(user);
-        return Result.createSuccessMessage("添加用户成功");
+        try {
+            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
+            userService.insert(user);
+            return Result.createSuccessMessage("添加用户成功");
+        } catch (Exception exception) {
+            throw new BusinessException(ErrorEnum.FindException, "添加用户失败");
+        }
+
     }
 
     @BrezeLog("删除用户")

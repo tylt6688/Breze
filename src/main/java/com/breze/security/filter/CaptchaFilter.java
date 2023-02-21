@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.breze.common.consts.CacheConstant;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
-import com.breze.common.exception.KaptchaException;
+import com.breze.common.exception.CaptchaException;
 import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.utils.RedisUtil;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +43,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
             try {
                 // 先校验验证码
                 validate(request);
-            } catch (KaptchaException exception) {
+            } catch (CaptchaException exception) {
                 // 交给登录失败处理器
                 authenticationFailureHandlerImpl.onAuthenticationFailure(request, response, exception);
             }
@@ -61,10 +61,10 @@ public class CaptchaFilter extends OncePerRequestFilter {
 
         //先判断 code与 key是否为空，再从Redis中获取进行比较
         if (StringUtils.isBlank(code) || StringUtils.isBlank(key) || !code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
-            throw new KaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
+            throw new CaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
         }
 
         //一次性使用，使用后将其从Redis中删除
-        redisUtil.hdel(CacheConstant.CAPTCHA_KEY, key);
+        redisUtil.hashDel(CacheConstant.CAPTCHA_KEY, key);
     }
 }

@@ -23,7 +23,6 @@ public class JwtConfig {
      * 过期时间
      */
     private Long expire;
-
     /**
      * 密钥
      */

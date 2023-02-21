@@ -4,6 +4,7 @@ import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.CacheConstant;
 import com.breze.common.consts.GlobalConstant;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,10 +60,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return getOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
     }
 
-    @Override
-    public User getUserByOpenId(String openid) {
-        return getOne(new LambdaQueryWrapper<User>().eq(User::getOpenId, openid));
-    }
+
 
     public User getUserRolesByUserId(Long userId) {
         User user = this.getById(userId);
@@ -121,8 +120,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @Date 2022/3/6 15:55
      */
     @Override
-    public Boolean updateLoginWarnByUserId(Integer loginWarn, Long id) {
-        return userMapper.updateLoginWarnByUserId(loginWarn, id);
+    public void updateLoginWarnByUserId(Integer loginWarn, Long id) {
+        userMapper.updateLoginWarnByUserId(loginWarn, id);
+    }
+
+    @Override
+    public void updateLastLoginTime(String username) {
+        // 更新账户最后一次登录时间
+        LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        lambdaUpdateWrapper.eq(User::getUsername, username);
+        lambdaUpdateWrapper.set(User::getLoginTime, LocalDateTime.now());
+        this.update(lambdaUpdateWrapper);
     }
 
     @Override
@@ -152,7 +160,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String key = CacheConstant.AUTHORITY_CODE + user.getUsername();
 
         // 如果 redis 中存在直接取，没有的话再去数据库查
-        if (redisUtil.haveKey(key)) {
+        if (redisUtil.hasKey(key)) {
             authority = (String) redisUtil.get(key);
         } else {
             // 获取角色

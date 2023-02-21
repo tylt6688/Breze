@@ -19,6 +19,7 @@ import static com.google.code.kaptcha.Constants.*;
 public class CaptchaConfig {
     @Bean
     public DefaultKaptcha producer() {
+
         Properties properties = new Properties();
         //图片边框，合法值 yes，no，默认值yes
         properties.put(KAPTCHA_BORDER, "no");
@@ -38,7 +39,9 @@ public class CaptchaConfig {
         properties.put(KAPTCHA_TEXTPRODUCER_FONT_COLOR, "black");
 
         Config config = new Config(properties);
+
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
+
         defaultKaptcha.setConfig(config);
 
         return defaultKaptcha;

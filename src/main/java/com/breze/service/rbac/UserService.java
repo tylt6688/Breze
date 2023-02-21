@@ -20,7 +20,7 @@ public interface UserService extends IService<User> {
     /**
      * 插入用户
      *
-     * @param user
+     * @param user 用户对象
      * @return boolean
      */
     Boolean insert(User user);
@@ -28,8 +28,6 @@ public interface UserService extends IService<User> {
     Boolean update(User user);
 
     Boolean delete(Long id);
-
-    User getUserByOpenId(String openid);
 
     User getUserRolesByUserId(Long userId);
 
@@ -40,11 +38,11 @@ public interface UserService extends IService<User> {
     /**
      * 根据用户id变更是否开启登录提醒
      *
-     * @param id
-     * @param loginWarn
-     * @return true/false
+     * @param id        用户id
+     * @param loginWarn 登录提醒
      */
-    Boolean updateLoginWarnByUserId(Integer loginWarn, Long id);
+    void updateLoginWarnByUserId(Integer loginWarn, Long id);
+    void updateLastLoginTime(String username);
     void importUserByExcel(MultipartFile file);
     /**
      * 避免系统用户分配权限变动后redis缓存未发生变动导致缓存不一致

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "breze")
 public class BrezeConfig {
 
-    private String title;
+    public String title;
 
     private String name;
 

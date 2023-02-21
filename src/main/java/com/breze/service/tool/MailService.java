@@ -1,5 +1,6 @@
 package com.breze.service.tool;
 
+import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.tool.Email;
 /**
  * <p>
@@ -19,6 +20,8 @@ public interface MailService {
     Boolean sendMailWithImage(Email email);
 
     Boolean sendHtmlMailThymeLeaf(Email email);
+
+    Boolean sendRemindEmail(User user);
 
 
 }

@@ -1,8 +1,10 @@
 package com.breze.converter.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.entity.dto.sys.UserDTO;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.vo.sys.UserInfoVO;
+import com.breze.entity.vo.sys.UserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -19,6 +21,11 @@ public interface UserConvert {
 
     UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
 
+    @Mappings({})
+    UserVO userToUserVO(User user);
+
+    @Mappings({})
+    Page<UserVO> userPageToUserVOPage(Page<User> userPage);
 
     @Mappings({
             @Mapping(source = "username", target = "username")

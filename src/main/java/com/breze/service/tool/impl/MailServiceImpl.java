@@ -1,27 +1,31 @@
 package com.breze.service.tool.impl;
 
+import com.breze.common.rabbit.Produce;
+import com.breze.config.BrezeConfig;
+import com.breze.config.MailConfig;
+import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.pojo.tool.Email;
+import com.breze.service.tool.MailService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import com.breze.entity.pojo.tool.Email;
-import com.breze.service.tool.MailService;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.time.LocalDateTime;
 
 @Log4j2
 @Service
 public class MailServiceImpl implements MailService {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
     /**
      * JavaMailSender是Spring Boot在MailSenderPropertiesConfiguration 类中配直好的，该类在 Mail
@@ -29,6 +33,14 @@ public class MailServiceImpl implements MailService {
      */
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    MailConfig mailConfig;
+    @Autowired
+    BrezeConfig brezeConfig;
+    @Autowired
+    TemplateEngine templateEngine;
+    @Autowired
+    Produce produce;
 
 
     /**
@@ -56,11 +68,14 @@ public class MailServiceImpl implements MailService {
                 mimeMessageHelper.setSubject(email.getSubject());
                 mimeMessageHelper.setText(email.getContent());
                 mailSender.send(mimeMessage);
+
             }
+            return true;
         } catch (Exception e) {
             log.error("发送邮件失败：", e);
+            return false;
         }
-        return true;
+
     }
 
     /**
@@ -94,15 +109,15 @@ public class MailServiceImpl implements MailService {
                     // 通过addAttachment方法添加附件
                     mimeMessageHelper.addAttachment(file.getName(), file);
                 }
-            }
+            }//发送邮件
+            mailSender.send(mimeMessage);
+            return true;
         } catch (MessagingException e) {
             e.printStackTrace();
             log.error("发送邮件失败：", e);
+            return false;
         }
-        //发送邮件
-        mailSender.send(mimeMessage);
 
-        return true;
     }
 
     /**
@@ -140,11 +155,12 @@ public class MailServiceImpl implements MailService {
             }
 
             mailSender.send(mimeMessage);
-
+            return true;
         } catch (MessagingException e) {
             log.error("发送邮件失败：", e);
+            return false;
         }
-        return true;
+
     }
 
 
@@ -168,10 +184,34 @@ public class MailServiceImpl implements MailService {
             mimeMessageHelper.setText(email.getContent(), true);
 
             mailSender.send(mimeMessage);
+            return true;
 
         } catch (MessagingException e) {
             log.error("发送邮件失败：", e);
+            return false;
         }
-        return true;
+    }
+
+    @Override
+    public Boolean sendRemindEmail(User user) {
+        try {
+            Context context = new Context();
+            context.setVariable("username", user.getUsername());
+            context.setVariable("login_time", LocalDateTime.now());
+            context.setVariable("link", "https://blog.csdn.net/tylt6688");
+            String content = templateEngine.process("html/email.html", context);
+
+            Email email = new Email();
+            email.setMailFrom(mailConfig.getUsername())
+                    .setMailFromNick(brezeConfig.getName())
+                    .setMailTo(user.getEmail())
+                    .setSubject("账户登录提醒")
+                    .setContent(content);
+            produce.sendMailByMQ(email);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 }

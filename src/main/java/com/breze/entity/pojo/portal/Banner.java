@@ -3,7 +3,7 @@ package com.breze.entity.pojo.portal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.breze.entity.BaseEntity;
+import com.breze.entity.pojo.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

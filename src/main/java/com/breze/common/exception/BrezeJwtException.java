@@ -11,6 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 
 public class BrezeJwtException extends AuthenticationException {
 
+    private static final long serialVersionUID = 3568160350285437518L;
+
     public BrezeJwtException(String msg) {
         super(msg);
     }

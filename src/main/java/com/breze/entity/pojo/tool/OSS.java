@@ -1,7 +1,7 @@
 package com.breze.entity.pojo.tool;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.breze.entity.BaseEntity;
+import com.breze.entity.pojo.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
