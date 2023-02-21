@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.portal.Navbar;
 
+import java.util.List;
+
 /**
  * <p>
  * 导航连接表 服务类
@@ -15,4 +17,6 @@ import com.breze.entity.pojo.portal.Navbar;
 public interface NavbarService extends IService<Navbar> {
 
     Page<Navbar> findNavbarPage(Page<Navbar> page, String titleName,Long parentId);
+
+    List<Navbar> finAllData(Long flag);
 }
