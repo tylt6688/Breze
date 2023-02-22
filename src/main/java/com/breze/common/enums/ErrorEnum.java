@@ -27,11 +27,11 @@ public enum ErrorEnum {
     /**
      * 账户无效错误码
      */
-    UnknownAccount("账户无效", 103),
+    UnknownAccount("无效账户", 103),
     /**
      * JWT凭证异常用户错误码
      */
-    IncorrectCredentials("用户凭证错误", 104),
+    IncorrectCredentials("登录凭证失效", 104),
     /**
      * 密码错误错误码
      */
@@ -45,13 +45,18 @@ public enum ErrorEnum {
 
     UnknownError("未知错误", 600),
     /**
-     * 违章操作错误码
+     * 出现异常错误码
      */
-    IllegalOperation("违章操作", 900),
+    FindException("出现异常", 700),
     /**
      * 出现异常错误码
      */
-    FindException("出现异常", 700);
+    ErrorOperation("错误操作", 700),
+    /**
+     * 非法操作错误码
+     */
+    IllegalOperation("非法操作", 900);
+
 
 
     @EnumValue

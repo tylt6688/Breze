@@ -7,6 +7,7 @@ import com.breze.config.JwtConfig;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.security.UserDetailServiceImpl;
 import com.breze.security.handler.AccessDeniedHandlerImpl;
+import com.breze.security.handler.AuthenticationEntryPointImpl;
 import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.service.rbac.UserService;
 import com.breze.utils.JwtUtil;
@@ -51,6 +52,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     @Autowired
+    AuthenticationEntryPointImpl authenticationEntryPoint;
+
+    @Autowired
     private AccessDeniedHandlerImpl accessDeniedHandler;
 
 
@@ -63,6 +67,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         // 判断JWT是否为空
         String jwt = request.getHeader(jwtConfig.getHeader());
+        log.info("[原始带Bearer头jwt信息]：---{}",jwt);
         if (jwt == null || SecurityConstant.BREZE_APP.equals(jwt)) {
             log.info("[JWT为空](初始登录以及白名单接口访问时为空正常):---{}", jwt);
             chain.doFilter(request, response);
@@ -74,19 +79,19 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         }
 
         jwt = jwt.replace(SecurityConstant.JWT_PREFIX, "");
-
+        log.info("[处理后的jwt信息]：---{}",jwt);
         // 进行JWT解析
         Claims claim = jwtUtil.getClaimByToken(jwt);
 
         if (claim == null) {
-            authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("Token解析失败"));
+            authenticationEntryPoint.commence(request,response,new BrezeJwtException("登录凭证失效"));
             return;
         }
-        // 判断token是否过期
-        else if (Boolean.TRUE.equals(jwtUtil.isTokenExpired(claim))) {
-            authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("JWT已过期"));
-            return;
-        }
+//        // 判断token是否过期
+//        else if (jwtUtil.isTokenExpired(jwt)) {
+//            authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("JWT已过期"));
+//            return;
+//        }
 
         // 获取用户的权限菜单等信息
         String username = claim.getSubject();

@@ -136,7 +136,7 @@ public class RoleController extends BaseController {
         for (Long roleId : roleIds) {
             long count = userRoleService.count(new LambdaQueryWrapper<UserRole>().eq(UserRole::getRoleId, roleId));
             if (count > 0) {
-                throw new BusinessException(ErrorEnum.IllegalOperation, "角色已被使用，请先解除占用后删除");
+                throw new BusinessException(ErrorEnum.ErrorOperation, "角色已被使用，请先解除占用后删除");
             }
         }
         try {

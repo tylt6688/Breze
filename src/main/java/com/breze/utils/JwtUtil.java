@@ -21,14 +21,13 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-
     @Autowired
     private JwtConfig jwtConfig;
 
     /**
      * 生成jwt
      */
-    public  String generateToken(String username) {
+    public String generateToken(String username) {
 
         Date nowDate = new Date();
         Date expireDate = new Date(nowDate.getTime() + 1000 * jwtConfig.getExpire());
@@ -37,41 +36,42 @@ public class JwtUtil {
                 .setHeaderParam("typ", "JWT")
                 .setSubject(username)
                 .setIssuedAt(nowDate)
-                // 设置过期时间 7 天
+                // 设置过期时间(秒)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret())
                 .compact();
     }
 
     /**
-     * 解析jwt
+     * 解析校验jwt
      *
-     * @param jwt 密钥字符串
+     * @param token 密钥字符串
      * @return Claims
      */
-    public  Claims getClaimByToken(String jwt) {
+    public Claims getClaimByToken(String token) {
 
-        Claims claims;
+        Claims claims = null;
         try {
             claims = Jwts.parser()
                     .setSigningKey(jwtConfig.getSecret())
-                    .parseClaimsJws(jwt)
+                    .parseClaimsJws(token)
                     .getBody();
+            log.info("[JWT解析完成]:---{}", claims);
         } catch (JwtException e) {
-            log.error("JWT解析失败:---{}", e.getMessage());
-            return null;
+            log.error("[JWT解析失败]令牌异常:---{}", e.getMessage());
         }
         return claims;
     }
 
-    /**
-     * 判断jwt是否过期
-     *
-     * @param claims Claims
-     * @return Boolean
-     */
-    public  Boolean isTokenExpired(Claims claims) {
-
-        return claims.getExpiration().before(new Date());
-    }
+//    /**
+//     * 判断jwt是否过期
+//     *
+//     * @param token JWT字符串
+//     * @return Boolean
+//     */
+//    public Boolean isTokenExpired(String token) {
+//        Claims claims = Jwts.parser().setSigningKey(jwtConfig.getSecret()).parseClaimsJws(token).getBody();
+//        log.error("JWT是否过期:---{}", claims.getExpiration().before(new Date()));
+//        return claims.getExpiration().before(new Date());
+//    }
 }

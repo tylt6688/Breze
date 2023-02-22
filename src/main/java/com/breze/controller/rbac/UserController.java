@@ -61,7 +61,7 @@ public class UserController extends BaseController {
             UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
             userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
             return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
-        } catch (Exception exception) {
+        } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取个人信息失败");
         }
 
@@ -76,7 +76,7 @@ public class UserController extends BaseController {
             User user = userService.getUserRolesByUserId(id);
             UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
             return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
-        } catch (Exception exception) {
+        } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取用户信息失败");
         }
 
@@ -89,23 +89,22 @@ public class UserController extends BaseController {
     public Result<Page<UserVO>> select(@RequestBody UserDTO userDTO) {
         try {
             User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-//        Page page = new Page(Long.parseLong(userDTO.getCurrent()), Long.parseLong(userDTO.getSize()));
             Page<User> pageData = userService.page(getPage(), userService.searchByCondition(user));
             pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
             Page<UserVO> userVOPage = UserConvert.INSTANCE.userPageToUserVOPage(pageData);
             return Result.createSuccessMessage("获取用户列表成功", userVOPage);
-        } catch (Exception exception) {
+        } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取用户列表失败");
         }
 
     }
 
-    @ApiOperation("获取用户数量")
+    @ApiOperation("获取系统用户数量")
     @GetMapping("/user_count")
     public Result<Long> getUserCount() {
         try {
-            return Result.createSuccessMessage("查询用户数量成功", userService.count());
-        } catch (Exception exception) {
+            return Result.createSuccessMessage("获取用户数量成功", userService.count());
+        } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取用户数量失败");
         }
     }
@@ -119,7 +118,7 @@ public class UserController extends BaseController {
             User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
             userService.insert(user);
             return Result.createSuccessMessage("添加用户成功");
-        } catch (Exception exception) {
+        } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "添加用户失败");
         }
 
@@ -130,13 +129,18 @@ public class UserController extends BaseController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result<String> delete(@RequestBody Long[] ids) {
-        userService.removeByIds(Arrays.asList(ids));
-        userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
-        return Result.createSuccessMessage("删除成功");
+        try {
+            userService.removeByIds(Arrays.asList(ids));
+            userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
+            return Result.createSuccessMessage("删除成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
+        }
+
     }
 
-    @BrezeLog("修改用户")
-    @ApiOperation("修改用户")
+    @BrezeLog("修改用户信息")
+    @ApiOperation("修改用户信息")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
@@ -144,9 +148,9 @@ public class UserController extends BaseController {
         try {
             User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
             userService.update(user);
-            return Result.createSuccessMessage("修改用户成功");
+            return Result.createSuccessMessage("修改用户信息成功");
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "修改用户失败");
+            throw new BusinessException(ErrorEnum.FindException, "修改用户信息失败");
         }
 
     }
@@ -162,19 +166,24 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result<String> rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
 
-        List<UserRole> userRoles = new ArrayList<>();
-        for (Long roleId : roleIds) {
-            UserRole userRole = new UserRole();
-            userRole.setRoleId(roleId)
-                    .setUserId(userId);
-            userRoles.add(userRole);
+        try {
+            List<UserRole> userRoles = new ArrayList<>();
+            for (Long roleId : roleIds) {
+                UserRole userRole = new UserRole();
+                userRole.setRoleId(roleId)
+                        .setUserId(userId);
+                userRoles.add(userRole);
+            }
+            userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId));
+            userRoleService.saveBatch(userRoles);
+            // 删除缓存
+            User sysUser = userService.getById(userId);
+            userService.clearUserAuthorityInfo(sysUser.getUsername());
+            return Result.createSuccessMessage("指派用户角色成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "指派用户角色失败");
         }
-        userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId));
-        userRoleService.saveBatch(userRoles);
-        // 删除缓存
-        User sysUser = userService.getById(userId);
-        userService.clearUserAuthorityInfo(sysUser.getUsername());
-        return Result.createSuccessMessage("分配单个用户角色成功");
+
     }
 
     @BrezeLog("批量分配用户角色")
@@ -186,23 +195,28 @@ public class UserController extends BaseController {
     @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result<String> rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
-        List<UserRole> userRoles = new ArrayList<>();
-        Arrays.stream(userIds).forEach(uid -> {
-            Arrays.stream(roleIds).forEach(roleId -> {
-                UserRole userRole = new UserRole();
-                userRole.setRoleId(roleId)
-                        .setUserId(uid);
-                userRoles.add(userRole);
+        try {
+            List<UserRole> userRoles = new ArrayList<>();
+            Arrays.stream(userIds).forEach(uid -> {
+                Arrays.stream(roleIds).forEach(roleId -> {
+                    UserRole userRole = new UserRole();
+                    userRole.setRoleId(roleId)
+                            .setUserId(uid);
+                    userRoles.add(userRole);
+                });
+                userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, uid));
             });
-            userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, uid));
-        });
-        userRoleService.saveBatch(userRoles);
-        // 删除缓存
-        Arrays.stream(userIds).forEach(uid -> {
-            User sysUser = userService.getById(uid);
-            userService.clearUserAuthorityInfo(sysUser.getUsername());
-        });
-        return Result.createSuccessMessage("多用户批量分配角色成功");
+            userRoleService.saveBatch(userRoles);
+            // 删除缓存
+            Arrays.stream(userIds).forEach(uid -> {
+                User sysUser = userService.getById(uid);
+                userService.clearUserAuthorityInfo(sysUser.getUsername());
+            });
+            return Result.createSuccessMessage("多用户批量分配角色成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "多用户批量分配角色失败");
+        }
+
     }
 
     @BrezeLog("重置用户密码")
@@ -247,18 +261,24 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "avatar", value = "头像", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @PostMapping("/update_avatar")
     public Result<String> updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.getUserByUserName(username);
-        if (user.getAvatar() != null && CharSequenceUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
-            qiNiuService.deleteFile(user.getAvatar());
+        try {
+            String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userService.getUserByUserName(username);
+            if (user.getAvatar() != null && CharSequenceUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
+                qiNiuService.deleteFile(user.getAvatar());
+            }
+            String path = qiNiuService.uploadFile(avatar);
+            if (path == null) {
+                throw new BusinessException(ErrorEnum.FindException, "修改头像失败");
+            }
+            user.setAvatar(path);
+            userService.updateById(user);
+            return Result.createSuccessMessage("修改头像成功");
+        } catch (QiniuException e) {
+            throw new BusinessException(ErrorEnum.FindException, e.getMessage());
         }
-        String path = qiNiuService.uploadFile(avatar);
-        if (path == null) {
-            throw new BusinessException(ErrorEnum.FindException, "修改头像失败");
-        }
-        user.setAvatar(path);
-        userService.updateById(user);
-        return Result.createSuccessMessage("修改头像成功");
+
+
     }
 
     @BrezeLog("更新用户信息")
@@ -278,9 +298,14 @@ public class UserController extends BaseController {
     @ApiImplicitParams({@ApiImplicitParam(name = "loginWarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @PostMapping("/update_login_warn")
     public Result<String> updateLoginWarn(@RequestParam Integer loginWarn, Principal principal) {
-        User user = userService.getUserByUserName(principal.getName());
-        userService.updateLoginWarnByUserId(loginWarn, user.getId());
-        return Result.createSuccessMessage("更新登录提醒成功");
+        try {
+            User user = userService.getUserByUserName(principal.getName());
+            userService.updateLoginWarnByUserId(loginWarn, user.getId());
+            return Result.createSuccessMessage("更新登录提醒成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "更新登录提醒失败");
+        }
+
     }
 
     @BrezeLog("导入Excel表")

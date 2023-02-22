@@ -40,7 +40,7 @@ public class GlobalException extends Throwable {
     public Result<String> handler(JwtException e) {
         log.error("Jwt出现异常:----------------{}", e.getMessage());
         e.printStackTrace();
-        return Result.createFailMessage(ErrorEnum.IllegalOperation, e.getMessage());
+        return Result.createFailMessage(ErrorEnum.IncorrectCredentials, e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
