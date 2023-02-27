@@ -11,7 +11,7 @@
  Target Server Version : 50739
  File Encoding         : 65001
 
- Date: 21/02/2023 16:51:18
+ Date: 23/02/2023 13:41:58
 */
 
 SET NAMES utf8mb4;
@@ -72,7 +72,6 @@ INSERT INTO `simple_content` VALUES (6, '35df0fe1fe7c4de8b46a7051c6ad688f', '电
 INSERT INTO `simple_content` VALUES (7, '35df0fe1fe7c4de8b46a7051c6ad688f', '基础', '计算机基础知识点', '介绍了计算机发展历史、操作界面等基本知识和常规操作方法', 7, '/baseZhishi', 5, NULL, NULL, '2023-02-10 15:38:31', '2023-02-10 15:38:42');
 INSERT INTO `simple_content` VALUES (8, '35df0fe1fe7c4de8b46a7051c6ad688f', '教育', '如何去贯彻和奉行教育的根本', '教育是每个人所拥有的权利和做一个有素质公民应尽的义务。教育的含义是十分广泛的，但无论是教育任何一方面的内容，归结到其本质离不开“学习”二字，学习完全是一种属于自己本身的、后天的一种行为。', 8, '/teachShare', 5, NULL, NULL, '2023-02-10 15:39:32', '2023-02-10 15:39:36');
 INSERT INTO `simple_content` VALUES (9, '35df0fe1fe7c4de8b46a7051c6ad688f', '起源', '计算机起源与发展历程', '在原始社会中，人类开始使用结绳，垒石，枝条或刻字等方式进行辅助计算和计数的工具。\r\n\r\n在春秋时期，我们的祖先发明了算筹计数的 “ 筹算法 ” 。\r\n\r\n公元六世纪，中国开始使用算盘作为计算工具，算盘是我国人民独特的创造，是第一种彻底使用十进制计算的工具。', 9, '/qiyuan', 5, NULL, NULL, '2023-02-10 15:42:00', '2023-02-10 15:42:03');
-INSERT INTO `simple_content` VALUES (10, NULL, 'sdgs', '', NULL, 10, NULL, 0, NULL, NULL, '2023-02-21 11:08:39', '2023-02-21 11:08:42');
 
 -- ----------------------------
 -- Table structure for tb_banner
@@ -132,5 +131,26 @@ INSERT INTO `tb_navbar` VALUES (17, 1, 13, '关于我们', '/abortUs', 0, '2023-
 INSERT INTO `tb_navbar` VALUES (18, 1, 14, 'Breze简介', '/brezeInfo', 17, '2023-02-21 13:57:51', '2023-02-21 13:57:53');
 INSERT INTO `tb_navbar` VALUES (19, 1, 15, '领导团队', '/team', 17, '2023-02-21 13:58:21', '2023-02-21 13:58:23');
 INSERT INTO `tb_navbar` VALUES (20, 1, 16, '联系我们', '/callUs', 17, '2023-02-21 13:58:48', '2023-02-21 13:58:50');
+
+-- ----------------------------
+-- Table structure for tb_oss
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_oss`;
+CREATE TABLE `tb_oss`  (
+                           `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'OSS文件ID',
+                           `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件名称',
+                           `file_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件地址',
+                           `user_id` bigint(11) NULL DEFAULT NULL COMMENT '所属用户ID',
+                           `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件类型',
+                           `state` int(11) NULL DEFAULT NULL COMMENT 'OSS文件状态',
+                           `create_time` datetime NOT NULL COMMENT '创建时间',
+                           `update_time` datetime NOT NULL COMMENT '更新时间',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'OSS文件表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of tb_oss
+-- ----------------------------
+INSERT INTO `tb_oss` VALUES ('35df0fe1fe7c4de8b46a7051c6ad688f', '4640a186eb82491eb8c7772aa5248122', 'http://qiniuyun.tylt.xyz/4640a186eb82491eb8c7772aa5248122.jpg', NULL, NULL, NULL, '2023-02-10 16:36:15', '2023-02-10 16:36:15');
 
 SET FOREIGN_KEY_CHECKS = 1;
