@@ -1,4 +1,4 @@
-package com.breze.service.tool;
+package com.breze.service.portal;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.tool.OSS;
