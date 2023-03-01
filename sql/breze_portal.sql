@@ -11,7 +11,7 @@
  Target Server Version : 50739
  File Encoding         : 65001
 
- Date: 23/02/2023 13:41:58
+ Date: 01/03/2023 16:23:32
 */
 
 SET NAMES utf8mb4;
@@ -53,25 +53,25 @@ CREATE TABLE `simple_content`  (
                                    `order_num` bigint(20) NULL DEFAULT NULL COMMENT '排序',
                                    `router_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '指定路由跳转',
                                    `parent_id` int(20) NOT NULL COMMENT '父id',
-                                   `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '介绍图',
+                                   `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片地址',
                                    `back_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '背景图',
                                    `create_time` datetime NOT NULL COMMENT '创建时间',
                                    `update_time` datetime NOT NULL COMMENT '更新时间',
                                    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '主体内容表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '主体内容表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of simple_content
 -- ----------------------------
 INSERT INTO `simple_content` VALUES (1, '', '存在的含义', NULL, '', 1, '', 0, NULL, NULL, '2023-02-10 15:27:45', '2023-02-10 15:27:48');
-INSERT INTO `simple_content` VALUES (2, '35df0fe1fe7c4de8b46a7051c6ad688f', 'Breze管理系统', '后台信息管理系统', '前后端分离模式', 2, '/managerSystem', 1, NULL, NULL, '2023-02-10 15:29:15', '2023-02-10 15:29:18');
-INSERT INTO `simple_content` VALUES (3, '35df0fe1fe7c4de8b46a7051c6ad688f', 'Breze大屏展示系统', '大屏信息展示平台', '前后端分离模式', 3, '/bigPingSystem', 1, NULL, NULL, '2023-02-10 15:32:05', '2023-02-10 15:32:07');
-INSERT INTO `simple_content` VALUES (4, '35df0fe1fe7c4de8b46a7051c6ad688f', 'Breze小程序', '小程序使用平台', '前后端分离模式', 4, '/xiaoChengXu', 1, NULL, NULL, '2023-02-10 15:33:13', '2023-02-10 15:33:16');
+INSERT INTO `simple_content` VALUES (2, '2e3df5fd5704434a931e73c5923ef910', 'Breze管理系统', '后台信息管理系统', '前后端分离模式', 2, '/managerSystem', 1, NULL, NULL, '2023-03-01 16:20:14', '2023-03-01 16:20:14');
+INSERT INTO `simple_content` VALUES (3, '2e3df5fd5704434a931e73c5923ef910', 'Breze大屏展示系统', '大屏信息展示平台', '前后端分离模式', 3, '/bigPingSystem', 1, NULL, NULL, '2023-02-10 15:32:05', '2023-02-10 15:32:07');
+INSERT INTO `simple_content` VALUES (4, '2e3df5fd5704434a931e73c5923ef910', 'Breze小程序', '小程序使用平台', '前后端分离模式', 4, '/xiaoChengXu', 1, NULL, NULL, '2023-02-10 15:33:13', '2023-02-10 15:33:16');
 INSERT INTO `simple_content` VALUES (5, '', '推荐文章', NULL, NULL, 5, NULL, 0, NULL, NULL, '2023-02-10 15:34:10', '2023-02-10 15:34:13');
-INSERT INTO `simple_content` VALUES (6, '35df0fe1fe7c4de8b46a7051c6ad688f', '电脑', '学会使用电脑', '工欲善其事必先利其器,这也是我为什么先写硬件以及系统的原因，只有身体棒，你才可以去做你想做的事情。其他一切都免谈！搞计算机的人，如果自己的枪都磨不好，你拿什么上战场呢？', 6, '/learnComputer', 5, NULL, NULL, '2023-02-10 15:35:27', '2023-02-10 15:35:31');
-INSERT INTO `simple_content` VALUES (7, '35df0fe1fe7c4de8b46a7051c6ad688f', '基础', '计算机基础知识点', '介绍了计算机发展历史、操作界面等基本知识和常规操作方法', 7, '/baseZhishi', 5, NULL, NULL, '2023-02-10 15:38:31', '2023-02-10 15:38:42');
-INSERT INTO `simple_content` VALUES (8, '35df0fe1fe7c4de8b46a7051c6ad688f', '教育', '如何去贯彻和奉行教育的根本', '教育是每个人所拥有的权利和做一个有素质公民应尽的义务。教育的含义是十分广泛的，但无论是教育任何一方面的内容，归结到其本质离不开“学习”二字，学习完全是一种属于自己本身的、后天的一种行为。', 8, '/teachShare', 5, NULL, NULL, '2023-02-10 15:39:32', '2023-02-10 15:39:36');
-INSERT INTO `simple_content` VALUES (9, '35df0fe1fe7c4de8b46a7051c6ad688f', '起源', '计算机起源与发展历程', '在原始社会中，人类开始使用结绳，垒石，枝条或刻字等方式进行辅助计算和计数的工具。\r\n\r\n在春秋时期，我们的祖先发明了算筹计数的 “ 筹算法 ” 。\r\n\r\n公元六世纪，中国开始使用算盘作为计算工具，算盘是我国人民独特的创造，是第一种彻底使用十进制计算的工具。', 9, '/qiyuan', 5, NULL, NULL, '2023-02-10 15:42:00', '2023-02-10 15:42:03');
+INSERT INTO `simple_content` VALUES (11, '298aa569548c42ceafda7de38b894c2f', '基础', '计算机基础知识点', '介绍了计算机发展历史、操作界面等基本知识和常规操作方法', 7, '/baseZhishi', 5, NULL, NULL, '2023-03-01 15:27:50', '2023-03-01 15:27:50');
+INSERT INTO `simple_content` VALUES (12, '3d18aa5451844e018ee5dd3b23eddec3', '电脑', '学会使用电脑', '工欲善其事必先利其器,这也是我为什么先写硬件以及系统的原因，只有身体棒，你才可以去做你想做的事情。其他一切都免谈！搞计算机的人，如果自己的枪都磨不好，你拿什么上战场呢？', 6, '/learnComputer', 5, NULL, NULL, '2023-03-01 16:03:11', '2023-03-01 16:03:11');
+INSERT INTO `simple_content` VALUES (13, '73f67769212d48809419a7e664594a11', '教育', '如何去贯彻和奉行教育的根本', '教育是每个人所拥有的权利和做一个有素质公民应尽的义务。教育的含义是十分广泛的，但无论是教育任何一方面的内容，归结到其本质离不开“学习”二字，学习完全是一种属于自己本身的、后天的一种行为。', 8, '/teachShare', 5, NULL, NULL, '2023-03-01 16:08:35', '2023-03-01 16:08:35');
+INSERT INTO `simple_content` VALUES (14, '58414be521664acaa9461138f483336b', '起源', '计算机起源与发展历程', '在原始社会中，人类开始使用结绳，垒石，枝条或刻字等方式进行辅助计算和计数的工具。  在春秋时期，我们的祖先发明了算筹计数的 “ 筹算法 ” 。  公元六世纪，中国开始使用算盘作为计算工具，算盘是我国人民独特的创造，是第一种彻底使用十进制计算的工具。', 9, '/qiyuan', 5, NULL, NULL, '2023-03-01 16:10:59', '2023-03-01 16:10:59');
 
 -- ----------------------------
 -- Table structure for tb_banner
@@ -85,16 +85,15 @@ CREATE TABLE `tb_banner`  (
                               `create_time` datetime NOT NULL COMMENT '创建时间',
                               `update_time` datetime NOT NULL COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '首页轮播图表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '首页轮播图表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_banner
 -- ----------------------------
-INSERT INTO `tb_banner` VALUES (1, 'http://qiniuyun.tylt.xyz/a2198f95c14d469398ca7458ac15527e.jpeg', '红叶密林', 1, '2022-08-18 11:03:04', '2022-08-18 11:03:07');
-INSERT INTO `tb_banner` VALUES (2, 'http://qiniuyun.tylt.xyz/667efbee650142de8b48682f93a582b0.jpeg', '海上沙滩', 2, '2022-08-18 11:03:09', '2022-08-18 11:03:12');
-INSERT INTO `tb_banner` VALUES (3, 'http://qiniuyun.tylt.xyz/0097c12511e74321a6c2c1d20df5082f.jpeg', '测试数据', 3, '2022-08-18 11:03:14', '2022-08-18 11:03:17');
-INSERT INTO `tb_banner` VALUES (5, 'http://qiniuyun.tylt.xyz/2cbb060f17aa448a854a958f3ddd26a9.jpg', '测试数据', 5, '2022-08-18 11:03:24', '2022-08-18 11:03:27');
-INSERT INTO `tb_banner` VALUES (6, 'http://qiniuyun.tylt.xyz/18eacfa3757f4ad892af6554d70ac857.png', '测试数据', 6, '2022-08-18 11:03:29', '2022-08-18 11:03:32');
+INSERT INTO `tb_banner` VALUES (7, 'http://qiniuyun.tylt.xyz/a019211591b1437394a5a3a8266a0d3a.jpg', '布莱斯峡谷国家公园的石林', 1, '2023-03-01 14:14:46', '2023-03-01 14:14:46');
+INSERT INTO `tb_banner` VALUES (8, 'http://qiniuyun.tylt.xyz/8292c01a42364525ae6528a262c0ef00.jpg', '纳加尔霍雷国家公园', 2, '2023-03-01 14:15:46', '2023-03-01 14:15:46');
+INSERT INTO `tb_banner` VALUES (9, 'http://qiniuyun.tylt.xyz/f48909d89a104aafb2eb49f556480b2d.jpg', '天空之岛', 3, '2023-03-01 14:27:47', '2023-03-01 14:27:47');
+INSERT INTO `tb_banner` VALUES (14, 'http://qiniuyun.tylt.xyz/2fcec4e7244f445f8bd4fa4e1b9bcf80.jpg', '图尔库的奥拉河', 4, '2023-03-01 14:47:39', '2023-03-01 14:47:39');
 
 -- ----------------------------
 -- Table structure for tb_navbar
@@ -151,6 +150,10 @@ CREATE TABLE `tb_oss`  (
 -- ----------------------------
 -- Records of tb_oss
 -- ----------------------------
-INSERT INTO `tb_oss` VALUES ('35df0fe1fe7c4de8b46a7051c6ad688f', '4640a186eb82491eb8c7772aa5248122', 'http://qiniuyun.tylt.xyz/4640a186eb82491eb8c7772aa5248122.jpg', NULL, NULL, NULL, '2023-02-10 16:36:15', '2023-02-10 16:36:15');
+INSERT INTO `tb_oss` VALUES ('298aa569548c42ceafda7de38b894c2f', 'b0ee916658e147f4b79dd384b265e15a', 'http://qiniuyun.tylt.xyz/b0ee916658e147f4b79dd384b265e15a.jpg', NULL, NULL, NULL, '2023-03-01 15:27:50', '2023-03-01 15:27:50');
+INSERT INTO `tb_oss` VALUES ('2e3df5fd5704434a931e73c5923ef910', 'fa263801baf64e0ea54f096c00afb94c', 'http://qiniuyun.tylt.xyz/fa263801baf64e0ea54f096c00afb94c.jpg', NULL, NULL, NULL, '2023-03-01 16:20:14', '2023-03-01 16:20:14');
+INSERT INTO `tb_oss` VALUES ('3d18aa5451844e018ee5dd3b23eddec3', '9a225e75d0ad4dc182f7357cef003ac2', 'http://qiniuyun.tylt.xyz/9a225e75d0ad4dc182f7357cef003ac2.jpg', NULL, NULL, NULL, '2023-03-01 16:03:11', '2023-03-01 16:03:11');
+INSERT INTO `tb_oss` VALUES ('58414be521664acaa9461138f483336b', '340233397eb14cf6b4a6c9148f910e76', 'http://qiniuyun.tylt.xyz/340233397eb14cf6b4a6c9148f910e76.jpg', NULL, NULL, NULL, '2023-03-01 16:10:59', '2023-03-01 16:10:59');
+INSERT INTO `tb_oss` VALUES ('73f67769212d48809419a7e664594a11', 'aed979f289fc4ef48cf5da0a1d29e286', 'http://qiniuyun.tylt.xyz/aed979f289fc4ef48cf5da0a1d29e286.jpg', NULL, NULL, NULL, '2023-03-01 16:08:35', '2023-03-01 16:08:35');
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -37,7 +37,7 @@ public class MainContentController extends BaseController {
     public Result findPage(String titleName,Long parentId){
         Page<ContentIntroduce> mainContentPage =mainContentService.page(getPage(),new QueryWrapper<ContentIntroduce>().like("main_title", titleName).eq("parent_id",parentId).orderByAsc("order_num"));
         mainContentPage.getRecords().forEach(contentIntroduce -> {
-                contentIntroduce.setChildren(mainContentService.list(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId())));
+                contentIntroduce.setChildren(mainContentService.list(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId()).orderByAsc("order_num")));
                 contentIntroduce.getChildren().forEach(content -> content.setImgUrl(ossFileService.getById(content.getOssId()).getFileUrl()));
         });
         return Result.createSuccessMessage("获取内容信息成功", mainContentPage);
