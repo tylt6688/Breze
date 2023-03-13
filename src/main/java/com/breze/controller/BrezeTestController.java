@@ -5,7 +5,6 @@ import com.breze.common.result.Result;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.service.rbac.UserService;
-import com.breze.utils.DateUtil;
 import com.breze.utils.QrCodeUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class BrezeTestController extends BaseController {
     private UserService userService;
 
     @PreAuthorize("hasRole('admin')")
-    //指明只有admin权限的用户才能访问此方法
+    // 指明只有admin权限的用户才能访问此方法
     @GetMapping("/userservicetest")
     public Result userservice() {
         List<User> list = userService.list();
@@ -63,18 +62,7 @@ public class BrezeTestController extends BaseController {
         return Result.createSuccessMessage("",tree);
     }
 
-
-
-
-
-
     public static void main(String[] args) {
-
-//        System.out.println(ServerUtil.getDiskInfo());
-//        System.out.println(ServerUtil.getMemoryInfo());
-//        System.out.println(ServerUtil.getOsInfo());
-
-        System.out.println(DateUtil.getDateByCurrentTime(0));
 
 
     }

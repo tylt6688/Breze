@@ -30,15 +30,15 @@ public class GlobalException extends Throwable {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BusinessException.class)
     public Result<String> handler(BusinessException e) {
-        log.error("server服务器故障:----------------{}", e.getMessage());
+        log.error("[server服务器故障]:----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(e.getErrorEnum(), e.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(JwtException.class)
     public Result<String> handler(JwtException e) {
-        log.error("Jwt出现异常:----------------{}", e.getMessage());
+        log.error("[Jwt出现异常]:----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.IncorrectCredentials, e.getMessage());
     }

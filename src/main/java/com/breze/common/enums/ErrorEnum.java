@@ -17,31 +17,36 @@ import lombok.ToString;
 public enum ErrorEnum {
 
     /**
+     * 密码错误错误码
+     */
+    ErrorUsernamePassword("用户名或密码错误", 1001),
+    /**
+     * 验证码错误错误码
+     */
+    VerifyCodeError("验证码错误", 1002),
+
+    /**
      * 无权限错误码
      */
-    NoPermission("无权限操作", 101),
-    /**
-     * 未认证用户错误码
-     */
-    NoAuthentication("未认证用户", 102),
-    /**
-     * 账户无效错误码
-     */
-    UnknownAccount("无效账户", 103),
+    NoPermission("无权限操作", 1003),
     /**
      * JWT凭证异常用户错误码
      */
-    IncorrectCredentials("登录凭证失效", 104),
+    IncorrectCredentials("登录凭证失效", 1004),
     /**
-     * 密码错误错误码
+     * 未认证用户错误码
      */
-    ErrorUsernamePassword("用户名或密码错误", 105),
+    NoAuthentication("未认证用户", 1005),
+
     /**
      * 账户已被锁定错误码
      */
-    LockUser("账户已被锁定，请联系管理员", 106),
+    LockUser("账户已被锁定，请联系管理员", 1006),
 
-    VerifyCodeError("验证码错误", 107),
+    /**
+     * 账户无效错误码
+     */
+    UnknownAccount("无效账户", 1007),
 
     UnknownError("未知错误", 600),
     /**
@@ -51,12 +56,11 @@ public enum ErrorEnum {
     /**
      * 出现异常错误码
      */
-    ErrorOperation("错误操作", 700),
+    ErrorOperation("错误操作", 800),
     /**
      * 非法操作错误码
      */
     IllegalOperation("非法操作", 900);
-
 
 
     @EnumValue
