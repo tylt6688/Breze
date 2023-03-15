@@ -14,7 +14,6 @@ public class CharsetConstant {
     public static final String PUT = "PUT";
 
 
-
     /**
      * 字符编码常量
      */

@@ -8,7 +8,6 @@ package com.breze.common.consts;
  */
 public class GlobalConstant {
 
-
     /**
      * 状态常量 ---> 0正常 1禁止 2准备
      */

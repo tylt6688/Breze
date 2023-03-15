@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author LUCIFER-LGX
@@ -22,9 +23,10 @@ public class DataBaseTableServiceImpl implements DataBaseTableService {
 
     @Override
     public List<String> showDataBases() {
-        return dataBaseTableMapper.showDataBases();
+        List<String> list = dataBaseTableMapper.showDataBases();
+        list.removeIf(dataBase -> Objects.equals(dataBase, "mysql") || Objects.equals(dataBase, "sys") || Objects.equals(dataBase, "information_schema") || Objects.equals(dataBase, "performance_schema"));
+        return list;
     }
-
 
 
     @Override

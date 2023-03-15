@@ -38,18 +38,18 @@ public class CodeGeneratorController {
     private DataBaseTableService dataBaseTableService;
 
     @GetMapping("/show_databases")
-    public Result showDatabases() {
+    public Result<Object> showDatabases() {
         return Result.createSuccessMessage("获取数据库成功", dataBaseTableService.showDataBases());
     }
 
     @GetMapping("/tables")
-    private Result findAllTableNames(@RequestParam String dataBaseName) {
+    public Result<Object> findAllTableNames(@RequestParam String dataBaseName) {
 
-        return Result.createSuccessMessage("",dataBaseTableService.listDataBaseTables(dataBaseName));
+        return Result.createSuccessMessage("获取数据表成功",dataBaseTableService.listDataBaseTables(dataBaseName));
     }
 
     @PostMapping("/generate")
-    public Result codeGenerator(@RequestBody CodeGeneration codeGeneration) {
+    public Result<Object> codeGenerator(@RequestBody CodeGeneration codeGeneration) {
 
         String drive = "E://";
         String xmlpath = drive + "xyz//resource//mapper";
