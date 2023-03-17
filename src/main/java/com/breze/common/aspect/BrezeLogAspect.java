@@ -1,11 +1,11 @@
 package com.breze.common.aspect;
 
 import cn.hutool.core.util.URLUtil;
-import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.event.BrezeLogEvent;
 import com.breze.entity.pojo.syslog.HandleLog;
+import com.breze.utils.IPUtil;
 import com.breze.utils.SpringContextHolder;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -46,7 +46,7 @@ public class BrezeLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         HandleLog handleLog = new HandleLog();
         handleLog.setTitle(brezeLog.value())
-                .setRequestIp(ServletUtil.getClientIP(request))
+                .setRequestIp(IPUtil.getIpAddress(request))
                 .setRequestPath(URLUtil.getPath(request.getRequestURI()))
                 .setMethod(request.getMethod())
                 .setClientType(request.getHeader(HttpHeaders.USER_AGENT))

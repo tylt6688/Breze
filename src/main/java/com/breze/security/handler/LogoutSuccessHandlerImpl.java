@@ -2,6 +2,7 @@ package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
+import com.breze.common.consts.SystemConstant;
 import com.breze.common.result.Result;
 import com.breze.config.JwtConfig;
 import lombok.Cleanup;
@@ -46,7 +47,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-        Result result = Result.createSuccessMessage("退出成功!");
+        Result<String> result = Result.createSuccessMessage(SystemConstant.LOGOUT_SUCCESS);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

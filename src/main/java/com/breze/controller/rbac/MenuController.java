@@ -82,7 +82,7 @@ public class MenuController extends BaseController {
     public Result<List<TabVO>> selectByMenuName(@PathVariable String menuTitle) {
         List<Menu> menus = menuService.listByMenuTitle(menuTitle);
         List<TabVO> tabs = MenuConvert.INSTANT.menusTotabVOList(menus);
-        return Result.createSuccessMessage("搜索系统功能成功",tabs);
+        return Result.createSuccessMessage("搜索系统功能成功", tabs);
     }
 
 

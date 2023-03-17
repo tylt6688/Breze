@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.entity.vo.sys.LoginLogVO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,4 +20,6 @@ public interface LoginLogService extends IService<LoginLog> {
     List<LoginLogVO> getUserLoginCount();
 
     List<LoginLogVO> getUserLoginCategory(String currentDate);
+
+    Boolean clearByDate(LocalDateTime localDateTime);
 }

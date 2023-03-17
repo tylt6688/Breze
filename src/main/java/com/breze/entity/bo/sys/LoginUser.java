@@ -14,9 +14,10 @@ import java.util.Collection;
 public class LoginUser implements UserDetails {
 
     private static final long serialVersionUID = 2157836804554108892L;
-    private final String password;
 
     private final String username;
+
+    private final String password;
 
     private final Collection<? extends GrantedAuthority> authorities;
 

@@ -3,22 +3,19 @@ package com.breze.security.handler;
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.SystemConstant;
+import com.breze.common.result.Result;
 import com.breze.config.JwtConfig;
-import com.breze.utils.IPUtil;
 import com.breze.utils.JwtUtil;
-import com.maxmind.geoip2.DatabaseReader;
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import com.breze.common.result.Result;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -35,9 +32,10 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     @Autowired
     private JwtConfig jwtConfig;
-
     @Autowired
     private JwtUtil jwtUtil;
+
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
@@ -47,25 +45,15 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-        String jwt = jwtUtil.generateToken(authentication.getName());
-
+        String username = authentication.getName();
         // 生成JWT放置到响应Header头中
+        String jwt = jwtUtil.generateToken(username);
         response.setHeader(jwtConfig.getHeader(), jwt);
 
-        File database = new File(new File("geolite2city.mmdb").getAbsolutePath());
-        // 读取GeoIP数据库内容
-        DatabaseReader reader;
-        try {
-            reader = new DatabaseReader.Builder(database).build();
-            log.info("当前用户IP地址:---{}", IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
-        } catch (Exception e) {
-            log.info("异常IP地址:---{}", SystemConstant.UNKNOWN_IP);
-        }
 
-        Result result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);
+        Result<String> result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
-
 
     }
 

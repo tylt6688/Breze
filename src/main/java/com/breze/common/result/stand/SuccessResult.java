@@ -4,6 +4,7 @@ import com.breze.common.result.Result;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
@@ -14,6 +15,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper=false)
 @ApiModel(description= "请求成功响应模板")
 public class SuccessResult extends Result {
     private static final long serialVersionUID = 1L;

@@ -43,11 +43,21 @@ public class IPUtil {
             if (StrUtil.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
                 ip = request.getRemoteAddr();
             }
+            if (StrUtil.isEmpty(ip) || "0:0:0:0:0:0:0:1".equalsIgnoreCase(ip)) {
+                ip = "127.0.0.1";
+            }
         } catch (Exception e) {
             log.error("IPUtils ERROR ", e);
         }
         return ip;
     }
+
+    public static boolean isInternalIP(String ip) {
+        // 匹配10.x.x.x、172.16.x.x~172.31.x.x、192.168.x.x
+        String pattern = "^10\\..*|^172\\.(1[6-9]|2[0-9]|3[0-1])\\..*|^192\\.168\\..*";
+        return ip.matches(pattern);
+    }
+
 
     /**
      * @param reader

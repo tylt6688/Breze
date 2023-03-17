@@ -23,6 +23,5 @@
           AND ur.role_id = ro.id
         GROUP BY
             ro.NAME
-
     </select>
 </mapper>

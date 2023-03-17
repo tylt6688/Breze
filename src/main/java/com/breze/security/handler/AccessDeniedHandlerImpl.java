@@ -36,7 +36,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
 		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-		Result result = Result.createFailMessage(ErrorEnum.NoPermission, accessDeniedException.getMessage());
+		Result<Object> result = Result.createFailMessage(ErrorEnum.NoPermission, accessDeniedException.getMessage());
 
 		outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

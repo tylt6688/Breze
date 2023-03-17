@@ -31,7 +31,7 @@ public class BrezeLogController extends BaseController {
     @RequestMapping("/list_login_log")
     public Result<Page<LoginLog>> listLoginLog() {
         Page<LoginLog> pageData = loginLogService.page(getPage(), new LambdaQueryWrapper<LoginLog>().orderByDesc(LoginLog::getCreateTime));
-        pageData.getRecords().forEach(item->{
+        pageData.getRecords().forEach(item -> {
             User user = userService.getById(item.getUserId());
             item.setUserName(user.getUsername()).setTrueName(user.getTrueName());
         });
@@ -45,16 +45,17 @@ public class BrezeLogController extends BaseController {
     }
 
     @GetMapping("/login_count")
-    public Result getUserLoginCount() {
+    public Result<List<LoginLogVO>> getUserLoginCount() {
         List<LoginLogVO> userLoginCount = loginLogService.getUserLoginCount();
-        return Result.createSuccessMessage("最近用户登录数量获取成功",userLoginCount);
+        return Result.createSuccessMessage("最近用户登录数量获取成功", userLoginCount);
     }
+
     @GetMapping("/login_category")
-    public Result getUserLoginCategory() {
+    public Result<List<LoginLogVO>> getUserLoginCategory() {
         String dateByCurrentTime = DateUtil.getDateByCurrentTime(0);
         String currentDate = dateByCurrentTime.split(" ")[0] + "%";
-        List<LoginLogVO> loginLogVOS = loginLogService.getUserLoginCategory(currentDate);
-        return Result.createSuccessMessage("访客类型数据获取成功",loginLogVOS);
+        List<LoginLogVO> loginLogs = loginLogService.getUserLoginCategory(currentDate);
+        return Result.createSuccessMessage("访客类型数据获取成功", loginLogs);
     }
 
 

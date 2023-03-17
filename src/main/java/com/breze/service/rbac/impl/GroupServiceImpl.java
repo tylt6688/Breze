@@ -45,8 +45,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Override
     public List<Group> findGroupAndJobByUserId(Long userId) {
         List<Group> list = new ArrayList<>();
-        List<UserGroupJobBO> groupJobBOs = userGroupJobMapper.listUserGroupJobBOs(userId);
-        groupJobBOs.forEach(groupJob -> {
+        List<UserGroupJobBO> groupJobs = userGroupJobMapper.listUserGroupJobBOs(userId);
+        groupJobs.forEach(groupJob -> {
             Group group = this.findTreeById(groupJob.getGroupId());
             Job job = jobMapper.selectById(groupJob.getJobId());
             group.setJob(job.getName());

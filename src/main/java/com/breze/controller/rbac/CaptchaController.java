@@ -31,7 +31,7 @@ public class CaptchaController extends BaseController {
      * 获取图片验证码
      */
     @GetMapping("/captcha")
-    public Result captcha() throws IOException {
+    public Result<Map<Object, Object>> captcha() throws IOException {
 
         String key = UUID.randomUUID().toString();
         String code = producer.createText();

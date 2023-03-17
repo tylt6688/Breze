@@ -39,7 +39,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         // 进行登录授权认证异常自定义结果返回
         String msg = authenticationException.getMessage();
 
-        Result result;
+        Result<String> result;
         if (ErrorEnum.VerifyCodeError.getErrorName().equals(msg)) {
             result = Result.createFailMessage(ErrorEnum.VerifyCodeError, msg);
         } else if (ErrorEnum.LockUser.getErrorName().equals(msg)) {

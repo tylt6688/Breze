@@ -3,6 +3,8 @@ package com.breze.common.result;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.stand.FailedResult;
 import com.breze.common.result.stand.SuccessResult;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
@@ -18,19 +20,18 @@ import java.util.Map;
  */
 @Log4j2
 @Data
+@ApiModel(description= "统一数据响应模板")
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 响应数据集合
-     */
+    @ApiModelProperty(value = "响应数据集合")
     private Map<String, T> result = new HashMap<>();
 
     /**
      * 空参请求成功消息模板
      *
-     * @return 成功消息
+     * @return Result 成功消息
      */
     public static <T> Result<T> createSuccessMessage() {
 
@@ -41,7 +42,7 @@ public class Result<T> implements Serializable {
      * 请求成功消息模板
      *
      * @param message 自定义提示消息
-     * @return 成功消息
+     * @return Result 成功消息
      */
 
     public static <T> Result<T> createSuccessMessage(String message) {
@@ -54,7 +55,7 @@ public class Result<T> implements Serializable {
      *
      * @param message 自定义提示消息
      * @param data    响应数据
-     * @return 成功消息
+     * @return Result 成功消息
      */
 
     public static <T> Result<T> createSuccessMessage(String message, T data) {
@@ -72,7 +73,7 @@ public class Result<T> implements Serializable {
      * 请求失败消息模板
      *
      * @param errorEnum 错误枚举
-     * @return 失败消息
+     * @return Result 失败消息
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum) {
 
@@ -84,7 +85,7 @@ public class Result<T> implements Serializable {
      *
      * @param errorEnum 错误枚举
      * @param message   自定义失败信息
-     * @return 失败消息
+     * @return Result 失败消息
      */
 
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message) {
@@ -98,7 +99,7 @@ public class Result<T> implements Serializable {
      * @param errorEnum 错误枚举
      * @param message   自定义失败信息
      * @param data      响应数据
-     * @return 失败消息
+     * @return Result 失败消息
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message, T data) {
 
@@ -108,7 +109,6 @@ public class Result<T> implements Serializable {
             failedResult.getResult().put("data", data);
         }
         return failedResult;
-
     }
 
 }

@@ -1,6 +1,7 @@
 package com.breze.security;
 
 import com.breze.common.consts.GlobalConstant;
+import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.entity.bo.sys.LoginUser;
 import com.breze.entity.pojo.rbac.User;
@@ -8,6 +9,8 @@ import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.service.rbac.UserService;
 import com.breze.service.syslog.LoginLogService;
 import com.breze.service.tool.MailService;
+import com.breze.utils.IPUtil;
+import com.maxmind.geoip2.DatabaseReader;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,8 +19,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author tylt6688
@@ -33,10 +41,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     UserService userService;
     @Autowired
-    LoginLogService loginLogService;
-    @Autowired
     MailService mailService;
 
+    @Autowired
+    LoginLogService loginLogService;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -50,10 +58,30 @@ public class UserDetailServiceImpl implements UserDetailsService {
         }
         userService.updateLastLoginTime(username);
 
-        // FIXME 记录登录日志(后期需修改更好方式) [抄送人：tylt6688 待办人：tylt6688 2023-02-21]
+        File database = new File(new File("geolite2city.mmdb").getAbsolutePath());
+        // 读取GeoIP数据库内容
+        DatabaseReader reader;
+        String ip = "未知IP";
+        String ipLocation = "未知位置";
+        try {
+            reader = new DatabaseReader.Builder(database).build();
+            HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+            ip = IPUtil.getIpAddress(request);
+            if (IPUtil.isInternalIP(ip)) {
+                ipLocation = "内网地址";
+            } else if (ip.equals(SystemConstant.SERVER_IP)) {
+                ipLocation = "服务器用户";
+            } else {
+                ipLocation = IPUtil.getAddress(reader, IPUtil.getIpAddress(request));
+            }
+            log.info("当前用户IP地址:---{}", IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("异常IP地址:---{}", SystemConstant.UNKNOWN_IP);
+        }
         LoginLog loginLog = new LoginLog();
-        loginLog.setUserId(user.getId())
-                .setState(GlobalConstant.TYPE_ZERO);
+        loginLog.setUserId(userService.getUserByUserName(username).getId())
+                .setState(GlobalConstant.TYPE_ZERO).setIpAddress(ip).setIpLocation(ipLocation);
         loginLogService.save(loginLog);
 
         if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {

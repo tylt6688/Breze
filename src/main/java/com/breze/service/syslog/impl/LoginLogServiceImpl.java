@@ -1,5 +1,6 @@
 package com.breze.service.syslog.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.entity.vo.sys.LoginLogVO;
 import com.breze.service.syslog.LoginLogService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.mapper.syslog.LoginLogMapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,13 +27,17 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     private LoginLogMapper loginLogMapper;
     @Override
     public List<LoginLogVO> getUserLoginCount() {
-        List<LoginLogVO> loginLogList = loginLogMapper.getUserLoginCount();
-        return loginLogList;
+        return loginLogMapper.getUserLoginCount();
     }
 
     @Override
     public List<LoginLogVO> getUserLoginCategory(String currentDate) {
-        List<LoginLogVO> logVOS = loginLogMapper.getUserLoginCategory(currentDate);
-        return logVOS;
+        return loginLogMapper.getUserLoginCategory(currentDate);
+    }
+
+    @Override
+    public Boolean clearByDate(LocalDateTime localDateTime) {
+        LambdaQueryWrapper<LoginLog> wrapper = new LambdaQueryWrapper<LoginLog>().le(LoginLog::getCreateTime, localDateTime);
+        return this.removeBatchByIds(this.list(wrapper));
     }
 }

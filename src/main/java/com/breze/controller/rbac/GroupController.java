@@ -28,14 +28,14 @@ public class GroupController extends BaseController {
     @BrezeLog("获取全部部门列表")
     @GetMapping("/select")
     public Result<List<Group>> selectAll() {
-        return Result.createSuccessMessage("查询部门成功",groupService.findAll());
+        return Result.createSuccessMessage("查询部门成功", groupService.findAll());
     }
 
     @ApiOperation(value = "获取单个部门信息")
     @BrezeLog("获取单个部门信息")
     @GetMapping("/select/{id}")
     public Result<Group> selectById(@PathVariable Long id) {
-        return Result.createSuccessMessage("查询单个部门成功",groupService.findById(id));
+        return Result.createSuccessMessage("查询单个部门成功", groupService.findById(id));
     }
 
     @ApiOperation(value = "新增部门", notes = "新增部门")
