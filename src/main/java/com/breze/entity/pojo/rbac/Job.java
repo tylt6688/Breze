@@ -26,6 +26,7 @@ import lombok.experimental.Accessors;
 public class Job extends BaseEntity {
 
     private static final long serialVersionUID = -3858488919858333072L;
+
     @ApiModelProperty(value = "岗位ID", name = "id", example = "1", notes = "岗位ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;

@@ -6,6 +6,8 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
+import com.breze.converter.sys.JobConvert;
+import com.breze.entity.dto.sys.JobDTO;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;
 import com.breze.entity.pojo.rbac.UserGroupJob;
@@ -47,7 +49,8 @@ public class JobController extends BaseController {
     @ApiOperation(value = "模糊搜索岗位", notes = "用于不分页情况下展示")
     @BrezeLog("模糊搜索岗位")
     @PostMapping("/searchOr")
-    public Result<List<Job>> searchOr(@RequestBody Job job) {
+    public Result<List<Job>> searchOr(@RequestBody JobDTO jobDTO) {
+        Job job = JobConvert.INSTANCE.jobDTOToJob(jobDTO);
         List<Job> jobs = jobService.searchOr(job);
         return Result.createSuccessMessage("查询岗位成功", jobs);
     }
@@ -57,7 +60,8 @@ public class JobController extends BaseController {
     @ApiOperation(value = "精确搜索岗位", notes = "用于不分页情况下展示")
     @BrezeLog("精确搜索岗位")
     @PostMapping("/searchAnd")
-    public Result<List<Job>> searchAnd(@RequestBody Job job) {
+    public Result<List<Job>> searchAnd(@RequestBody JobDTO jobDTO) {
+        Job job = JobConvert.INSTANCE.jobDTOToJob(jobDTO);
         List<Job> jobs = jobService.searchAnd(job);
         return Result.createSuccessMessage("查询岗位成功", jobs);
     }
@@ -65,7 +69,8 @@ public class JobController extends BaseController {
     @ApiOperation(value = "新增岗位信息", notes = "用于新增岗位信息")
     @BrezeLog("新增岗位信息")
     @PostMapping("/insert")
-    public Result<String> insert(@RequestBody Job job) {
+    public Result<String> insert(@RequestBody JobDTO jobDTO) {
+        Job job = JobConvert.INSTANCE.jobDTOToJob(jobDTO);
         if (jobService.insert(job)) {
             return Result.createSuccessMessage("插入岗位成功");
         }
@@ -76,7 +81,8 @@ public class JobController extends BaseController {
     @ApiOperation(value = "更新岗位信息", notes = "用于更新岗位信息")
     @BrezeLog("更新岗位信息")
     @PutMapping("/update")
-    public Result<String> update(@RequestBody Job job) {
+    public Result<String> update(@RequestBody JobDTO jobDTO) {
+        Job job = JobConvert.INSTANCE.jobDTOToJob(jobDTO);
         if (jobService.update(job)) {
             return Result.createSuccessMessage("更新岗位成功");
         }
@@ -88,14 +94,10 @@ public class JobController extends BaseController {
     @BrezeLog("删除岗位信息")
     @DeleteMapping("/delete")
     public Result<String> deleteById(@RequestParam Long id) {
-        List<GroupJob> lists = groupJobService.list(new QueryWrapper<GroupJob>().eq("job_id",id));
-        for(GroupJob list : lists) {
-            UserGroupJob o = userGroupJobService.getOne(new QueryWrapper<UserGroupJob>().eq("group_job_id", list.getJobId()));
-            if (o != null) {
-                return Result.createSuccessMessage("删除岗位失败");
-            }
+        if (0 < groupJobService.count(new QueryWrapper<GroupJob>().eq("job_id", id))){
+            // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-26]
+            return Result.createSuccessMessage("删除岗位失败");
         }
-        // FIXME [LGX, 2023-03-24]
         try {
             jobService.delete(id);
             return Result.createSuccessMessage("删除岗位成功");
