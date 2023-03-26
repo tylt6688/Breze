@@ -63,13 +63,14 @@ public class BannerController extends BaseController {
 
 
     @PostMapping("/upload")
-    public Result upload(@RequestParam String alt, @RequestParam MultipartFile file) throws IOException {
+    public Result upload(@RequestParam String alt,@RequestParam Integer orderNum, @RequestParam MultipartFile file) throws IOException {
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpg")) {
             return Result.createFailMessage(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
         }
+
         String path = qiNiuService.uploadFile(file);
         Banner banner = new Banner();
-        banner.setUrl(path).setAlt(alt);
+        banner.setUrl(path).setAlt(alt).setOrderNum(orderNum);
         bannerService.save(banner);
         return Result.createSuccessMessage("上传Banner轮播图成功");
     }
