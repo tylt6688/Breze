@@ -1,5 +1,6 @@
 package com.breze.service.rbac.impl;
 
+import cn.hutool.log.Log;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,8 +13,10 @@ import com.breze.mapper.rbac.GroupMapper;
 import com.breze.mapper.rbac.JobMapper;
 import com.breze.mapper.rbac.UserGroupJobMapper;
 import com.breze.service.rbac.GroupService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,7 @@ import java.util.List;
  * @author tylt6688
  * @since 2022-03-25
  */
+@Slf4j
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements GroupService {
 
@@ -120,17 +124,30 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean insert(Group group) {
+        if (groupMapper.exists(new QueryWrapper<Group>().eq("name", group.getName()))) {
+            return false;
+        }
         return groupMapper.insert(group) > 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean update(Group group) {
+        Group g = groupMapper.selectOne(new QueryWrapper<Group>().eq("name", group.getName()));
+        if (g.getName().equals(group.getName())) {
+            if (g.getId() == group.getId()) {
+                return groupMapper.updateById(group) > 0;
+            }
+            return false;
+        }
         return groupMapper.updateById(group) > 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean delete(Long id) {
-        return groupMapper.deleteById(id) > 0;
+       return groupMapper.deleteById(id) > 0;
     }
 }
