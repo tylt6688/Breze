@@ -17,8 +17,6 @@ public interface JobService extends IService<Job> {
 
     Job findByJobId(Long id);
 
-    //List<Job> findByJobName(String name);
-
     List<Job> searchOr(Job job);
 
     List<Job> searchAnd(Job job);

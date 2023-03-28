@@ -36,13 +36,6 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
         return jobMapper.selectById(id);
     }
 
-//    @Override
-//    public List<Job> findByJobName(String name) {
-//        QueryWrapper<Job> qw = new QueryWrapper<>();
-//        qw.like("name", name);
-//        return jobMapper.selectList(qw);
-//    }
-
     @Override
     public List<Job> searchOr(Job job) {
         QueryWrapper<Job> qw = new QueryWrapper<>();
@@ -64,6 +57,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean insert(Job job) {
         if (jobMapper.exists(new QueryWrapper<Job>().eq("name", job.getName()))) {
             return false;
@@ -72,6 +66,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean update(Job job) {
         Job j = jobMapper.selectOne(new QueryWrapper<Job>().eq("name", job.getName()));
         if (j.getName().equals(job.getName()) ) {
