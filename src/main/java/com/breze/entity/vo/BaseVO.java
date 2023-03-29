@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * @Author tylt6688
  * @Date 2023/2/21 16:30
- * @Description 用于继承的VO实体类
+ * @Description 用于继承的VO实体父类
  * @Copyright(c) 2023 , 青枫网络工作室
  */
 @Data

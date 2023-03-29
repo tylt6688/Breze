@@ -58,8 +58,8 @@ public class FileUtil {
     /**
      * 获取流文件
      *
-     * @param ins
-     * @param file
+     * @param ins  输入流
+     * @param file 文件
      */
     public static void inputStreamToFile(InputStream ins, File file) {
         try {
@@ -79,7 +79,7 @@ public class FileUtil {
     /**
      * 删除本地临时文件
      *
-     * @param file
+     * @param file 文件
      */
     public static void deleteTempFile(File file) {
         if (file != null) {

@@ -8,9 +8,12 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * @author chenweixi
- * @create 2022-12-26 13:42
+ * @Author chenweixi
+ * @Date 2022-12-26 13:42
+ * @Description 登录日志信息VO
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

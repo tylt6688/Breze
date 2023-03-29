@@ -3,7 +3,7 @@ package com.breze.security;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
-import com.breze.entity.bo.sys.LoginUser;
+import com.breze.entity.bo.sys.LoginUserBO;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.service.rbac.UserService;
@@ -42,7 +42,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     UserService userService;
     @Autowired
     MailService mailService;
-
     @Autowired
     LoginLogService loginLogService;
 
@@ -88,7 +87,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             mailService.sendRemindEmail(user);
         }
 
-        return new LoginUser(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user.getId()));
+        return new LoginUserBO(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user.getId()));
     }
 
     /**

@@ -8,17 +8,17 @@ import java.io.Serializable;
 /**
  * @Author tylt6688
  * @Date 2022/9/16 14:36
- * @Description 更新密码DTO
+ * @Description 更新密码 DTO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
 public class UpdatePasswordDTO implements Serializable {
 
-	private static final long serialVersionUID = 4794413496085729435L;
+    private static final long serialVersionUID = 4794413496085729435L;
 
-	@NotBlank(message = "新密码不能为空")
-	private String password;
+    @NotBlank(message = "新密码不能为空")
+    private String password;
 
-	@NotBlank(message = "旧密码不能为空")
-	private String currentPass;
+    @NotBlank(message = "旧密码不能为空")
+    private String currentPass;
 }

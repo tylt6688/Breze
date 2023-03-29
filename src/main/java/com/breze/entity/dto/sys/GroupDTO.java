@@ -1,6 +1,5 @@
 package com.breze.entity.dto.sys;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,7 +7,7 @@ import java.io.Serializable;
 /**
  * @Author LGX
  * @Date 2023/3/26 16:34
- * @Description:
+ * @Description
  * @Copyright(c) 2023, 清枫网络工作室
  */
 @Data

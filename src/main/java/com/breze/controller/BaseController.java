@@ -121,7 +121,7 @@ public class BaseController {
     HttpServletRequest request;
 
     /**
-     * 自定义泛型分页数据方法,用于Get方式查询显示
+     * 自定义泛型分页数据方法,用于拦截请求参数进行查询显示
      */
     public <T> Page<T> getPage() {
         // 当前页的页码，默认第 1 页
@@ -133,5 +133,3 @@ public class BaseController {
     }
 
 }
-
-//===============================Breze=================================//

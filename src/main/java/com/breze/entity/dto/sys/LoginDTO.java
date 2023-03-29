@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 /**
  * @Author tylt6688
  * @Date 2022/9/16 14:36
- * @Description 登录信息VO
+ * @Description 登录数据 DTO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data

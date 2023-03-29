@@ -8,11 +8,12 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
-import com.breze.entity.dto.sys.MenuDTO;
 import com.breze.converter.sys.MenuConvert;
+import com.breze.entity.dto.sys.MenuDTO;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.RoleMenu;
 import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.vo.sys.MenuVO;
 import com.breze.entity.vo.sys.TabVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -48,11 +49,12 @@ public class MenuController extends BaseController {
         String authorityInfo = userService.getUserAuthorityInfo(user.getId());
         String[] authorityInfoArray = StringUtils.tokenizeToStringArray(authorityInfo, ",");
         // 获取当前用户授权的菜单导航栏信息
-        List<MenuDTO> navs = menuService.getCurrentNav();
+        List<MenuVO> navs = menuService.getCurrentNav();
 
         Map<Object, Object> map = MapUtil.builder()
                 .put("authority", authorityInfoArray)
                 .put("nav", navs).map();
+
         return Result.createSuccessMessage("获取菜单导航成功", map);
     }
 
@@ -75,13 +77,13 @@ public class MenuController extends BaseController {
         return Result.createSuccessMessage("查询菜单成功", menus);
     }
 
-    @ApiOperation("根据名称查询二级菜单")
+    @ApiOperation("根据菜单名称查询二级菜单")
     @ApiImplicitParam(name = "menuName", value = "菜单名称", required = false, dataType = "String", dataTypeClass = String.class)
     @BrezeLog("根据名称查询二级菜单")
     @GetMapping("/select_menu_title/{menuTitle}")
     public Result<List<TabVO>> selectByMenuName(@PathVariable String menuTitle) {
         List<Menu> menus = menuService.listByMenuTitle(menuTitle);
-        List<TabVO> tabs = MenuConvert.INSTANT.menusTotabVOList(menus);
+        List<TabVO> tabs = MenuConvert.INSTANCE.menusToTabVOList(menus);
         return Result.createSuccessMessage("搜索系统功能成功", tabs);
     }
 
@@ -90,8 +92,9 @@ public class MenuController extends BaseController {
     @BrezeLog("新增菜单")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:menu:insert')")
-    public Result<String> insert(@Validated @RequestBody Menu menu) {
+    public Result<String> insert(@Validated @RequestBody MenuDTO menuDTO) {
         try {
+            Menu menu = MenuConvert.INSTANCE.menuDTOToMenu(menuDTO);
             menuService.save(menu);
             return Result.createSuccessMessage("新增菜单成功");
         } catch (Exception e) {
@@ -103,8 +106,9 @@ public class MenuController extends BaseController {
     @BrezeLog("更新菜单")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:menu:update')")
-    public Result<String> update(@Validated @RequestBody Menu menu) {
+    public Result<String> update(@Validated @RequestBody MenuDTO menuDTO) {
         try {
+            Menu menu = MenuConvert.INSTANCE.menuDTOToMenu(menuDTO);
             menuService.updateById(menu);
             // 菜单发生变化时清除Redis中的缓存
             userService.clearUserAuthorityInfoByMenuId(menu.getId());

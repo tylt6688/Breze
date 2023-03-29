@@ -9,9 +9,7 @@ import com.breze.utils.QrCodeUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -34,7 +32,7 @@ public class BrezeTestController extends BaseController {
     @GetMapping("/userservicetest")
     public Result userservice() {
         List<User> list = userService.list();
-        return Result.createSuccessMessage("",list);
+        return Result.createSuccessMessage("", list);
     }
 
     @PreAuthorize("hasAuthority('sys:user:list')")
@@ -42,7 +40,7 @@ public class BrezeTestController extends BaseController {
     @GetMapping("/userservicetest1")
     public Result userservice1() {
         List<User> list = userService.list();
-        return Result.createSuccessMessage("",list);
+        return Result.createSuccessMessage("", list);
     }
 
 
@@ -53,16 +51,18 @@ public class BrezeTestController extends BaseController {
         String content = "http://www.baidu.com?id=";
         String logoUrl = "http://www.baidu.com/statics/logo.png";
         String url = QrCodeUtil.getBase64QRCode(content + id, logoUrl);
-        return Result.createSuccessMessage("",url);
+        return Result.createSuccessMessage("", url);
     }
 
     @RequestMapping("/execute")
     public Result execute(Long id) {
         Group tree = groupService.findTreeById(id);
-        return Result.createSuccessMessage("",tree);
+        return Result.createSuccessMessage("", tree);
     }
 
     public static void main(String[] args) {
+
+        BrezeTestController testController = new BrezeTestController();
 
 
     }

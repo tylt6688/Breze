@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 /**
  * @Author LGX
  * @Date 2023/3/26 16:36
- * @Description:
+ * @Description
  * @Copyright(c) 2023, 清枫网络工作室
  */
 @Mapper

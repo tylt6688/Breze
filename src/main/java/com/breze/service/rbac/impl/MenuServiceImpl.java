@@ -3,9 +3,10 @@ package com.breze.service.rbac.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.GlobalConstant;
-import com.breze.entity.dto.sys.MenuDTO;
+import com.breze.converter.sys.MenuConvert;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.vo.sys.MenuVO;
 import com.breze.mapper.rbac.MenuMapper;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.MenuService;
@@ -36,26 +37,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     MenuMapper menuMapper;
 
     @Override
-    public List<MenuDTO> getCurrentNav() {
+    public List<MenuVO> getCurrentNav() {
         // 当前用户的信息是注册在Security里面的
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userMapper.getByUserName(username);
         List<Long> navMenuIds = userMapper.getNavMenuIds(user.getId());
         List<Menu> menus = this.listByIds(navMenuIds);
-        // 此处先进行排序再转父子树
-        List<Menu> menusList = search(menus);
+        // 此处先按照排序号进行升序排序后再转成父子树
+        menus.sort(Comparator.comparing(Menu::getOrderNum));
         // 转成树状结构
-        List<Menu> menuTree = buildTreeMenu(menusList);
-        // 需要实体转DTO
-        return convert(menuTree);
+        List<Menu> menuTree = buildTreeMenu(menus);
+        // List<Menu> 实体转 List<MenuVO>
+        return MenuConvert.INSTANCE.menusToMenuVOList(menuTree);
     }
-
-    // 按照排序号进行升序排序后再转成父子树
-    public List<Menu> search(List<Menu> menusList) {
-        menusList.sort(Comparator.comparing(Menu::getOrderNum));
-        return menusList;
-    }
-
 
     private List<Menu> buildTreeMenu(List<Menu> menus) {
         List<Menu> finalMenus = new ArrayList<>();
@@ -72,25 +66,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             }
         }
         return finalMenus;
-    }
-
-    private List<MenuDTO> convert(List<Menu> menuTree) {
-        List<MenuDTO> menuDTO = new ArrayList<>();
-        menuTree.forEach(menu -> {
-            MenuDTO dto = new MenuDTO();
-            dto.setId(menu.getId());
-            dto.setTitle(menu.getTitle());
-            dto.setName(menu.getName());
-            dto.setIcon(menu.getIcon());
-            dto.setComponent(menu.getComponent());
-            dto.setPath(menu.getPath());
-            if (!menu.getChildren().isEmpty()) {
-                // 子节点调用当前方法再次进行转换
-                dto.setChildren(convert(menu.getChildren()));
-            }
-            menuDTO.add(dto);
-        });
-        return menuDTO;
     }
 
     @Override

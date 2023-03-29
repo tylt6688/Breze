@@ -42,6 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     UserMapper userMapper;
 
@@ -59,7 +60,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User getUserByUserName(String username) {
         return getOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
     }
-
 
 
     public User getUserRolesByUserId(Long userId) {
@@ -114,11 +114,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.deleteById(id) > 0;
     }
 
-    /**
-     * @Author tylt6688
-     * @Description 登录邮件提醒
-     * @Date 2022/3/6 15:55
-     */
+
     @Override
     public void updateLoginWarnByUserId(Integer loginWarn, Long id) {
         userMapper.updateLoginWarnByUserId(loginWarn, id);
@@ -147,11 +143,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         })).sheet().doRead();
     }
 
-    /**
-     * @Author tylt6688
-     * @Description 获取角色权限具体实现代码
-     * @Date 2022/3/6 15:55
-     */
     @Override
     public String getUserAuthorityInfo(Long userId) {
         String authority = "";
@@ -183,40 +174,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return authority;
     }
 
-    /**
-     * @Author tylt6688
-     * @Description 用户变动时清除权限缓存
-     * @Date 2022/3/6 17:47
-     * @Method clearUserAuthorityInfo
-     * @Param [username]
-     */
+
     @Override
     public void clearUserAuthorityInfo(String username) {
         redisUtil.delete(CacheConstant.AUTHORITY_CODE + username);
     }
 
-    /**
-     * @return void
-     * @Author tylt
-     * @Description 角色变动时清除权限缓存
-     * @Date 2022/3/6 17:47
-     * @Method clearUserAuthorityInfoByRoleId
-     * @Param [roleId]
-     */
+
     @Override
     public void clearUserAuthorityInfoByRoleId(Long roleId) {
         List<User> users = this.list(new QueryWrapper<User>().inSql("id", "SELECT user_id FROM sys_user_role WHERE role_id = " + roleId));
         users.forEach(user -> this.clearUserAuthorityInfo(user.getUsername()));
     }
 
-    /**
-     * @return void
-     * @Author tylt
-     * @Description 菜单变动时清除权限缓存
-     * @Date 2022/3/6 17:49
-     * @Method clearUserAuthorityInfoByMenuId
-     * @Param [menuId]
-     */
+
     @Override
     public void clearUserAuthorityInfoByMenuId(Long menuId) {
         List<User> users = userMapper.listByMenuId(menuId);

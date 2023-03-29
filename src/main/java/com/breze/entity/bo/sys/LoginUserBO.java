@@ -1,5 +1,6 @@
 package com.breze.entity.bo.sys;
 
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,7 +12,8 @@ import java.util.Collection;
  * @Description 实现UserDetails实体类，用于返回已验证用户信息
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-public class LoginUser implements UserDetails {
+@ToString
+public class LoginUserBO implements UserDetails {
 
     private static final long serialVersionUID = 2157836804554108892L;
 
@@ -41,12 +43,12 @@ public class LoginUser implements UserDetails {
      */
     private final boolean enabled;
 
-    public LoginUser(String username, String password, Boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public LoginUserBO(String username, String password, Boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         this(username, password, true, true, true, accountNonLocked, authorities);
     }
 
 
-    public LoginUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public LoginUserBO(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 
         this.username = username;
         this.password = password;

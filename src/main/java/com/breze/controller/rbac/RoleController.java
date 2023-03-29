@@ -8,6 +8,8 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
+import com.breze.converter.sys.RoleConvert;
+import com.breze.entity.dto.sys.RoleDTO;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.RoleMenu;
 import com.breze.entity.pojo.rbac.UserRole;
@@ -49,7 +51,7 @@ public class RoleController extends BaseController {
     @BrezeLog("分页获取角色列表")
     @GetMapping("/select_page")
     @PreAuthorize("hasAuthority('sys:role:select')")
-    public Result<Page<Role>> select() {
+    public Result<Page<Role>> selectByPage() {
         Page<Role> pageData = roleService.page(getPage());
         return Result.createSuccessMessage("分页获取角色列表成功", pageData);
     }
@@ -102,8 +104,9 @@ public class RoleController extends BaseController {
     @BrezeLog("新增角色")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
-    public Result<String> insert(@Validated @RequestBody Role role) {
+    public Result<String> insert(@Validated @RequestBody RoleDTO roleDTO) {
         try {
+            Role role = RoleConvert.INSTANCE.roleDTOTORole(roleDTO);
             roleService.save(role);
             return Result.createSuccessMessage("新增角色成功");
         } catch (Exception e) {
@@ -115,8 +118,9 @@ public class RoleController extends BaseController {
     @BrezeLog("更新角色")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")
-    public Result<String> update(@Validated @RequestBody Role role) {
+    public Result<String> update(@Validated @RequestBody RoleDTO roleDTO) {
         try {
+            Role role = RoleConvert.INSTANCE.roleDTOTORole(roleDTO);
             roleService.updateById(role);
             // 更新缓存
             userService.clearUserAuthorityInfoByRoleId(role.getId());

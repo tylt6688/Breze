@@ -26,7 +26,7 @@ public class CodeGenerator {
          * 项目配置
          */
         String drive = "E://";
-        String author = "ZhangHaohui";
+        String author = "Breze";
         String mapperXmlPath = drive + "com//resource//mapper";
         String projectPath = System.getProperty("user.dir");
         String packageName = "com.breze";

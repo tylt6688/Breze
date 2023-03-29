@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @Author tylt6688
  * @Date 2022/9/16 14:36
- * @Description 菜单信息DTO
+ * @Description 菜单信息 DTO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data

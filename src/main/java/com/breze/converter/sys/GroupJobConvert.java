@@ -11,6 +11,5 @@ import org.mapstruct.factory.Mappers;
  */
 @Mapper
 public interface GroupJobConvert {
-
     GroupJobConvert INSTANCE = Mappers.getMapper(GroupJobConvert.class);
 }
