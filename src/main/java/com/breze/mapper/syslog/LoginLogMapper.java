@@ -5,6 +5,7 @@ import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.entity.vo.sys.LoginLogVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,5 +20,5 @@ import java.util.List;
 public interface LoginLogMapper extends BaseMapper<LoginLog> {
     List<LoginLogVO> getUserLoginCount();
 
-    List<LoginLogVO> getUserLoginCategory(String currentDate);
+    List<LoginLogVO> getUserLoginCategory(LocalDateTime localDateTime);
 }

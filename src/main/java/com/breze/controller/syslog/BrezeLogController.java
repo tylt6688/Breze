@@ -5,16 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
+import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.syslog.HandleLog;
 import com.breze.entity.pojo.syslog.LoginLog;
-import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.vo.sys.LoginLogVO;
-import com.breze.utils.DateUtil;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -52,9 +52,9 @@ public class BrezeLogController extends BaseController {
 
     @GetMapping("/login_category")
     public Result<List<LoginLogVO>> getUserLoginCategory() {
-        String dateByCurrentTime = DateUtil.getDateByCurrentTime(0);
-        String currentDate = dateByCurrentTime.split(" ")[0] + "%";
-        List<LoginLogVO> loginLogs = loginLogService.getUserLoginCategory(currentDate);
+
+
+        List<LoginLogVO> loginLogs = loginLogService.getUserLoginCategory(LocalDateTime.now());
         return Result.createSuccessMessage("访客类型数据获取成功", loginLogs);
     }
 

@@ -62,6 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
 
+
     public User getUserRolesByUserId(Long userId) {
         User user = this.getById(userId);
         List<Role> roles = roleMapper.listByUserId(user.getId());

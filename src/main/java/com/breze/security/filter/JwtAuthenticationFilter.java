@@ -87,7 +87,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             authenticationEntryPoint.commence(request,response,new BrezeJwtException("登录凭证失效"));
             return;
         }
-//        // 判断token是否过期
+       // 判断token是否过期
 //        else if (jwtUtil.isTokenExpired(jwt)) {
 //            authenticationFailureHandler.onAuthenticationFailure(request, response, new BrezeJwtException("JWT已过期"));
 //            return;

@@ -31,8 +31,8 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     }
 
     @Override
-    public List<LoginLogVO> getUserLoginCategory(String currentDate) {
-        return loginLogMapper.getUserLoginCategory(currentDate);
+    public List<LoginLogVO> getUserLoginCategory(LocalDateTime localDateTime) {
+        return loginLogMapper.getUserLoginCategory(localDateTime);
     }
 
     @Override

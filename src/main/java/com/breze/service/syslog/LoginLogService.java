@@ -19,7 +19,7 @@ public interface LoginLogService extends IService<LoginLog> {
 
     List<LoginLogVO> getUserLoginCount();
 
-    List<LoginLogVO> getUserLoginCategory(String currentDate);
+    List<LoginLogVO> getUserLoginCategory(LocalDateTime localDateTime);
 
     Boolean clearByDate(LocalDateTime localDateTime);
 }

@@ -21,8 +21,8 @@ public class IPUtil {
     /**
      * 获取IP地址
      *
-     * @param request
-     * @return
+     * @param request 网络请求
+     * @return IP
      */
     public static String getIpAddress(HttpServletRequest request) {
         String ip = null;
@@ -52,6 +52,12 @@ public class IPUtil {
         return ip;
     }
 
+    /**
+     * 判断是否为内网IP
+     *
+     * @param ip IP地址
+     * @return boolean
+     */
     public static boolean isInternalIP(String ip) {
         // 匹配10.x.x.x、172.16.x.x~172.31.x.x、192.168.x.x
         String pattern = "^10\\..*|^172\\.(1[6-9]|2[0-9]|3[0-1])\\..*|^192\\.168\\..*";
@@ -82,11 +88,11 @@ public class IPUtil {
     }
 
     /**
+     * 获得城市
+     *
      * @param reader
      * @param ip
-     * @return
-     * @throws Exception
-     * @description: 获得城市
+     * @return String
      */
     public static String getCity(DatabaseReader reader, String ip) throws Exception {
         return reader.city(InetAddress.getByName(ip)).getCity().getNames().get("zh-CN");
@@ -97,34 +103,39 @@ public class IPUtil {
      *
      * @param reader
      * @param ip
-     * @return
-     * @throws Exception
+     * @return String
      */
-    public static String getAddress(DatabaseReader reader, String ip) throws Exception {
-        String country = reader.city(InetAddress.getByName(ip)).getCountry().getNames().get("zh-CN");
-        String province = reader.city(InetAddress.getByName(ip)).getMostSpecificSubdivision().getNames().get("zh-CN");
-        String city = reader.city(InetAddress.getByName(ip)).getCity().getNames().get("zh-CN");
-        String f = "-";
-        return country + f + province + f + city;
+    public static String getAddress(DatabaseReader reader, String ip) {
+        try {
+            String country = reader.city(InetAddress.getByName(ip)).getCountry().getNames().get("zh-CN");
+            String province = reader.city(InetAddress.getByName(ip)).getMostSpecificSubdivision().getNames().get("zh-CN");
+            String city = reader.city(InetAddress.getByName(ip)).getCity().getNames().get("zh-CN");
+            String f = "-";
+            return country + f + province + f + city;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "未知地址";
+        }
+
+
     }
 
     /**
+     * 获得经度
      * @param reader
      * @param ip
-     * @return
-     * @throws Exception
-     * @description: 获得经度
+     * @return Double
      */
     public static Double getLongitude(DatabaseReader reader, String ip) throws Exception {
         return reader.city(InetAddress.getByName(ip)).getLocation().getLongitude();
     }
 
     /**
+     * 获得纬度
      * @param reader
      * @param ip
-     * @return
-     * @throws Exception
-     * @description: 获得纬度
+     * @return Double
+
      */
     public static Double getLatitude(DatabaseReader reader, String ip) throws Exception {
         return reader.city(InetAddress.getByName(ip)).getLocation().getLatitude();

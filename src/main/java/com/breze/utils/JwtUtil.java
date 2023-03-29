@@ -22,10 +22,13 @@ import java.util.Date;
 public class JwtUtil {
 
     @Autowired
-    private JwtConfig jwtConfig;
+    JwtConfig jwtConfig;
 
     /**
      * 生成jwt
+     *
+     * @param username 用户名
+     * @return String
      */
     public String generateToken(String username) {
 

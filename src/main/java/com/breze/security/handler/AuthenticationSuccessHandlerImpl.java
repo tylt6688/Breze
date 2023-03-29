@@ -32,9 +32,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     @Autowired
     private JwtConfig jwtConfig;
-    @Autowired
-    private JwtUtil jwtUtil;
 
+    @Autowired
+    JwtUtil jwtUtil;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {

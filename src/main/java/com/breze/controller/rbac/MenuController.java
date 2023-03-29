@@ -78,7 +78,7 @@ public class MenuController extends BaseController {
     }
 
     @ApiOperation("根据菜单名称查询二级菜单")
-    @ApiImplicitParam(name = "menuName", value = "菜单名称", required = false, dataType = "String", dataTypeClass = String.class)
+    @ApiImplicitParam(name = "menuName", value = "菜单名称", required = true, dataType = "String", dataTypeClass = String.class)
     @BrezeLog("根据名称查询二级菜单")
     @GetMapping("/select_menu_title/{menuTitle}")
     public Result<List<TabVO>> selectByMenuName(@PathVariable String menuTitle) {
