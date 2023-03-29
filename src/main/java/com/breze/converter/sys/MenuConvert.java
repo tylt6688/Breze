@@ -26,7 +26,7 @@ public interface MenuConvert {
      * Menu转为TabVO实体
      *
      * @param menu 菜单实体
-     * @return TabVO 标签页显示实体
+     * @return TabVO
      */
     @Mappings({
             @Mapping(source = "parentTitle", target = "parentTitle")
@@ -37,7 +37,7 @@ public interface MenuConvert {
      * MenuDTO转为Menu实体
      *
      * @param menuDTO 菜单传输实体
-     * @return Menu 菜单实体
+     * @return Menu
      */
     @Mappings({})
     Menu menuDTOToMenu(MenuDTO menuDTO);
@@ -46,7 +46,7 @@ public interface MenuConvert {
      * List<Menu>转为List<MenuVO>实体
      *
      * @param menus 菜单集合
-     * @return List<MenuVO> MenuVO集合
+     * @return List<MenuVO>
      */
 
     List<MenuVO> menusToMenuVOList(List<Menu> menus);
@@ -55,7 +55,7 @@ public interface MenuConvert {
      * List<Menu>转为List<MenuDTO>实体
      *
      * @param menus 菜单集合
-     * @return List<MenuDTO> MenuDTO集合
+     * @return List<MenuDTO>
      */
     List<MenuDTO> menusToMenuDTOList(List<Menu> menus);
 
@@ -65,8 +65,17 @@ public interface MenuConvert {
      * List<Menu>转为List<TabVO>实体
      *
      * @param menus 菜单集合
-     * @return List<TabVO> 标签集合
+     * @return List<TabVO>
      */
     List<TabVO> menusToTabVOList(List<Menu> menus);
+
+    /**
+     * Menu 转为 MenuVO实体
+     *
+     * @param menu 菜单实体
+     * @return MenuVO
+     */
+    @Mappings({})
+    MenuVO menuToMenuVO(Menu menu);
 
 }

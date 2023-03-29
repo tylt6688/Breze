@@ -63,9 +63,9 @@ public class MenuController extends BaseController {
     @BrezeLog("按ID查询菜单信息")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:menu:select')")
-    public Result<Menu> info(@PathVariable Long id) {
+    public Result<MenuVO> info(@PathVariable Long id) {
         Menu menu = menuService.getById(id);
-        return Result.createSuccessMessage("查询单个菜单成功", menu);
+        return Result.createSuccessMessage("查询单个菜单成功", MenuConvert.INSTANCE.menuToMenuVO(menu));
     }
 
     @ApiOperation(value = "查询菜单管理中的所有菜单信息")
