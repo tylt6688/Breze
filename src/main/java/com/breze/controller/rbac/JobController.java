@@ -10,7 +10,6 @@ import com.breze.converter.sys.JobConvert;
 import com.breze.entity.dto.sys.JobDTO;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;
-import com.breze.entity.pojo.rbac.UserGroupJob;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -94,7 +93,7 @@ public class JobController extends BaseController {
     @BrezeLog("删除岗位信息")
     @DeleteMapping("/delete")
     public Result<String> deleteById(@RequestParam Long id) {
-        if (0 < groupJobService.count(new QueryWrapper<GroupJob>().eq("job_id", id))){
+        if (0 < groupJobService.count(new QueryWrapper<GroupJob>().eq("job_id", id))) {
             // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-26]
             return Result.createSuccessMessage("删除岗位失败");
         }

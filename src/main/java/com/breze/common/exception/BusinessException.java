@@ -15,9 +15,10 @@ import lombok.EqualsAndHashCode;
 public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 6222543820599495474L;
-    private ErrorEnum errorEnum;
 
-    private String message;
+    private final ErrorEnum errorEnum;
+
+    private final String message;
 
     public BusinessException(ErrorEnum errorEnum) {
         this.errorEnum = errorEnum;

@@ -52,8 +52,6 @@ public class BrezeLogController extends BaseController {
 
     @GetMapping("/login_category")
     public Result<List<LoginLogVO>> getUserLoginCategory() {
-
-
         List<LoginLogVO> loginLogs = loginLogService.getUserLoginCategory(LocalDateTime.now());
         return Result.createSuccessMessage("访客类型数据获取成功", loginLogs);
     }

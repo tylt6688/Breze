@@ -27,51 +27,82 @@ public class GlobalException extends Throwable {
 
     private static final long serialVersionUID = -3332727555745749667L;
 
+    /**
+     * 业务异常拦截
+     *
+     * @throws BusinessException 业务异常
+     */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BusinessException.class)
-    public Result<String> handler(BusinessException e) {
+    public Result<Object> handler(BusinessException e) {
         log.error("[server服务器故障]:----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(e.getErrorEnum(), e.getMessage());
     }
 
+    /**
+     * JWT认证异常拦截
+     *
+     * @throws JwtException JWT异常
+     */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(JwtException.class)
-    public Result<String> handler(JwtException e) {
+    public Result<Object> handler(JwtException e) {
         log.error("[Jwt出现异常]:----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.IncorrectCredentials, e.getMessage());
     }
 
+    /**
+     * 权限异常拦截
+     *
+     * @throws AccessDeniedException 权限异常
+     */
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
-    public Result<String> handler(AccessDeniedException e) {
+    public Result<Object> handler(AccessDeniedException e) {
         log.error("Security权限不足异常:----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.NoPermission, ErrorEnum.NoPermission.getErrorName());
     }
 
+    /**
+     * 方法参数校验异常拦截
+     *
+     * @throws MethodArgumentNotValidException 方法参数校验异常
+     */
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Result<String> handler(MethodArgumentNotValidException e) {
-        log.error("Entity实体校验异常:----------------{}", e.getMessage());
+    public Result<Object> handler(MethodArgumentNotValidException e) {
+        log.error("方法参数校验异常校验异常:----------------{}", e.getMessage());
         BindingResult bindingResult = e.getBindingResult();
         ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
         e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.UnknownError, objectError.getDefaultMessage());
     }
 
+    /**
+     * 非法参数异常拦截
+     *
+     * @throws IllegalArgumentException 非法参数异常
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
-    public Result<String> handler(IllegalArgumentException e) {
-        log.error("Assert断言判断异常:----------------{}", e.getMessage());
+    public Result<Object> handler(IllegalArgumentException e) {
+        log.error("非法参数异常:----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
     }
 
+    /**
+     * 运行时异常拦截
+     *
+     * @throws RuntimeException 运行时异常
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
-    public Result<String> handler(RuntimeException e) {
+    public Result<Object> handler(RuntimeException e) {
         log.error("运行时异常:----------------{}", e.getMessage());
         e.printStackTrace();
         return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());

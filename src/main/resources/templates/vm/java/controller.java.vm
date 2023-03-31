@@ -62,7 +62,7 @@ public Result findAll(){
 @ApiOperation(value = "根据ID查询")
     #foreach($field in ${table.fields})
         #if(${field.keyIdentityFlag})
-        @ApiImplicitParam(name = "${field.propertyName}" , value = "${field.comment}" , required = true, dataType = "${field.propertyType}" , dataTypeClass = ${field.propertyType}.class)
+        @ApiImplicitParam(name = "${field.propertyName}", value = "${field.comment}", required = true, dataType = "${field.propertyType}", dataTypeClass = ${field.propertyType}.class)
         #end
     #end
 @GetMapping("/{id}")
@@ -75,7 +75,7 @@ public Result findById(@PathVariable #foreach($field in ${table.fields})#if(${fi
 @ApiOperation(value = "添加")
 @ApiImplicitParams({
     #foreach($field in ${table.fields})
-            @ApiImplicitParam(name = "${field.propertyName}" , value = "${field.comment}" , required = true, dataType = "${field.propertyType}" , dataTypeClass = ${field.propertyType}.class),
+            @ApiImplicitParam(name = "${field.propertyName}", value = "${field.comment}", required = true, dataType = "${field.propertyType}", dataTypeClass = ${field.propertyType}.class),
     #end
 })
 @PostMapping("/")
@@ -88,7 +88,7 @@ public Result insert(@RequestBody ${entity} ${table.entityPath}){
 @ApiOperation(value = "修改")
 @ApiImplicitParams({
     #foreach($field in ${table.fields})
-            @ApiImplicitParam(name = "${field.propertyName}" , value = "${field.comment}" , required = true, dataType = "${field.propertyType}" , dataTypeClass = ${field.propertyType}.class),
+            @ApiImplicitParam(name = "${field.propertyName}", value = "${field.comment}", required = true, dataType = "${field.propertyType}", dataTypeClass = ${field.propertyType}.class),
     #end
 })
 @PutMapping("/")
@@ -101,7 +101,7 @@ public Result updateById(@RequestBody ${entity} ${table.entityPath}){
 @ApiOperation(value = "根据ID删除")
     #foreach($field in ${table.fields})
         #if(${field.keyIdentityFlag})
-        @ApiImplicitParam(name = "${field.propertyName}" , value = "${field.comment}" , required = true, dataType = "${field.propertyType}" , dataTypeClass = ${field.propertyType}.class)
+        @ApiImplicitParam(name = "${field.propertyName}", value = "${field.comment}", required = true, dataType = "${field.propertyType}", dataTypeClass = ${field.propertyType}.class)
         #end
     #end
 @DeleteMapping("/{id}")

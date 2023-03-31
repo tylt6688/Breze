@@ -9,6 +9,8 @@ import org.springframework.security.access.AccessDeniedException;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 public class BrezeDeniedException extends AccessDeniedException {
+    private static final long serialVersionUID = 4010485580843212041L;
+
     public BrezeDeniedException(String msg) {
         super(msg);
     }

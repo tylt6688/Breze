@@ -61,7 +61,7 @@ public class RabbitMQConfig {
                 log.info("消息成功发送到Exchange");
 
             } else {
-                log.info("消息发送到Exchange失败, {}, cause: {}" + correlationData + "---->" + cause);
+                log.info("消息发送到Exchange失败, {}, cause: {}", correlationData, cause);
             }
         });
 

@@ -17,12 +17,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * <p>
- * 轮播图前端控制器
- * </p>
- *
- * @author tylt6688
- * @since 2022-04-15
+ * @Author tylt6688
+ * @Date 2022-04-15
+ * @Discription 轮播图前端控制器
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Api(tags = "门户轮播图管理")
 @RestController
@@ -31,21 +29,20 @@ public class BannerController extends BaseController {
 
 
     @GetMapping("/info/{id}")
-    public Result getBannerInfo(@PathVariable Long id) {
+    public Result<Banner> getBannerInfo(@PathVariable Long id) {
         Banner banner = bannerService.getById(id);
         return Result.createSuccessMessage("获取轮播图信息成功", banner);
     }
 
     @GetMapping("/select")
-    public Result select() {
+    public Result<List<Banner>> select() {
         List<Banner> banners = bannerService.listOrderByDesc();
         return Result.createSuccessMessage("查询轮播图成功", banners);
     }
 
 
-
     @PostMapping("/insert")
-    public Result insert(@Validated @RequestBody Banner banner) {
+    public Result<String> insert(@Validated @RequestBody Banner banner) {
         try {
             bannerService.save(banner);
             return Result.createSuccessMessage("添加轮播图成功");
@@ -56,14 +53,14 @@ public class BannerController extends BaseController {
     }
 
     @PostMapping("/update")
-    public Result update(@Validated @RequestBody Banner banner) {
+    public Result<String> update(@Validated @RequestBody Banner banner) {
         bannerService.updateById(banner);
         return Result.createSuccessMessage("修改轮播信息成功");
     }
 
 
     @PostMapping("/upload")
-    public Result upload(@RequestParam String alt,@RequestParam Integer orderNum, @RequestParam MultipartFile file) throws IOException {
+    public Result<String> upload(@RequestParam String alt, @RequestParam Integer orderNum, @RequestParam MultipartFile file) throws IOException {
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpg")) {
             return Result.createFailMessage(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
         }
@@ -76,7 +73,7 @@ public class BannerController extends BaseController {
     }
 
     @PostMapping("/delete")
-    public Result delete(@RequestBody String url) throws QiniuException {
+    public Result<String> delete(@RequestBody String url) throws QiniuException {
         if (!url.isEmpty() && url.substring(0, 24).equals(ossConfig.getUrl())) {
             try {
                 qiNiuService.deleteFile(url);

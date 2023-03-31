@@ -38,12 +38,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author tylt6688
- * @since 2022-03-01
+ * @Author tylt6688
+ * @Date 2022-03-01
+ * @Discription 用户管理前端控制器
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2
 @Api(tags = "用户管理")
@@ -91,8 +89,8 @@ public class UserController extends BaseController {
             User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
             Page<User> pageData = userService.page(getPage(), userService.searchByCondition(user));
             pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
-            Page<UserVO> userVOPage = UserConvert.INSTANCE.userPageToUserVOPage(pageData);
-            return Result.createSuccessMessage("获取用户列表成功", userVOPage);
+            Page<UserVO> pageList = UserConvert.INSTANCE.userPageToUserVOPage(pageData);
+            return Result.createSuccessMessage("获取用户列表成功", pageList);
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取用户列表失败");
         }

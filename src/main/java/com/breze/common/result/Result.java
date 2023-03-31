@@ -10,7 +10,6 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author tylt6688
@@ -20,13 +19,16 @@ import java.util.Map;
  */
 @Log4j2
 @Data
-@ApiModel(description= "统一数据响应模板")
+@ApiModel(description = "统一数据响应模板")
 public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 响应数据 Map 集合
+     */
     @ApiModelProperty(value = "响应数据集合")
-    private Map<String, T> result = new HashMap<>();
+    private HashMap<String, T> result = new HashMap<>();
 
     /**
      * 空参请求成功消息模板

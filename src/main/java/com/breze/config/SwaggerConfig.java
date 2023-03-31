@@ -23,12 +23,13 @@ import java.util.List;
 /**
  * @Author tylt6688
  * @Date 2022/2/5 12:07
- * @Description Swagger配置类
+ * @Description Swagger 配置类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
-@Configuration // 声明自定义配置类
-@Profile({"dev", "test"}) // 指明多环境配置类标识
+
+@Profile({"dev", "test"}) //指明用于多环境配置类标识
+@Configuration
 @EnableOpenApi
 public class SwaggerConfig {
 

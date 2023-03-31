@@ -36,13 +36,13 @@ public class CaptchaController extends BaseController {
         String key = UUID.randomUUID().toString();
         String code = producer.createText();
 
-//        开发环境可暂时停止随机验证码
+//        开发环境下可暂时停止随机验证码
 //        key = "tylt";
 //        code = "12345";
 
         BufferedImage image = producer.createImage(code);
         @Cleanup ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, CharsetConstant.JPG, outputStream);
+        ImageIO.write(image, CharsetConstant.PNG, outputStream);
 
         String base64Img = CharsetConstant.BASE_64 + Base64Encoder.encode(outputStream.toByteArray());
 

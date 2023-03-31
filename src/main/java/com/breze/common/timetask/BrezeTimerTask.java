@@ -20,6 +20,7 @@ public class BrezeTimerTask {
 
     @Autowired
     LoginLogService loginLogService;
+
     @Autowired
     HandleLogService handleLogService;
 

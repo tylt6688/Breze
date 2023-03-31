@@ -15,17 +15,21 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper=false)
-@ApiModel(description= "请求失败响应模板")
-public class FailedResult extends Result{
+@EqualsAndHashCode(callSuper = false)
+@ApiModel(description = "请求失败响应模板")
+public class FailedResult extends Result {
 
     private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "是否成功")
     private boolean success;
+
     @ApiModelProperty(value = "消息提示")
     private String message;
+
     @ApiModelProperty(value = "错误码")
     private Integer errorCode;
+
     @ApiModelProperty(value = "错误名称")
     private String errorName;
 

@@ -48,7 +48,6 @@ public class User extends BaseEntity {
     private String username;
 
     @ExcelIgnore
-    @NotBlank(message = "密码不能为空")
     @ApiModelProperty(value = "密码", name = "password", example = "123456", notes = "密码")
     private String password;
 

@@ -1,7 +1,6 @@
 package com.breze.controller.rbac;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
@@ -17,14 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author tylt6688
- * @since 2022-03-25
+ * @Author tylt6688
+ * @Date 2022-03-25
+ * @Discription 部门团队前端控制器
+ * @Copyright(c) 2022 , 青枫网络工作室
  */
-@Api(tags = "部门管理")
+@Api(tags = "部门团队管理")
 @RestController
 @RequestMapping("/sys/group")
 public class GroupController extends BaseController {
@@ -48,7 +45,7 @@ public class GroupController extends BaseController {
     @PostMapping("/insert")
     public Result<String> insert(@RequestBody GroupDTO groupDTO) {
         Group group = GroupConvert.INSTANCE.groupDTOToGroup(groupDTO);
-        if (groupService.insert(group)){
+        if (groupService.insert(group)) {
             return Result.createSuccessMessage("新增部门成功");
         }
         // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-26]
