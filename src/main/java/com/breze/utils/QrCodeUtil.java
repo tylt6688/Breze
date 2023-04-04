@@ -26,7 +26,7 @@ import java.util.HashMap;
 /**
  * @Author tylt6688
  * @Date 2022/2/5 11:57
- * @Description Base64二维码生成工具
+ * @Description Base64 二维码生成工具
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Slf4j
@@ -65,7 +65,7 @@ public class QrCodeUtil {
      * 生成二维码，使用默认尺寸
      *
      * @param content 内容
-     * @return
+     * @return String
      */
     public String getBase64QRCode(String content) {
         return getBase64Image(content, WIDTH, HEIGHT, null, null, null);
@@ -76,7 +76,7 @@ public class QrCodeUtil {
      *
      * @param content 内容
      * @param logoUrl logo地址
-     * @return
+     * @return String
      */
     public String getBase64QRCode(String content, String logoUrl) {
         return getBase64Image(content, WIDTH, HEIGHT, logoUrl, LOGO_WIDTH, LOGO_HEIGHT);
@@ -91,7 +91,7 @@ public class QrCodeUtil {
      * @param logoUrl    logo 在线地址
      * @param logoWidth  logo 宽度
      * @param logoHeight logo 高度
-     * @return
+     * @return String
      */
     public String getBase64QRCode(String content, Integer width, Integer height, String logoUrl, Integer logoWidth, Integer logoHeight) {
         return getBase64Image(content, width, height, logoUrl, logoWidth, logoHeight);
@@ -119,7 +119,7 @@ public class QrCodeUtil {
      * @param logoUrl    logo 在线地址
      * @param logoWidth  logo 宽度
      * @param logoHeight logo 高度
-     * @return
+     * @return String
      */
     private BufferedImage crateQRCode(String content, Integer width, Integer height, String logoUrl, Integer logoWidth, Integer logoHeight) {
         if (StrUtil.isNotBlank(content)) {

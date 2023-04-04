@@ -24,6 +24,7 @@ public class GroupJobServiceImpl extends ServiceImpl<GroupJobMapper, GroupJob> i
 
     @Autowired
     private JobMapper jobMapper;
+
     @Autowired
     private GroupJobMapper groupJobMapper;
 

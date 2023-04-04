@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * @Author tylt6688
  * @Date 2022/2/11 14:50
- * @Description 每次请求携带jwt进行令牌校验以及认证鉴权投票判定，验证码判定机制，在进行账号密码判断前进行第三方验证码判断
+ * @Description 每次请求携带 jwt 进行令牌校验以及认证鉴权投票判定，验证码判定机制，在进行账号密码判断前进行第三方验证码判断
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
@@ -39,7 +39,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
         String url = request.getRequestURI();
         String method = request.getMethod();
 
-        if ("/login".equals(url) && method.equals(CharsetConstant.POST)) {
+        if ("/breze/login".equals(url) && method.equals(CharsetConstant.POST)) {
             try {
                 // 先校验验证码
                 validate(request);

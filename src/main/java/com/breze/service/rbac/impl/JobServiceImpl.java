@@ -1,6 +1,5 @@
 package com.breze.service.rbac.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.entity.pojo.rbac.Job;
@@ -9,9 +8,7 @@ import com.breze.service.rbac.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.util.StringUtils;
 
-import java.beans.Transient;
 import java.util.List;
 
 /**
@@ -70,7 +67,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
     public Boolean update(Job job) {
         Job j = jobMapper.selectOne(new QueryWrapper<Job>().eq("name", job.getName()));
         if (j.getName().equals(job.getName()) ) {
-            if (j.getId() == job.getId()) {
+            if (j.getId().equals(job.getId())) {
                 return jobMapper.updateById(job) > 0;
             }
             return false;

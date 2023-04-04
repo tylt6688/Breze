@@ -2,6 +2,7 @@ package com.breze.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.consts.GlobalConstant;
+import com.breze.config.BrezeConfig;
 import com.breze.config.OssConfig;
 import com.breze.service.portal.*;
 import com.breze.service.rbac.*;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Author tylt6688
  * @Date 2022/3/2 22:08
- * @Description Controller基类，其它 Controller都需继承此类，公共服务组件在此集体注入，方便后续统一调用
+ * @Description Controller 基类，其它 Controller 都需继承此类，公共服务组件在此集体注入，方便后续统一调用
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
@@ -29,6 +30,8 @@ public class BaseController {
     /**
      * 配置类注入
      */
+    @Autowired
+    protected BrezeConfig brezeConfig;
     @Autowired
     protected OssConfig ossConfig;
 
@@ -47,7 +50,6 @@ public class BaseController {
     /**
      * RabbitMQ 队列服务注入
      */
-
     @Autowired
     protected Producer producer;
 
@@ -72,10 +74,10 @@ public class BaseController {
     protected HandleLogService handleLogService;
 
     //===============================Breze=================================//
+
     /**
      * RBAC权限服务注入
      */
-
     @Autowired
     protected UserService userService;
     @Autowired
@@ -108,7 +110,6 @@ public class BaseController {
     protected MainContentService mainContentService;
     @Autowired
     protected ModeCardService modeCardService;
-
     @Autowired
     protected OssFileService ossFileService;
 

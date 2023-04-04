@@ -8,7 +8,6 @@ import com.breze.entity.pojo.rbac.User;
 import com.breze.security.UserDetailServiceImpl;
 import com.breze.security.handler.AccessDeniedHandlerImpl;
 import com.breze.security.handler.AuthenticationEntryPointImpl;
-import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.service.rbac.UserService;
 import com.breze.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -47,9 +46,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Autowired
     private UserDetailServiceImpl userDetailService;
-
-    @Autowired
-    private AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     @Autowired
     AuthenticationEntryPointImpl authenticationEntryPoint;

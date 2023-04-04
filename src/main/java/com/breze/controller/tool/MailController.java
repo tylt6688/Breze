@@ -28,17 +28,18 @@ import com.breze.entity.pojo.rbac.User;
 @RequestMapping("/mail")
 public class MailController extends BaseController {
 
+    @Autowired
+    MailConfig mailConfig;
 
     // 注入TemplateEngine
     @Autowired
     TemplateEngine templateEngine;
-    @Autowired
-    MailConfig mailConfig;
+
     @Autowired
     Produce produce;
 
     @PostMapping("/sendmail")
-    public Result commonEmail() {
+    public Result<String> commonEmail() {
 
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getUserByUserName(username);
@@ -54,17 +55,12 @@ public class MailController extends BaseController {
 
         Email email = new Email();
         email.setMailFrom(mailConfig.getUsername());
-        email.setMailFromNick("天宇龙腾");
+        email.setMailFromNick(brezeConfig.getName());
         email.setMailTo(user.getEmail());
         email.setSubject("登录提醒邮件");
-
-//        email.setContent("我要提醒您一下，嘘，看看您后面");
-
         email.setContent(content);
 
-//        mailService.sendHtmlMailThymeLeaf(email);
         produce.sendMailByMQ(email);
-
         return Result.createSuccessMessage("邮件发送成功");
     }
 }

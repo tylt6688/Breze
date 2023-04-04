@@ -1,32 +1,27 @@
 package com.breze.controller.rbac;
 
 
-import cn.hutool.core.text.CharSequenceUtil;
 import com.alibaba.excel.EasyExcelFactory;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.consts.CharsetConstant;
-import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
-import com.breze.converter.sys.UserConvert;
 import com.breze.entity.dto.sys.UpdatePasswordDTO;
 import com.breze.entity.dto.sys.UserDTO;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.rbac.UserRole;
 import com.breze.entity.vo.sys.UserInfoVO;
 import com.breze.entity.vo.sys.UserVO;
-import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,12 +47,9 @@ public class UserController extends BaseController {
     @BrezeLog("获取当前用户信息")
     @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
     @GetMapping("/get_userinfo")
-    public Result<UserInfoVO> getUserInfo(Principal principal) {
+    public Result<UserInfoVO> getCurrentUserInfo(Principal principal) {
         try {
-            User user = userService.getUserByUserName(principal.getName());
-            User userRoles = userService.getUserRolesByUserId(user.getId());
-            UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
-            userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
+            UserInfoVO userInfoVo = userService.getCurrentUserInfo(principal.getName());
             return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取个人信息失败");
@@ -71,8 +63,7 @@ public class UserController extends BaseController {
     @GetMapping("/info/{id}")
     public Result<UserInfoVO> info(@PathVariable Long id) {
         try {
-            User user = userService.getUserRolesByUserId(id);
-            UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+            UserInfoVO userInfoVo = userService.getUserInfoById(id);
             return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取用户信息失败");
@@ -86,11 +77,8 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:select')")
     public Result<Page<UserVO>> select(@RequestBody UserDTO userDTO) {
         try {
-            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-            Page<User> pageData = userService.page(getPage(), userService.searchByCondition(user));
-            pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
-            Page<UserVO> pageList = UserConvert.INSTANCE.userPageToUserVOPage(pageData);
-            return Result.createSuccessMessage("获取用户列表成功", pageList);
+            Page<UserVO> userPage = userService.getUserPage(getPage(), userDTO);
+            return Result.createSuccessMessage("获取用户列表成功", userPage);
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "获取用户列表失败");
         }
@@ -113,8 +101,7 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result<String> insert(@Validated @RequestBody UserDTO userDTO) {
         try {
-            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-            userService.insert(user);
+            userService.insert(userDTO);
             return Result.createSuccessMessage("添加用户成功");
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "添加用户失败");
@@ -144,8 +131,7 @@ public class UserController extends BaseController {
     public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
 
         try {
-            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-            userService.update(user);
+            userService.update(userDTO);
             return Result.createSuccessMessage("修改用户信息成功");
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "修改用户信息失败");
@@ -156,10 +142,7 @@ public class UserController extends BaseController {
 
     @BrezeLog("分配单个用户角色")
     @ApiOperation("分配单个用户角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", dataTypeClass = Long.class), @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)})
     @PostMapping("/role_perm/{userId}")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result<String> rolePerm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
@@ -168,8 +151,7 @@ public class UserController extends BaseController {
             List<UserRole> userRoles = new ArrayList<>();
             for (Long roleId : roleIds) {
                 UserRole userRole = new UserRole();
-                userRole.setRoleId(roleId)
-                        .setUserId(userId);
+                userRole.setRoleId(roleId).setUserId(userId);
                 userRoles.add(userRole);
             }
             userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userId));
@@ -186,10 +168,7 @@ public class UserController extends BaseController {
 
     @BrezeLog("批量分配用户角色")
     @ApiOperation("批量分配用户角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "userIds", value = "用户ID", required = true, dataType = "Long[]", dataTypeClass = Long.class), @ApiImplicitParam(name = "roleIds", value = "角色ID", required = true, dataType = "Long[]", dataTypeClass = Long.class)})
     @PostMapping("/role_more_perm")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result<String> rolePermMore(@RequestParam Long[] userIds, @RequestBody Long[] roleIds) {
@@ -198,8 +177,7 @@ public class UserController extends BaseController {
             Arrays.stream(userIds).forEach(uid -> {
                 Arrays.stream(roleIds).forEach(roleId -> {
                     UserRole userRole = new UserRole();
-                    userRole.setRoleId(roleId)
-                            .setUserId(uid);
+                    userRole.setRoleId(roleId).setUserId(uid);
                     userRoles.add(userRole);
                 });
                 userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, uid));
@@ -224,9 +202,7 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result<String> resetPassword(@RequestParam Long userId) {
         try {
-            User user = userService.getById(userId);
-            user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
-            userService.updateById(user);
+            userService.resetUserPassword(userId);
             return Result.createSuccessMessage("重置密码成功");
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "重置密码失败");
@@ -237,19 +213,12 @@ public class UserController extends BaseController {
     @BrezeLog("修改用户密码")
     @ApiOperation("修改用户密码")
     @PostMapping("/update_password")
-    public Result<String> updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDto, Principal principal) {
-        User user = userService.getUserByUserName(principal.getName());
-        boolean matches = bCryptPasswordEncoder.matches(updatePasswordDto.getCurrentPass(), user.getPassword());
-        if (matches) {
-            user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDto.getPassword()));
-            try {
-                userService.updateById(user);
-                return Result.createSuccessMessage("修改密码成功");
-            } catch (Exception e) {
-                throw new BusinessException(ErrorEnum.FindException, "修改密码失败");
-            }
-        } else {
-            throw new BusinessException(ErrorEnum.FindException, "旧密码不正确");
+    public Result<String> updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDTO) {
+        try {
+            userService.updatePassword(updatePasswordDTO);
+            return Result.createSuccessMessage("修改密码成功");
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "修改密码失败");
         }
 
     }
@@ -258,25 +227,12 @@ public class UserController extends BaseController {
     @ApiOperation("修改用户头像")
     @ApiImplicitParam(name = "avatar", value = "头像", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @PostMapping("/update_avatar")
-    public Result<String> updateAvatar(@RequestParam MultipartFile avatar) throws QiniuException {
+    public Result<String> updateAvatar(@RequestParam MultipartFile avatar) {
         try {
-            String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = userService.getUserByUserName(username);
-            if (user.getAvatar() != null && CharSequenceUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
-                qiNiuService.deleteFile(user.getAvatar());
-            }
-            String path = qiNiuService.uploadFile(avatar);
-            if (path == null) {
-                throw new BusinessException(ErrorEnum.FindException, "修改头像失败");
-            }
-            user.setAvatar(path);
-            userService.updateById(user);
-            return Result.createSuccessMessage("修改头像成功");
-        } catch (QiniuException e) {
-            throw new BusinessException(ErrorEnum.FindException, e.getMessage());
+            return Result.createSuccessMessage(userService.updateAvatar(avatar));
+        } catch (BusinessException e) {
+            throw new BusinessException(ErrorEnum.FindException, "更新头像失败");
         }
-
-
     }
 
     @BrezeLog("更新用户信息")
@@ -295,10 +251,9 @@ public class UserController extends BaseController {
     @ApiOperation("更新登录提醒")
     @ApiImplicitParams({@ApiImplicitParam(name = "loginWarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
     @PostMapping("/update_login_warn")
-    public Result<String> updateLoginWarn(@RequestParam Integer loginWarn, Principal principal) {
+    public Result<String> updateLoginWarn(@RequestParam Integer loginWarn) {
         try {
-            User user = userService.getUserByUserName(principal.getName());
-            userService.updateLoginWarnByUserId(loginWarn, user.getId());
+            userService.updateLoginWarnByUserId(loginWarn);
             return Result.createSuccessMessage("更新登录提醒成功");
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "更新登录提醒失败");
@@ -306,22 +261,22 @@ public class UserController extends BaseController {
 
     }
 
-    @BrezeLog("导入Excel表")
-    @ApiOperation("导入Excel表")
+    @BrezeLog("导入用户Excel表")
+    @ApiOperation("导入用户Excel表")
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     @PostMapping("/import_excel")
     public Result<String> importExcel(@RequestParam MultipartFile file) {
         try {
             userService.importUserByExcel(file);
-            return Result.createSuccessMessage("数据导入成功");
+            return Result.createSuccessMessage("用户数据导入成功");
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "导入Excel表失败");
+            throw new BusinessException(ErrorEnum.FindException, "导入用户Excel表失败");
         }
 
     }
 
-    @BrezeLog("导出Excel表")
-    @ApiOperation("导出Excel表")
+    @BrezeLog("导出用户Excel表")
+    @ApiOperation("导出用户Excel表")
     @GetMapping("/export_excel")
     public void exportExcel(HttpServletResponse response) {
         try {
@@ -334,14 +289,14 @@ public class UserController extends BaseController {
         }
     }
 
-    @BrezeLog("导出模板Excel表")
-    @ApiOperation("导出模板Excel表")
+    @BrezeLog("下载用户表Excel模板")
+    @ApiOperation("下载用户表Excel模板")
     @GetMapping("/export_model_excel")
     public void exportModelExcel(HttpServletResponse response) {
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);
-            User user = new User("2022000000001", "张三", "18888888888", "zhangsan@email.com", "济南");
+            User user = new User("2023001", "张三", "18888888888", "zhangsan@email.com", "济南");
             EasyExcelFactory.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(Arrays.asList(user));
         } catch (Exception e) {
             response.reset();

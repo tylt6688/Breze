@@ -35,6 +35,7 @@ public class SecurityConstant {
             "/*/api-docs",
             "/swagger-resources/**",
             "/druid/**",
+            "/breze/login",
             "/breze/test/**"
     };
 
