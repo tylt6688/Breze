@@ -3,8 +3,10 @@ package com.breze.common.result.stand;
 import com.breze.common.result.Result;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -15,6 +17,8 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "请求失败响应模板")
 public class FailedResult extends Result {
@@ -32,6 +36,18 @@ public class FailedResult extends Result {
 
     @ApiModelProperty(value = "错误名称")
     private String errorName;
+
+    public FailedResult(Boolean success, String message, Integer errorCode, String errorName, Object data) {
+        super.getResult().put("data", data);
+        this.success = success;
+        this.message = message;
+        this.errorCode = errorCode;
+        this.errorName = errorName;
+    }
+
+    public static FailedResult createFailedResult(Boolean success, String message, Integer errorCode, String errorName, Object data) {
+        return new FailedResult(success, message, errorCode, errorName, data);
+    }
 
 
 }

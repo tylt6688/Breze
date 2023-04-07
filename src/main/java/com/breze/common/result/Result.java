@@ -30,14 +30,15 @@ public class Result<T> implements Serializable {
     @ApiModelProperty(value = "响应数据集合")
     private HashMap<String, T> result = new HashMap<>();
 
+
     /**
-     * 空参请求成功消息模板
+     * 标准请求成功消息模板
      *
      * @return Result 成功消息
      */
     public static <T> Result<T> createSuccessMessage() {
 
-        return createSuccessMessage("请求成功", null);
+        return createSuccessMessage("操作成功");
     }
 
     /**
@@ -61,13 +62,7 @@ public class Result<T> implements Serializable {
      */
 
     public static <T> Result<T> createSuccessMessage(String message, T data) {
-
-        SuccessResult successResult = new SuccessResult();
-        successResult.setSuccess(true).setMessage(message);
-        if (data != null) {
-            successResult.getResult().put("data", data);
-        }
-        return successResult;
+        return SuccessResult.createSuccessResult(true, message, data);
     }
 
 
@@ -79,7 +74,7 @@ public class Result<T> implements Serializable {
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum) {
 
-        return createFailMessage(errorEnum, "请求失败");
+        return createFailMessage(errorEnum, "操作失败");
     }
 
     /**
@@ -104,13 +99,7 @@ public class Result<T> implements Serializable {
      * @return Result 失败消息
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message, T data) {
-
-        FailedResult failedResult = new FailedResult();
-        failedResult.setSuccess(false).setErrorCode(errorEnum.getErrorCode()).setErrorName(errorEnum.getErrorName()).setMessage(message);
-        if (data != null) {
-            failedResult.getResult().put("data", data);
-        }
-        return failedResult;
+        return FailedResult.createFailedResult(false, message, errorEnum.getErrorCode(), errorEnum.getErrorName(), data);
     }
 
 }

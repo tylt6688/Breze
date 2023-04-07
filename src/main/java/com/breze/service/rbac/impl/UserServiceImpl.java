@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.CacheConstant;
+import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
@@ -16,11 +17,13 @@ import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.config.OssConfig;
 import com.breze.converter.sys.UserConvert;
+import com.breze.entity.dto.sys.PermRoleDTO;
 import com.breze.entity.dto.sys.UpdatePasswordDTO;
 import com.breze.entity.dto.sys.UserDTO;
 import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.pojo.rbac.UserRole;
 import com.breze.entity.vo.sys.UserInfoVO;
 import com.breze.entity.vo.sys.UserVO;
 import com.breze.mapper.rbac.MenuMapper;
@@ -28,6 +31,7 @@ import com.breze.mapper.rbac.RoleMapper;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.GroupService;
 import com.breze.service.rbac.RoleService;
+import com.breze.service.rbac.UserRoleService;
 import com.breze.service.rbac.UserService;
 import com.breze.service.tool.QiNiuService;
 import com.breze.utils.FileUtil;
@@ -40,8 +44,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,6 +67,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    UserRoleService userRoleService;
 
     @Autowired
     QiNiuService qiNiuService;
@@ -123,24 +133,39 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean insert(UserDTO userDTO) {
-        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-        user.setState(GlobalConstant.STATUS_ON)
-                .setAvatar(SystemConstant.DEFAULT_AVATAR)
-                .setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
-        return userMapper.insert(user) > 0;
+        try {
+            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
+            user.setState(GlobalConstant.STATUS_ON)
+                    .setAvatar(SystemConstant.DEFAULT_AVATAR)
+                    .setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
+            return userMapper.insert(user) > 0;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "添加用户失败");
+        }
+
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean update(UserDTO userDTO) {
-        User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-        return userMapper.updateById(user) > 0;
+        try {
+            User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
+            return userMapper.updateById(user) > 0;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "修改用户信息失败");
+        }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean delete(Long id) {
-        return userMapper.deleteById(id) > 0;
+    public Boolean delete(Long[] ids) {
+        try {
+            userMapper.deleteBatchIds(Arrays.asList(ids));
+            userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
+            return true;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
+        }
     }
 
     @Override
@@ -151,7 +176,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String updatePassword(UpdatePasswordDTO updatePasswordDTO) {
+    public Boolean updatePassword(UpdatePasswordDTO updatePasswordDTO) {
+
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = this.getUserByUserName(username);
         boolean matches = bCryptPasswordEncoder.matches(updatePasswordDTO.getCurrentPass(), user.getPassword());
@@ -159,17 +185,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDTO.getPassword()));
             try {
                 this.updateById(user);
-                return "修改密码成功";
+                return true;
             } catch (Exception e) {
-                return "修改密码失败";
+                throw new BusinessException(ErrorEnum.FindException, "修改密码失败");
             }
         } else {
-            return "旧密码不正确";
+            return false;
         }
+
     }
 
     @Override
-    public String updateAvatar(MultipartFile avatar) {
+    public Boolean updateAvatar(MultipartFile avatar) {
         try {
             String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = this.getUserByUserName(username);
@@ -178,22 +205,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
             String path = qiNiuService.uploadFile(avatar);
             if (path == null) {
-                throw new BusinessException(ErrorEnum.FindException, "修改头像失败");
+                throw new BusinessException(ErrorEnum.FindException, "更新头像失败");
             }
             user.setAvatar(path);
-            this.updateById(user);
-            return "修改头像成功";
+            return this.updateById(user);
         } catch (QiniuException e) {
-            return e.getMessage();
+            throw new BusinessException(ErrorEnum.FindException, e.getMessage());
         }
     }
 
 
     @Override
-    public void updateLoginWarnByUserId(Integer loginWarn) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = this.getUserByUserName(username);
-        userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
+    public Boolean updateLoginWarnByUserId(Integer loginWarn) {
+        try {
+            String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = this.getUserByUserName(username);
+            userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
+            return true;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "更新登录邮件提醒失败");
+        }
     }
 
     @Override
@@ -206,7 +237,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public void importUserByExcel(MultipartFile file) {
+    public Boolean importUserByExcel(MultipartFile file) {
         String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
         File coverFile = FileUtil.multipartFileToFile(file);
         EasyExcelFactory.read(coverFile, User.class, new PageReadListener<User>(dataList -> {
@@ -214,9 +245,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 user.setPassword(encode)
                         .setState(GlobalConstant.TYPE_ZERO)
                         .setLoginWarn(GlobalConstant.TYPE_ONE);
-                userMapper.insert(user);
+                try {
+                    userMapper.insert(user);
+                } catch (Exception e) {
+                    throw new BusinessException(ErrorEnum.FindException, "导入用户Excel表失败");
+                }
             }
         })).sheet().doRead();
+        return true;
+
+
     }
 
     @Override
@@ -273,6 +311,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return UserConvert.INSTANCE.userPageToUserVOPage(pageData);
     }
 
+    @Override
+    public Boolean permRole(PermRoleDTO permRoleDTO) {
+        List<UserRole> userRoles = new ArrayList<>();
+        try {
+            Arrays.stream(permRoleDTO.getUserIds()).forEach(uid -> {
+                Arrays.stream(permRoleDTO.getRoleIds()).forEach(roleId -> {
+                    UserRole userRole = new UserRole();
+                    userRole.setRoleId(roleId).setUserId(uid);
+                    userRoles.add(userRole);
+                });
+                userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, uid));
+            });
+            userRoleService.saveBatch(userRoles);
+            // 删除缓存
+            Arrays.stream(permRoleDTO.getUserIds()).forEach(uid -> {
+                User sysUser = this.getById(uid);
+                this.clearUserAuthorityInfo(sysUser.getUsername());
+            });
+            return true;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.FindException, "分配角色失败");
+        }
+
+    }
+
 
     @Override
     public void clearUserAuthorityInfo(String username) {
@@ -291,5 +354,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void clearUserAuthorityInfoByMenuId(Long menuId) {
         List<User> users = userMapper.listByMenuId(menuId);
         users.forEach(user -> this.clearUserAuthorityInfo(user.getUsername()));
+    }
+
+    @Override
+    public void exportExcel(HttpServletResponse response) {
+        try {
+            response.setContentType(CharsetConstant.EXCEL_TYPE);
+            response.setCharacterEncoding(CharsetConstant.UTF_8);
+            EasyExcelFactory.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(this.list());
+        } catch (Exception e) {
+            response.reset();
+            throw new BusinessException(ErrorEnum.FindException, "导出Excel表失败");
+        }
+    }
+
+    @Override
+    public void exportTemplateExcel(HttpServletResponse response) {
+        try {
+            response.setContentType(CharsetConstant.EXCEL_TYPE);
+            response.setCharacterEncoding(CharsetConstant.UTF_8);
+            User user = new User("2023001", "张三", "18888888888", "zhangsan@email.com", "济南");
+            EasyExcelFactory.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(Arrays.asList(user));
+        } catch (Exception e) {
+            response.reset();
+            throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
+        }
     }
 }

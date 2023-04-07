@@ -24,22 +24,22 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 
-	@Override
-	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
 
-		response.setContentType(CharsetConstant.JSON_TYPE);
+        response.setContentType(CharsetConstant.JSON_TYPE);
 
-		response.setCharacterEncoding(CharsetConstant.UTF_8);
+        response.setCharacterEncoding(CharsetConstant.UTF_8);
 
-		// 告知前端权限不足状态码 403
-		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        // 告知前端权限不足状态码 403
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
-		@Cleanup ServletOutputStream outputStream = response.getOutputStream();
+        @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-		Result<Object> result = Result.createFailMessage(ErrorEnum.NoPermission, accessDeniedException.getMessage());
+        Result<Object> result = Result.createFailMessage(ErrorEnum.NoPermission, accessDeniedException.getMessage());
 
-		outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
+        outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
 
-	}
+    }
 }

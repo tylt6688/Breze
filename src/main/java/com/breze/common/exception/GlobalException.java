@@ -18,7 +18,7 @@ import java.nio.file.AccessDeniedException;
 /**
  * @Author tylt6688
  * @Date 2022/2/5 11:57
- * @Description 全局异常处理机制，全局捕获 Controller 部分
+ * @Description 全局异常处理机制, 对异常进行捕获返回
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2

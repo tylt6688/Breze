@@ -3,12 +3,15 @@ package com.breze.service.rbac;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.breze.entity.dto.sys.PermRoleDTO;
 import com.breze.entity.dto.sys.UpdatePasswordDTO;
 import com.breze.entity.dto.sys.UserDTO;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.vo.sys.UserInfoVO;
 import com.breze.entity.vo.sys.UserVO;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
@@ -50,7 +53,7 @@ public interface UserService extends IService<User> {
      * @param userId 用户 id
      * @return boolean
      */
-    Boolean delete(Long userId);
+    Boolean delete(Long[] userId);
 
     /**
      * 重置用户密码
@@ -66,10 +69,10 @@ public interface UserService extends IService<User> {
      * @param updatePasswordDTO 更新密码传输对象
      * @return boolean
      */
-    String updatePassword(UpdatePasswordDTO updatePasswordDTO);
+    Boolean updatePassword(UpdatePasswordDTO updatePasswordDTO);
 
 
-    String updateAvatar(MultipartFile avatar);
+    Boolean updateAvatar(MultipartFile avatar);
 
     /**
      * 通过用户 id 获取当前用户角色
@@ -121,13 +124,30 @@ public interface UserService extends IService<User> {
      */
     Page<UserVO> getUserPage(Page<User> page, UserDTO userDTO);
 
+    /**
+     * 根据 permRoleDTO 分配用户角色
+     *
+     * @param permRoleDTO 角色分配传输对象
+     * @return Boolean
+     */
+    Boolean permRole(PermRoleDTO permRoleDTO);
 
     /**
      * 根据用户id变更是否开启登录提醒
      *
      * @param loginWarn 登录提醒
+     * @return Boolean
      */
-    void updateLoginWarnByUserId(Integer loginWarn);
+    Boolean updateLoginWarnByUserId(Integer loginWarn);
+
+
+    /**
+     * 通过Excel批量导入用户
+     *
+     * @param file 用户id
+     * @return Boolean
+     */
+    Boolean importUserByExcel(MultipartFile file);
 
     /**
      * 更新用户最后登录时间
@@ -135,14 +155,6 @@ public interface UserService extends IService<User> {
      * @param username 用户名
      */
     void updateLastLoginTime(String username);
-
-    /**
-     * 通过Excel批量导入用户
-     *
-     * @param file 用户id
-     */
-    void importUserByExcel(MultipartFile file);
-
 
     /**
      * 避免系统用户分配权限变动后redis缓存未发生变动导致缓存不一致
@@ -169,4 +181,7 @@ public interface UserService extends IService<User> {
     void clearUserAuthorityInfoByMenuId(Long menuId);
 
 
+    void exportExcel(HttpServletResponse response);
+
+    void exportTemplateExcel(HttpServletResponse response);
 }
