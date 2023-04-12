@@ -4,10 +4,12 @@ import cn.hutool.log.Log;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.converter.sys.GroupConvert;
 import com.breze.entity.bo.sys.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;
+import com.breze.entity.vo.sys.ParentGroupVO;
 import com.breze.mapper.rbac.GroupJobMapper;
 import com.breze.mapper.rbac.GroupMapper;
 import com.breze.mapper.rbac.JobMapper;
@@ -60,6 +62,17 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
         return list;
     }
 
+    @Override
+    public List<ParentGroupVO> getGroupParent() {
+        List<Group> groups = groupMapper.selectList(new QueryWrapper<Group>().eq("parent_id", 0));
+        ArrayList<ParentGroupVO> parentGroupVOS = new ArrayList<>();
+        for (Group group : groups) {
+            ParentGroupVO parentGroupVO = GroupConvert.INSTANCE.groupToGroupParent(group);
+            parentGroupVOS.add(parentGroupVO);
+        }
+        return parentGroupVOS;
+    }
+
     private List<Group> buildTreeGroup(List<Group> groups) {
         List<Group> finalGroups = new ArrayList<>();
         // 先各自寻找到各自的孩子
@@ -78,8 +91,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     }
 
     @Override
-    public List<Group> findAll() {
-        return buildTreeGroup(groupMapper.selectList(null));
+    public List<Group> findAll(String name) {
+            return buildTreeGroup(groupMapper.selectList(new QueryWrapper<Group>().like("name",name)));
     }
 
 

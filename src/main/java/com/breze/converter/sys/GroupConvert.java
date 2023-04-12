@@ -2,6 +2,7 @@ package com.breze.converter.sys;
 
 import com.breze.entity.dto.sys.GroupDTO;
 import com.breze.entity.pojo.rbac.Group;
+import com.breze.entity.vo.sys.ParentGroupVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
@@ -19,5 +20,8 @@ public interface GroupConvert {
 
     @Mappings({})
     Group groupDTOToGroup(GroupDTO groupDTO);
+
+    @Mappings({})
+    ParentGroupVO groupToGroupParent(Group group);
 
 }
