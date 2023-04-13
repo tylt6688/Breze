@@ -14,9 +14,9 @@ import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
-import com.breze.common.result.Result;
 import com.breze.config.OssConfig;
 import com.breze.converter.sys.UserConvert;
+import com.breze.entity.bo.sys.UserExcelBO;
 import com.breze.entity.dto.sys.PermRoleDTO;
 import com.breze.entity.dto.sys.UpdatePasswordDTO;
 import com.breze.entity.dto.sys.UserDTO;
@@ -30,7 +30,6 @@ import com.breze.mapper.rbac.MenuMapper;
 import com.breze.mapper.rbac.RoleMapper;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.GroupService;
-import com.breze.service.rbac.RoleService;
 import com.breze.service.rbac.UserRoleService;
 import com.breze.service.rbac.UserService;
 import com.breze.service.tool.QiNiuService;
@@ -64,9 +63,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
     GroupService groupService;
-
-    @Autowired
-    RoleService roleService;
 
     @Autowired
     UserRoleService userRoleService;
@@ -160,9 +156,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional(rollbackFor = Exception.class)
     public Boolean delete(Long[] ids) {
         try {
-            userMapper.deleteBatchIds(Arrays.asList(ids));
-            userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
-            return true;
+            boolean removeBatchByIds = this.removeBatchByIds(Arrays.asList(ids));
+            boolean remove = userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
+            return removeBatchByIds && remove;
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
         }
@@ -177,15 +173,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Boolean updatePassword(UpdatePasswordDTO updatePasswordDTO) {
-
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = this.getUserByUserName(username);
-        boolean matches = bCryptPasswordEncoder.matches(updatePasswordDTO.getCurrentPass(), user.getPassword());
+        boolean matches = bCryptPasswordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword());
         if (matches) {
             user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDTO.getPassword()));
             try {
-                this.updateById(user);
-                return true;
+                return this.updateById(user);
             } catch (Exception e) {
                 throw new BusinessException(ErrorEnum.FindException, "修改密码失败");
             }
@@ -220,8 +214,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try {
             String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = this.getUserByUserName(username);
-            userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
-            return true;
+            Boolean updated = userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
+            return updated;
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "更新登录邮件提醒失败");
         }
@@ -282,7 +276,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 String menuPerms = menus.stream().map(Menu::getPerms).collect(Collectors.joining(","));
                 authority = authority.concat(menuPerms);
             }
-            // TODO　避免每次请求都频繁操作多次数据库，所以将权限数据放入 Redis，暂定时间为一小时
+            // 避免每次请求都频繁操作多次数据库，所以将权限数据放入 Redis，暂定时间为一小时
             redisUtil.set(key, authority, 60 * 60);
         }
         return authority;
@@ -307,7 +301,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Page<UserVO> getUserPage(Page<User> page, UserDTO userDTO) {
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
         Page<User> pageData = this.page(page, this.searchByCondition(user));
-        pageData.getRecords().forEach(u -> u.setRoles(roleService.listByUserId(u.getId())));
+        pageData.getRecords().forEach(u -> u.setRoles(roleMapper.listByUserId(u.getId())));
         return UserConvert.INSTANCE.userPageToUserVOPage(pageData);
     }
 
@@ -361,7 +355,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);
-            EasyExcelFactory.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(this.list());
+            List<UserExcelBO> userExcelBOS = UserConvert.INSTANCE.userListToUserExcelBOLost(this.list());
+            EasyExcelFactory.write(response.getOutputStream(), UserExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(userExcelBOS);
         } catch (Exception e) {
             response.reset();
             throw new BusinessException(ErrorEnum.FindException, "导出Excel表失败");
@@ -373,8 +368,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try {
             response.setContentType(CharsetConstant.EXCEL_TYPE);
             response.setCharacterEncoding(CharsetConstant.UTF_8);
-            User user = new User("2023001", "张三", "18888888888", "zhangsan@email.com", "济南");
-            EasyExcelFactory.write(response.getOutputStream(), User.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(Arrays.asList(user));
+            UserExcelBO userExcel = new UserExcelBO("2023001", "张三", "18888888888", "zhangsan@email.com", "济南");
+            EasyExcelFactory.write(response.getOutputStream(), UserExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(Arrays.asList(userExcel));
         } catch (Exception e) {
             response.reset();
             throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");

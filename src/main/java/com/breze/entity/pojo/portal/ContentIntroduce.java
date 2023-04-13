@@ -1,8 +1,6 @@
 package com.breze.entity.pojo.portal;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -27,10 +25,6 @@ import java.util.List;
 public class ContentIntroduce extends BaseEntity {
 
     private static final long serialVersionUID = 8822671337435221276L;
-
-    @ApiModelProperty("主页内容模块id")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
 
     @ApiModelProperty("oss表id")
     private String OssId;

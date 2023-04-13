@@ -1,5 +1,6 @@
 package com.breze.entity.vo.sys;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,10 +14,12 @@ import java.io.Serializable;
  * @Description 角色信息 VO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@ApiModel(description = "角色展示对象")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleVO implements Serializable {
+
     private static final long serialVersionUID = 7099645733115709911L;
 
     @ApiModelProperty(value = "角色ID", name = "id", example = "1", notes = "角色ID")

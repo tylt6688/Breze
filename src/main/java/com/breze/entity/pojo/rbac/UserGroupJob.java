@@ -3,7 +3,6 @@ package com.breze.entity.pojo.rbac;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_user_group_job")
-@ApiModel(value = "UserGroupJob", description = "用户部门岗位对象,sys_user_group_job表")
 public class UserGroupJob implements Serializable {
 
     private static final long serialVersionUID = 11683181677760025L;

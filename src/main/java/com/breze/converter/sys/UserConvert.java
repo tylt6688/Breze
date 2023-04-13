@@ -1,6 +1,7 @@
 package com.breze.converter.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.breze.entity.bo.sys.UserExcelBO;
 import com.breze.entity.dto.sys.UserDTO;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.vo.sys.UserInfoVO;
@@ -10,10 +11,12 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * @Author tylt6688
  * @Date 2023/1/12 17:02
- * @Description UserConvert实体转化
+ * @Description UserConvert 实体转化
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Mapper
@@ -25,25 +28,23 @@ public interface UserConvert {
      * User 转为 UserVO
      *
      * @param user User实体
-     * @return UserVO UserVO实体
+     * @return UserVO
      */
-    @Mappings({})
     UserVO userToUserVO(User user);
 
     /**
      * Page<User> 转为 Page<UserVO>
      *
      * @param userPage Page<User>对象
-     * @return Page<UserVO> Page<UserVO>对象
+     * @return Page<UserVO>
      */
-    @Mappings({})
     Page<UserVO> userPageToUserVOPage(Page<User> userPage);
 
     /**
      * User 转为 UserInfoVO
      *
      * @param user User实体
-     * @return UserInfoVO UserInfoVO实体
+     * @return UserInfoVO
      */
     @Mappings({
             @Mapping(source = "username", target = "username")
@@ -54,10 +55,16 @@ public interface UserConvert {
      * UserDTO 转为 User
      *
      * @param userDTO UserDTO实体
-     * @return User User实体
+     * @return User
      */
-    @Mappings({})
     User userDTOToUser(UserDTO userDTO);
 
+    /**
+     * List<User> 转为 List<UserExcelBO>
+     *
+     * @param list List<User>
+     * @return List<UserExcelBO>
+     */
+    List<UserExcelBO> userListToUserExcelBOLost(List<User> list);
 
 }

@@ -1,7 +1,5 @@
 package com.breze.entity.pojo.portal;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -27,8 +25,6 @@ import lombok.experimental.Accessors;
 public class Banner extends BaseEntity {
 
     private static final long serialVersionUID = -725723282782099951L;
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
 
     private String url;
 

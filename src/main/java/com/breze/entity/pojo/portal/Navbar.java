@@ -1,8 +1,6 @@
 package com.breze.entity.pojo.portal;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -30,11 +28,7 @@ import java.util.List;
 @ApiModel(value = "Navbar", description = "导航对象,tb_navbar导航链接表")
 public class Navbar extends BaseEntity {
 
-
     private static final long serialVersionUID = 3446692820178302161L;
-    @ApiModelProperty("导航标题id")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
 
     @ApiModelProperty("标题类型")
     private Long flag;

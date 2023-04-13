@@ -21,7 +21,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@ApiModel(value = "UserInfoVo", description = "UserInfoVo用户信息展示对象")
+@ApiModel(description = "用户信息展示对象")
 public class UserInfoVO extends BaseVO {
     private static final long serialVersionUID = 7890603648150338910L;
 

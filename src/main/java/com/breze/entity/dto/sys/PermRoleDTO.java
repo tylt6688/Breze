@@ -1,5 +1,6 @@
 package com.breze.entity.dto.sys;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Data;
  * @Description 分配角色 DTO
  * @Copyright(c) 2023 , 青枫网络工作室
  */
-
+@ApiModel(description = "分配角色数据传输对象")
 @Data
 public class PermRoleDTO {
 

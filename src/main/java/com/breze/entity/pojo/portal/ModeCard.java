@@ -1,7 +1,5 @@
 package com.breze.entity.pojo.portal;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -29,9 +27,6 @@ public class ModeCard extends BaseEntity {
 
 
     private static final long serialVersionUID = -7260918479466654077L;
-    @ApiModelProperty("功能模块Id")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
 
     @ApiModelProperty("模块名字")
     private String modeTitle;

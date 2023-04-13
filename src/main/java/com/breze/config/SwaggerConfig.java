@@ -49,7 +49,7 @@ public class SwaggerConfig {
                 // 设置文档信息
                 .apiInfo(apiInfo())
                 // 设置分组名称
-                .groupName("controller")
+                .groupName("Breze Controller")
                 // 选择哪些接口暴露给Swagger展示的生成策略
                 .select()
                 // 扫描所有有注解的api，用这种方式更灵活

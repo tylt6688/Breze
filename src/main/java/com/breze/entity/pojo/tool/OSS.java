@@ -27,9 +27,7 @@ import lombok.experimental.Accessors;
 public class OSS extends BaseEntity {
 
     private static final long serialVersionUID = 4904930249407221901L;
-
-    private String id;
-
+    
     private Long userId;
 
     private String fileName;

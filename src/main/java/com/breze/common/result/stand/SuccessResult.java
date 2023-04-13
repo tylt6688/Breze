@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "请求成功响应模板")
-public class SuccessResult extends Result {
+public class SuccessResult<T> extends Result<T> {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,14 +31,11 @@ public class SuccessResult extends Result {
     @ApiModelProperty(value = "消息提示")
     private String message;
 
-    public SuccessResult(Boolean success, String message, Object data) {
+    public SuccessResult(Boolean success, String message, T data) {
         super.getResult().put("data", data);
         this.success = success;
         this.message = message;
     }
 
-    public static SuccessResult createSuccessResult(Boolean success, String message, Object data) {
-        return new SuccessResult(success, message, data);
-    }
 
 }

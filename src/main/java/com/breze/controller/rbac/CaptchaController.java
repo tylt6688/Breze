@@ -39,6 +39,7 @@ public class CaptchaController extends BaseController {
 //        开发环境下可暂时停止随机验证码
 //        key = "tylt";
 //        code = "12345";
+        log.info("当前登录验证码：|-key:---{} |-code:---{}", key, code);
 
         BufferedImage image = producer.createImage(code);
         @Cleanup ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -53,7 +54,7 @@ public class CaptchaController extends BaseController {
                 .put("key", key)
                 .put("base64Img", base64Img)
                 .build();
-        log.info("当前登录验证码：|-key:---{} |-code:---{}", key, code);
+
         return Result.createSuccessMessage("获取登录验证码成功", map);
     }
 }

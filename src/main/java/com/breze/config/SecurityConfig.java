@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -49,11 +48,10 @@ public class SecurityConfig {
     private AuthenticationEntryPointImpl authenticationEntryPointImpl;
 
     @Autowired
-    private LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
-
-    @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
 
+    @Autowired
+    private LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
 
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -75,11 +73,10 @@ public class SecurityConfig {
     /**
      * 放行静态资源
      */
-    @Bean
-    WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().antMatchers("/static/**", "/favicon.ico");
-    }
-
+//    @Bean
+//    WebSecurityCustomizer webSecurityCustomizer() {
+//        return web -> web.ignoring().antMatchers("/static/**", "/favicon.ico");
+//    }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // 允许跨域
@@ -87,13 +84,10 @@ public class SecurityConfig {
 
                 .and()
                 // 关闭 csrf 预防跨站请求攻击认证
-                .csrf().disable()
-                .headers().frameOptions().disable()
+                .csrf().disable().headers().frameOptions().disable()
 
-                // 前后端分离禁用Session，选择不生成session策略
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // 前后端分离禁用 Session,选择不生成 session 策略
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
                 // 配置登录请求
@@ -110,14 +104,12 @@ public class SecurityConfig {
 
 
                 // 退出登录
-                .and()
-                .logout()
+                .and().logout()
                 // 自定义注销请求路径
                 .logoutUrl("/breze/logout")
-//                .logoutSuccessUrl("/bye") //注销成功后的url(前后端不分离)
+//                .logoutSuccessUrl("/bye") //注销成功后的 url(前后端不分离)
                 // 注销成功处理器(前后端分离)
                 .logoutSuccessHandler(logoutSuccessHandlerImpl)
-
 
 
                 // 配置拦截规则
@@ -125,19 +117,14 @@ public class SecurityConfig {
                 // 开启权限认证
                 .authorizeHttpRequests()
                 // 配置拦截白名单放行
-                .antMatchers(SecurityConstant.URL_WHITELIST).permitAll()
-                .antMatchers(SecurityConstant.PORTAL_WHITELIST).permitAll()
+                .antMatchers(SecurityConstant.URL_WHITELIST).permitAll().antMatchers(SecurityConstant.PORTAL_WHITELIST).permitAll()
 
                 // 对其它请求进行拦截认证处理  Spring EL，表示剩余接口都需要登录认证后才能访问
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
 
 
                 // 异常处理器
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPointImpl)
-                .accessDeniedHandler(accessDeniedHandlerImpl)
+                .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPointImpl).accessDeniedHandler(accessDeniedHandlerImpl)
 
                 // 自定义过滤器进行添加
                 .and()

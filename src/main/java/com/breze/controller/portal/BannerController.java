@@ -27,7 +27,6 @@ import java.util.Objects;
 @RequestMapping("/breze/portal/banner")
 public class BannerController extends BaseController {
 
-
     @GetMapping("/info/{id}")
     public Result<Banner> getBannerInfo(@PathVariable Long id) {
         Banner banner = bannerService.getById(id);

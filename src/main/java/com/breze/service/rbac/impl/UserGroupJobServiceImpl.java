@@ -25,7 +25,7 @@ public class UserGroupJobServiceImpl extends ServiceImpl<UserGroupJobMapper, Use
 
 
     @Override
-    public List<UserGroupJobBO> listUserGroupJobBOs(Long userId) {
+    public List<UserGroupJobBO> listUserGroupJobBO(Long userId) {
         return userGroupJobMapper.listUserGroupJobBOs(userId);
     }
 

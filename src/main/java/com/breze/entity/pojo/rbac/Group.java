@@ -1,14 +1,11 @@
 package com.breze.entity.pojo.rbac;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -23,18 +20,15 @@ import java.util.List;
  * @author tylt6688
  * @since 2022-03-25
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_group")
-@ApiModel(value = "Group", description = "部门对象,sys_group部门表")
 public class Group extends BaseEntity {
 
     private static final long serialVersionUID = 4904930249407221901L;
-    @ApiModelProperty(value = "部门ID", name = "groupId", example = "1", notes = "部门ID")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
 
     private Long parentId;
 

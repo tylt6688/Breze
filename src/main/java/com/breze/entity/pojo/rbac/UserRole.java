@@ -3,8 +3,6 @@ package com.breze.entity.pojo.rbac;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,19 +23,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_user_role")
-@ApiModel(value = "UserRole", description = "用户角色对象,sys_user_role表")
 public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 342723982250723899L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value = "用户角色ID", name = "id", example = "1", notes = "用户角色ID")
     private Long id;
 
-    @ApiModelProperty(value = "用户ID", name = "userId", example = "1", notes = "用户ID")
     private Long userId;
 
-    @ApiModelProperty(value = "角色ID", name = "roleId", example = "1", notes = "角色ID")
     private Long roleId;
 
 }

@@ -1,16 +1,19 @@
 package com.breze.entity.vo.sys;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
 /**
  * @Author tylt6688
  * @Date 2022/9/16 14:36
  * @Description 菜单Tab信息VO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@ApiModel(description = "导航栏标签展示对象")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +29,6 @@ public class TabVO {
     @ApiModelProperty(value = "菜单URL", name = "url", example = "/sys/menu", notes = "菜单URL")
     private String path;
 
-    @ApiModelProperty(value = "父级菜单名称",name = "parentTitle",dataType = "String")
+    @ApiModelProperty(value = "父级菜单名称", name = "parentTitle", dataType = "String")
     private String parentTitle;
 }

@@ -1,5 +1,6 @@
 package com.breze.entity.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,9 +13,9 @@ import java.time.LocalDateTime;
  * @Description 用于继承的VO实体父类
  * @Copyright(c) 2023 , 青枫网络工作室
  */
+@ApiModel(value = "BaseVO", description = "VO 基类数据")
 @Data
 public class BaseVO implements Serializable {
-
 
     private static final long serialVersionUID = 1L;
 

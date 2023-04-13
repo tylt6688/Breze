@@ -71,7 +71,12 @@ public interface UserService extends IService<User> {
      */
     Boolean updatePassword(UpdatePasswordDTO updatePasswordDTO);
 
-
+    /**
+     * 更新用户头像
+     *
+     * @param avatar 用户头像
+     * @return boolean
+     */
     Boolean updateAvatar(MultipartFile avatar);
 
     /**
@@ -180,8 +185,17 @@ public interface UserService extends IService<User> {
      */
     void clearUserAuthorityInfoByMenuId(Long menuId);
 
-
+    /**
+     * 导出用户表Excel
+     *
+     * @param response Http响应
+     */
     void exportExcel(HttpServletResponse response);
 
+    /**
+     * 导出用户上传模板表
+     *
+     * @param response Http响应
+     */
     void exportTemplateExcel(HttpServletResponse response);
 }

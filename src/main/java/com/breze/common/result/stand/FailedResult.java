@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "请求失败响应模板")
-public class FailedResult extends Result {
+public class FailedResult<T> extends Result<T> {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,16 +37,12 @@ public class FailedResult extends Result {
     @ApiModelProperty(value = "错误名称")
     private String errorName;
 
-    public FailedResult(Boolean success, String message, Integer errorCode, String errorName, Object data) {
+    public FailedResult(Boolean success, String message, Integer errorCode, String errorName, T data) {
         super.getResult().put("data", data);
         this.success = success;
         this.message = message;
         this.errorCode = errorCode;
         this.errorName = errorName;
-    }
-
-    public static FailedResult createFailedResult(Boolean success, String message, Integer errorCode, String errorName, Object data) {
-        return new FailedResult(success, message, errorCode, errorName, data);
     }
 
 

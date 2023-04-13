@@ -83,14 +83,14 @@ public class MainContentController extends BaseController {
             // 删除原来的图片
             qiNiuService.deleteFile(contentIntroduce.getImgUrl());
             // 修改oss表图片存储链接
-            oss.setId(contentIntroduce.getOssId());
+            oss.setId(Long.valueOf(contentIntroduce.getOssId()));
             ossFileService.updateById(oss);
             // 修改内容
             mainContentService.updateById(contentIntroduce);
             return Result.createSuccessMessage("编辑数据成功");
         } else {
             String ossId = IdUtil.simpleUUID();
-            oss.setId(ossId);
+            oss.setId(Long.valueOf(ossId));
             contentIntroduce.setOssId(ossId);
             ossFileService.save(oss);
             mainContentService.save(contentIntroduce);

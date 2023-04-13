@@ -1,5 +1,6 @@
 package com.breze.entity.vo.sys;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
+@ApiModel(description = "登录日志展示对象")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

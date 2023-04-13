@@ -23,15 +23,15 @@ public interface MenuConvert {
     MenuConvert INSTANCE = Mappers.getMapper(MenuConvert.class);
 
     /**
-     * Menu转为TabVO实体
+     * MenuVO转为TabVO实体
      *
-     * @param menu 菜单实体
+     * @param menuVO 菜单展示实体
      * @return TabVO
      */
     @Mappings({
             @Mapping(source = "parentTitle", target = "parentTitle")
     })
-    TabVO menuToTabVO(Menu menu);
+    TabVO menuVOToTabVO(MenuVO menuVO);
 
     /**
      * MenuDTO转为Menu实体
@@ -39,7 +39,7 @@ public interface MenuConvert {
      * @param menuDTO 菜单传输实体
      * @return Menu
      */
-    @Mappings({})
+
     Menu menuDTOToMenu(MenuDTO menuDTO);
 
     /**
@@ -70,12 +70,19 @@ public interface MenuConvert {
     List<TabVO> menusToTabVOList(List<Menu> menus);
 
     /**
+     * List<MenuVO>转为List<TabVO>实体
+     *
+     * @param menus 菜单集合
+     * @return List<TabVO>
+     */
+    List<TabVO> menuvosToTabVOList(List<MenuVO> menus);
+
+    /**
      * Menu 转为 MenuVO实体
      *
      * @param menu 菜单实体
      * @return MenuVO
      */
-    @Mappings({})
     MenuVO menuToMenuVO(Menu menu);
 
 }

@@ -2,12 +2,12 @@ package com.breze.entity.vo.sys;
 
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.vo.BaseVO;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,13 +16,16 @@ import java.util.List;
  * @Description User前端展示信息
  * @Copyright(c) 2023 , 青枫网络工作室
  */
+@ApiModel(description = "用户展示对象VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UserVO extends BaseVO {
 
     private static final long serialVersionUID = -4359978619446051478L;
+
     @ApiModelProperty(value = "用户ID", name = "id", example = "1", notes = "用户ID")
     private Long id;
+
     @ApiModelProperty(value = "用户名", name = "username", example = "admin", notes = "用户名")
     private String username;
 
@@ -31,6 +34,7 @@ public class UserVO extends BaseVO {
 
     @ApiModelProperty(value = "用户头像", name = "avatar", example = "http://www.baidu.com/img/bd_logo1.png", notes = "用户头像")
     private String avatar;
+
     @ApiModelProperty(value = "手机号", name = "phone", example = "13888888888", notes = "手机号")
     private String phone;
 
@@ -46,8 +50,8 @@ public class UserVO extends BaseVO {
     @ApiModelProperty(value = "状态", name = "state", example = "1", notes = "状态:1正常,0禁用")
     private Integer state;
 
-    private List<Role> roles = new ArrayList<>();
-
+    @ApiModelProperty(value = "所属角色", name = "roles", example = "admin", notes = "角色")
+    private List<Role> roles;
 
 
 }

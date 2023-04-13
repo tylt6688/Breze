@@ -155,7 +155,7 @@ public class UserController extends BaseController {
 
     @ApiOperation("下载用户表Excel模板")
     @BrezeLog("下载用户表Excel模板")
-    @GetMapping("/export_model_excel")
+    @GetMapping("/export_template_excel")
     public void exportTemplateExcel(HttpServletResponse response) {
         userService.exportTemplateExcel(response);
     }

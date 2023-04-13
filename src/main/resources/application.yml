@@ -13,7 +13,7 @@ breze:
   copyrightYear: 2023
   # 版权归属
   copyrightName: 青枫网络工作室
-  # Swagger文档启停
+  # Swagger文档启停,生产环境建议关闭
   swaggerEnabled: true
 
 spring:

@@ -20,7 +20,7 @@ public interface RoleConvert {
      * RoleDTO 转为 Role
      *
      * @param roleDTO RoleDTO实体
-     * @return Role Role实体
+     * @return Role
      */
     Role roleDTOTORole(RoleDTO roleDTO);
 }

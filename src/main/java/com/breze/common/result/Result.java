@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -17,12 +16,10 @@ import java.util.HashMap;
  * @Description 全局返回结果封装，为了前后端数据交互有一个统一约定的标准，一般有三个要素 1.是否成功 2.结果消息 3.具体数据
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@ApiModel(description = "统一数据响应模板")
 @Log4j2
 @Data
-@ApiModel(description = "统一数据响应模板")
-public class Result<T> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Result<T> {
 
     /**
      * 响应数据 Map 集合
@@ -37,7 +34,6 @@ public class Result<T> implements Serializable {
      * @return Result 成功消息
      */
     public static <T> Result<T> createSuccessMessage() {
-
         return createSuccessMessage("操作成功");
     }
 
@@ -49,7 +45,6 @@ public class Result<T> implements Serializable {
      */
 
     public static <T> Result<T> createSuccessMessage(String message) {
-
         return createSuccessMessage(message, null);
     }
 
@@ -62,7 +57,7 @@ public class Result<T> implements Serializable {
      */
 
     public static <T> Result<T> createSuccessMessage(String message, T data) {
-        return SuccessResult.createSuccessResult(true, message, data);
+        return new SuccessResult<>(true, message, data);
     }
 
 
@@ -99,7 +94,7 @@ public class Result<T> implements Serializable {
      * @return Result 失败消息
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message, T data) {
-        return FailedResult.createFailedResult(false, message, errorEnum.getErrorCode(), errorEnum.getErrorName(), data);
+        return new FailedResult<>(false, message, errorEnum.getErrorCode(), errorEnum.getErrorName(), data);
     }
 
 }

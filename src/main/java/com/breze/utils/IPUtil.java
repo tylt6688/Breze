@@ -70,7 +70,7 @@ public class IPUtil {
      * @param ip
      * @return
      * @throws Exception
-     * @description: 获得国家
+     * @description 获得国家
      */
     public static String getCountry(DatabaseReader reader, String ip) throws Exception {
         return reader.city(InetAddress.getByName(ip)).getCountry().getNames().get("zh-CN");

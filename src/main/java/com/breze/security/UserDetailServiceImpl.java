@@ -73,7 +73,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             } else {
                 ipLocation = IPUtil.getAddress(reader, IPUtil.getIpAddress(request));
             }
-            log.info("当前用户IP地址:---{}", IPUtil.getAddress(reader, IPUtil.getIpAddress(request)));
+            log.info("当前用户IP地址:---{}", ip);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("异常IP地址:---{}", SystemConstant.UNKNOWN_IP);

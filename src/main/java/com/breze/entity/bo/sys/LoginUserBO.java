@@ -17,31 +17,40 @@ public class LoginUserBO implements UserDetails {
 
     private static final long serialVersionUID = 2157836804554108892L;
 
+    /**
+     * 用户名
+     */
     private final String username;
 
+    /**
+     * 密码
+     */
     private final String password;
 
+    /**
+     * 权限集合
+     */
     private final Collection<? extends GrantedAuthority> authorities;
 
     /**
      * 账号是否失效
      */
-    private final boolean accountNonExpired;
+    private final Boolean accountNonExpired;
 
     /**
      * 账号是否锁定
      */
-    private final boolean accountNonLocked;
+    private final Boolean accountNonLocked;
 
     /**
      * 密钥是否失效
      */
-    private final boolean credentialsNonExpired;
+    private final Boolean credentialsNonExpired;
 
     /**
      * 是否可用
      */
-    private final boolean enabled;
+    private final Boolean enabled;
 
     public LoginUserBO(String username, String password, Boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         this(username, password, true, true, true, accountNonLocked, authorities);

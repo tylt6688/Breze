@@ -16,7 +16,7 @@ public interface UserGroupJobService extends IService<UserGroupJob> {
 
 
 
-    List<UserGroupJobBO> listUserGroupJobBOs(Long userId);
+    List<UserGroupJobBO> listUserGroupJobBO(Long userId);
 
     /**
      * 插入用户组岗位关联
