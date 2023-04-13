@@ -9,6 +9,7 @@ import com.breze.converter.sys.GroupConvert;
 import com.breze.entity.dto.sys.GroupDTO;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.GroupJob;
+import com.breze.entity.vo.sys.ParentGroupVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +30,16 @@ public class GroupController extends BaseController {
     @ApiOperation(value = "获取全部部门列表")
     @BrezeLog("获取全部部门列表")
     @GetMapping("/select")
-    public Result<List<Group>> selectAll() {
-        return Result.createSuccessMessage("查询部门成功", groupService.findAll());
+    public Result<List<Group>> selectAll(@RequestParam String name) {
+        return Result.createSuccessMessage("查询部门成功", groupService.findAll(name));
     }
 
+    @ApiOperation(value = "获取所有父节点")
+    @BrezeLog("获取所有父节点")
+    @GetMapping("/getGroupParent")
+    public Result<List<ParentGroupVO>> getGroupParent() {
+        return Result.createSuccessMessage("查询成功", groupService.getGroupParent());
+    }
     @ApiOperation(value = "获取单个部门信息")
     @BrezeLog("获取单个部门信息")
     @GetMapping("/select/{id}")
@@ -52,6 +59,7 @@ public class GroupController extends BaseController {
         return Result.createSuccessMessage("部门名称重复");
     }
 
+    // FIXME 更新部门转换id丢失 [抄送人：ChenWX 待办人：LGX 2023-04-12]
     @ApiOperation(value = "更新部门", notes = "更新部门")
     @BrezeLog("更新部门")
     @PutMapping("/update")

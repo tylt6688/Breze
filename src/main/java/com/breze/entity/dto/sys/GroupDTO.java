@@ -15,6 +15,8 @@ public class GroupDTO implements Serializable {
 
     private static final long serialVersionUID = -5214999581419103935L;
 
+    private Long id;
+
     private Long parentId;
 
     private String name;

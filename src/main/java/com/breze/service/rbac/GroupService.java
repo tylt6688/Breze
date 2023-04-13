@@ -3,6 +3,7 @@ package com.breze.service.rbac;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.Job;
+import com.breze.entity.vo.sys.ParentGroupVO;
 
 import java.util.List;
 
@@ -24,10 +25,15 @@ public interface GroupService extends IService<Group> {
     List<Group> findGroupAndJobByUserId(Long userId);
 
     /**
+     * 获取所有父节点
+     */
+    List<ParentGroupVO> getGroupParent();
+
+    /**
      * 根据id查询树形结构
      * @return List<Group>
      */
-    List<Group> findAll();
+    List<Group> findAll(String name);
 
     List<Job> findJobsByGroupId(Long id);
 
@@ -65,4 +71,6 @@ public interface GroupService extends IService<Group> {
      * @return true/false
      */
     Boolean delete(Long id);
+
+
 }
