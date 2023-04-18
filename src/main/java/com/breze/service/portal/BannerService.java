@@ -2,6 +2,7 @@ package com.breze.service.portal;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.pojo.portal.Banner;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface BannerService extends IService<Banner> {
      */
     List<Banner> listOrderByDesc();
 
+    Boolean insertBanner(String alt, Integer orderNum, MultipartFile file);
+
+    Boolean deleteBanner(String url);
 }

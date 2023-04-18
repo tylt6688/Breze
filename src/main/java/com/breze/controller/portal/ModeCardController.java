@@ -3,6 +3,7 @@ package com.breze.controller.portal;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.breze.common.annotation.BrezeLog;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
@@ -11,6 +12,7 @@ import com.breze.entity.pojo.portal.ModeCard;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +26,14 @@ import java.util.List;
  * @author leochan
  * @since 2022-10-08
  */
+@Log4j2
 @Api(tags = "门户卡片管理")
 @RestController
 @RequestMapping("/breze/portal/modeCard")
 public class ModeCardController extends BaseController {
 
-    @ApiOperation(value = "获取全部信息")
+    @ApiOperation("获取全部信息")
+    @BrezeLog("获取全部信息")
     @GetMapping("/select")
     public Result select() {
         List<ModeCard> list = modeCardService.list();
@@ -38,6 +42,7 @@ public class ModeCardController extends BaseController {
 
 //    @Log("获取模块信息")
     @ApiOperation(value = "获取模块分页信息")
+    @BrezeLog("获取模块分页信息")
     @ApiImplicitParam(name = "modeTitle", value = "模块标题", dataType = "String", dataTypeClass = String.class)
     @GetMapping("/findModeCardInfo")
     public Result findModeCardInfo(String modeTitle) {
@@ -45,37 +50,28 @@ public class ModeCardController extends BaseController {
         return Result.createSuccessMessage("查询模块信息成功", modeCardPage);
     }
     @ApiOperation(value = "通过id查询")
+    @BrezeLog("通过id查询")
     @GetMapping("/findDataById/{id}")
     public Result findDataById(@PathVariable Long id) {
-        ModeCard modeCard = modeCardService.getById(id);
-        return Result.createSuccessMessage("查询成功",modeCard);
+        return Result.createSuccessMessage("查询成功",modeCardService.getById(id));
     }
-    //    @Log("新增模块")
     @ApiOperation(value = "新增模块")
+    @BrezeLog("新增模块")
     @PostMapping("/insert")
     public Result insert(@Validated @RequestBody ModeCard modeCard) {
-        try {
-            modeCardService.save(modeCard);
-            return Result.createSuccessMessage("添加模块成功");
-        } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException);
-        }
+            return judgeResult(modeCardService.save(modeCard));
     }
     @ApiOperation(value = "编辑模块")
+    @BrezeLog("编辑模块")
     @PostMapping("/update")
     public Result update(@Validated @RequestBody ModeCard modeCard) {
-        try {
-            modeCardService.updateById(modeCard);
-            return Result.createSuccessMessage("修改模块成功");
-        } catch (Exception e) {
-            throw  new BusinessException(ErrorEnum.FindException, "修改模块信息失败");
-        }
+       return judgeResult( modeCardService.updateById(modeCard));
     }
 
     @ApiOperation(value = "删除模块")
+    @BrezeLog("删除模块")
     @DeleteMapping("/deleteById/{id}")
     public Result deleteModeCard(@PathVariable Long id) {
-        modeCardService.removeById(id);
-        return Result.createSuccessMessage("删除模块成功");
+       return judgeResult(modeCardService.removeById(id));
     }
 }
