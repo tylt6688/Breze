@@ -1,5 +1,6 @@
 package com.breze.utils;
 
+import lombok.Cleanup;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,9 +31,8 @@ public class FileUtil {
         String suffix = fileName.substring(index);
         // 生成UUID
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-        // 生成上传至云服务器的路径
-        String path = uuid + suffix;
-        return path;
+        // 返回上传至云服务器的唯一文件名
+        return uuid + suffix;
     }
 
     /**
@@ -42,10 +42,9 @@ public class FileUtil {
         try {
             File toFile;
             if (file != null && file.getSize() > 0) {
-                InputStream ins = file.getInputStream();
+                @Cleanup InputStream ins = file.getInputStream();
                 toFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
                 inputStreamToFile(ins, toFile);
-                ins.close();
                 return toFile;
             }
             return null;
@@ -63,13 +62,12 @@ public class FileUtil {
      */
     public static void inputStreamToFile(InputStream ins, File file) {
         try {
-            OutputStream os = new FileOutputStream(file);
+            @Cleanup OutputStream os = new FileOutputStream(file);
             int bytesRead;
             byte[] buffer = new byte[8192];
             while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
-            os.close();
             ins.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,10 +79,11 @@ public class FileUtil {
      *
      * @param file 文件
      */
-    public static void deleteTempFile(File file) {
+    public static Boolean deleteTempFile(File file) {
         if (file != null) {
             File del = new File(file.toURI());
-            del.delete();
+            return del.delete();
         }
+        return false;
     }
 }

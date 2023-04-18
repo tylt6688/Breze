@@ -1,6 +1,7 @@
 package com.breze.entity.dto.sys;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -13,7 +14,9 @@ import lombok.Data;
 @Data
 public class PermRoleDTO {
 
-   private Long[] userIds;
+    @ApiModelProperty(required = true, value = "用户ID数组", name = "userIds", example = "[1,2,3]", notes = "用户ID数组")
+    private Long[] userIds;
 
-   private Long[] roleIds;
+    @ApiModelProperty(required = true, value = "角色ID数组", name = "roleIds", example = "[1,2,3]", notes = "角色ID数组")
+    private Long[] roleIds;
 }
