@@ -1,0 +1,6 @@
+flowable:
+  # 关闭定时任务 JOB
+  async-executor-activate: false
+  # 将 databaseSchemaUpdate 设置为 true。当 flowable 发现库与数据库表结构不一致时，会自动将数据库表结构升级至新版本。
+  database-schema-update: true
+  activity-font-name: '楷体'
