@@ -17,7 +17,7 @@ import java.util.List;
  * @Author tylt6688
  * @Date 2023/1/12 17:02
  * @Description UserConvert 实体转化
- * @Copyright(c) 2022 , 青枫网络工作室
+ * @Copyright(c) 2023 , 青枫网络工作室
  */
 @Mapper
 public interface UserConvert {
