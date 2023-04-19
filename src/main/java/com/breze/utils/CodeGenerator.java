@@ -8,7 +8,7 @@ import java.util.Collections;
 /**
  * @Author TYLT
  * @Date 2022/3/8 15:00
- * @Description MyBatis-Plus 本地 main 函数执行代码生成器
+ * @Description MyBatis-Plus 本地 main 函数执行代码生成器（备用型）
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 public class CodeGenerator {

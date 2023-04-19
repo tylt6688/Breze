@@ -21,7 +21,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class BrezeApplication {
 
     public static void main(String[] args) {
-        // 关闭控制台中PageHelper的banner
+        // 关闭控制台中 PageHelper 的 banner
         System.setProperty("pagehelper.banner", "false");
         SpringApplication.run(BrezeApplication.class, args);
         log.info("(♥◠‿◠)ﾉﾞ  清枫Breze启动成功   ლ(´ڡ`ლ)ﾞ  \n" + "\n" +

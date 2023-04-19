@@ -1,6 +1,7 @@
 package com.breze.entity.dto.sys;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,15 +18,23 @@ public class GroupDTO implements Serializable {
 
     private static final long serialVersionUID = -5214999581419103935L;
 
+    @ApiModelProperty(required = true, value = "团队ID", name = "id", example = "1", notes = "团队ID")
     private Long id;
 
+    @ApiModelProperty(required = true, value = "团队父ID", name = "parentId", example = "0", notes = "父级ID，一级ID为0")
     private Long parentId;
 
+    @ApiModelProperty(required = true, value = "岗位名称", name = "name", example = "Menu", notes = "菜单组件名称")
+    private String job;
+
+    @ApiModelProperty(required = true, value = "菜单组件名称", name = "name", example = "Menu", notes = "菜单组件名称")
     private String name;
 
+    @ApiModelProperty(required = true, value = "状态", name = "state", example = "0", notes = "状态：0正常 1停用")
     private Integer state;
 
+    @ApiModelProperty(value = "备注", name = "remark", example = "技术研发团队", notes = "备注")
     private String remark;
 
-    private String job;
+
 }
