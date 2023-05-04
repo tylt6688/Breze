@@ -7,7 +7,10 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.config.OssConfig;
+import com.breze.converter.portal.BannerConvert;
+import com.breze.entity.dto.portal.BannerDTO;
 import com.breze.entity.pojo.portal.Banner;
+import com.breze.entity.vo.portal.BannerVO;
 import com.breze.mapper.portal.BannerMapper;
 import com.breze.service.portal.BannerService;
 import com.breze.service.tool.QiNiuService;
@@ -43,11 +46,27 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     private OssConfig ossConfig;
 
     @Override
-    public List<Banner> listOrderByDesc() {
-        return bannerMapper.selectList(new QueryWrapper<Banner>().orderByAsc("order_num"));
+    public BannerVO getBannerById(Long id) {
+        BannerVO bannerVO = BannerConvert.INSTANCE.bannerToBannerVO(bannerMapper.selectById(id));
+        return bannerVO;
     }
 
     @Override
+    public List<BannerVO> listOrderByDesc() {
+        List<Banner> bannerList = bannerMapper.selectList(new QueryWrapper<Banner>().orderByAsc("order_num"));
+        List<BannerVO> bannerVOS = BannerConvert.INSTANCE.bannerListTOBannerListVO(bannerList);
+        return bannerVOS;
+    }
+
+    @Override
+    @Transactional
+    public Boolean updateBanner(BannerDTO bannerDTO) {
+        Banner banner = BannerConvert.INSTANCE.bannerDTOTOBanner(bannerDTO);
+        return bannerMapper.updateById(banner)>0;
+    }
+
+    @Override
+    @Transactional
     public Boolean insertBanner(String alt, Integer orderNum, MultipartFile file) {
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpg")) {
             throw new BusinessException(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
@@ -63,6 +82,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     }
 
     @Override
+    @Transactional
     public Boolean deleteBanner(String url) {
         if (!url.isEmpty() && url.substring(0, 24).equals(ossConfig.getUrl())) {
             try {

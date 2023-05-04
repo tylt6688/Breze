@@ -10,8 +10,11 @@ import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
+import com.breze.converter.portal.ContentConvert;
+import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
 import com.breze.entity.pojo.tool.OSS;
+import com.breze.entity.vo.portal.ContentIntroduceVo;
 import com.breze.mapper.portal.MainContentMapper;
 import com.breze.mapper.tool.OssFileMapper;
 import com.breze.service.portal.MainContentService;
@@ -46,19 +49,27 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     private QiNiuService qiNiuService;
 
     @Override
-    public Page<ContentIntroduce> getContentPage(Page<ContentIntroduce> getPage, String titleName, Long parentId) {
+    public Page<ContentIntroduceVo> getContentPage(Page<ContentIntroduce> getPage, String titleName, Long parentId) {
         Page<ContentIntroduce> contentIntroducePage = mainContentMapper.selectPage(getPage, new QueryWrapper<ContentIntroduce>().like(StrUtil.isNotBlank(titleName),"main_title", titleName).eq("parent_id", parentId).orderByAsc("order_num"));
-        contentIntroducePage.getRecords().forEach(contentIntroduce -> {
+        Page<ContentIntroduceVo> contentIntroduceVoPage = ContentConvert.INSTANCE.contentPageToContentPageVo(contentIntroducePage);
+        contentIntroduceVoPage.getRecords().forEach(contentIntroduce -> {
             contentIntroduce.setChildren(mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId()).orderByAsc("order_num")));
             contentIntroduce.getChildren().forEach(content -> content.setImgUrl(ossFileMapper.selectById(content.getOssId()).getFileUrl()));
         });
-        return contentIntroducePage;
+        return contentIntroduceVoPage;
+    }
+
+    @Override
+    public ContentIntroduceVo getContentById(Long id) {
+        ContentIntroduceVo contentIntroduceVo = ContentConvert.INSTANCE.contentToContentVO(mainContentMapper.selectById(id));
+        contentIntroduceVo.setImgUrl(ossFileMapper.selectById(contentIntroduceVo.getOssId()).getFileUrl());
+        return contentIntroduceVo;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean insertContent(ContentIntroduce contentIntroduce, MultipartFile file) {
-
+    public Boolean insertContent(ContentDTO contentDT, MultipartFile file) {
+        ContentIntroduce contentIntroduce = ContentConvert.INSTANCE.contentDTOToContent(contentDT);
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.PNG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPEG)) {
             throw new BusinessException(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
         }
@@ -93,8 +104,16 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     }
 
     @Override
+    @Transactional
+    public Boolean updateContent(ContentDTO contentDTO) {
+        ContentIntroduce contentIntroduce = ContentConvert.INSTANCE.contentDTOToContent(contentDTO);
+        return mainContentMapper.updateById(contentIntroduce)>0;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean deleteContent(ContentIntroduce contentIntroduce) {
+    public Boolean deleteContent(ContentDTO contentDTO) {
+        ContentIntroduce contentIntroduce = ContentConvert.INSTANCE.contentDTOToContent(contentDTO);
         Boolean qiqiu = null;
         int oss = 0;
         int content = 0;

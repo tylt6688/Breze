@@ -52,7 +52,4 @@ public class ContentIntroduce extends BaseEntity {
 
     @ApiModelProperty("背景")
     private String backUrl;
-
-    @TableField(exist = false)
-    private List<ContentIntroduce> children;
 }

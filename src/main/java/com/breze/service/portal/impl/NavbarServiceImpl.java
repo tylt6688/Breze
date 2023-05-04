@@ -3,7 +3,11 @@ package com.breze.service.portal.impl;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.breze.converter.portal.NavbarConvert;
+import com.breze.entity.dto.portal.NavbarDTO;
 import com.breze.entity.pojo.portal.Navbar;
+import com.breze.entity.vo.portal.NavbarTitleVo;
+import com.breze.entity.vo.portal.NavbarVO;
 import com.breze.mapper.portal.NavbarMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.service.portal.NavbarService;
@@ -35,7 +39,8 @@ public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> impleme
     @Override
     public Page<Navbar> findNavbarPage(Page<Navbar> page, String titleName,Long parentId) {
         Page<Navbar> navbarPage = navbarMapper.selectPage(page, new QueryWrapper<Navbar>().like("title_name", titleName).eq("parent_id",parentId).orderByAsc("order_num"));
-        navbarPage.getRecords().forEach(navbar -> {
+        Page<NavbarVO> navbarVOPage = NavbarConvert.INSTANCE.navbarPageToNavarPageVo(navbarPage);
+        navbarVOPage.getRecords().forEach(navbar -> {
             navbar.setHasChildren(this.isChildren(navbar.getId()));
         });
         return navbarPage;
@@ -44,8 +49,47 @@ public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> impleme
     @Override
     public List<Navbar> finAllData(Long flag) {
         List<Navbar> navbarList = navbarMapper.selectList(new QueryWrapper<Navbar>().eq("flag",flag).eq("parent_id",0).orderByAsc("order_num"));
-       navbarList.forEach(navbar -> navbar.setNavbarChildren(this.selectChildren(navbar.getId())));
+        List<NavbarVO> navbarVOS = NavbarConvert.INSTANCE.navbarListToNavbarVoList(navbarList);
+        navbarVOS.forEach(navbar -> navbar.setNavbarChildren(this.selectChildren(navbar.getId())));
         return navbarList;
+    }
+
+    @Override
+    public Navbar selectById(Long id) {
+        Navbar navbar = navbarMapper.selectById(id);
+        return navbar;
+    }
+
+    @Override
+    public List<NavbarTitleVo> selectByFlag(Long flag) {
+        List<NavbarTitleVo> navbarTitleVos = NavbarConvert.INSTANCE.navbarListToTitleVoList(navbarMapper.selectList(new QueryWrapper<Navbar>().eq("flag", flag)));
+        return navbarTitleVos;
+    }
+
+    @Override
+    public Long getNavbarCount() {
+        Long count = navbarMapper.selectCount(null);
+        return count;
+    }
+
+    @Override
+    @Transactional
+    public Boolean insertNabar(NavbarDTO navbarDTO) {
+        Navbar navbar = NavbarConvert.INSTANCE.navbarDTOToNavbar(navbarDTO);
+        return navbarMapper.insert(navbar)>0;
+    }
+
+    @Override
+    @Transactional
+    public Boolean updateNavbar(NavbarDTO navbarDTO) {
+        Navbar navbar = NavbarConvert.INSTANCE.navbarDTOToNavbar(navbarDTO);
+        return navbarMapper.updateById(navbar)>0;
+    }
+
+    @Override
+    @Transactional
+    public Boolean deleteById(Long id) {
+        return navbarMapper.deleteById(id)>0;
     }
 
     //判断id下面是否有子节点
@@ -54,8 +98,9 @@ public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> impleme
         // 0>0    1>0
         return count>0;
     }
-    private List<Navbar> selectChildren(Long parntId){
+    private List<NavbarVO> selectChildren(Long parntId){
         List<Navbar> navbarList = navbarMapper.selectList(new QueryWrapper<Navbar>().eq("parent_id", parntId));
-        return navbarList;
+        List<NavbarVO> navbarVOS = NavbarConvert.INSTANCE.navbarListToNavbarVoList(navbarList);
+        return navbarVOS;
     }
 }

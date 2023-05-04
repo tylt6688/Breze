@@ -1,13 +1,12 @@
 package com.breze.controller.portal;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.breze.common.annotation.BrezeLog;
-import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
+import com.breze.entity.dto.portal.BannerDTO;
 import com.breze.entity.pojo.portal.Banner;
-import com.breze.service.portal.BannerService;
+import com.breze.entity.vo.portal.BannerVO;
 import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,9 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Author tylt6688
@@ -35,32 +32,24 @@ public class BannerController extends BaseController {
     @ApiOperation("通过id获取轮播图")
     @BrezeLog("通过id获取轮播图")
     @GetMapping("/info/{id}")
-    public Result<Banner> getBannerInfo(@PathVariable Long id) {
-        Banner banner = bannerService.getById(id);
-        return Result.createSuccessMessage("获取轮播图信息成功", banner);
+    public Result<BannerVO> getBannerInfo(@PathVariable Long id) {
+        BannerVO bannerVO = bannerService.getBannerById(id);
+        return Result.createSuccessMessage("获取轮播图信息成功", bannerVO);
     }
 
     @ApiOperation("获取轮播图排序信息")
     @BrezeLog("获取轮播图排序信息")
     @GetMapping("/select")
-    public Result<List<Banner>> select() {
-        List<Banner> banners = bannerService.listOrderByDesc();
-        return Result.createSuccessMessage("查询轮播图成功", banners);
-    }
-
-    @ApiOperation("新增轮播图")
-    @BrezeLog("新增轮播图")
-    @PostMapping("/insert")
-    public Result<String> insert(@Validated @RequestBody Banner banner) {
-        return judgeResult(bannerService.save(banner));
-
+    public Result<List<BannerVO>> select() {
+        List<BannerVO> bannerVOS = bannerService.listOrderByDesc();
+        return Result.createSuccessMessage("查询轮播图成功", bannerVOS);
     }
 
     @ApiOperation("修改轮播图")
     @BrezeLog("修改轮播图")
     @PostMapping("/update")
-    public Result<String> update(@Validated @RequestBody Banner banner) {
-        return judgeResult(bannerService.updateById(banner));
+    public Result<String> update(@Validated @RequestBody BannerDTO bannerDTO) {
+        return judgeResult(bannerService.updateBanner(bannerDTO));
     }
     @ApiOperation("上传轮播图")
     @BrezeLog("上传轮播图")

@@ -3,7 +3,6 @@ package com.breze.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
-import com.breze.common.result.Result;
 import com.breze.config.BrezeConfig;
 import com.breze.config.OssConfig;
 import com.breze.service.portal.*;
@@ -17,11 +16,12 @@ import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.ServletRequestUtils;
-
+import com.breze.common.result.Result;
 import javax.servlet.http.HttpServletRequest;
 
 import static com.breze.common.result.Result.createFailMessage;
 import static com.breze.common.result.Result.createSuccessMessage;
+
 
 /**
  * @Author tylt6688
@@ -101,7 +101,8 @@ public class BaseController {
     protected GroupJobService groupJobService;
     @Autowired
     protected UserGroupJobService userGroupJobService;
-
+    @Autowired
+    protected DictService dictService;
     //===============================Breze=================================//
 
     /**
