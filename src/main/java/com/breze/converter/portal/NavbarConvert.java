@@ -1,7 +1,10 @@
 package com.breze.converter.portal;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.breze.entity.dto.portal.NavbarDTO;
 import com.breze.entity.pojo.portal.Navbar;
 import com.breze.entity.vo.portal.NavbarTitleVo;
+import com.breze.entity.vo.portal.NavbarVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -18,5 +21,12 @@ public interface NavbarConvert {
     NavbarConvert INSTANCE = Mappers.getMapper(NavbarConvert.class);
 
     @Mapping(source = "titleName", target = "titleName")
-    List<NavbarTitleVo> NavbarListToTitleVo(List<Navbar> navbarList);
+    List<NavbarTitleVo> navbarListToTitleVoList(List<Navbar> navbarList);
+
+    Page<NavbarVO> navbarPageToNavarPageVo(Page<Navbar> navbarPage);
+
+    List<NavbarVO>  navbarListToNavbarVoList(List<Navbar> navbarList);
+
+    Navbar navbarDTOToNavbar(NavbarDTO navbarDTO);
+
 }

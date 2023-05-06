@@ -44,10 +44,4 @@ public class Navbar extends BaseEntity {
 
     @ApiModelProperty("父id")
     private Long parentId;
-
-    @TableField(exist = false)
-    private boolean hasChildren;
-
-    @TableField(exist = false)
-    private List<Navbar> navbarChildren;
 }
