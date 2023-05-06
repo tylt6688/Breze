@@ -80,14 +80,6 @@ public interface UserService extends IService<User> {
     Boolean updateAvatar(MultipartFile avatar);
 
     /**
-     * 通过用户 id 获取当前用户角色
-     *
-     * @param userId 用户 id
-     * @return User
-     */
-    User getUserRolesByUserId(Long userId);
-
-    /**
      * 根据用户名获取用户对象
      *
      * @param username 用户名

@@ -9,6 +9,7 @@ import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.service.rbac.UserService;
 import com.breze.service.syslog.LoginLogService;
 import com.breze.service.tool.MailService;
+import com.breze.utils.ClientUtil;
 import com.breze.utils.IPUtil;
 import com.maxmind.geoip2.DatabaseReader;
 import lombok.extern.log4j.Log4j2;
@@ -73,15 +74,17 @@ public class UserDetailServiceImpl implements UserDetailsService {
             } else {
                 ipLocation = IPUtil.getAddress(reader, IPUtil.getIpAddress(request));
             }
+
             log.info("当前用户IP地址:---{}", ip);
+
+            LoginLog loginLog = new LoginLog();
+            loginLog.setUserId(userService.getUserByUserName(username).getId())
+                    .setState(GlobalConstant.TYPE_ZERO).setIpAddress(ip).setOs(ClientUtil.getOperaSystemName(request)).setIpLocation(ipLocation);
+            loginLogService.save(loginLog);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("异常IP地址:---{}", SystemConstant.UNKNOWN_IP);
         }
-        LoginLog loginLog = new LoginLog();
-        loginLog.setUserId(userService.getUserByUserName(username).getId())
-                .setState(GlobalConstant.TYPE_ZERO).setIpAddress(ip).setIpLocation(ipLocation);
-        loginLogService.save(loginLog);
 
         if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
             mailService.sendRemindEmail(user);

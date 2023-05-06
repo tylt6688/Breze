@@ -46,7 +46,7 @@ public class Menu extends BaseEntity {
 
     private Integer type;
 
-    private Integer orderNum;
+    private Integer sort;
 
     private Integer state;
 

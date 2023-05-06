@@ -54,11 +54,13 @@ public class JwtUtil {
     public Claims getClaimByToken(String token) {
 
         Claims claims = null;
+
         try {
             claims = Jwts.parser()
                     .setSigningKey(jwtConfig.getSecret())
                     .parseClaimsJws(token)
                     .getBody();
+
             log.info("[JWT解析完成]:---{}", claims);
         } catch (JwtException e) {
             log.error("[JWT解析失败]令牌异常:---{}", e.getMessage());
@@ -66,15 +68,14 @@ public class JwtUtil {
         return claims;
     }
 
-//    /**
-//     * 判断jwt是否过期
-//     *
-//     * @param token JWT字符串
-//     * @return Boolean
-//     */
-//    public Boolean isTokenExpired(String token) {
-//        Claims claims = Jwts.parser().setSigningKey(jwtConfig.getSecret()).parseClaimsJws(token).getBody();
-//        log.error("JWT是否过期:---{}", claims.getExpiration().before(new Date()));
-//        return claims.getExpiration().before(new Date());
-//    }
+    /**
+     * 判断jwt是否过期
+     *
+     * @param claims JWT
+     * @return Boolean
+     */
+    public Boolean isTokenExpired(Claims claims) {
+        log.error("JWT是否过期:---{}", claims.getExpiration().before(new Date()));
+        return claims.getExpiration().before(new Date());
+    }
 }

@@ -1,7 +1,7 @@
 package com.breze.utils;
 
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @Description Spring上下文工具类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-@Slf4j
+@Log4j2
 @Service
 @Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
@@ -64,6 +64,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 
     /**
      * 发布事件
+     *
      * @param event 事件
      */
     public static void publishEvent(ApplicationEvent event) {
@@ -74,7 +75,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     /**
-     * 实现DisposableBean接口, 在Context关闭时清理静态变量.
+     * 实现 DisposableBean接口, 在 Context关闭时清理静态变量.
      */
     @Override
     @SneakyThrows

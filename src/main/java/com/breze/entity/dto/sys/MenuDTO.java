@@ -50,11 +50,11 @@ public class MenuDTO implements Serializable {
     private Integer type;
 
     @ApiModelProperty(required = true, value = "菜单排序", name = "orderNum", example = "1", notes = "菜单排序")
-    @NotBlank(message = "排序号不能为空")
-    private Integer orderNum;
+    @NotNull(message = "排序号不能为空")
+    private Integer sort;
 
     @ApiModelProperty(required = true, value = "状态", name = "state", example = "0", notes = "状态：0正常 1停用")
-    @NotBlank(message = "状态不能为空")
+    @NotNull(message = "状态不能为空")
     private Integer state;
 
     @ApiModelProperty(required = true, value = "菜单URL", name = "url", example = "/sys/menu", notes = "菜单URL")

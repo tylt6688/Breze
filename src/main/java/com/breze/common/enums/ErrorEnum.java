@@ -24,7 +24,6 @@ public enum ErrorEnum {
      * 验证码错误错误码
      */
     VerifyCodeError("验证码错误", 1002),
-
     /**
      * 无权限错误码
      */
@@ -37,17 +36,17 @@ public enum ErrorEnum {
      * 未认证用户错误码
      */
     NoAuthentication("未认证用户", 1005),
-
     /**
      * 账户已被锁定错误码
      */
     LockUser("账户已被锁定，请联系管理员", 1006),
-
     /**
      * 账户无效错误码
      */
     UnknownAccount("无效账户", 1007),
-
+    /**
+     * 未知错误错误码
+     */
     UnknownError("未知错误", 600),
     /**
      * 出现异常错误码

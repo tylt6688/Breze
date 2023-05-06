@@ -14,7 +14,7 @@ import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
-import com.breze.config.OssConfig;
+import com.breze.config.OSSConfig;
 import com.breze.converter.sys.UserConvert;
 import com.breze.entity.bo.sys.UserExcelBO;
 import com.breze.entity.dto.sys.PermRoleDTO;
@@ -61,45 +61,38 @@ import java.util.stream.Collectors;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-    @Autowired
-    GroupService groupService;
 
     @Autowired
-    UserRoleService userRoleService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    QiNiuService qiNiuService;
+    private RedisUtil redisUtil;
 
     @Autowired
-    OssConfig ossConfig;
+    private OSSConfig ossConfig;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private GroupService groupService;
 
     @Autowired
-    RedisUtil redisUtil;
+    private UserRoleService userRoleService;
 
     @Autowired
-    UserMapper userMapper;
+    private QiNiuService qiNiuService;
 
     @Autowired
-    RoleMapper roleMapper;
+    private UserMapper userMapper;
 
     @Autowired
-    MenuMapper menuMapper;
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private MenuMapper menuMapper;
 
 
     @Override
     public User getUserByUserName(String username) {
-        return getOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
-    }
-
-
-    public User getUserRolesByUserId(Long userId) {
-        User user = this.getById(userId);
-        List<Role> roles = roleMapper.listByUserId(user.getId());
-        user.setRoles(roles);
-        return user;
+        return userMapper.getByUserName(username);
     }
 
 
@@ -214,8 +207,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try {
             String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = this.getUserByUserName(username);
-            Boolean updated = userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
-            return updated;
+            return userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "更新登录邮件提醒失败");
         }
@@ -254,28 +246,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public String getUserAuthorityInfo(Long userId) {
         String authority = "";
-
         User user = userMapper.selectById(userId);
         String key = CacheConstant.AUTHORITY_CODE + user.getUsername();
-
         // 如果 redis 中存在直接取，没有的话再去数据库查
         if (redisUtil.hasKey(key)) {
             authority = (String) redisUtil.get(key);
         } else {
             // 获取角色
             List<Role> roles = roleMapper.listByUserId(userId);
-            if (!roles.isEmpty()) {
-                String roleCodes = roles.stream().map(role -> "ROLE_" + role.getCode()).collect(Collectors.joining(","));
-                authority = roleCodes.concat(",");
+            if (roles.isEmpty()) {
+                throw new BusinessException(ErrorEnum.UnknownAccount, ErrorEnum.UnknownAccount.getErrorName());
             }
-
+            String roleCodes = roles.stream().map(role -> "ROLE_" + role.getCode()).collect(Collectors.joining(","));
+            authority = roleCodes.concat(",");
             // 获取菜单权限编码
             List<Long> menuIds = userMapper.getNavMenuIds(userId);
-            if (!menuIds.isEmpty()) {
-                List<Menu> menus = menuMapper.selectBatchIds(menuIds);
-                String menuPerms = menus.stream().map(Menu::getPerms).collect(Collectors.joining(","));
-                authority = authority.concat(menuPerms);
+            if (menuIds.isEmpty()) {
+                throw new BusinessException(ErrorEnum.NoPermission, ErrorEnum.NoPermission.getErrorName());
             }
+            List<Menu> menus = menuMapper.selectBatchIds(menuIds);
+            String menuPerms = menus.stream().map(Menu::getPerms).collect(Collectors.joining(","));
+            authority = authority.concat(menuPerms);
+
             // 避免每次请求都频繁操作多次数据库，所以将权限数据放入 Redis，暂定时间为一小时
             redisUtil.set(key, authority, 60 * 60);
         }
@@ -285,15 +277,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserInfoVO getCurrentUserInfo(String username) {
         User user = this.getUserByUserName(username);
-        User userRoles = this.getUserRolesByUserId(user.getId());
-        UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(userRoles);
+        List<Role> roles = roleMapper.listByUserId(user.getId());
+        user.setRoles(roles);
+        UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
         userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
         return userInfoVo;
     }
 
     @Override
     public UserInfoVO getUserInfoById(Long id) {
-        User user = this.getUserRolesByUserId(id);
+        User user = this.getById(id);
+        List<Role> roles = roleMapper.listByUserId(user.getId());
+        user.setRoles(roles);
         return UserConvert.INSTANCE.userToUserInfoVo(user);
     }
 
@@ -375,4 +370,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
         }
     }
+
 }

@@ -60,7 +60,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         List<Long> navMenuIds = userMapper.getNavMenuIds(user.getId());
         List<Menu> menus = this.listByIds(navMenuIds);
         // 此处先按照排序号进行升序排序后再转成父子树
-        menus.sort(Comparator.comparing(Menu::getOrderNum));
+        menus.sort(Comparator.comparing(Menu::getSort));
         // 转成树状结构
         return buildTreeMenu(menus);
     }
@@ -85,7 +85,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public List<MenuVO> tree() {
         // 获取所有菜单信息,按序号进行升序排序
-        List<Menu> menus = this.list(new LambdaQueryWrapper<Menu>().orderByAsc(Menu::getOrderNum));
+        List<Menu> menus = this.list(new LambdaQueryWrapper<Menu>().orderByAsc(Menu::getSort));
         // 转成树状结构
         return buildTreeMenu(menus);
     }

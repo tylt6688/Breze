@@ -1,4 +1,4 @@
-package com.breze.controller.rbac;
+package com.breze.controller.core;
 
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.map.MapUtil;
@@ -37,8 +37,9 @@ public class CaptchaController extends BaseController {
         String code = producer.createText();
 
 //        开发环境下可暂时停止随机验证码
-//        key = "tylt";
-//        code = "12345";
+        key = "developer";
+        code = "brezer";
+
         log.info("当前登录验证码：|-key:---{} |-code:---{}", key, code);
 
         BufferedImage image = producer.createImage(code);

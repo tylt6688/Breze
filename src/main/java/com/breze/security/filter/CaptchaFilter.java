@@ -7,6 +7,7 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.CaptchaException;
 import com.breze.security.handler.AuthenticationFailureHandlerImpl;
 import com.breze.utils.RedisUtil;
+import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ import java.io.IOException;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 
+@Log4j2
 @Component
 public class CaptchaFilter extends OncePerRequestFilter {
 
@@ -34,7 +36,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
     AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
 
         String url = request.getRequestURI();
         String method = request.getMethod();
@@ -43,9 +45,10 @@ public class CaptchaFilter extends OncePerRequestFilter {
             try {
                 // 先校验验证码
                 validate(request);
-            } catch (CaptchaException exception) {
+            } catch (CaptchaException e) {
+                e.printStackTrace();
                 // 交给登录失败处理器
-                authenticationFailureHandlerImpl.onAuthenticationFailure(request, response, exception);
+                authenticationFailureHandlerImpl.onAuthenticationFailure(request, response, e);
             }
         }
         filterChain.doFilter(request, response);
@@ -60,7 +63,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
         String code = request.getParameter("code");
 
         //先判断 code与 key是否为空，再从Redis中获取进行比较
-        if (StringUtils.isBlank(code) || StringUtils.isBlank(key) || !code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
+        if (StringUtils.isBlank(key) || StringUtils.isBlank(code) || !code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
             throw new CaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
         }
 

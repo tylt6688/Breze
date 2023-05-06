@@ -8,7 +8,6 @@ package com.breze.common.consts;
  */
 public class SystemConstant {
 
-
     /**
      * 默认账号密码常量
      */
@@ -21,7 +20,7 @@ public class SystemConstant {
     /**
      * 默认账号头像常量
      */
-    public static final String DEFAULT_AVATAR = "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png";
+    public static final String DEFAULT_AVATAR = "http://qiniuyun.tylt.xyz/breze/breze-avatar.png";
     /**
      * 未知IP常量
      */

@@ -53,7 +53,7 @@ public class MenuVO extends BaseVO {
     private Integer type;
 
     @ApiModelProperty(value = "菜单排序", name = "orderNum", example = "1", notes = "菜单排序")
-    private Integer orderNum;
+    private Integer sort;
 
     @ApiModelProperty(value = "状态", name = "state", example = "0", notes = "状态：0正常 1停用")
     private Integer state;

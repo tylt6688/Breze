@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.config.BrezeConfig;
-import com.breze.config.OssConfig;
+import com.breze.config.OSSConfig;
 import com.breze.service.portal.*;
 import com.breze.service.rbac.*;
 import com.breze.service.syslog.HandleLogService;
@@ -38,7 +38,7 @@ public class BaseController {
     @Autowired
     protected BrezeConfig brezeConfig;
     @Autowired
-    protected OssConfig ossConfig;
+    protected OSSConfig ossConfig;
 
     //===============================Breze=================================//
 

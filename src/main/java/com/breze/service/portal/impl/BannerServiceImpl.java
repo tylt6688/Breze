@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
-import com.breze.common.result.Result;
-import com.breze.config.OssConfig;
+import com.breze.config.OSSConfig;
 import com.breze.converter.portal.BannerConvert;
 import com.breze.entity.dto.portal.BannerDTO;
 import com.breze.entity.pojo.portal.Banner;
@@ -43,7 +42,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     private QiNiuService qiNiuService;
 
     @Autowired
-    private OssConfig ossConfig;
+    private OSSConfig ossConfig;
 
     @Override
     public BannerVO getBannerById(Long id) {

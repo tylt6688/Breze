@@ -46,10 +46,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
         String username = authentication.getName();
+
         // 生成JWT放置到响应Header头中
         String jwt = jwtUtil.generateToken(username);
-        response.setHeader(jwtConfig.getHeader(), jwt);
 
+        response.setHeader(jwtConfig.getHeader(), jwt);
 
         Result<String> result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);
 

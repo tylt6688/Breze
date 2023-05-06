@@ -5,6 +5,7 @@ import cn.hutool.http.HttpUtil;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.event.BrezeLogEvent;
 import com.breze.entity.pojo.syslog.HandleLog;
+import com.breze.utils.ClientUtil;
 import com.breze.utils.IPUtil;
 import com.breze.utils.SpringContextHolder;
 import lombok.SneakyThrows;
@@ -12,7 +13,6 @@ import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -49,7 +49,7 @@ public class BrezeLogAspect {
                 .setRequestIp(IPUtil.getIpAddress(request))
                 .setRequestPath(URLUtil.getPath(request.getRequestURI()))
                 .setMethod(request.getMethod())
-                .setClientType(request.getHeader(HttpHeaders.USER_AGENT))
+                .setClientType(ClientUtil.getPlatformName(request))
                 .setParams(HttpUtil.toParams(request.getParameterMap()))
                 .setCreateTime(LocalDateTime.now());
 
