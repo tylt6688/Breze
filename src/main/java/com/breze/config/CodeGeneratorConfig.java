@@ -15,8 +15,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.master")
 public class CodeGeneratorConfig {
-
+    /**
+     * 数据库用户名
+     */
     private String username;
 
+    /**
+     * 数据库密码
+     */
     private String password;
 }

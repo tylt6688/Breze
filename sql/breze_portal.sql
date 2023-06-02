@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : leochan
+ Source Server         : 本地MySQL数据库
  Source Server Type    : MySQL
- Source Server Version : 50739
- Source Host           : 127.0.0.1:3306
+ Source Server Version : 50727 (5.7.27)
+ Source Host           : localhost:3306
  Source Schema         : breze_portal
 
  Target Server Type    : MySQL
- Target Server Version : 50739
+ Target Server Version : 50727 (5.7.27)
  File Encoding         : 65001
 
- Date: 01/03/2023 16:23:32
+ Date: 02/06/2023 15:51:42
 */
 
 SET NAMES utf8mb4;
@@ -22,14 +22,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `mode_card`;
 CREATE TABLE `mode_card`  (
-                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '功能模块Id',
-                              `mode_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块名字',
-                              `mode_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块介绍',
-                              `mode_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块链接',
-                              `mode_component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '页面组件',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime NOT NULL COMMENT '更新时间',
-                              PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '功能模块Id',
+  `mode_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块名字',
+  `mode_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块介绍',
+  `mode_link` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模块链接',
+  `mode_component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '页面组件',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块展示表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -38,27 +38,27 @@ CREATE TABLE `mode_card`  (
 INSERT INTO `mode_card` VALUES (1, '轮播图管理', '轮播图模块功能信息管理', '/portal/banner', 'portal/BannerManage', '2022-10-08 20:19:58', '2022-10-08 20:20:01');
 INSERT INTO `mode_card` VALUES (2, '导航栏管理', '导航栏跳转信息管理', '/portal/navbar', 'portal/Navbar', '2022-10-08 20:21:37', '2022-10-08 20:21:40');
 INSERT INTO `mode_card` VALUES (3, '内容管理', '主题内容信息管理', '/portal/mainContent', 'portal/MainContent', '2022-10-08 20:22:32', '2022-10-08 20:22:35');
-INSERT INTO `mode_card` VALUES (6, '图片管理', 'dfg', 'sdg', 'sdg', '2022-10-18 16:58:08', '2022-10-18 16:58:08');
+INSERT INTO `mode_card` VALUES (6, '图片管理', 'OSS图片管理', 'sdg', 'sdg', '2022-10-18 16:58:08', '2022-10-18 16:58:08');
 
 -- ----------------------------
 -- Table structure for simple_content
 -- ----------------------------
 DROP TABLE IF EXISTS `simple_content`;
 CREATE TABLE `simple_content`  (
-                                   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主页内容模块id',
-                                   `oss_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'oss表id',
-                                   `main_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块标题',
-                                   `subtitle` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '副标题',
-                                   `title_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块简介',
-                                   `order_num` bigint(20) NULL DEFAULT NULL COMMENT '排序',
-                                   `router_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '指定路由跳转',
-                                   `parent_id` int(20) NOT NULL COMMENT '父id',
-                                   `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片地址',
-                                   `back_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '背景图',
-                                   `create_time` datetime NOT NULL COMMENT '创建时间',
-                                   `update_time` datetime NOT NULL COMMENT '更新时间',
-                                   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '主体内容表' ROW_FORMAT = DYNAMIC;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主页内容模块id',
+  `oss_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'oss表id',
+  `main_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块标题',
+  `subtitle` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '副标题',
+  `title_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模块简介',
+  `order_num` bigint(20) NULL DEFAULT NULL COMMENT '排序',
+  `router_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '指定路由跳转',
+  `parent_id` int(20) NOT NULL COMMENT '父id',
+  `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片地址',
+  `back_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '背景图',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '主体内容表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of simple_content
@@ -78,13 +78,13 @@ INSERT INTO `simple_content` VALUES (14, '58414be521664acaa9461138f483336b', '�
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_banner`;
 CREATE TABLE `tb_banner`  (
-                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '轮播图ID',
-                              `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '轮播图地址',
-                              `alt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '轮播图提示',
-                              `order_num` int(11) NULL DEFAULT NULL COMMENT '排序号',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime NOT NULL COMMENT '更新时间',
-                              PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '轮播图ID',
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '轮播图地址',
+  `alt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '轮播图提示',
+  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序号',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '首页轮播图表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -100,15 +100,15 @@ INSERT INTO `tb_banner` VALUES (14, 'http://qiniuyun.tylt.xyz/2fcec4e7244f445f8b
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_navbar`;
 CREATE TABLE `tb_navbar`  (
-                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '导航标题id',
-                              `flag` bigint(2) NULL DEFAULT NULL COMMENT '0为导航栏，1为尾部导航',
-                              `order_num` bigint(20) NULL DEFAULT NULL COMMENT '导航序号',
-                              `title_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题名称',
-                              `title_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '跳转路径',
-                              `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父id',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime NOT NULL COMMENT '更新时间',
-                              PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '导航标题id',
+  `flag` bigint(2) NULL DEFAULT NULL COMMENT '0为导航栏，1为尾部导航',
+  `order_num` bigint(20) NULL DEFAULT NULL COMMENT '导航序号',
+  `title_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题名称',
+  `title_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '跳转路径',
+  `parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父id',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '导航连接表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -136,15 +136,15 @@ INSERT INTO `tb_navbar` VALUES (20, 1, 16, '联系我们', '/callUs', 17, '2023-
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_oss`;
 CREATE TABLE `tb_oss`  (
-                           `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'OSS文件ID',
-                           `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件名称',
-                           `file_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件地址',
-                           `user_id` bigint(11) NULL DEFAULT NULL COMMENT '所属用户ID',
-                           `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件类型',
-                           `state` int(11) NULL DEFAULT NULL COMMENT 'OSS文件状态',
-                           `create_time` datetime NOT NULL COMMENT '创建时间',
-                           `update_time` datetime NOT NULL COMMENT '更新时间',
-                           PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'OSS文件ID',
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件名称',
+  `file_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件地址',
+  `user_id` bigint(11) NULL DEFAULT NULL COMMENT '所属用户ID',
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'OSS文件类型',
+  `state` int(11) NULL DEFAULT NULL COMMENT 'OSS文件状态',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'OSS文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------

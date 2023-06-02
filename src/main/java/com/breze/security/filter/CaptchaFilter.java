@@ -32,6 +32,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
 
     @Autowired
     RedisUtil redisUtil;
+
     @Autowired
     AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
 

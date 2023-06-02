@@ -9,10 +9,10 @@ package com.breze.common.consts;
 public class GlobalConstant {
 
     /**
-     * 状态常量 ---> 0正常 1禁止 2准备
+     * 开关状态常量 ---> 0关闭 1打开 2准备
      */
-    public static final Integer STATUS_ON = 0;
-    public static final Integer STATUS_OFF = 1;
+    public static final Integer STATUS_OFF = 0;
+    public static final Integer STATUS_ON = 1;
     public static final Integer STATUS_READY = 2;
 
     /**

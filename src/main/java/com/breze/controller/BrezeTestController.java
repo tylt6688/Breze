@@ -29,6 +29,14 @@ public class BrezeTestController extends BaseController {
     @Autowired
     private UserService userService;
 
+
+
+    @GetMapping("/demo01")
+    public Result<String> demo01() {
+
+        return Result.createSuccessMessage("请求成功", "123456");
+    }
+
     @PreAuthorize("hasRole('admin')")
     // 指明只有admin权限的用户才能访问此方法
     @GetMapping("/userservicetest")
