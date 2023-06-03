@@ -11,7 +11,7 @@
  Target Server Version : 50727 (5.7.27)
  File Encoding         : 65001
 
- Date: 02/06/2023 15:51:20
+ Date: 03/06/2023 11:35:17
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `log_handle`  (
   `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求耗时',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1277 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1325 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_handle
@@ -742,6 +742,54 @@ INSERT INTO `log_handle` VALUES (1273, '获取当前用户信息', 'Mozilla/5.0 
 INSERT INTO `log_handle` VALUES (1274, '获取侧边菜单导航', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '20', '2023-04-20 14:53:34');
 INSERT INTO `log_handle` VALUES (1275, '获取侧边菜单导航', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '32', '2023-04-20 14:53:34');
 INSERT INTO `log_handle` VALUES (1276, '获取当前用户信息', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '37', '2023-04-20 14:53:35');
+INSERT INTO `log_handle` VALUES (1277, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '48', '2023-06-03 09:37:11');
+INSERT INTO `log_handle` VALUES (1278, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '47', '2023-06-03 09:37:11');
+INSERT INTO `log_handle` VALUES (1279, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '35', '2023-06-03 09:37:37');
+INSERT INTO `log_handle` VALUES (1280, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '25', '2023-06-03 09:37:37');
+INSERT INTO `log_handle` VALUES (1281, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '42', '2023-06-03 09:55:27');
+INSERT INTO `log_handle` VALUES (1282, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '46', '2023-06-03 09:55:27');
+INSERT INTO `log_handle` VALUES (1283, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '18', '2023-06-03 09:55:32');
+INSERT INTO `log_handle` VALUES (1284, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '144', '2023-06-03 11:20:14');
+INSERT INTO `log_handle` VALUES (1285, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '176', '2023-06-03 11:20:14');
+INSERT INTO `log_handle` VALUES (1286, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '26', '2023-06-03 11:20:35');
+INSERT INTO `log_handle` VALUES (1287, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '30', '2023-06-03 11:22:32');
+INSERT INTO `log_handle` VALUES (1288, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '47', '2023-06-03 11:22:36');
+INSERT INTO `log_handle` VALUES (1289, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '38', '2023-06-03 11:22:36');
+INSERT INTO `log_handle` VALUES (1290, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '11', '2023-06-03 11:22:47');
+INSERT INTO `log_handle` VALUES (1291, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '121', '2023-06-03 11:22:47');
+INSERT INTO `log_handle` VALUES (1292, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', '', NULL, '9', '2023-06-03 11:22:48');
+INSERT INTO `log_handle` VALUES (1293, '获取全部用户信息', 'Windows', '127.0.0.1', '/sys/user/select', 'POST', '', NULL, '26', '2023-06-03 11:22:48');
+INSERT INTO `log_handle` VALUES (1294, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '7', '2023-06-03 11:22:49');
+INSERT INTO `log_handle` VALUES (1295, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '19', '2023-06-03 11:22:49');
+INSERT INTO `log_handle` VALUES (1296, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '17', '2023-06-03 11:22:52');
+INSERT INTO `log_handle` VALUES (1297, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', '', NULL, '21', '2023-06-03 11:22:54');
+INSERT INTO `log_handle` VALUES (1298, '获取全部用户信息', 'Windows', '127.0.0.1', '/sys/user/select', 'POST', '', NULL, '34', '2023-06-03 11:22:54');
+INSERT INTO `log_handle` VALUES (1299, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2023-06-03 11:22:55');
+INSERT INTO `log_handle` VALUES (1300, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '9', '2023-06-03 11:22:55');
+INSERT INTO `log_handle` VALUES (1301, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '55', '2023-06-03 11:27:05');
+INSERT INTO `log_handle` VALUES (1302, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '70', '2023-06-03 11:27:05');
+INSERT INTO `log_handle` VALUES (1303, '获取侧边菜单导航', 'Windows', '127.0.0.1', '/sys/menu/nav', 'GET', '', NULL, '26', '2023-06-03 11:27:09');
+INSERT INTO `log_handle` VALUES (1304, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '31', '2023-06-03 11:27:09');
+INSERT INTO `log_handle` VALUES (1305, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '15', '2023-06-03 11:27:13');
+INSERT INTO `log_handle` VALUES (1306, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '31', '2023-06-03 11:27:13');
+INSERT INTO `log_handle` VALUES (1307, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', '', NULL, '42', '2023-06-03 11:27:15');
+INSERT INTO `log_handle` VALUES (1308, '获取全部用户信息', 'Windows', '127.0.0.1', '/sys/user/select', 'POST', '', NULL, '21', '2023-06-03 11:27:15');
+INSERT INTO `log_handle` VALUES (1309, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '13', '2023-06-03 11:27:16');
+INSERT INTO `log_handle` VALUES (1310, '获取全部部门列表', 'Windows', '127.0.0.1', '/sys/group/select', 'GET', 'name=%5B%5D', NULL, '7', '2023-06-03 11:27:17');
+INSERT INTO `log_handle` VALUES (1311, '查询全部岗位信息', 'Windows', '127.0.0.1', '/sys/job/select', 'GET', '', NULL, '16', '2023-06-03 11:27:18');
+INSERT INTO `log_handle` VALUES (1312, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', 'current=%5B1%5D&size=%5B10%5D', NULL, '6', '2023-06-03 11:29:35');
+INSERT INTO `log_handle` VALUES (1313, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '4', '2023-06-03 11:29:35');
+INSERT INTO `log_handle` VALUES (1314, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', '', NULL, '10', '2023-06-03 11:29:36');
+INSERT INTO `log_handle` VALUES (1315, '获取全部用户信息', 'Windows', '127.0.0.1', '/sys/user/select', 'POST', '', NULL, '35', '2023-06-03 11:29:36');
+INSERT INTO `log_handle` VALUES (1316, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '7', '2023-06-03 11:29:36');
+INSERT INTO `log_handle` VALUES (1317, '获取全部部门列表', 'Windows', '127.0.0.1', '/sys/group/select', 'GET', 'name=%5B%5D', NULL, '6', '2023-06-03 11:29:36');
+INSERT INTO `log_handle` VALUES (1318, '查询全部岗位信息', 'Windows', '127.0.0.1', '/sys/job/select', 'GET', '', NULL, '3', '2023-06-03 11:29:37');
+INSERT INTO `log_handle` VALUES (1319, '获取当前用户信息', 'Windows', '127.0.0.1', '/sys/user/get_userinfo', 'GET', '', NULL, '14', '2023-06-03 11:29:41');
+INSERT INTO `log_handle` VALUES (1320, '查询全部岗位信息', 'Windows', '127.0.0.1', '/sys/job/select', 'GET', '', NULL, '2', '2023-06-03 11:29:56');
+INSERT INTO `log_handle` VALUES (1321, '获取全部部门列表', 'Windows', '127.0.0.1', '/sys/group/select', 'GET', 'name=%5B%5D', NULL, '3', '2023-06-03 11:29:57');
+INSERT INTO `log_handle` VALUES (1322, '查询菜单管理中的所有菜单信息', 'Windows', '127.0.0.1', '/sys/menu/select', 'GET', '', NULL, '4', '2023-06-03 11:29:58');
+INSERT INTO `log_handle` VALUES (1323, '分页获取角色列表', 'Windows', '127.0.0.1', '/sys/role/select_page', 'GET', '', NULL, '16', '2023-06-03 11:29:58');
+INSERT INTO `log_handle` VALUES (1324, '获取全部用户信息', 'Windows', '127.0.0.1', '/sys/user/select', 'POST', '', NULL, '24', '2023-06-03 11:29:58');
 
 -- ----------------------------
 -- Table structure for log_login
@@ -756,7 +804,7 @@ CREATE TABLE `log_login`  (
   `ip_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'IP所在地',
   `os` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作系统',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 83 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_login
@@ -806,6 +854,10 @@ INSERT INTO `log_login` VALUES (79, 1, 0, '2023-04-21 09:36:05', '127.0.0.1', '�
 INSERT INTO `log_login` VALUES (80, 1, 0, '2023-04-21 16:26:28', '127.0.0.1', '服务器用户', 'Unknown');
 INSERT INTO `log_login` VALUES (81, 1, 0, '2023-04-21 16:26:55', '127.0.0.1', '服务器用户', 'Unknown');
 INSERT INTO `log_login` VALUES (82, 2, 0, '2023-04-21 16:27:37', '127.0.0.1', '服务器用户', 'Unknown');
+INSERT INTO `log_login` VALUES (83, 1, 0, '2023-06-03 09:37:10', '127.0.0.1', '服务器用户', 'Windows 10 or Windows Server 2016');
+INSERT INTO `log_login` VALUES (84, 1, 0, '2023-06-03 11:19:27', '127.0.0.1', '服务器用户', 'Windows 10 or Windows Server 2016');
+INSERT INTO `log_login` VALUES (85, 1, 0, '2023-06-03 11:20:14', '127.0.0.1', '服务器用户', 'Windows 10 or Windows Server 2016');
+INSERT INTO `log_login` VALUES (86, 1, 0, '2023-06-03 11:27:09', '127.0.0.1', '服务器用户', 'Windows 10 or Windows Server 2016');
 
 -- ----------------------------
 -- Table structure for sys_dict
@@ -1121,11 +1173,11 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'breze', '$2a$10$WPyXip2DQEdsckzwtfVvROP962uEhqeIhb7WIRqY0LaNk8yW4vGrO', '系统管理员', 'http://qiniuyun.tylt.xyz/45691c9294d9452b91e8f923f040b377.jpg', 'tylt6688@gmail.com', '17666666666', '山东-济南', 0, '2023-04-21 16:26:55', 0, '2022-02-28 22:42:39', '2022-04-03 11:49:47');
-INSERT INTO `sys_user` VALUES (2, 'breeze101', '$2a$10$QOrz.68OkCyt4kpKVlIh1ehkT1SRa1vS5KY/t8M5WV40pWau68U5m', '李四', '', 'admin@admin.om', '15766174399', '山东潍坊', 0, '2023-04-21 16:27:37', 0, '2022-03-12 01:06:10', '2022-05-07 16:45:35');
-INSERT INTO `sys_user` VALUES (3, 'breeze102', '$2a$10$J2SodmknbR2FW6yNsSixwuS3EYucFhtY4XkjmExKPlGBRM7qai0dG', '赵四', 'http://qiniuyun.tylt.xyz/ce6b53ba93794ee1868fe2ce5f2152d8.jpg', 'user@user.com', '11012011912', '山东东营', 0, '2022-06-04 15:48:48', 0, '2022-03-12 01:06:13', '2022-03-29 10:32:23');
-INSERT INTO `sys_user` VALUES (4, 'breeze103', '$2a$10$0OX73ra8f.tWdd5bObU3venfIpRKTxo8SE6nbapTuj.mpmdfanU7W', '刘能', 'http://qiniuyun.tylt.xyz/0f0f564bae7b4a7cab62da135209df72.jpg', 'teacher@teacher.com', '15666666666', '山东威海', 0, '2022-08-17 13:15:06', 0, '2022-03-19 20:17:18', '2022-03-29 16:02:25');
-INSERT INTO `sys_user` VALUES (5, 'breeze104', '$2a$10$a8FSO2gyzSd145dUDHZTOuOHf2xhHv7ur/8i5slslrS/pnvLtBKEy', '张三', 'http://qiniuyun.tylt.xyz/605a0a61fd344cdab47e2cee5a4161aa.jpg', '2584896007@qq.com', '13799999999', '山东济宁', 0, '2022-06-24 10:03:23', 0, '2022-04-19 13:37:58', '2022-06-12 15:05:01');
+INSERT INTO `sys_user` VALUES (1, 'breze', '$2a$10$WPyXip2DQEdsckzwtfVvROP962uEhqeIhb7WIRqY0LaNk8yW4vGrO', '系统管理员', 'http://qiniuyun.tylt.xyz/45691c9294d9452b91e8f923f040b377.jpg', 'tylt6688@gmail.com', '17666666666', '山东-济南', 1, '2023-06-03 11:27:09', 0, '2022-02-28 22:42:39', '2022-04-03 11:49:47');
+INSERT INTO `sys_user` VALUES (2, 'breeze101', '$2a$10$QOrz.68OkCyt4kpKVlIh1ehkT1SRa1vS5KY/t8M5WV40pWau68U5m', '李四', '', 'admin@admin.om', '15766174399', '山东潍坊', 1, '2023-04-21 16:27:37', 0, '2022-03-12 01:06:10', '2022-05-07 16:45:35');
+INSERT INTO `sys_user` VALUES (3, 'breeze102', '$2a$10$J2SodmknbR2FW6yNsSixwuS3EYucFhtY4XkjmExKPlGBRM7qai0dG', '赵四', 'http://qiniuyun.tylt.xyz/ce6b53ba93794ee1868fe2ce5f2152d8.jpg', 'user@user.com', '11012011912', '山东东营', 1, '2022-06-04 15:48:48', 0, '2022-03-12 01:06:13', '2022-03-29 10:32:23');
+INSERT INTO `sys_user` VALUES (4, 'breeze103', '$2a$10$0OX73ra8f.tWdd5bObU3venfIpRKTxo8SE6nbapTuj.mpmdfanU7W', '刘能', 'http://qiniuyun.tylt.xyz/0f0f564bae7b4a7cab62da135209df72.jpg', 'teacher@teacher.com', '15666666666', '山东威海', 1, '2022-08-17 13:15:06', 0, '2022-03-19 20:17:18', '2022-03-29 16:02:25');
+INSERT INTO `sys_user` VALUES (5, 'breeze104', '$2a$10$a8FSO2gyzSd145dUDHZTOuOHf2xhHv7ur/8i5slslrS/pnvLtBKEy', '张三', 'http://qiniuyun.tylt.xyz/605a0a61fd344cdab47e2cee5a4161aa.jpg', '2584896007@qq.com', '13799999999', '山东济宁', 1, '2022-06-24 10:03:23', 0, '2022-04-19 13:37:58', '2022-06-12 15:05:01');
 
 -- ----------------------------
 -- Table structure for sys_user_group_job

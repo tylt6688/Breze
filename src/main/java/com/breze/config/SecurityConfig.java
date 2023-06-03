@@ -33,9 +33,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private CaptchaFilter captchaFilter;
-
-    @Autowired
     private AuthenticationSuccessHandlerImpl authenticationSuccessHandlerImpl;
 
     @Autowired
@@ -52,6 +49,9 @@ public class SecurityConfig {
 
     @Autowired
     private LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
+
+    @Autowired
+    private CaptchaFilter captchaFilter;
 
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -95,7 +95,7 @@ public class SecurityConfig {
                 // 自定义登录请求路径(post)
                 .loginProcessingUrl("/breze/login")
                 // 自定义登录用户名密码属性名,默认为 username 和 password
-                .usernameParameter("username").passwordParameter("password")
+//                .usernameParameter("username").passwordParameter("password")
 //                .loginPage("/login") //配置登录页面(前后端不分离)
 //                .successForwardUrl("/index") //登录成功后的url(post,前后端不分离)
 //                .failureForwardUrl("/error") //登录失败后的url(post,前后端不分离)
@@ -104,27 +104,32 @@ public class SecurityConfig {
 
 
                 // 退出登录
-                .and().logout()
+                .and()
+                .logout()
                 // 自定义注销请求路径
                 .logoutUrl("/breze/logout")
 //                .logoutSuccessUrl("/bye") //注销成功后的 url(前后端不分离)
                 // 注销成功处理器(前后端分离)
                 .logoutSuccessHandler(logoutSuccessHandlerImpl)
 
-
                 // 配置拦截规则
                 .and()
                 // 开启权限认证
                 .authorizeHttpRequests()
                 // 配置拦截白名单放行
-                .antMatchers(SecurityConstant.URL_WHITELIST).permitAll().antMatchers(SecurityConstant.PORTAL_WHITELIST).permitAll()
+                .antMatchers(SecurityConstant.URL_WHITELIST)
+                .permitAll()
+                .antMatchers(SecurityConstant.PORTAL_WHITELIST)
+                .permitAll()
 
                 // 对其它请求进行拦截认证处理  Spring EL，表示剩余接口都需要登录认证后才能访问
                 .anyRequest().authenticated()
 
-
                 // 异常处理器
-                .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPointImpl).accessDeniedHandler(accessDeniedHandlerImpl)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPointImpl)
+                .accessDeniedHandler(accessDeniedHandlerImpl)
 
                 // 自定义过滤器进行添加
                 .and()

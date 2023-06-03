@@ -1,7 +1,5 @@
 package com.breze.controller.portal;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
@@ -31,6 +29,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/breze/portal/modeCard")
 public class ModeCardController extends BaseController {
+
+    @ApiOperation(value = "获取全部信息")
+    @GetMapping("/select")
+    public Result select() {
+        List<ModeCard> list = modeCardService.list();
+        return Result.createSuccessMessage("查询模块信息成功", list);
+    }
 
     @ApiOperation(value = "获取模块分页信息")
     @BrezeLog("获取模块分页信息")

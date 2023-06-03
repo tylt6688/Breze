@@ -92,7 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getUserByUserName(String username) {
-        return userMapper.getByUserName(username);
+        return userMapper.getUserByUserName(username);
     }
 
 

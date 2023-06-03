@@ -38,7 +38,7 @@ public class CaptchaController extends BaseController {
 
 //        开发环境下可暂时停止随机验证码
         key = "developer";
-        code = "brezer";
+        code = "breze";
 
         log.info("当前登录验证码：|-key:---{} |-code:---{}", key, code);
 
@@ -56,6 +56,6 @@ public class CaptchaController extends BaseController {
                 .put("base64Img", base64Img)
                 .build();
 
-        return Result.createSuccessMessage("获取登录验证码成功", map);
+        return Result.createSuccessMessage("登录验证码获取成功", map);
     }
 }

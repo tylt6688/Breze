@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.breze.mapper.rbac.UserMapper">
 
-    <select id="getByUserName" resultType="com.breze.entity.pojo.rbac.User">
-        SELECT id
+    <select id="getUserByUserName" resultType="com.breze.entity.pojo.rbac.User">
+        SELECT *
         FROM sys_user
         WHERE username = #{username}
     </select>
@@ -21,12 +21,6 @@
                  LEFT JOIN sys_role_menu rm ON ur.role_id = rm.role_id
                  LEFT JOIN sys_user su ON ur.user_id = su.id
         WHERE rm.menu_id = #{menuId}
-    </select>
-
-    <select id="getByOpenid" resultType="com.breze.entity.pojo.rbac.User">
-        SELECT id
-        FROM sys_user
-        WHERE openid = #{openid}
     </select>
 
     <update id="updateLoginWarnByUserId">

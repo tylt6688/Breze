@@ -22,9 +22,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     List<User> listByMenuId(Long menuId);
 
-    User getByUserName(String username);
+    User getUserByUserName(String username);
 
-    User getByOpenid(String openid);
 
     /**
      * 根据用户id变更邮件提醒状态

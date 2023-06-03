@@ -56,7 +56,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public List<MenuVO> getCurrentNav() {
         // 当前用户的信息是注册在 Security 里面的
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userMapper.getByUserName(username);
+        User user = userMapper.getUserByUserName(username);
         List<Long> navMenuIds = userMapper.getNavMenuIds(user.getId());
         List<Menu> menus = this.listByIds(navMenuIds);
         // 此处先按照排序号进行升序排序后再转成父子树
