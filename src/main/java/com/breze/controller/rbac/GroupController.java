@@ -10,8 +10,7 @@ import com.breze.entity.dto.sys.GroupDTO;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.vo.sys.ParentGroupVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
  * @Discription 部门团队前端控制器
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-@Api(tags = "部门团队管理")
+@Api(value = "部门团队", tags = "部门团队管理")
 @RestController
 @RequestMapping("/sys/group")
 public class GroupController extends BaseController {
@@ -30,7 +29,7 @@ public class GroupController extends BaseController {
     @ApiOperation(value = "获取全部部门列表")
     @BrezeLog("获取全部部门列表")
     @GetMapping("/select")
-    public Result<List<Group>> selectAll(@RequestParam String name) {
+    public Result<List<Group>> selectAll(@ApiParam("部门名称") @RequestParam String name) {
         return Result.createSuccessMessage("查询部门成功", groupService.findAll(name));
     }
 
@@ -43,11 +42,18 @@ public class GroupController extends BaseController {
     @ApiOperation(value = "获取单个部门信息")
     @BrezeLog("获取单个部门信息")
     @GetMapping("/select/{id}")
-    public Result<Group> selectById(@PathVariable Long id) {
+    public Result<Group> selectById(@ApiParam("部门ID") @PathVariable Long id) {
         return Result.createSuccessMessage("查询单个部门成功", groupService.findById(id));
     }
 
-    @ApiOperation(value = "新增部门", notes = "新增部门")
+    @ApiOperation(value = "新增部门", notes = "新增部门", httpMethod = "POST")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK丨新增部门成功"),
+            @ApiResponse(code = 500, message = "ERROR丨新增部门失败")
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "group_name", value = "新增部门名称", required = true, dataType = "String")
+    })
     @BrezeLog("新增部门")
     @PostMapping("/insert")
     public Result<String> insert(@RequestBody GroupDTO groupDTO) {
