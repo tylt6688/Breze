@@ -31,7 +31,7 @@ public class RoleController extends BaseController {
     @ApiOperation(value = "获取全部角色列表")
     @BrezeLog("获取全部角色列表")
     @GetMapping("/select")
-    @PreAuthorize("hasAuthority('sys:role:perm')")
+    @PreAuthorize("hasAuthority('sys:role:select')")
     public Result<List<Role>> selectAll() {
         return Result.createSuccessMessage("获取全部角色列表成功", roleService.list());
     }
@@ -65,7 +65,7 @@ public class RoleController extends BaseController {
     @PostMapping("/perm/{roleId}")
     @PreAuthorize("hasAuthority('sys:role:perm')")
     public Result<String> permRole(@PathVariable Long roleId, @RequestBody Long[] menuIds) {
-        return judgeResult(roleService.permRole(roleId, menuIds));
+        return brezeJudgeResult(roleService.permRole(roleId, menuIds));
     }
 
     @ApiOperation(value = "新增角色")
@@ -73,7 +73,7 @@ public class RoleController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
     public Result<String> insert(@Validated @RequestBody RoleDTO roleDTO) {
-        return judgeResult(roleService.insert(roleDTO));
+        return brezeJudgeResult(roleService.insert(roleDTO));
     }
 
     @ApiOperation(value = "更新角色")
@@ -81,7 +81,7 @@ public class RoleController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> update(@Validated @RequestBody RoleDTO roleDTO) {
-        return judgeResult(roleService.update(roleDTO));
+        return brezeJudgeResult(roleService.update(roleDTO));
     }
 
     @ApiOperation(value = "删除角色")
@@ -90,7 +90,7 @@ public class RoleController extends BaseController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:role:delete')")
     public Result<String> delete(@RequestBody Long[] roleIds) {
-        return judgeResult(roleService.delete(roleIds));
+        return brezeJudgeResult(roleService.delete(roleIds));
     }
 
 

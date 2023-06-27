@@ -56,19 +56,19 @@ public class ModeCardController extends BaseController {
     @BrezeLog("新增模块")
     @PostMapping("/insert")
     public Result insert(@Validated @RequestBody ModeCardDTO modeCardDTO) {
-            return judgeResult(modeCardService.insertModeCard(modeCardDTO));
+            return brezeJudgeResult(modeCardService.insertModeCard(modeCardDTO));
     }
     @ApiOperation(value = "编辑模块")
     @BrezeLog("编辑模块")
     @PostMapping("/update")
     public Result update(@Validated @RequestBody ModeCardDTO modeCardDTO) {
-       return judgeResult( modeCardService.updateModeCard(modeCardDTO));
+       return brezeJudgeResult( modeCardService.updateModeCard(modeCardDTO));
     }
 
     @ApiOperation(value = "删除模块")
     @BrezeLog("删除模块")
     @DeleteMapping("/delete_by_id/{id}")
     public Result deleteModeCard(@PathVariable Long id) {
-       return judgeResult(modeCardService.deleteModeById(id));
+       return brezeJudgeResult(modeCardService.deleteModeById(id));
     }
 }

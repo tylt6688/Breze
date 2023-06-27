@@ -23,6 +23,11 @@ spring:
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
+        app:
+          url: jdbc:mysql://localhost:3306/breze_app?${suffix}
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
         flowable:
           url: jdbc:mysql://localhost:3306/breze_flowable?${suffix}
           username: root

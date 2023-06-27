@@ -5,9 +5,7 @@ import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
 import com.breze.entity.dto.portal.BannerDTO;
-import com.breze.entity.pojo.portal.Banner;
 import com.breze.entity.vo.portal.BannerVO;
-import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -41,28 +39,28 @@ public class BannerController extends BaseController {
     @BrezeLog("获取轮播图排序信息")
     @GetMapping("/select")
     public Result<List<BannerVO>> select() {
-        List<BannerVO> bannerVOS = bannerService.listOrderByDesc();
-        return Result.createSuccessMessage("查询轮播图成功", bannerVOS);
+        List<BannerVO> bannerVOList = bannerService.listOrderByDesc();
+        return Result.createSuccessMessage("查询轮播图成功", bannerVOList);
     }
 
     @ApiOperation("修改轮播图")
     @BrezeLog("修改轮播图")
     @PostMapping("/update")
     public Result<String> update(@Validated @RequestBody BannerDTO bannerDTO) {
-        return judgeResult(bannerService.updateBanner(bannerDTO));
+        return brezeJudgeResult(bannerService.updateBanner(bannerDTO));
     }
     @ApiOperation("上传轮播图")
     @BrezeLog("上传轮播图")
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam String alt, @RequestParam Integer orderNum, @RequestParam MultipartFile file){
-        return judgeResult(bannerService.insertBanner(alt,orderNum,file));
+        return brezeJudgeResult(bannerService.insertBanner(alt,orderNum,file));
     }
 
     @ApiOperation("删除轮播图")
     @BrezeLog("删除轮播图")
     @PostMapping("/delete")
-    public Result<String> delete(@RequestBody String url) throws QiniuException {
-        return judgeResult(bannerService.deleteBanner(url));
+    public Result<String> delete(@RequestBody String url) {
+        return brezeJudgeResult(bannerService.deleteBanner(url));
     }
 
 }

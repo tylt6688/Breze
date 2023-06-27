@@ -36,7 +36,7 @@ public class CaptchaController extends BaseController {
         String key = UUID.randomUUID().toString();
         String code = producer.createText();
 
-//        开发环境下可暂时停止随机验证码
+        // 开发环境下可暂时停止随机验证码
         key = "developer";
         code = "breze";
 
@@ -48,7 +48,7 @@ public class CaptchaController extends BaseController {
 
         String base64Img = CharsetConstant.BASE_64 + Base64Encoder.encode(outputStream.toByteArray());
 
-        // 将生成的验证码存储到Redis中，验证码有效期为 2分钟
+        // 将生成的验证码存储到 Redis中，验证码有效期为 2分钟
         redisUtil.hashSet(CacheConstant.CAPTCHA_KEY, key, code, 120);
 
         Map<Object, Object> map = MapUtil.builder()

@@ -1,11 +1,9 @@
 package com.breze.controller.portal;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
-import com.breze.converter.portal.NavbarConvert;
 import com.breze.entity.dto.portal.NavbarDTO;
 import com.breze.entity.pojo.portal.Navbar;
 import com.breze.entity.vo.portal.NavbarTitleVo;
@@ -71,19 +69,19 @@ public class NavbarController extends BaseController {
     @BrezeLog("新增导航标题")
     @PostMapping("/insert")
     public Result saveMain(@Validated @RequestBody NavbarDTO navbarDTO) {
-        return judgeResult(navbarService.insertNabar(navbarDTO));
+        return brezeJudgeResult(navbarService.insertNabar(navbarDTO));
     }
 
     @ApiOperation("修改导航标题")
     @BrezeLog("修改导航标题")
     @PostMapping("/update")
     public Result updateMain(@Validated @RequestBody NavbarDTO navbarDTO) {
-       return judgeResult(navbarService.updateNavbar(navbarDTO));
+       return brezeJudgeResult(navbarService.updateNavbar(navbarDTO));
     }
     @ApiOperation("删除导航标题")
     @BrezeLog("删除导航标题")
     @PostMapping("/delete")
     public Result delete(@RequestBody Long id) {
-       return judgeResult(navbarService.deleteById(id));
+       return brezeJudgeResult(navbarService.deleteById(id));
     }
 }

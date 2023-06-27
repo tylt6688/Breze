@@ -37,22 +37,21 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
     @BrezeLog("获取当前用户信息")
-    @GetMapping("/get_userinfo")
+    @GetMapping("/current_userinfo")
     public Result<UserInfoVO> getCurrentUserInfo(Principal principal) {
         UserInfoVO userInfoVo = userService.getCurrentUserInfo(principal.getName());
         return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
     }
 
-
     @ApiOperation("根据ID获取用户信息")
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
     @BrezeLog("根据ID获取用户信息")
     @GetMapping("/info/{id}")
+    @PreAuthorize("hasAuthority('sys:user:select')")
     public Result<UserInfoVO> info(@PathVariable Long id) {
         UserInfoVO userInfoVo = userService.getUserInfoById(id);
         return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
     }
-
 
     @ApiOperation("获取全部用户信息，可多条件联合查询，实体属性值为空则显示全部")
     @BrezeLog("获取全部用户信息")
@@ -63,18 +62,12 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage("获取用户列表成功", userPage);
     }
 
-    @ApiOperation("获取系统用户数量")
-    @GetMapping("/user_count")
-    public Result<Long> getUserCount() {
-        return Result.createSuccessMessage("获取用户数量成功", userService.count());
-    }
-
     @ApiOperation("新增用户")
     @BrezeLog("新增用户")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result<String> insert(@Validated @RequestBody UserDTO userDTO) {
-        return judgeResult(userService.insert(userDTO));
+        return brezeJudgeResult(userService.insert(userDTO));
     }
 
 
@@ -83,7 +76,7 @@ public class UserController extends BaseController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result<String> delete(@RequestBody Long[] ids) {
-        return judgeResult(userService.delete(ids));
+        return brezeJudgeResult(userService.delete(ids));
     }
 
 
@@ -92,7 +85,7 @@ public class UserController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
-        return judgeResult(userService.update(userDTO));
+        return brezeJudgeResult(userService.update(userDTO));
     }
 
 
@@ -101,7 +94,7 @@ public class UserController extends BaseController {
     @PostMapping("/perm_role")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result<String> permRole(@RequestBody PermRoleDTO permRoleDTO) {
-        return judgeResult(userService.permRole(permRoleDTO));
+        return brezeJudgeResult(userService.permRole(permRoleDTO));
     }
 
 
@@ -111,14 +104,14 @@ public class UserController extends BaseController {
     @PostMapping("/reset_password")
     @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result<String> resetPassword(@RequestParam Long userId) {
-        return judgeResult(userService.resetUserPassword(userId));
+        return brezeJudgeResult(userService.resetUserPassword(userId));
     }
 
     @ApiOperation("修改用户密码")
     @BrezeLog("修改用户密码")
     @PostMapping("/update_password")
     public Result<String> updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDTO) {
-        return judgeResult(userService.updatePassword(updatePasswordDTO));
+        return brezeJudgeResult(userService.updatePassword(updatePasswordDTO));
     }
 
     @ApiOperation("修改用户头像")
@@ -126,7 +119,7 @@ public class UserController extends BaseController {
     @BrezeLog("修改用户头像")
     @PostMapping("/update_avatar")
     public Result<String> updateAvatar(@RequestParam MultipartFile avatar) {
-        return judgeResult(userService.updateAvatar(avatar));
+        return brezeJudgeResult(userService.updateAvatar(avatar));
     }
 
     @ApiOperation("更新登录提醒")
@@ -134,7 +127,7 @@ public class UserController extends BaseController {
     @BrezeLog("登录提醒")
     @PostMapping("/update_login_warn")
     public Result<String> updateLoginWarn(@RequestParam Integer loginWarn) {
-        return judgeResult(userService.updateLoginWarnByUserId(loginWarn));
+        return brezeJudgeResult(userService.updateLoginWarnByUserId(loginWarn));
     }
 
 
@@ -143,7 +136,7 @@ public class UserController extends BaseController {
     @BrezeLog("导入用户Excel表")
     @PostMapping("/import_excel")
     public Result<String> importExcel(@RequestParam MultipartFile file) {
-        return judgeResult(userService.importUserByExcel(file));
+        return brezeJudgeResult(userService.importUserByExcel(file));
     }
 
     @ApiOperation("导出用户Excel表")
@@ -160,4 +153,10 @@ public class UserController extends BaseController {
         userService.exportTemplateExcel(response);
     }
 
+
+    @ApiOperation("获取系统中所有用户数量")
+    @GetMapping("/user_count")
+    public Result<Long> getUserCount() {
+        return Result.createSuccessMessage("获取用户数量成功", userService.count());
+    }
 }

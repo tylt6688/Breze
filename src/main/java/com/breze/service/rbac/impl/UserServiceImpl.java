@@ -14,7 +14,7 @@ import com.breze.common.consts.GlobalConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
-import com.breze.config.OSSConfig;
+import com.breze.config.OssConfig;
 import com.breze.converter.sys.UserConvert;
 import com.breze.entity.bo.sys.UserExcelBO;
 import com.breze.entity.dto.sys.PermRoleDTO;
@@ -69,7 +69,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private RedisUtil redisUtil;
 
     @Autowired
-    private OSSConfig ossConfig;
+    private OssConfig ossConfig;
 
     @Autowired
     private GroupService groupService;
@@ -245,7 +245,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public String getUserAuthorityInfo(Long userId) {
-        String authority = "";
+        String authority;
         User user = userMapper.selectById(userId);
         String key = CacheConstant.AUTHORITY_CODE + user.getUsername();
         // 如果 redis 中存在直接取，没有的话再去数据库查

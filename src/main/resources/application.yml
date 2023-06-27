@@ -31,20 +31,3 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
-logging:
-  config: classpath:application-log.yml
-  # 设置日志分组
-  group:
-    common: com.breze.common
-    controller: com.breze.controller
-    service: com.breze.service,com.breze.impl
-    mapper: com.breze.mapper.**
-  # 根据分组设定日志级别
-  level:
-    # 项目整体日志级别
-    root: info
-    # 项目分组各模块日志级别
-    common: info
-    controller: debug
-    service: debug
-    mapper: debug

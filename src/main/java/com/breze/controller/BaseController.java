@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.config.BrezeConfig;
-import com.breze.config.OSSConfig;
+import com.breze.config.OssConfig;
 import com.breze.service.portal.*;
 import com.breze.service.rbac.*;
 import com.breze.service.syslog.HandleLogService;
@@ -38,7 +38,7 @@ public class BaseController {
     @Autowired
     protected BrezeConfig brezeConfig;
     @Autowired
-    protected OSSConfig ossConfig;
+    protected OssConfig ossConfig;
 
     //===============================Breze=================================//
 
@@ -142,7 +142,7 @@ public class BaseController {
     /**
      * 评判 Boolean 类型进行统一结果返回方法,主要用于更新、删除、插入操作
      */
-    public Result<String> judgeResult(Boolean flag) {
+    public Result<String> brezeJudgeResult(Boolean flag) {
         return Boolean.TRUE.equals(flag) ? createSuccessMessage() : createFailMessage(ErrorEnum.FindException);
     }
 

@@ -19,6 +19,7 @@ public class CharsetConstant {
      */
     public static final String UTF_8 = "UTF-8";
     public static final String BASE_64 = "data:image/jpeg;base64,";
+
     /**
      * 响应类型常量
      */

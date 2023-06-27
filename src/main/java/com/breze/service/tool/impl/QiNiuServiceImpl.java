@@ -2,7 +2,7 @@ package com.breze.service.tool.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.breze.config.OSSConfig;
+import com.breze.config.OssConfig;
 import com.breze.service.tool.QiNiuService;
 import com.breze.utils.FileUtil;
 import com.qiniu.common.QiniuException;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @Service
 public class QiNiuServiceImpl implements QiNiuService {
 
-    private final OSSConfig ossConfig;
+    private final OssConfig ossConfig;
     /**
      * 七牛文件上传管理器
      */
@@ -34,7 +34,7 @@ public class QiNiuServiceImpl implements QiNiuService {
     private BucketManager bucketManager;
 
 
-    public QiNiuServiceImpl(OSSConfig ossConfig) {
+    public QiNiuServiceImpl(OssConfig ossConfig) {
         this.ossConfig = ossConfig;
         init();
     }

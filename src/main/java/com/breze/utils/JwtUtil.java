@@ -75,7 +75,7 @@ public class JwtUtil {
      * @return Boolean
      */
     public Boolean isTokenExpired(Claims claims) {
-        log.error("JWT是否过期:---{}", claims.getExpiration().before(new Date()));
+        log.info("JWT是否过期:---{}", claims.getExpiration().before(new Date()));
         return claims.getExpiration().before(new Date());
     }
 }

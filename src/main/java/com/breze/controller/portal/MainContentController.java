@@ -6,9 +6,7 @@ import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
 import com.breze.entity.dto.portal.ContentDTO;
-import com.breze.entity.pojo.portal.ContentIntroduce;
 import com.breze.entity.vo.portal.ContentIntroduceVo;
-import com.qiniu.common.QiniuException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -51,21 +49,21 @@ public class MainContentController extends BaseController {
     @BrezeLog("新增内容和修改内容(含图片)")
     @PostMapping("/insert")
     public Result<String> insertContent(@RequestPart("editData") ContentDTO contentDTO, @RequestParam("file") MultipartFile file){
-       return judgeResult(mainContentService.insertContent(contentDTO,file));
+       return brezeJudgeResult(mainContentService.insertContent(contentDTO,file));
     }
 
     @ApiOperation("更新内容(不含图片)")
     @BrezeLog("更新内容(不含图片)")
     @PostMapping("/update")
     public Result<String> updateContent(@Validated @RequestBody ContentDTO contentDTO) {
-        return judgeResult(mainContentService.updateContent(contentDTO));
+        return brezeJudgeResult(mainContentService.updateContent(contentDTO));
     }
 
     @ApiOperation("删除内容")
     @BrezeLog("删除内容")
     @PostMapping("/delete")
     public Result<String> deleteContent(@Validated @RequestBody ContentDTO contentDTO){
-        return judgeResult(mainContentService.deleteContent(contentDTO));
+        return brezeJudgeResult(mainContentService.deleteContent(contentDTO));
     }
 
 }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "oss.qiniu")
-public class OSSConfig {
+public class OssConfig {
 
     private String url;
 

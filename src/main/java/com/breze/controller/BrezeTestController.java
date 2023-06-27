@@ -31,9 +31,8 @@ public class BrezeTestController extends BaseController {
 
 
 
-    @GetMapping("/demo01")
+    @GetMapping("/")
     public Result<String> demo01() {
-
         return Result.createSuccessMessage("请求成功", "123456");
     }
 
@@ -69,6 +68,7 @@ public class BrezeTestController extends BaseController {
         Group tree = groupService.findTreeById(id);
         return Result.createSuccessMessage("", tree);
     }
+
 
     public static void main(String[] args) {
 

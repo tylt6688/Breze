@@ -6,7 +6,7 @@ package com.breze.common.consts;
  * @Description 系统常量类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-public class SystemConstant {
+public class  SystemConstant {
 
     /**
      * 默认账号密码常量

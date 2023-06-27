@@ -36,14 +36,14 @@ public class DictController extends BaseController {
     @BrezeLog("新增或修改字典信息")
     @PostMapping("/insert_or_update")
     public Result<String> insertOrUpdate(@RequestBody DictDTO dictDTO){
-        return judgeResult(dictService.insertOrUpdateDict(dictDTO));
+        return brezeJudgeResult(dictService.insertOrUpdateDict(dictDTO));
     }
 
     @ApiOperation("删除字典信息")
     @BrezeLog("删除字典信息")
     @DeleteMapping("/delete_dict/{id}")
     public Result<String> deleteDict(@PathVariable Long id){
-        return judgeResult(dictService.deleteDict(id));
+        return brezeJudgeResult(dictService.deleteDict(id));
     }
 
     @ApiOperation("导出字典到Excel")
@@ -57,6 +57,6 @@ public class DictController extends BaseController {
     @BrezeLog("导入Excel")
     @PostMapping("/import_excel")
     public Result<String> importExcel(@RequestParam MultipartFile file){
-        return judgeResult(dictService.importExcel(file));
+        return brezeJudgeResult(dictService.importExcel(file));
     }
 }
