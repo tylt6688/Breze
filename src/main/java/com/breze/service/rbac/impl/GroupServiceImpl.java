@@ -1,6 +1,5 @@
 package com.breze.service.rbac.impl;
 
-import cn.hutool.log.Log;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -148,11 +147,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean update(Group group) {
-        Group g = groupMapper.selectOne(new QueryWrapper<Group>().eq("name", group.getName()));
-        if (g.getName().equals(group.getName())) {
-            if (g.getId() == group.getId()) {
-                return groupMapper.updateById(group) > 0;
-            }
+        Group g = groupMapper.selectOne(new QueryWrapper<Group>().eq("id", group.getId()));
+        if (g == null) {
             return false;
         }
         return groupMapper.updateById(group) > 0;

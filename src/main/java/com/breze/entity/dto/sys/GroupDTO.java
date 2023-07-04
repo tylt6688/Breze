@@ -24,10 +24,10 @@ public class GroupDTO implements Serializable {
     @ApiModelProperty(required = true, value = "团队父ID", name = "parentId", example = "0", notes = "父级ID，一级ID为0")
     private Long parentId;
 
-    @ApiModelProperty(required = true, value = "岗位名称", name = "name", example = "Menu", notes = "菜单组件名称")
+    @ApiModelProperty(required = true, value = "岗位名称", name = "name", example = "实习生", notes = "岗位名称")
     private String job;
 
-    @ApiModelProperty(required = true, value = "菜单组件名称", name = "name", example = "Menu", notes = "菜单组件名称")
+    @ApiModelProperty(required = true, value = "部门名称", name = "name", example = "技术部", notes = "部门名称")
     private String name;
 
     @ApiModelProperty(required = true, value = "状态", name = "state", example = "0", notes = "状态：0正常 1停用")
