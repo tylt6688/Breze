@@ -24,8 +24,8 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
     public JobMapper jobMapper;
 
     @Override
-    public List<Job> findAll() {
-        return jobMapper.selectList(null);
+    public List<Job> findAll(String name) {
+        return jobMapper.selectList(new QueryWrapper<Job>().like("name", name));
     }
 
     @Override
