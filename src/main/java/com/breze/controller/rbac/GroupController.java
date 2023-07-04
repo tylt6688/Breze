@@ -27,6 +27,7 @@ import java.util.List;
 public class GroupController extends BaseController {
 
     @ApiOperation(value = "获取全部部门列表")
+    @ApiImplicitParam(name = "name", value = "部门名称", required = true, dataType = "String", dataTypeClass = String.class)
     @BrezeLog("获取全部部门列表")
     @GetMapping("/select")
     public Result<List<Group>> selectAll(@ApiParam("部门名称") @RequestParam String name) {
@@ -40,6 +41,7 @@ public class GroupController extends BaseController {
         return Result.createSuccessMessage("查询成功", groupService.getGroupParent());
     }
     @ApiOperation(value = "获取单个部门信息")
+    @ApiImplicitParam(name = "ID", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @BrezeLog("获取单个部门信息")
     @GetMapping("/select/{id}")
     public Result<Group> selectById(@ApiParam("部门ID") @PathVariable Long id) {
@@ -52,21 +54,30 @@ public class GroupController extends BaseController {
             @ApiResponse(code = 500, message = "ERROR丨新增部门失败")
     })
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "group_name", value = "新增部门名称", required = true, dataType = "String")
+            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String")
     })
     @BrezeLog("新增部门")
     @PostMapping("/insert")
     public Result<String> insert(@RequestBody GroupDTO groupDTO) {
         Group group = GroupConvert.INSTANCE.groupDTOToGroup(groupDTO);
+        group.setId(groupDTO.getId());
         if (groupService.insert(group)) {
             return Result.createSuccessMessage("新增部门成功");
         }
-        // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-26]
         return Result.createSuccessMessage("部门名称重复");
     }
 
     // FIXME 更新部门转换id丢失 [抄送人：ChenWX 待办人：LGX 2023-04-12]
     @ApiOperation(value = "更新部门", notes = "更新部门")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String")
+    })
     @BrezeLog("更新部门")
     @PutMapping("/update")
     public Result<String> update(@RequestBody GroupDTO groupDTO) {
@@ -74,20 +85,18 @@ public class GroupController extends BaseController {
         if (groupService.update(group)) {
             return Result.createSuccessMessage("更新部门成功");
         }
-        // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-26]
         return Result.createSuccessMessage("部门已存在");
     }
 
     @ApiOperation(value = "删除部门", notes = "删除部门")
+    @ApiImplicitParam(name = "ID", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @BrezeLog("删除部门")
     @DeleteMapping("/delete")
     public Result<String> deleteById(@RequestParam Long id) {
         if (0 < groupJobService.count(new QueryWrapper<GroupJob>().eq("group_id", id))) {
-            // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-27]
             return Result.createSuccessMessage("删除部门失败--");
         }
         if (0 < groupService.count(new QueryWrapper<Group>().eq("parent_id", id))) {
-            // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-27]
             return Result.createSuccessMessage("删除部门失败, 子部门存在");
         }
         groupService.delete(id);

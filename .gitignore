@@ -1,7 +1,7 @@
 # private file
 application-private.yml
 local.properties
-
+Remark.txt
 # Compiled class file
 *.class
 
