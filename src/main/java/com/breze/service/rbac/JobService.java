@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface JobService extends IService<Job> {
 
-    List<Job> findAll();
+    List<Job> findAll(String name);
 
     Job findByJobId(Long id);
 
