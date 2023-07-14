@@ -15,12 +15,12 @@ import com.breze.entity.bo.sys.DictExcelBO;
 import com.breze.entity.bo.sys.UserExcelBO;
 import com.breze.entity.dto.sys.DictDTO;
 import com.breze.entity.pojo.rbac.Dict;
-import com.breze.entity.pojo.rbac.User;
+import com.breze.entity.pojo.rbac.DictData;
 import com.breze.entity.vo.sys.DictVO;
+import com.breze.mapper.rbac.DictDataMapper;
 import com.breze.mapper.rbac.DictMapper;
 import com.breze.service.rbac.DictService;
 import com.breze.utils.FileUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,9 +28,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 
 /**
  * @author chenweixi
@@ -42,11 +44,28 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     @Autowired
     private DictMapper dictMapper;
 
+    @Autowired
+    private DictDataMapper dictDataMapper;
+
     @Override
-    public Page<DictVO> getDictPage(Page<Dict> page, String name) {
-        Page<Dict> dictPage = dictMapper.selectPage(page, new QueryWrapper<Dict>().like(StringUtils.isNoneBlank(name), "name", name));
+    public Page<DictVO> getDictPage(Page<Dict> page, String dictName, String dictType) {
+        Page<Dict> dictPage = dictMapper.selectPage(page, new QueryWrapper<Dict>().like(isNoneBlank(dictName), "name", dictName).eq(isNoneBlank(dictType),"type", dictType));
         Page<DictVO> dictVOPage = DictConvert.INSTANCE.dictPageToDictVOPage(dictPage);
         return dictVOPage;
+    }
+
+    @Override
+    public List<DictVO> getOptionSelectList() {
+        List<Dict> dicts = dictMapper.selectList(null);
+        List<DictVO> dictVOList = DictConvert.INSTANCE.dictListTODictVOList(dicts);
+        return dictVOList;
+    }
+
+    @Override
+    public DictVO getDictById(Long id) {
+        Dict dict = dictMapper.selectById(id);
+        DictVO dictVO = DictConvert.INSTANCE.dictToDictVO(dict);
+        return dictVO;
     }
 
     @Override
@@ -66,7 +85,17 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     public Boolean deleteDict(Long id) {
-        return dictMapper.deleteById(id)>0;
+        Dict dict = dictMapper.selectById(id);
+        System.out.println(dict.getType());
+        List<DictData> dictDataList = dictDataMapper.selectList(new QueryWrapper<DictData>().eq("dict_type", dict.getType()));
+        System.out.println(dictDataList);
+
+        if (dictDataList.size() == 0){
+            return dictMapper.deleteById(id) > 0;
+        }else {
+
+            throw new BusinessException(ErrorEnum.FindException, "该字典类型下存在子节点，请删除数据在尝试");
+        }
     }
 
     @Override
@@ -102,5 +131,18 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             }
         })).sheet().doRead();
         return true;
+    }
+
+    @Override
+    public void dictTemplateExcel(HttpServletResponse response) {
+        try {
+            response.setContentType(CharsetConstant.EXCEL_TYPE);
+            response.setCharacterEncoding(CharsetConstant.UTF_8);
+            DictExcelBO dictExcelBO = new DictExcelBO("xxxxx", "xxx", "xxxxxxx", "xxxxx");
+            EasyExcelFactory.write(response.getOutputStream(), DictExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("数据字典").doWrite(Arrays.asList(dictExcelBO));
+        } catch (Exception e) {
+            response.reset();
+            throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
+        }
     }
 }

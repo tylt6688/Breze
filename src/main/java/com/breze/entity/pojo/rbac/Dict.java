@@ -18,7 +18,6 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
 @TableName("sys_dict")
 @ApiModel(value = "字典表", description = "字典表")
 public class Dict extends BaseEntity {
