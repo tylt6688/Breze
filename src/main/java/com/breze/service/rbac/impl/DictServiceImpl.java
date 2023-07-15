@@ -21,16 +21,17 @@ import com.breze.mapper.rbac.DictDataMapper;
 import com.breze.mapper.rbac.DictMapper;
 import com.breze.service.rbac.DictService;
 import com.breze.utils.FileUtil;
+import com.breze.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 
@@ -46,6 +47,16 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Autowired
     private DictDataMapper dictDataMapper;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @PostConstruct
+    public void init()
+    {
+        loadingDictCache();
+//        clearDictCache();
+    }
 
     @Override
     public Page<DictVO> getDictPage(Page<Dict> page, String dictName, String dictType) {
@@ -145,4 +156,28 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
         }
     }
+
+    @Override
+    public void refreshCache() {
+        clearDictCache();
+        loadingDictCache();
+    }
+
+    public void loadingDictCache(){
+        Map<String, List<DictData>> dictDataMap = dictDataMapper.selectList(new QueryWrapper<DictData>().eq("state",0)).stream().collect(Collectors.groupingBy(DictData::getDictType));
+        for (Map.Entry<String, List<DictData>> entry : dictDataMap.entrySet())
+        {
+            redisUtil.set(entry.getKey(), entry.getValue().stream().sorted(Comparator.comparing(DictData::getSort)).collect(Collectors.toList()));
+        }
+    }
+    public void clearDictCache(){
+        ArrayList<String> typeList = new ArrayList<>();
+        List<Dict> dicts = dictMapper.selectList(new QueryWrapper<Dict>().select("type"));
+        for (Dict dict : dicts) {
+            typeList.add(dict.getType());
+        }
+        String[] strings = typeList.toArray(new String[typeList.size()]);
+        redisUtil.delete(strings);
+    }
+
 }

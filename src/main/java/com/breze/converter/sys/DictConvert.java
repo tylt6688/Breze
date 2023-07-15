@@ -47,7 +47,7 @@ public interface DictConvert {
      */
     DictVO dictToDictVO(Dict dict);
     /**
-     *  dictList =>> dictBOLIst 
+     *  dictList =>> dictBOLIst
      *
      * @Params [dicts] 
      * @Return java.util.List<com.breze.entity.bo.sys.DictExcelBO>

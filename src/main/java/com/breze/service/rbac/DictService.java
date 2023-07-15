@@ -42,7 +42,7 @@ public interface DictService extends IService<Dict> {
      */
     Boolean deleteDict(Long id);
     /**
-     *  导出字典类型 
+     *  导出字典类型
      *
      * @Params [response] 
      * @Return void
@@ -64,4 +64,5 @@ public interface DictService extends IService<Dict> {
     void dictTemplateExcel(HttpServletResponse response);
 
 
+    void refreshCache();
 }

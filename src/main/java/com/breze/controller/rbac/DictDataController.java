@@ -6,6 +6,7 @@ import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
 import com.breze.entity.dto.sys.DictDTO;
 import com.breze.entity.dto.sys.DictDataDTO;
+import com.breze.entity.pojo.rbac.DictData;
 import com.breze.entity.vo.sys.DictDataVO;
 import com.breze.entity.vo.sys.DictVO;
 import com.breze.service.rbac.DictDataService;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenweixi
@@ -79,5 +82,13 @@ public class DictDataController extends BaseController {
     @GetMapping("/dict_template_excel")
     public void dictTemplateExcel(HttpServletResponse response) {
         dictDataService.dictTemplateExcel(response);
+    }
+
+    @ApiOperation("删除字典信息")
+    @BrezeLog("删除字典信息")
+    @GetMapping("/get_dict_data_by_type")
+    public Result<Map<String,List<DictData>>> getDictDataByType(@RequestParam("dicts") List<String> dicts) {
+        Map<String,List<DictData>> listMap = dictDataService.getDictDataByType(dicts);
+        return Result.createSuccessMessage("获取字典数据信息成功", listMap);
     }
 }

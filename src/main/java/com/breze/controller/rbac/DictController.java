@@ -90,4 +90,11 @@ public class DictController extends BaseController {
     public void dictTemplateExcel(HttpServletResponse response) {
         dictService.dictTemplateExcel(response);
     }
+
+    @ApiOperation("刷新缓存")
+    @BrezeLog("刷新缓存")
+    @GetMapping("/refresh_cache")
+    public void refreshCache() {
+        dictService.refreshCache();
+    }
 }

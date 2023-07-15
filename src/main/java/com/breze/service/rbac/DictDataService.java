@@ -11,6 +11,8 @@ import com.breze.entity.vo.sys.DictVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenweixi
@@ -67,4 +69,6 @@ public interface DictDataService extends IService<DictData> {
      * @Return void
      */
     void dictTemplateExcel(HttpServletResponse response);
+
+    Map<String, List<DictData>> getDictDataByType(List<String> dicts);
 }

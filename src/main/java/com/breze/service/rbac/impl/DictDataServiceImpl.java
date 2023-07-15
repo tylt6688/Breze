@@ -23,6 +23,7 @@ import com.breze.mapper.rbac.DictMapper;
 import com.breze.service.rbac.DictDataService;
 import com.breze.service.rbac.DictService;
 import com.breze.utils.FileUtil;
+import com.breze.utils.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 
@@ -49,6 +48,9 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
 
     @Autowired
     private DictDataMapper dictDataMapper;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
 
     @Override
@@ -121,5 +123,20 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
             response.reset();
             throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
         }
+    }
+
+    @Override
+    public Map<String, List<DictData>> getDictDataByType(List<String> dicts) {
+        HashMap<String, List<DictData>> dictListMap = new HashMap<>();
+        for (String dict : dicts) {
+            if (redisUtil.hasKey(dict)){
+                List<DictData> dataList = (List<DictData>) redisUtil.get(dict);
+                dictListMap.put(dict,dataList);
+            }else{
+                List<DictData> dataList = dictDataMapper.selectList(new QueryWrapper<DictData>().eq("dict_type", dict));
+                dictListMap.put(dict,dataList);
+            }
+        }
+        return dictListMap;
     }
 }
