@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 /**
  * @author chenweixi
@@ -21,6 +20,8 @@ import lombok.experimental.Accessors;
 @TableName("sys_dict")
 @ApiModel(value = "字典表", description = "字典表")
 public class Dict extends BaseEntity {
+
+    private static final long serialVersionUID = 4253412733633893263L;
 
     @ApiModelProperty(value = "字典名称", name = "Name", example = "用户字典", notes = "字典名称")
     private String name;

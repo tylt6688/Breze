@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
-
 /**
  * @author chenweixi
  * @create 2023-04-20 16:25
@@ -20,6 +18,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class DictDataVO extends BaseVO {
+
+    private static final long serialVersionUID = -7083148378188913413L;
 
     @ApiModelProperty(value = "字典id", name = "id", example = "1", notes = "字典id")
     private Long id;

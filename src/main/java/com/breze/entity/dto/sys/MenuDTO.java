@@ -1,5 +1,6 @@
 package com.breze.entity.dto.sys;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @Author tylt6688
@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuDTO implements Serializable {
+public class MenuDTO extends BaseDTO {
 
     private static final long serialVersionUID = 8275860509489827862L;
 
@@ -49,7 +49,7 @@ public class MenuDTO implements Serializable {
     @NotNull(message = "菜单类型不能为空")
     private Integer type;
 
-    @ApiModelProperty(required = true, value = "菜单排序", name = "orderNum", example = "1", notes = "菜单排序")
+    @ApiModelProperty(required = true, value = "菜单排序", name = "sort", example = "1", notes = "菜单排序")
     @NotNull(message = "排序号不能为空")
     private Integer sort;
 

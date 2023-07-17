@@ -14,6 +14,8 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class ParentGroupVO {
+
     private Integer id;
+
     private String name;
 }

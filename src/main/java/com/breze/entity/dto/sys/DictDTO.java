@@ -1,5 +1,6 @@
 package com.breze.entity.dto.sys;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,10 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class DictDTO {
+public class DictDTO extends BaseDTO {
+
+    private static final long serialVersionUID = -4724983896729687860L;
+
     @ApiModelProperty(value = "字典id", name = "id", example = "1", notes = "字典id")
     private Long id;
 

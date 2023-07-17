@@ -1,10 +1,9 @@
 package com.breze.entity.dto.sys;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @Author LGX
@@ -14,7 +13,7 @@ import java.io.Serializable;
  */
 @ApiModel(description = "岗位数据传输对象")
 @Data
-public class JobDTO implements Serializable {
+public class JobDTO extends BaseDTO {
 
     private static final long serialVersionUID = 7372711195905397509L;
 

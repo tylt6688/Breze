@@ -1,11 +1,11 @@
 package com.breze.entity.dto.sys;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 /**
  * @Author LUCIFER-LGX
@@ -14,9 +14,9 @@ import java.io.Serializable;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Data
-public class UserDTO implements Serializable {
+public class UserDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -4359978619446051478L;
+    private static final long serialVersionUID = -6838673609790692000L;
 
     @ApiModelProperty(required = true, value = "用户ID", name = "id", example = "1", notes = "用户ID")
     private Long id;

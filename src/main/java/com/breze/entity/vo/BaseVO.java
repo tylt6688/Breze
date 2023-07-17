@@ -24,4 +24,7 @@ public class BaseVO implements Serializable {
 
     @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2023-03-01 12:00:00", notes = "更新时间")
     private LocalDateTime updateTime;
+
+    @ApiModelProperty(value = "版本号", name = "version", example = "1", notes = "版本号")
+    private Integer version;
 }

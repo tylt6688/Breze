@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.breze.entity.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 @ApiModel(value = "ConfigVO对象", description = "系统参数配置表")
-public class ConfigVO {
+@Data
+public class ConfigVO extends BaseVO {
 
     @ApiModelProperty("主键ID")
     @TableId(value = "id", type = IdType.AUTO)

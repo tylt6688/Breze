@@ -14,18 +14,17 @@ import java.util.Set;
 @Log4j2
 @Component
 public class WebSocketHandlerImpl implements WebSocketHandler {
-    private static Set<WebSocketSession> webSocketSet = new HashSet<>();
+    private static Set<WebSocketSession> webSocket = new HashSet<>();
 
     /**
      * 建立连接后触发的回调
      *
      * @param session
-     * @throws Exception
      */
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        webSocketSet.add(session);
-        log.info("有新连接加入！当前在线人数为:{}", webSocketSet.size());
+    public void afterConnectionEstablished(WebSocketSession session) {
+        webSocket.add(session);
+        log.info("有新连接加入！当前在线人数为:{}", webSocket.size());
     }
 
 
@@ -34,10 +33,9 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
      *
      * @param session
      * @param message
-     * @throws Exception
      */
     @Override
-    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
         log.info("收到新的消息！内容:{}", message.getPayload().toString());
     }
 
@@ -46,11 +44,10 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
      *
      * @param session
      * @param exception
-     * @throws Exception
      */
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        webSocketSet.remove(session);
+    public void handleTransportError(WebSocketSession session, Throwable exception) {
+        webSocket.remove(session);
         log.info("websocket发生异常！", exception);
     }
 
@@ -59,12 +56,11 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
      *
      * @param session
      * @param closeStatus
-     * @throws Exception
      */
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        webSocketSet.remove(session);
-        log.debug("webSocket关闭连接，状态：{}，当前连接数：{}", closeStatus, webSocketSet.size());
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) {
+        webSocket.remove(session);
+        log.debug("webSocket关闭连接，状态：{}，当前剩余连接数：{}", closeStatus, webSocket.size());
     }
 
     /**
@@ -84,13 +80,13 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
      * @throws IOException
      */
     public static void sendString(String message) throws IOException {
-        for (WebSocketSession webSocket : webSocketSet) {
+        for (WebSocketSession webSocket : webSocket) {
             if (webSocket.isOpen()) {
                 webSocket.sendMessage(new TextMessage(message));
 
             }
         }
-        log.debug("webSocket发送消息，内容：{}，当前连接数：{}", message, webSocketSet.size());
+        log.debug("webSocket发送消息，内容：{}，当前连接数：{}", message, webSocket.size());
     }
 
     /**
@@ -100,8 +96,8 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
      * @throws IOException
      */
     public static void sendMap(Map<String, Object> map) throws IOException {
-        log.debug("webSocket发送消息，内容：{}，当前连接数：{}", JSONUtil.toJsonStr(map), webSocketSet.size());
-        for (WebSocketSession webSocket : webSocketSet) {
+        log.debug("webSocket发送消息，内容：{}，当前连接数：{}", JSONUtil.toJsonStr(map), webSocket.size());
+        for (WebSocketSession webSocket : webSocket) {
             if (webSocket.isOpen()) {
                 webSocket.sendMessage(new TextMessage(JSONUtil.toJsonStr(map)));
             }
@@ -115,8 +111,8 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
      * @throws IOException
      */
     public static void sendList(List<Object> map, String type) throws IOException {
-        if (webSocketSet.size() > 0) {
-            for (WebSocketSession webSocket : webSocketSet) {
+        if (webSocket.size() > 0) {
+            for (WebSocketSession webSocket : webSocket) {
                 if (webSocket.isOpen()) {
 //                    String urlType = getWebsocketUrlType(Objects.requireNonNull(webSocket.getUri()).toString());
 //                    if(type.equals(urlType)){
@@ -124,7 +120,7 @@ public class WebSocketHandlerImpl implements WebSocketHandler {
 //                    }
                 }
             }
-            log.debug("webSocket发送消息，内容：{}，当前连接数：{}", JSONUtil.toJsonStr(map), webSocketSet.size());
+            log.debug("webSocket发送消息，内容：{}，当前连接数：{}", JSONUtil.toJsonStr(map), webSocket.size());
         }
     }
 }

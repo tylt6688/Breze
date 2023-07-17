@@ -1,10 +1,13 @@
 package com.breze.entity.dto.sys;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 @ApiModel(value = "ConfigDTO对象", description = "系统参数配置表")
-public class ConfigDTO {
+@Data
+public class ConfigDTO extends BaseDTO {
 
     @ApiModelProperty("配置项中文名")
     private String name;

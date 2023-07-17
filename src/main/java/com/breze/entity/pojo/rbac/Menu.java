@@ -57,9 +57,6 @@ public class Menu extends BaseEntity {
     @ApiModelProperty(value = "类型", name = "Type", example = "", notes = "类型")
     private Integer type;
 
-    @ApiModelProperty(value = "排序", name = "Sort", example = "0", notes = "排序")
-    private Integer sort;
-
     @ApiModelProperty(value = "菜单状态", name = "State", example = "0", notes = "菜单状态")
     private Integer state;
 

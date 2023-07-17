@@ -103,6 +103,8 @@ public class BaseController {
     protected UserGroupJobService userGroupJobService;
     @Autowired
     protected DictService dictService;
+    @Autowired
+    protected DictDataService dictDataService;
     //===============================Breze=================================//
 
     /**

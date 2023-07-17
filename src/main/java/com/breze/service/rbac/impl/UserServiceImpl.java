@@ -141,6 +141,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
             return userMapper.updateById(user) > 0;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BusinessException(ErrorEnum.FindException, "修改用户信息失败");
         }
     }

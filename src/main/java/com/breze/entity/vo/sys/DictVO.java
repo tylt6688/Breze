@@ -19,6 +19,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class DictVO extends BaseVO {
 
+    private static final long serialVersionUID = 6600452663835204751L;
+
     @ApiModelProperty(value = "字典id", name = "id", example = "1", notes = "字典id")
     private Long id;
 

@@ -1,10 +1,9 @@
 package com.breze.entity.dto.sys;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @Author LGX
@@ -14,9 +13,9 @@ import java.io.Serializable;
  */
 @ApiModel(description = "团队数据传输对象")
 @Data
-public class GroupDTO implements Serializable {
+public class GroupDTO extends BaseDTO {
 
-    private static final long serialVersionUID = -5214999581419103935L;
+    private static final long serialVersionUID = -749234510745047704L;
 
     @ApiModelProperty(required = true, value = "团队ID", name = "id", example = "1", notes = "团队ID")
     private Long id;

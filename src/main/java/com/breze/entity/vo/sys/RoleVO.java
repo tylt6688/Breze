@@ -1,12 +1,11 @@
 package com.breze.entity.vo.sys;
 
+import com.breze.entity.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * @Author tylt6688
@@ -18,7 +17,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleVO implements Serializable {
+public class RoleVO extends BaseVO {
 
     private static final long serialVersionUID = 7099645733115709911L;
 
