@@ -22,6 +22,51 @@ public interface MenuConvert {
 
     MenuConvert INSTANCE = Mappers.getMapper(MenuConvert.class);
 
+
+    /**
+     * MenuDTO转为Menu实体
+     *
+     * @param menuDTO 菜单传输实体
+     * @return Menu
+     */
+
+    Menu menuDTOToMenu(MenuDTO menuDTO);
+
+    /**
+     * Menu 转为 MenuVO实体
+     *
+     * @param menu 菜单实体
+     * @return MenuVO
+     */
+    MenuVO menuToMenuVO(Menu menu);
+
+    /**
+     * List<Menu>转为List<MenuVO>实体
+     *
+     * @param menus 菜单集合
+     * @return List<MenuVO>
+     */
+
+    List<MenuVO> menuToMenuVO(List<Menu> menus);
+
+    /**
+     * List<Menu>转为List<MenuDTO>实体
+     *
+     * @param menus 菜单集合
+     * @return List<MenuDTO>
+     */
+    List<MenuDTO> menuToMenuDTO(List<Menu> menus);
+
+
+    /**
+     * List<Menu>转为List<TabVO>实体
+     *
+     * @param menus 菜单集合
+     * @return List<TabVO>
+     */
+    List<TabVO> menuToTabVO(List<Menu> menus);
+
+
     /**
      * MenuVO转为TabVO实体
      *
@@ -34,55 +79,12 @@ public interface MenuConvert {
     TabVO menuVOToTabVO(MenuVO menuVO);
 
     /**
-     * MenuDTO转为Menu实体
-     *
-     * @param menuDTO 菜单传输实体
-     * @return Menu
-     */
-
-    Menu menuDTOToMenu(MenuDTO menuDTO);
-
-    /**
-     * List<Menu>转为List<MenuVO>实体
-     *
-     * @param menus 菜单集合
-     * @return List<MenuVO>
-     */
-
-    List<MenuVO> menusToMenuVOList(List<Menu> menus);
-
-    /**
-     * List<Menu>转为List<MenuDTO>实体
-     *
-     * @param menus 菜单集合
-     * @return List<MenuDTO>
-     */
-    List<MenuDTO> menusToMenuDTOList(List<Menu> menus);
-
-
-
-    /**
-     * List<Menu>转为List<TabVO>实体
-     *
-     * @param menus 菜单集合
-     * @return List<TabVO>
-     */
-    List<TabVO> menusToTabVOList(List<Menu> menus);
-
-    /**
      * List<MenuVO>转为List<TabVO>实体
      *
-     * @param menus 菜单集合
+     * @param menuVOList 菜单集合
      * @return List<TabVO>
      */
-    List<TabVO> menuvosToTabVOList(List<MenuVO> menus);
+    List<TabVO> menuVOToTabVO(List<MenuVO> menuVOList);
 
-    /**
-     * Menu 转为 MenuVO实体
-     *
-     * @param menu 菜单实体
-     * @return MenuVO
-     */
-    MenuVO menuToMenuVO(Menu menu);
 
 }

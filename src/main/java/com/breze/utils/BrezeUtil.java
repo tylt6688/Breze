@@ -14,8 +14,8 @@ public class BrezeUtil {
     /**
      * 判断对象是否完全为空
      *
-     * @param object
-     * @return
+     * @param object 对象
+     * @return boolean
      */
     public static boolean objectCheckIsNull(Object object) {
         //定义返回结果，默认为 true

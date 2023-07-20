@@ -17,9 +17,6 @@ public class JobDTO extends BaseDTO {
 
     private static final long serialVersionUID = 7372711195905397509L;
 
-    @ApiModelProperty(required = true, value = "岗位ID", name = "id", example = "1", notes = "岗位ID")
-    private Long id;
-
     @ApiModelProperty(required = true, value = "岗位名称", name = "name", example = "技术研发团队经理", notes = "岗位名称")
     private String name;
 

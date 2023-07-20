@@ -66,20 +66,23 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     private List<MenuVO> buildTreeMenu(List<Menu> menus) {
-        List<Menu> finalMenus = new ArrayList<>();
-        // 先各自寻找到各自的孩子
-        for (Menu menu : menus) {
-            // 提取出父节点
-            if (menu.getParentId() == 0L) {
-                finalMenus.add(menu);
-            }
-            for (Menu e : menus) {
-                if (menu.getId().equals(e.getParentId())) {
-                    menu.getChildren().add(e);
+        List<MenuVO> menuVOList = MenuConvert.INSTANCE.menuToMenuVO(menus);
+        List<MenuVO> finalMenuVOList = new ArrayList<>();
+
+        menuVOList.forEach(menuVO -> {
+            menuVOList.forEach(menuChild -> {
+                // 各自寻找到各自的孩子
+                if (menuVO.getId().equals(menuChild.getParentId())) {
+                    menuVO.getChildren().add(menuChild);
                 }
+            });
+            // 提取出父节点
+            if (menuVO.getParentId() == 0L) {
+                finalMenuVOList.add(menuVO);
             }
-        }
-        return MenuConvert.INSTANCE.menusToMenuVOList(finalMenus);
+        });
+
+        return finalMenuVOList;
     }
 
     @Override
@@ -96,8 +99,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         wrapper.eq(Menu::getType, GlobalConstant.TYPE_ONE)
                 .like(Menu::getTitle, menuTitle);
         List<Menu> menus = menuMapper.selectList(wrapper);
-        menus.forEach(menu -> menu.setParentTitle(menuMapper.selectTitleById(menu.getParentId())));
-        return MenuConvert.INSTANCE.menusToMenuVOList(menus);
+        List<MenuVO> menuVOList = MenuConvert.INSTANCE.menuToMenuVO(menus);
+        menuVOList.forEach(menuVO -> menuVO.setParentTitle(menuMapper.selectTitleById(menuVO.getParentId())));
+        return menuVOList;
     }
 
     @Override
@@ -122,7 +126,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public List<TabVO> listTabByTitle(String menuTitle) {
         List<MenuVO> menus = this.listMenuByTitle(menuTitle);
-        return MenuConvert.INSTANCE.menuvosToTabVOList(menus);
+        return MenuConvert.INSTANCE.menuVOToTabVO(menus);
     }
 
     @Override

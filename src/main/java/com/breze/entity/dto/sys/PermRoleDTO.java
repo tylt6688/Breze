@@ -18,9 +18,9 @@ public class PermRoleDTO implements Serializable {
 
     private static final long serialVersionUID = -1564631352724243750L;
 
-    @ApiModelProperty(required = true, value = "用户ID数组", name = "userIds", example = "[1,2,3]", notes = "用户ID数组")
+    @ApiModelProperty(value = "用户ID数组", name = "userIds", example = "[1,2,3]", notes = "用户ID数组", dataType = "Long", required = true)
     private Long[] userIds;
 
-    @ApiModelProperty(required = true, value = "角色ID数组", name = "roleIds", example = "[1,2,3]", notes = "角色ID数组")
+    @ApiModelProperty(value = "角色ID数组", name = "roleIds", example = "[1,2,3]", notes = "角色ID数组", dataType = "Long", required = true)
     private Long[] roleIds;
 }

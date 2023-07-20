@@ -25,18 +25,18 @@ public class RoleDTO extends BaseDTO {
 
     private static final long serialVersionUID = 7099645733115709911L;
 
-    @ApiModelProperty(required = true, value = "角色名称", name = "name", example = "admin", notes = "角色名称")
+    @ApiModelProperty( value = "角色名称", name = "name", example = "admin", notes = "角色名称", dataType = "String", required = true)
     @NotBlank(message = "角色名称不能为空")
     private String name;
 
-    @ApiModelProperty(value = "权限码", name = "code", example = "user:list,user:create", notes = "权限码,多个用逗号分隔，如：user:list,user:create)")
+    @ApiModelProperty(value = "权限码", name = "code", example = "user:list,user:create", notes = "权限码,多个用逗号分隔，如：user:list,user:create)", dataType = "String", required = true)
     @NotBlank(message = "权限码不能为空")
     private String code;
 
-    @ApiModelProperty(value = "备注", name = "remark", example = "超级管理员", notes = "备注")
+    @ApiModelProperty(value = "备注", name = "remark", example = "超级管理员", notes = "备注", dataType = "String")
     private String remark;
 
-    @ApiModelProperty(value = "状态", name = "state", example = "1", notes = "0:禁用 1:启用")
+    @ApiModelProperty(value = "状态", name = "state", example = "1", notes = "0:禁用 1:启用", dataType = "Integer", required = true)
     private Integer state;
 
 }

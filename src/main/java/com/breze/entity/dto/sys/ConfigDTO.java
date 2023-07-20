@@ -4,26 +4,37 @@ import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@ApiModel(value = "ConfigDTO对象", description = "系统参数配置表")
+/**
+ * @Author tylt6688
+ * @Date 2023/7/20 22:36
+ * @Description 系统配置 DTO
+ * @Copyright(c) 2023 , 青枫网络工作室
+ */
+
+@EqualsAndHashCode(callSuper = true)
 @Data
+@ApiModel(value = "ConfigDTO对象", description = "系统参数配置表")
 public class ConfigDTO extends BaseDTO {
 
-    @ApiModelProperty("配置项中文名")
+    private static final long serialVersionUID = 4028932115503608978L;
+
+    @ApiModelProperty(value = "配置项中文名", example = "系统名称", notes = "配置项中文名", dataType = "String", required = true)
     private String name;
 
-    @ApiModelProperty("配置项键")
+    @ApiModelProperty(value = "配置项键", example = "system.name", notes = "配置项键", dataType = "String", required = true)
     private String key;
 
-    @ApiModelProperty("配置项值")
+    @ApiModelProperty(value = "配置项值", example = "青枫网络工作室", notes = "配置项值", dataType = "String", required = true)
     private String value;
 
-    @ApiModelProperty("状态（开关）")
+    @ApiModelProperty(value = "状态（开关）", example = "1", notes = "状态（开关）", dataType = "Integer", required = true)
     private Integer state;
 
-    @ApiModelProperty("创建人")
+    @ApiModelProperty(value = "创建人", example = "admin", notes = "创建人", dataType = "String", required = true)
     private String createBy;
 
-    @ApiModelProperty("备注")
+    @ApiModelProperty(value = "备注", example = "系统名称", notes = "备注", dataType = "String")
     private String remark;
 }

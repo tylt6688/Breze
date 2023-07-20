@@ -17,9 +17,6 @@ public class GroupDTO extends BaseDTO {
 
     private static final long serialVersionUID = -749234510745047704L;
 
-    @ApiModelProperty(required = true, value = "团队ID", name = "id", example = "1", notes = "团队ID")
-    private Long id;
-
     @ApiModelProperty(required = true, value = "团队父ID", name = "parentId", example = "0", notes = "父级ID，一级ID为0")
     private Long parentId;
 

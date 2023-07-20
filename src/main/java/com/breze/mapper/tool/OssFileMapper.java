@@ -1,7 +1,7 @@
 package com.breze.mapper.tool;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.tool.OSS;
+import com.breze.entity.pojo.tool.ObjectStorageService;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-03-19
  */
 @Mapper
-public interface OssFileMapper extends BaseMapper<OSS> {
+public interface OssFileMapper extends BaseMapper<ObjectStorageService> {
 
 
 }

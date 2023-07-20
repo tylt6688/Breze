@@ -20,18 +20,28 @@ public class DataBaseTable implements Serializable {
 
     private static final long serialVersionUID = 4844981954357208726L;
 
-    /** 表名称 */
+    /**
+     * 表名称
+     */
     private String tableName;
 
-    /** 创建日期 */
+    /**
+     * 创建日期
+     */
     private LocalDateTime createTime;
 
-    /** 数据库引擎 */
+    /**
+     * 数据库引擎
+     */
     private String engine;
 
-    /** 编码集 */
+    /**
+     * 编码集
+     */
     private String coding;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     private String remark;
 }

@@ -19,7 +19,7 @@ public class BaseDTO implements Serializable {
     @ApiModelProperty(value = "唯一ID", name = "id", example = "1", notes = "唯一ID", dataType = "Long", required = true)
     private Long id;
 
-    @ApiModelProperty(value = "排序号", name = "sort", example = "1", notes = "排序号")
+    @ApiModelProperty(value = "排序号", name = "sort", example = "1", notes = "排序号", dataType = "Integer")
     private Integer sort;
 
     @ApiModelProperty(value = "版本号", name = "version", example = "1", notes = "版本号", dataType = "Integer", required = true)

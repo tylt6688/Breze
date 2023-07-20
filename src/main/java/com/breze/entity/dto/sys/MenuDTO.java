@@ -24,8 +24,6 @@ public class MenuDTO extends BaseDTO {
 
     private static final long serialVersionUID = 8275860509489827862L;
 
-    @ApiModelProperty(required = true, value = "菜单ID", name = "id", example = "1", notes = "菜单ID")
-    private Long id;
 
     @ApiModelProperty(required = true, value = "菜单父ID", name = "parentId", example = "0", notes = "父菜单ID，一级菜单为0")
     @NotNull(message = "上级菜单不能为空")

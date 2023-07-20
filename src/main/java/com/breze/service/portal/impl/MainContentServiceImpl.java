@@ -9,11 +9,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.common.exception.BusinessException;
-import com.breze.common.result.Result;
 import com.breze.converter.portal.ContentConvert;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
-import com.breze.entity.pojo.tool.OSS;
+import com.breze.entity.pojo.tool.ObjectStorageService;
 import com.breze.entity.vo.portal.ContentIntroduceVo;
 import com.breze.mapper.portal.MainContentMapper;
 import com.breze.mapper.tool.OssFileMapper;
@@ -77,26 +76,26 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
             String path = qiNiuService.uploadFile(file);
             String fileName = path.substring(25, path.lastIndexOf("."));
 
-            OSS oss = new OSS();
-            oss.setFileName(fileName);
-            oss.setFileUrl(path);
+            ObjectStorageService objectStorageService = new ObjectStorageService();
+            objectStorageService.setFileName(fileName);
+            objectStorageService.setFileUrl(path);
 
             if ((contentIntroduce.getId() != null)) {
                 // 删除原来的图片
                 qiNiuService.deleteFile(contentIntroduce.getImgUrl());
                 // 修改oss表图片存储链接
-                oss.setId(Long.valueOf(contentIntroduce.getOssId()));
-                ossFileMapper.updateById(oss);
+                objectStorageService.setId(Long.valueOf(contentIntroduce.getOssId()));
+                ossFileMapper.updateById(objectStorageService);
                 // 修改内容
                 mainContentMapper.updateById(contentIntroduce);
-                return ossFileMapper.updateById(oss)>0 && mainContentMapper.updateById(contentIntroduce)>0;
+                return ossFileMapper.updateById(objectStorageService)>0 && mainContentMapper.updateById(contentIntroduce)>0;
             } else {
                 String ossId = IdUtil.simpleUUID();
-                oss.setId(Long.valueOf(ossId));
+                objectStorageService.setId(Long.valueOf(ossId));
                 contentIntroduce.setOssId(ossId);
-                ossFileMapper.insert(oss);
+                ossFileMapper.insert(objectStorageService);
                 mainContentMapper.insert(contentIntroduce);
-                return ossFileMapper.insert(oss)>0 && mainContentMapper.insert(contentIntroduce)>0;
+                return ossFileMapper.insert(objectStorageService)>0 && mainContentMapper.insert(contentIntroduce)>0;
             }
         } catch (QiniuException e) {
             throw new RuntimeException(e);

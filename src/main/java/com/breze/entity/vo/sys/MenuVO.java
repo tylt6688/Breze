@@ -1,6 +1,5 @@
 package com.breze.entity.vo.sys;
 
-import com.breze.entity.pojo.rbac.Menu;
 import com.breze.entity.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +30,9 @@ public class MenuVO extends BaseVO {
 
     @ApiModelProperty(value = "菜单ID", name = "id", example = "1", notes = "菜单ID")
     private Long id;
+
+    @ApiModelProperty(value = "父级菜单ID", name = "parentId", example = "1", notes = "父级菜单ID")
+    private Long parentId;
 
     @ApiModelProperty(value = "菜单中文标题", name = "title", example = "系统管理", notes = "菜单中文名称")
     private String title;
@@ -59,7 +62,7 @@ public class MenuVO extends BaseVO {
     private Integer state;
 
     @ApiModelProperty(value = "多级子节点", name = "children", dataType = "List<Menu>")
-    private List<Menu> children;
+    private List<MenuVO> children = new ArrayList<>();
 
     @ApiModelProperty(value = "父级菜单名称", name = "parentName", dataType = "String")
     private String parentTitle;

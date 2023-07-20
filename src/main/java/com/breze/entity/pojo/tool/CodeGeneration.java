@@ -23,21 +23,48 @@ public class CodeGeneration implements Serializable {
 
     private static final long serialVersionUID = 4844981954357208726L;
 
+    /**
+     * 代码生成数据库连接地址
+     */
     private String url;
 
+    /**
+     * 数据库连接用户名
+     */
     private String username;
 
+    /**
+     * 数据库连接密码
+     */
     private String password;
 
+    /**
+     * 数据库名称
+     */
     private String dataBaseName;
 
+    /**
+     * 作者
+     */
     private String author;
 
+    /**
+     * 生成代码的表名
+     */
     private String[] tableNames;
 
+    /**
+     * 生成代码的表前缀
+     */
     private String[] tablePrefix;
 
+    /**
+     * 生成代码的包名
+     */
     private String packageName;
 
+    /**
+     * 代码生成的输出目录
+     */
     private String outputDir;
 }

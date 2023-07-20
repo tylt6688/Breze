@@ -23,13 +23,28 @@ public class Config extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 配置名称
+     */
     private String name;
 
+    /**
+     * 配置键
+     */
     private String key;
 
+    /**
+     * 配置值
+     */
     private String value;
 
+    /**
+     * 配置状态
+     */
     private Integer state;
 
+    /**
+     * 配置备注
+     */
     private String remark;
 }

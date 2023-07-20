@@ -2,7 +2,6 @@ package com.breze.entity.pojo.rbac;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
-import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +22,6 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("sys_role")
-@ApiModel(value = "角色表", description = "角色表")
 public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1902943373792332975L;
