@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -12,14 +13,15 @@ import lombok.experimental.Accessors;
  * @author chenweixi
  * @create 2023-04-20 16:03
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "字典数据接收对象")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
 public class DictDataDTO extends BaseDTO {
-    @ApiModelProperty(value = "字典id", name = "id", example = "1", notes = "字典id")
-    private Long id;
+
+    private static final long serialVersionUID = -3143694978643104553L;
 
     @ApiModelProperty(value = "字典类型", name = "type", example = "1", notes = "字典类型")
     private String dictType;
@@ -35,9 +37,6 @@ public class DictDataDTO extends BaseDTO {
 
     @ApiModelProperty(value = "字典数据描述", name = "remark", example = "男性", notes = "字典数据描述")
     private String remark;
-
-    @ApiModelProperty(value = "排序号", name = "sort", example = "1", notes = "排序号")
-    private Integer sort;
 
     @ApiModelProperty(value = "对应tag标签class名", name = "value_class", example = "primary", notes = "对应tag标签class名")
     private String valueClass;

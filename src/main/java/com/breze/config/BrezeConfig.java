@@ -39,6 +39,11 @@ public class BrezeConfig {
      * 项目Swagger是否开启
      */
     private Boolean swaggerEnabled;
+
+    /**
+     * 项目验证码是否开启
+     */
+    private Boolean captchaDevEnabled;
     /**
      * 项目版本号
      */

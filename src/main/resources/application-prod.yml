@@ -2,6 +2,3 @@
 # 生产环境
 server:
   port: 9090
-
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/**Mapper.xml

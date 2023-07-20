@@ -24,13 +24,22 @@ public class BaseEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "创建人", name = "createBy", example = "1", notes = "创建人")
+    @TableField(fill = FieldFill.INSERT)
+    private String createBy;
+
     @ApiModelProperty(value = "创建时间", name = "createTime", example = "2021-01-01 00:00:00", notes = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "更新人", name = "updateBy", example = "1", notes = "更新人")
+    @TableField(fill = FieldFill.UPDATE)
+    private String updateBy;
+
     @ApiModelProperty(value = "更新时间", name = "updateTime", example = "2021-01-01 00:00:00", notes = "更新时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
+
 
     @ApiModelProperty(value = "排序号", name = "sort", example = "1", notes = "排序号")
     @OrderBy

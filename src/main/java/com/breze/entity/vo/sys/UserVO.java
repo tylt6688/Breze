@@ -32,6 +32,9 @@ public class UserVO extends BaseVO {
     @ApiModelProperty(value = "真实姓名", name = "trueName", example = "张三", notes = "真实姓名")
     private String trueName;
 
+    @ApiModelProperty(value = "性别", name = "sex", example = "1", notes = "男")
+    private Integer sex;
+
     @ApiModelProperty(value = "用户头像", name = "avatar", example = "http://www.baidu.com/img/bd_logo1.png", notes = "用户头像")
     private String avatar;
 

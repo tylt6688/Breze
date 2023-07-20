@@ -3,6 +3,7 @@ package com.breze.service.rbac;
 import com.breze.entity.dto.sys.RoleDTO;
 import com.breze.entity.pojo.rbac.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.breze.entity.vo.sys.RoleVO;
 
 import java.util.List;
 
@@ -22,14 +23,14 @@ public interface RoleService extends IService<Role> {
      * @param userId 用户 id
      * @return List<Role>
      */
-    List<Role> listByUserId(Long userId);
+    List<RoleVO> listByUserId(Long userId);
     /**
      * 根据角色id查询角色信息
      *
      * @param id 角色 id
      * @return Role
      */
-    Role getRoleInfoById(Long id);
+    RoleVO getRoleInfoById(Long id);
     /**
      * 根据用户id查询当前用户拥有的角色集合
      *

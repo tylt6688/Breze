@@ -148,10 +148,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean delete(Long[] ids) {
+    public Boolean delete(List<UserDTO> userDTOList) {
         try {
-            boolean removeBatchByIds = this.removeBatchByIds(Arrays.asList(ids));
-            boolean remove = userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, ids));
+            boolean removeBatchByIds = this.removeBatchByIds(userDTOList);
+            boolean remove = userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, userDTOList));
             return removeBatchByIds && remove;
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
@@ -171,7 +171,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = this.getUserByUserName(username);
         boolean matches = bCryptPasswordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword());
         if (matches) {
-            user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDTO.getPassword()));
+            user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDTO.getNewPassword()));
             try {
                 return this.updateById(user);
             } catch (Exception e) {
@@ -204,7 +204,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     @Override
-    public Boolean updateLoginWarnByUserId(Integer loginWarn) {
+    public Boolean updateLoginWarnByFlag(Integer loginWarn) {
         try {
             String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = this.getUserByUserName(username);
@@ -278,9 +278,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserInfoVO getCurrentUserInfo(String username) {
         User user = this.getUserByUserName(username);
-        List<Role> roles = roleMapper.listByUserId(user.getId());
-        user.setRoles(roles);
         UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+        userInfoVo.setRoles(roleMapper.listByUserId(user.getId()));
         userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
         return userInfoVo;
     }
@@ -288,17 +287,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserInfoVO getUserInfoById(Long id) {
         User user = this.getById(id);
-        List<Role> roles = roleMapper.listByUserId(user.getId());
-        user.setRoles(roles);
-        return UserConvert.INSTANCE.userToUserInfoVo(user);
+        UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+        userInfoVo.setRoles(roleMapper.listByUserId(user.getId()));
+        return userInfoVo;
     }
 
     @Override
     public Page<UserVO> getUserPage(Page<User> page, UserDTO userDTO) {
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
-        Page<User> pageData = this.page(page, this.searchByCondition(user));
-        pageData.getRecords().forEach(u -> u.setRoles(roleMapper.listByUserId(u.getId())));
-        return UserConvert.INSTANCE.userPageToUserVOPage(pageData);
+        Page<User> userPage = this.page(page, this.searchByCondition(user));
+        Page<UserVO> userVOPage = UserConvert.INSTANCE.userToUserVO(userPage);
+        userVOPage.getRecords().forEach(u -> u.setRoles(roleMapper.listByUserId(u.getId())));
+        return userVOPage;
     }
 
     @Override

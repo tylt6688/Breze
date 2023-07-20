@@ -4,6 +4,7 @@ package com.breze.common.handler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -18,17 +19,19 @@ import java.time.LocalDateTime;
 @Component
 public class BrezeMetaObjectHandler implements MetaObjectHandler {
 
+
     @Override
     public void insertFill(MetaObject metaObject) {
         log.info("start insert fill ....");
         this.fillStrategy(metaObject, "createTime", LocalDateTime.now());
-        this.fillStrategy(metaObject, "updateTime", LocalDateTime.now());
+        this.fillStrategy(metaObject, "createBy", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("start update fill ....");
         this.fillStrategy(metaObject, "updateTime", LocalDateTime.now());
+        this.fillStrategy(metaObject, "updateBy", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
 

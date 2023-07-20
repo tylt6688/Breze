@@ -5,8 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
+import com.breze.converter.sys.RoleConvert;
 import com.breze.entity.dto.sys.RoleDTO;
-import com.breze.entity.pojo.rbac.Role;
+import com.breze.entity.vo.sys.RoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -32,16 +33,17 @@ public class RoleController extends BaseController {
     @BrezeLog("获取全部角色列表")
     @GetMapping("/select")
     @PreAuthorize("hasAuthority('sys:role:select')")
-    public Result<List<Role>> selectAll() {
-        return Result.createSuccessMessage("获取全部角色列表成功", roleService.list());
+    public Result<List<RoleVO>> selectAll() {
+        List<RoleVO> roleVOList = RoleConvert.INSTANCE.roleTORoleVO(roleService.list());
+        return Result.createSuccessMessage("获取全部角色列表成功", roleVOList);
     }
 
     @ApiOperation(value = "分页获取角色列表")
     @BrezeLog("分页获取角色列表")
     @GetMapping("/select_page")
     @PreAuthorize("hasAuthority('sys:role:select')")
-    public Result<Page<Role>> selectByPage() {
-        Page<Role> pageData = roleService.page(getPage());
+    public Result<Page<RoleVO>> selectByPage() {
+        Page<RoleVO> pageData = RoleConvert.INSTANCE.roleTORoleVO(roleService.page(getPage()));
         return Result.createSuccessMessage("分页获取角色列表成功", pageData);
     }
 
@@ -51,9 +53,8 @@ public class RoleController extends BaseController {
     @BrezeLog("根据角色ID获取菜单权限信息")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:role:select')")
-    public Result<Role> getRoleInfo(@PathVariable Long id) {
-        Role role = roleService.getRoleInfoById(id);
-        return Result.createSuccessMessage("获取角色信息成功", role);
+    public Result<RoleVO> getRoleInfo(@PathVariable Long id) {
+        return Result.createSuccessMessage("获取角色信息成功", roleService.getRoleInfoById(id));
     }
 
     @ApiOperation(value = "根据角色ID分配角色相应的菜单权限")
@@ -78,7 +79,7 @@ public class RoleController extends BaseController {
 
     @ApiOperation(value = "更新角色")
     @BrezeLog("更新角色")
-    @PostMapping("/update")
+    @PutMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> update(@Validated @RequestBody RoleDTO roleDTO) {
         return brezeJudgeResult(roleService.update(roleDTO));

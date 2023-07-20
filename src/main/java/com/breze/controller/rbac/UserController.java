@@ -12,7 +12,6 @@ import com.breze.entity.vo.sys.UserInfoVO;
 import com.breze.entity.vo.sys.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * @Author tylt6688
@@ -35,17 +35,10 @@ import java.security.Principal;
 @RequestMapping("/sys/user")
 public class UserController extends BaseController {
 
-    @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
-    @BrezeLog("获取当前用户信息")
-    @GetMapping("/current_userinfo")
-    public Result<UserInfoVO> getCurrentUserInfo(Principal principal) {
-        UserInfoVO userInfoVo = userService.getCurrentUserInfo(principal.getName());
-        return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
-    }
 
-    @ApiOperation("根据ID获取用户信息")
+    @ApiOperation("根据用户ID获取用户信息")
     @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
-    @BrezeLog("根据ID获取用户信息")
+    @BrezeLog("根据用户ID获取用户信息")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sys:user:select')")
     public Result<UserInfoVO> info(@PathVariable Long id) {
@@ -53,8 +46,8 @@ public class UserController extends BaseController {
         return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
     }
 
-    @ApiOperation("获取全部用户信息，可多条件联合查询，实体属性值为空则显示全部")
-    @BrezeLog("获取全部用户信息")
+    @ApiOperation("获取全部用户列表，可多条件联合查询，实体属性值为空则显示全部")
+    @BrezeLog("获取全部用户列表")
     @PostMapping("/select")
     @PreAuthorize("hasAuthority('sys:user:select')")
     public Result<Page<UserVO>> select(@RequestBody UserDTO userDTO) {
@@ -70,19 +63,17 @@ public class UserController extends BaseController {
         return brezeJudgeResult(userService.insert(userDTO));
     }
 
-
     @ApiOperation("删除用户信息")
     @BrezeLog("删除用户")
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
-    public Result<String> delete(@RequestBody Long[] ids) {
-        return brezeJudgeResult(userService.delete(ids));
+    public Result<String> delete(@RequestBody List<UserDTO> userDTOList) {
+        return brezeJudgeResult(userService.delete(userDTOList));
     }
-
 
     @ApiOperation("更新用户信息")
     @BrezeLog("更新用户信息")
-    @PostMapping("/update")
+    @PutMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
         return brezeJudgeResult(userService.update(userDTO));
@@ -107,29 +98,37 @@ public class UserController extends BaseController {
         return brezeJudgeResult(userService.resetUserPassword(userId));
     }
 
-    @ApiOperation("修改用户密码")
-    @BrezeLog("修改用户密码")
-    @PostMapping("/update_password")
-    public Result<String> updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDTO) {
-        return brezeJudgeResult(userService.updatePassword(updatePasswordDTO));
+
+    @ApiOperation(value = "获取当前登录用户信息", notes = "用于当前登录用户个人中心信息展示")
+    @BrezeLog("获取当前用户信息")
+    @GetMapping("/current_userinfo")
+    public Result<UserInfoVO> currentUserInfo(Principal principal) {
+        UserInfoVO userInfoVo = userService.getCurrentUserInfo(principal.getName());
+        return Result.createSuccessMessage("获取个人信息成功", userInfoVo);
     }
 
-    @ApiOperation("修改用户头像")
+    @ApiOperation("用户修改头像")
     @ApiImplicitParam(name = "avatar", value = "头像", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
-    @BrezeLog("修改用户头像")
+    @BrezeLog("用户修改头像")
     @PostMapping("/update_avatar")
     public Result<String> updateAvatar(@RequestParam MultipartFile avatar) {
         return brezeJudgeResult(userService.updateAvatar(avatar));
     }
 
-    @ApiOperation("更新登录提醒")
-    @ApiImplicitParams({@ApiImplicitParam(name = "loginWarn", value = "登录提醒", dataType = "Integer", dataTypeClass = Integer.class), @ApiImplicitParam(name = "id", value = "用户ID", dataType = "Long", dataTypeClass = Long.class)})
-    @BrezeLog("登录提醒")
-    @PostMapping("/update_login_warn")
-    public Result<String> updateLoginWarn(@RequestParam Integer loginWarn) {
-        return brezeJudgeResult(userService.updateLoginWarnByUserId(loginWarn));
+    @ApiOperation("用户修改密码")
+    @BrezeLog("用户修改密码")
+    @PostMapping("/update_password")
+    public Result<String> updatePassword(@Validated @RequestBody UpdatePasswordDTO updatePasswordDTO) {
+        return brezeJudgeResult(userService.updatePassword(updatePasswordDTO));
     }
 
+    @ApiOperation("更新登录提醒")
+    @ApiImplicitParam(name = "loginWarn", value = "登录提醒标识", dataType = "Integer", dataTypeClass = Integer.class)
+    @BrezeLog("更新登录提醒")
+    @PostMapping("/update_login_warn")
+    public Result<String> updateLoginWarn(@RequestParam Integer loginWarn) {
+        return brezeJudgeResult(userService.updateLoginWarnByFlag(loginWarn));
+    }
 
     @ApiOperation("导入用户Excel表")
     @ApiImplicitParam(name = "file", value = "Excel表", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
@@ -154,7 +153,7 @@ public class UserController extends BaseController {
     }
 
 
-    @ApiOperation("获取系统中所有用户数量")
+    @ApiOperation("获取系统中用户数量")
     @GetMapping("/user_count")
     public Result<Long> getUserCount() {
         return Result.createSuccessMessage("获取用户数量成功", userService.count());

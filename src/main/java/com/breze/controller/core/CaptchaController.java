@@ -37,8 +37,11 @@ public class CaptchaController extends BaseController {
         String code = producer.createText();
 
         // 开发环境下可暂时停止随机验证码
-        key = "developer";
-        code = "breze";
+        if (Boolean.TRUE.equals(brezeConfig.getCaptchaDevEnabled())) {
+            key = "developer";
+            code = "breze";
+        }
+
 
         log.info("当前登录验证码：|-key:---{} |-code:---{}", key, code);
 

@@ -16,6 +16,8 @@ breze:
   # Swagger文档启停,生产环境建议关闭
   swaggerEnabled: true
 
+  captchaDevEnabled: true
+
 spring:
   #  配置激活文件
   profiles:

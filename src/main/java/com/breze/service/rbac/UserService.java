@@ -12,6 +12,7 @@ import com.breze.entity.vo.sys.UserVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
@@ -50,10 +51,10 @@ public interface UserService extends IService<User> {
     /**
      * 删除用户
      *
-     * @param userId 用户 id
+     * @param userDTOList 用户列表
      * @return boolean
      */
-    Boolean delete(Long[] userId);
+    Boolean delete(List<UserDTO> userDTOList);
 
     /**
      * 重置用户密码
@@ -135,7 +136,7 @@ public interface UserService extends IService<User> {
      * @param loginWarn 登录提醒
      * @return Boolean
      */
-    Boolean updateLoginWarnByUserId(Integer loginWarn);
+    Boolean updateLoginWarnByFlag(Integer loginWarn);
 
 
     /**

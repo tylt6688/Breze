@@ -14,18 +14,18 @@ import java.io.Serializable;
  * @Description 更新密码 DTO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-@ApiModel(description = "岗位数据传输对象")
+@ApiModel(description = "更新密码传输对象")
 @Data
 public class UpdatePasswordDTO implements Serializable {
 
     private static final long serialVersionUID = 4794413496085729435L;
 
-    @ApiModelProperty(required = true, value = "新密码", name = "password", example = "138888", notes = "新密码")
+    @ApiModelProperty(value = "新密码", name = "newPassword", example = "123456", notes = "新密码", dataType = "String", required = true)
     @NotBlank(message = "新密码不能为空")
     @Length(min = 6, max = 20, message = "新密码长度限制6~20之间")
-    private String password;
+    private String newPassword;
 
-    @ApiModelProperty(required = true, value = "旧密码", name = "oldPassword", example = "138888", notes = "旧密码")
+    @ApiModelProperty(value = "旧密码", name = "oldPassword", example = "123456", notes = "旧密码", dataType = "String", required = true)
     @NotBlank(message = "旧密码不能为空")
     @Length(min = 6, max = 20, message = "旧密码长度限制6~20之间")
     private String oldPassword;

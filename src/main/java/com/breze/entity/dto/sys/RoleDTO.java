@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotBlank;
  * @Description 角色信息 DTO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "角色数据传输对象")
 @Data
 @NoArgsConstructor
@@ -22,9 +24,6 @@ import javax.validation.constraints.NotBlank;
 public class RoleDTO extends BaseDTO {
 
     private static final long serialVersionUID = 7099645733115709911L;
-
-    @ApiModelProperty(value = "角色ID", name = "id", example = "1", notes = "角色ID")
-    private Long id;
 
     @ApiModelProperty(required = true, value = "角色名称", name = "name", example = "admin", notes = "角色名称")
     @NotBlank(message = "角色名称不能为空")

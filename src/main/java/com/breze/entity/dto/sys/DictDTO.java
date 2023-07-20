@@ -21,9 +21,6 @@ public class DictDTO extends BaseDTO {
 
     private static final long serialVersionUID = -4724983896729687860L;
 
-    @ApiModelProperty(value = "字典id", name = "id", example = "1", notes = "字典id")
-    private Long id;
-
     @ApiModelProperty(value = "字典名称", name = "name", example = "用户性别", notes = "字典名称")
     private String name;
 

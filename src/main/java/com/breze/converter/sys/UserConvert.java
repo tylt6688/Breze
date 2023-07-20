@@ -38,7 +38,7 @@ public interface UserConvert {
      * @param userPage Page<User>对象
      * @return Page<UserVO>
      */
-    Page<UserVO> userPageToUserVOPage(Page<User> userPage);
+    Page<UserVO> userToUserVO(Page<User> userPage);
 
     /**
      * User 转为 UserInfoVO
@@ -47,7 +47,7 @@ public interface UserConvert {
      * @return UserInfoVO
      */
     @Mappings({
-            @Mapping(source = "username", target = "username")
+            @Mapping(source = "username", target = "username"),
     })
     UserInfoVO userToUserInfoVo(User user);
 

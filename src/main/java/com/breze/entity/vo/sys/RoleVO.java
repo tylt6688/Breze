@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author tylt6688
  * @Date 2022/12/16 14:36
@@ -35,4 +38,7 @@ public class RoleVO extends BaseVO {
 
     @ApiModelProperty(value = "状态", name = "state", example = "1", notes = "0:禁用 1:启用")
     private Integer state;
+
+    @ApiModelProperty(value = "菜单列表", name = "ID", example = "['Login', 'Register']", notes = "菜单列表")
+    private List<Long> menuIds = new ArrayList<>();
 }

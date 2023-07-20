@@ -9,6 +9,7 @@ import com.breze.entity.dto.sys.RoleDTO;
 import com.breze.entity.pojo.rbac.Role;
 import com.breze.entity.pojo.rbac.RoleMenu;
 import com.breze.entity.pojo.rbac.UserRole;
+import com.breze.entity.vo.sys.RoleVO;
 import com.breze.mapper.rbac.RoleMapper;
 import com.breze.service.rbac.RoleMenuService;
 import com.breze.service.rbac.RoleService;
@@ -46,18 +47,20 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     RoleMapper roleMapper;
 
     @Override
-    public List<Role> listByUserId(Long userId) {
-        return roleMapper.listByUserId(userId);
+    public List<RoleVO> listByUserId(Long userId) {
+        return RoleConvert.INSTANCE.roleTORoleVO(roleMapper.listByUserId(userId));
     }
 
     @Override
-    public Role getRoleInfoById(Long id) {
+    public RoleVO getRoleInfoById(Long id) {
         Role role = this.getById(id);
         // 获取角色相关联的菜单 id
         List<RoleMenu> menus = roleMenuService.list(new LambdaQueryWrapper<RoleMenu>().eq(RoleMenu::getRoleId, id));
         List<Long> menuIds = menus.stream().map(RoleMenu::getMenuId).collect(Collectors.toList());
-        role.setMenuIds(menuIds);
-        return role;
+        RoleVO roleVO = RoleConvert.INSTANCE.roleTORoleVO(role);
+        roleVO.setMenuIds(menuIds);
+
+        return roleVO;
     }
 
     @Override
