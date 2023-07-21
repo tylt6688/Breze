@@ -150,10 +150,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional(rollbackFor = Exception.class)
     public Boolean delete(List<UserDTO> userDTOList) {
         try {
-            boolean removeBatchByIds = this.removeBatchByIds(userDTOList);
-            boolean remove = userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getUserId, userDTOList));
-            return removeBatchByIds && remove;
+
+            boolean removeBatchByIds = this.removeBatchByIds(UserConvert.INSTANCE.userDTOToUser(userDTOList));
+            userDTOList.forEach(userDTO -> {
+                List<UserRole> userRoleList = userRoleService.list(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userDTO.getId()));
+                // 连带删除用户角色关联表
+                userRoleService.removeBatchByIds(userRoleList);
+            });
+
+            return removeBatchByIds;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
         }
     }

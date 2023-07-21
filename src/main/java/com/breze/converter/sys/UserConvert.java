@@ -60,6 +60,14 @@ public interface UserConvert {
     User userDTOToUser(UserDTO userDTO);
 
     /**
+     * List<UserDTO> 转为 List<User>
+     *
+     * @param userDTO List<UserDTO>
+     * @return List<User>
+     */
+    List<User> userDTOToUser(List<UserDTO> userDTO);
+
+    /**
      * List<User> 转为 List<UserExcelBO>
      *
      * @param list List<User>
