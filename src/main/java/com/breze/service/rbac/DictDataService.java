@@ -2,12 +2,9 @@ package com.breze.service.rbac;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.dto.sys.DictDTO;
 import com.breze.entity.dto.sys.DictDataDTO;
-import com.breze.entity.pojo.rbac.Dict;
-import com.breze.entity.pojo.rbac.DictData;
+import com.breze.entity.pojo.core.DictData;
 import com.breze.entity.vo.sys.DictDataVO;
-import com.breze.entity.vo.sys.DictVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;

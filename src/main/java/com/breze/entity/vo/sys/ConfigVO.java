@@ -1,9 +1,5 @@
 package com.breze.entity.vo.sys;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.breze.entity.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,8 +10,9 @@ import java.time.LocalDateTime;
 @Data
 public class ConfigVO extends BaseVO {
 
+    private static final long serialVersionUID = -6351879854856005546L;
+
     @ApiModelProperty("主键ID")
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty("配置项中文名")
@@ -34,7 +31,6 @@ public class ConfigVO extends BaseVO {
     private String createBy;
 
     @ApiModelProperty("创建时间")
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")

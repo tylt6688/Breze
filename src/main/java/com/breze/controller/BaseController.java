@@ -5,6 +5,7 @@ import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
 import com.breze.config.BrezeConfig;
 import com.breze.config.OssConfig;
+import com.breze.service.core.ConfigService;
 import com.breze.service.portal.*;
 import com.breze.service.rbac.*;
 import com.breze.service.syslog.HandleLogService;
@@ -32,15 +33,20 @@ import static com.breze.common.result.Result.createSuccessMessage;
 
 public class BaseController {
 
+    //===============================Breze Config=================================//
+
     /**
      * 配置类注入
      */
+
     @Autowired
     protected BrezeConfig brezeConfig;
     @Autowired
     protected OssConfig ossConfig;
+    @Autowired
+    protected ConfigService configService;
 
-    //===============================Breze=================================//
+    //===============================Breze Tool=================================//
 
     /**
      * 工具类注入
@@ -50,7 +56,7 @@ public class BaseController {
     @Autowired
     protected RedisUtil redisUtil;
 
-    //===============================Breze=================================//
+    //===============================Breze MQ=================================//
 
     /**
      * RabbitMQ 队列服务注入
@@ -58,7 +64,7 @@ public class BaseController {
     @Autowired
     protected Producer producer;
 
-    //===============================Breze=================================//
+    //===============================Breze CommonService=================================//
 
     /**
      * 通用型服务注入
@@ -68,7 +74,7 @@ public class BaseController {
     @Autowired
     protected MailService mailService;
 
-    //===============================Breze=================================//
+    //===============================Breze Log=================================//
 
     /**
      * 系统日志类注入
@@ -78,7 +84,7 @@ public class BaseController {
     @Autowired
     protected HandleLogService handleLogService;
 
-    //===============================Breze=================================//
+    //===============================Breze Service=================================//
 
     /**
      * RBAC权限服务注入
@@ -105,7 +111,7 @@ public class BaseController {
     protected DictService dictService;
     @Autowired
     protected DictDataService dictDataService;
-    //===============================Breze=================================//
+    //===============================Breze Service=================================//
 
     /**
      * Portal门户服务注入

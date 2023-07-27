@@ -53,4 +53,34 @@ public class BrezeUtil {
         return flag;
     }
 
+    /**
+     * 根据对象获取字段名数组
+     */
+    public static String[] getFiledName(Object object) {
+        Field[] fields = object.getClass().getDeclaredFields();
+        String[] fieldNames = new String[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            fieldNames[i] = fields[i].getName();
+        }
+        return fieldNames;
+    }
+
+    /**
+     * 根据字段名获取字段值
+     */
+    public static Object getFieldValueByName(String fieldName, Object object) {
+        try {
+            //根据字段名得到字段
+            Field field = object.getClass().getDeclaredField(fieldName);
+            //设置字段可访问
+            field.setAccessible(true);
+            //返回字段值
+            return field.get(object);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+
 }

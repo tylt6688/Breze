@@ -120,7 +120,6 @@ Configuration:
         DefaultRolloverStrategy: # 文件最多100个
           max: 100
 
-
   Loggers:
     Root:
       level: info

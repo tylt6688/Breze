@@ -1,7 +1,7 @@
 package com.breze.mapper.rbac;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.rbac.DictData;
+import com.breze.entity.pojo.core.DictData;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

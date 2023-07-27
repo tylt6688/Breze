@@ -49,11 +49,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         String username = authentication.getName();
 
         // 生成JWT放置到响应Header头中
-        String jwt = jwtUtil.generateToken(username);
+        String token = jwtUtil.generateToken(username);
 
-        response.setHeader(jwtConfig.getHeader(), jwt);
+        response.setHeader(jwtConfig.getHeader(), token);
 
-        Result<String> result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS);
+        Result<String> result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS, token);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

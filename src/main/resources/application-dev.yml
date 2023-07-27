@@ -2,6 +2,7 @@
 # 开发环境
 server:
   port: 8090
+
 spring:
   # Swagger显示地址 http://localhost:8090/swagger-ui/index.html
   mvc:

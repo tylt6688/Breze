@@ -3,7 +3,7 @@ package com.breze.converter.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.entity.bo.sys.DictExcelBO;
 import com.breze.entity.dto.sys.DictDTO;
-import com.breze.entity.pojo.rbac.Dict;
+import com.breze.entity.pojo.core.Dict;
 import com.breze.entity.vo.sys.DictVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -22,7 +22,7 @@ public interface DictConvert {
      *  dictDTO =>> dict 
      *
      * @Params [dictDTO] 
-     * @Return com.breze.entity.pojo.rbac.Dict
+     * @Return com.breze.entity.pojo.core.Dict
      */
     Dict dictDTOToDict(DictDTO dictDTO);
     /**

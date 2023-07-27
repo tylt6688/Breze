@@ -2,7 +2,7 @@ package com.breze.mapper.rbac;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.rbac.Config;
+import com.breze.entity.pojo.core.Config;
 
 /**
  * <p>

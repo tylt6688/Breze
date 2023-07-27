@@ -1,10 +1,8 @@
 package com.breze.converter.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.entity.bo.sys.DictDataExcelBO;
-import com.breze.entity.bo.sys.DictExcelBO;
 import com.breze.entity.dto.sys.DictDataDTO;
-import com.breze.entity.pojo.rbac.Dict;
-import com.breze.entity.pojo.rbac.DictData;
+import com.breze.entity.pojo.core.DictData;
 import com.breze.entity.vo.sys.DictDataVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -30,7 +28,7 @@ public interface DictDataConvert {
      *  dictDataDTO =>> DictData 
      *
      * @Params [dictDataDTO] 
-     * @Return com.breze.entity.pojo.rbac.DictData
+     * @Return com.breze.entity.pojo.core.DictData
      */
     DictData dictDataDTOToDictData(DictDataDTO dictDataDTO);
     /**

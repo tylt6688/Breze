@@ -42,7 +42,6 @@ public class CaptchaController extends BaseController {
             code = "breze";
         }
 
-
         log.info("当前登录验证码：|-key:---{} |-code:---{}", key, code);
 
         BufferedImage image = producer.createImage(code);

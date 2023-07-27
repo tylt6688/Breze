@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.rbac;
+package com.breze.entity.pojo.core;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;

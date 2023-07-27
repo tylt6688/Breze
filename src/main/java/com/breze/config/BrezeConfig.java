@@ -19,22 +19,27 @@ public class BrezeConfig {
      * 项目标题
      */
     private String title;
+
     /**
      * 项目标题
      */
     private String name;
+
     /**
      * 项目描述
      */
     private String description;
+
     /**
      * 项目版权归属
      */
     private String copyrightName;
+
     /**
      * 项目版权年份
      */
     private String copyrightYear;
+
     /**
      * 项目Swagger是否开启
      */
@@ -44,6 +49,7 @@ public class BrezeConfig {
      * 项目验证码是否开启
      */
     private Boolean captchaDevEnabled;
+
     /**
      * 项目版本号
      */

@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.rbac;
+package com.breze.entity.pojo.core;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
@@ -18,7 +18,6 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @TableName("sys_config")
-
 public class Config extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

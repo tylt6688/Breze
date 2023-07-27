@@ -1,15 +1,12 @@
-package com.breze.controller.rbac;
+package com.breze.controller.core;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
-import com.breze.entity.dto.sys.DictDTO;
 import com.breze.entity.dto.sys.DictDataDTO;
-import com.breze.entity.pojo.rbac.DictData;
+import com.breze.entity.pojo.core.DictData;
 import com.breze.entity.vo.sys.DictDataVO;
-import com.breze.entity.vo.sys.DictVO;
-import com.breze.service.rbac.DictDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -22,7 +19,7 @@ import java.util.Map;
 
 /**
  * @author chenweixi
- * @create 2023-07-14 14:17
+ * @Date 2023-07-14 14:17
  * @Description 字典数据控制器
  * @Copyright(c) 2023, 青枫网络工作室
  */
