@@ -68,7 +68,9 @@ public class GroupJobServiceImpl extends ServiceImpl<GroupJobMapper, GroupJob> i
     }
 
     @Override
-    public Boolean delete(Long id) {
-        return groupJobMapper.deleteById(id) > 0;
+    public Boolean delete(GroupJob groupJob) {
+        QueryWrapper<GroupJob> qw = new QueryWrapper<>();
+        qw.lambda().eq(GroupJob::getGroupId, groupJob.getGroupId()).and(wrapper -> wrapper.eq(GroupJob::getJobId, groupJob.getJobId()));
+        return groupJobMapper.delete(qw) > 0;
     }
 }
