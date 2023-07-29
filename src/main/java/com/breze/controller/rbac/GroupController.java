@@ -70,7 +70,6 @@ public class GroupController extends BaseController {
         return Result.createSuccessMessage("部门名称重复");
     }
 
-    // FIXME 更新部门转换id丢失 [抄送人：ChenWX 待办人：LGX 2023-04-12]
     @ApiOperation(value = "更新部门", notes = "更新部门")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String"),
@@ -101,6 +100,20 @@ public class GroupController extends BaseController {
         }
         groupService.delete(id);
         return Result.createSuccessMessage("删除部门成功");
+    }
+
+    @ApiOperation(value = "关联岗位", notes = "用于关联岗位")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "groupId", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "jobId", value = "岗位ID", required = true, dataType = "Long", dataTypeClass = Long.class)
+    })
+    @BrezeLog("关联岗位")
+    @PostMapping("/bind/insert")
+    public Result<String> bindJob(@RequestBody GroupJob groupjob){
+        if (groupJobService.insert(groupjob)) {
+            return Result.createSuccessMessage("关联部门成功");
+        }
+        return Result.createSuccessMessage("关联部门失败");
     }
 
 }

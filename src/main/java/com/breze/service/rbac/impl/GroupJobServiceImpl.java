@@ -1,10 +1,13 @@
 package com.breze.service.rbac.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;
 import com.breze.mapper.rbac.GroupJobMapper;
+import com.breze.mapper.rbac.GroupMapper;
 import com.breze.mapper.rbac.JobMapper;
 import com.breze.service.rbac.GroupJobService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class GroupJobServiceImpl extends ServiceImpl<GroupJobMapper, GroupJob> i
     private JobMapper jobMapper;
 
     @Autowired
+    private GroupMapper groupMapper;
+
+    @Autowired
     private GroupJobMapper groupJobMapper;
 
     @Override
@@ -41,7 +47,19 @@ public class GroupJobServiceImpl extends ServiceImpl<GroupJobMapper, GroupJob> i
 
     @Override
     public Boolean insert(GroupJob groupJob) {
-        return groupJobMapper.insert(groupJob) > 0;
+        Group group = groupMapper.selectById(groupJob.getGroupId());
+        Job job = jobMapper.selectById(groupJob.getJobId());
+        if (group == null || job == null) {
+            return false;
+        }
+        QueryWrapper<GroupJob> qw = new QueryWrapper<>();
+        qw.lambda().eq(GroupJob::getGroupId, groupJob.getGroupId()).and(wrapper -> wrapper.eq(GroupJob::getJobId, groupJob.getJobId()));
+        List<GroupJob> gjs = groupJobMapper.selectList(qw);
+        if (gjs.size() != 0) {
+            return false;
+        } else {
+            return groupJobMapper.insert(groupJob) > 0;
+        }
     }
 
     @Override
