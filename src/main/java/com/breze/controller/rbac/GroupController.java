@@ -40,6 +40,7 @@ public class GroupController extends BaseController {
     public Result<List<ParentGroupVO>> getGroupParent() {
         return Result.createSuccessMessage("查询成功", groupService.getGroupParent());
     }
+
     @ApiOperation(value = "获取单个部门信息")
     @ApiImplicitParam(name = "ID", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class)
     @BrezeLog("获取单个部门信息")
@@ -114,6 +115,20 @@ public class GroupController extends BaseController {
             return Result.createSuccessMessage("关联部门成功");
         }
         return Result.createSuccessMessage("关联部门失败");
+    }
+
+    @ApiOperation(value = "解除关联", notes = "用于解除关联岗位")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "groupId", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "jobId", value = "岗位ID", required = true, dataType = "Long", dataTypeClass = Long.class)
+    })
+    @BrezeLog("解除关联")
+    @DeleteMapping("/bind/delete")
+    public Result<String> unbindJob(@RequestBody GroupJob groupjob){
+        if (groupJobService.delete(groupjob)) {
+            return Result.createSuccessMessage("解除关联成功");
+        }
+        return Result.createSuccessMessage("解除关联失败");
     }
 
 }
