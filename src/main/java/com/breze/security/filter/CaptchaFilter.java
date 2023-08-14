@@ -63,6 +63,8 @@ public class CaptchaFilter extends OncePerRequestFilter {
         String key = request.getParameter("key");
         String code = request.getParameter("code");
 
+        log.info("传入的参数key:{}--code:{} ", key, code);
+
         //先判断 code与 key是否为空，再从Redis中获取进行比较
         if (StringUtils.isBlank(key) || StringUtils.isBlank(code) || !code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
             throw new CaptchaException(ErrorEnum.VerifyCodeError.getErrorName());

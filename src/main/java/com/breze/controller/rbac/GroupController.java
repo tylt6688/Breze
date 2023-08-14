@@ -55,10 +55,10 @@ public class GroupController extends BaseController {
             @ApiResponse(code = 500, message = "ERROR丨新增部门失败")
     })
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String")
+            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
+            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
+            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String",dataTypeClass = String.class),
+            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String",dataTypeClass = String.class)
     })
     @BrezeLog("新增部门")
     @PostMapping("/insert")
@@ -73,10 +73,10 @@ public class GroupController extends BaseController {
 
     @ApiOperation(value = "更新部门", notes = "更新部门")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String")
+            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
+            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
+            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String",dataTypeClass = String.class),
+            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String",dataTypeClass = String.class)
     })
     @BrezeLog("更新部门")
     @PutMapping("/update")

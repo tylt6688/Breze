@@ -38,8 +38,8 @@ public class BrezeTestController extends BaseController {
 
     @PreAuthorize("hasRole('admin')")
     // 指明只有admin权限的用户才能访问此方法
-    @GetMapping("/userservicetest")
-    public Result userservice() {
+    @GetMapping("/user_service_test")
+    public Result userService() {
         List<User> list = userService.list();
         return Result.createSuccessMessage("", list);
     }

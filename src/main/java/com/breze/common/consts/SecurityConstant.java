@@ -23,7 +23,7 @@ public class SecurityConstant {
 
     public static final String BREZE_APP = "BrezeApp";
     /**
-     * Breze-Portal [系统白名单接口常量数组]
+     * Breze [系统白名单接口常量数组]
      */
     public static final String[] URL_WHITELIST = {
             "/login",
@@ -36,7 +36,8 @@ public class SecurityConstant {
             "/swagger-resources/**",
             "/druid/**",
             "/breze/login",
-            "/breze/test/**"
+            "/breze/test/**",
+            "/webSocket/**",
     };
 
 

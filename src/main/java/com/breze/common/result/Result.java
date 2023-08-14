@@ -43,7 +43,6 @@ public class Result<T> {
      * @param message 自定义提示消息
      * @return Result 成功消息
      */
-
     public static <T> Result<T> createSuccessMessage(String message) {
         return createSuccessMessage(message, null);
     }
@@ -55,7 +54,6 @@ public class Result<T> {
      * @param data    响应数据
      * @return Result 成功消息
      */
-
     public static <T> Result<T> createSuccessMessage(String message, T data) {
         return new SuccessResult<>(true, message, data);
     }
@@ -68,7 +66,6 @@ public class Result<T> {
      * @return Result 失败消息
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum) {
-
         return createFailMessage(errorEnum, "操作失败");
     }
 

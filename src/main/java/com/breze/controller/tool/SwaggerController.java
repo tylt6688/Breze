@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/tool")
 public class SwaggerController {
-
     @GetMapping("/swagger")
     public String index() {
         return "redirect:/swagger-ui.html";

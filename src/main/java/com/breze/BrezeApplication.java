@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 /**
  * @Author Breze Team
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync // 开启基于注解的异步任务支持
 @EnableCaching // 开启基于注解的缓存支持
 @EnableScheduling // 开启定时任务功能
+@EnableWebSocket // 开启 WebSocket 功能
 @SpringBootApplication
 @MapperScan("com.breze.mapper")
 public class BrezeApplication {
