@@ -44,6 +44,7 @@ public class CodeGeneratorController {
 
         codeGeneration.setUsername(codeGeneratorConfig.getUsername());
         codeGeneration.setPassword(codeGeneratorConfig.getPassword());
+
         CodeGenerationUtil.codeGenerator(codeGeneration);
         return Result.createSuccessMessage("代码生成成功");
     }

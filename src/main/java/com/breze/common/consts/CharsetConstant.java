@@ -13,6 +13,8 @@ public class CharsetConstant {
     public static final String DELETE = "DELETE";
     public static final String PUT = "PUT";
 
+    public static final String USER_AGENT = "User-Agent";
+
 
     /**
      * 字符编码常量

@@ -3,7 +3,7 @@
 server:
   port: 8080
 
-#适用于初始测试配置,编写完 UserDetailServiceImpl后失效处理
+# 适用于初始测试配置,编写完 UserDetailServiceImpl后失效处理
 #  security:
 #    user:
 #      name: user

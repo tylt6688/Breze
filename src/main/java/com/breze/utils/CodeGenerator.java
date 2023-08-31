@@ -25,11 +25,16 @@ public class CodeGenerator {
         /*
          * 项目配置
          */
-        String drive = "E://";
+        String localDrive = "E://";
         String author = "Breze";
-        String mapperXmlPath = drive + "com//resource//mapper";
-        String projectPath = System.getProperty("user.dir");
-        String packageName = "com.breze";
+        String packagePath = "com//breze";
+        String localXmlPath = packagePath + "//resource//mapper";
+
+        //        指定生成到项目开发路径
+        String projectPath = System.getProperty("user.dir") + "//src//main//java//";
+        String projectXmlPath = System.getProperty("user.dir") + "//src//main//resource//mapper";
+
+        String packageName = packagePath.replace("//", ".");
         String[] tablePrefix = {"sys_", "tb_", "log_"};
         String[] tableNames = {"tb_assets_used", "tb_assets_inventory", "tb_assets_handle", "tb_assets_catalog"};
 
@@ -41,13 +46,13 @@ public class CodeGenerator {
                 .globalConfig(builder -> {
                     builder.author(author)// 设置作者
                             .enableSwagger() // 开启 swagger 模式
-                            .outputDir(drive); // 指定所有文件的输出目录
+                            .outputDir(localDrive); // 指定所有文件的输出目录
 
                 })
                 .packageConfig(builder -> {
                     builder.parent(packageName)// 设置父包名
 //                            .moduleName("system")// 设置父包模块名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, mapperXmlPath)); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, localXmlPath)); // 设置mapperXml生成路径
                 })
                 //实体策略配置
                 .strategyConfig(builder -> {

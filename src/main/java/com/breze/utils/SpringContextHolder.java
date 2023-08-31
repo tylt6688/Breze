@@ -1,5 +1,6 @@
 package com.breze.utils;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
@@ -8,6 +9,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author LUCIFER-LGX
@@ -20,20 +23,18 @@ import org.springframework.stereotype.Service;
 @Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
-    private static ApplicationContext applicationContext = null;
-
     /**
+     * -- GETTER --
      * 取得存储在静态变量中的ApplicationContext.
      */
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
+    @Getter
+    private static ApplicationContext applicationContext = null;
 
     /**
      * 实现ApplicationContextAware接口, 注入Context到静态变量中.
      */
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
+    public void setApplicationContext(@NotNull ApplicationContext applicationContext) {
         SpringContextHolder.applicationContext = applicationContext;
     }
 

@@ -3,6 +3,7 @@ package com.breze.entity.pojo.tool;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
+@ToString
 public class CodeGeneration implements Serializable {
 
     private static final long serialVersionUID = 4844981954357208726L;
@@ -44,7 +46,7 @@ public class CodeGeneration implements Serializable {
     private String dataBaseName;
 
     /**
-     * 作者
+     * 作者署名
      */
     private String author;
 

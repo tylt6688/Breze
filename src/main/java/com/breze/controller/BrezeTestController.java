@@ -2,6 +2,7 @@ package com.breze.controller;
 
 
 import com.breze.common.result.Result;
+import com.breze.common.listener.WebSocketListener;
 import com.breze.entity.pojo.rbac.Group;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.service.rbac.UserService;
@@ -9,9 +10,7 @@ import com.breze.utils.QrCodeUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -31,9 +30,13 @@ public class BrezeTestController extends BaseController {
 
 
 
-    @GetMapping("/")
-    public Result<String> demo01() {
-        return Result.createSuccessMessage("请求成功", "123456");
+
+
+    @GetMapping("/{msg}")
+    public Result<String> demo01(@PathVariable String msg) {
+        WebSocketListener.sendInfo(msg, "1");
+
+        return Result.createSuccessMessage("请求成功", msg);
     }
 
     @PreAuthorize("hasRole('admin')")

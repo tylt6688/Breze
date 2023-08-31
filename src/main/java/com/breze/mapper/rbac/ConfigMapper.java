@@ -3,6 +3,7 @@ package com.breze.mapper.rbac;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.breze.entity.pojo.core.Config;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -12,6 +13,7 @@ import com.breze.entity.pojo.core.Config;
  * @author tylt6688
  * @since 2023-06-07
  */
+@Mapper
 public interface ConfigMapper extends BaseMapper<Config> {
 
 }

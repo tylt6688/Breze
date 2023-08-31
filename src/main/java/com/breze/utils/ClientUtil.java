@@ -2,6 +2,7 @@ package com.breze.utils;
 
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
+import com.breze.common.consts.CharsetConstant;
 import lombok.experimental.UtilityClass;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class ClientUtil {
      * @return String
      */
     public static String getPlatformName(HttpServletRequest request) {
-        String uaStr = request.getHeader("User-Agent");
+        String uaStr = request.getHeader(CharsetConstant.USER_AGENT);
         UserAgent userAgent = UserAgentUtil.parse(uaStr);
         return userAgent.getPlatform().toString();
     }
@@ -36,7 +37,7 @@ public class ClientUtil {
      * @return String
      */
     public static String getBrowserName(HttpServletRequest request) {
-        String uaStr = request.getHeader("User-Agent");
+        String uaStr = request.getHeader(CharsetConstant.USER_AGENT);
         UserAgent userAgent = UserAgentUtil.parse(uaStr);
         return userAgent.getBrowser().toString();
     }
@@ -48,7 +49,7 @@ public class ClientUtil {
      * @return String
      */
     public static String getBrowserVersion(HttpServletRequest request) {
-        String uaStr = request.getHeader("User-Agent");
+        String uaStr = request.getHeader(CharsetConstant.USER_AGENT);
         UserAgent userAgent = UserAgentUtil.parse(uaStr);
         return userAgent.getVersion();
     }
@@ -60,7 +61,7 @@ public class ClientUtil {
      * @return String
      */
     public static String getOperaSystemName(HttpServletRequest request) {
-        String uaStr = request.getHeader("User-Agent");
+        String uaStr = request.getHeader(CharsetConstant.USER_AGENT);
         UserAgent userAgent = UserAgentUtil.parse(uaStr);
         return userAgent.getOs().toString();
     }

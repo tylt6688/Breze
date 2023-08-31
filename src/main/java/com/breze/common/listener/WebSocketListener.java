@@ -1,31 +1,46 @@
-package com.breze.controller.tool;
+package com.breze.common.listener;
 
 import lombok.extern.log4j.Log4j2;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * @Author tylt6688
+ * @Date 2023/8/16 10:44
+ * @Description WebSocket 监听器
+ * @Copyright(c) 2023 , 青枫网络工作室
+ */
 @Log4j2
 @Component
-@ServerEndpoint("/webSocket/{sid}")
-public class WebSocketServer implements EnvironmentAware {
-    //静态变量，用来记录当前在线连接数。需要设计成线程安全的。
+@ServerEndpoint("/webSocket/{connectId}")
+public class WebSocketListener implements EnvironmentAware {
+    /**
+     * 静态变量，记录当前在线连接数。必须是线程安全的
+     */
     private static int onlineCount = 0;
 
-    //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
-    private static final CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<>();
+    /**
+     * concurrent包的线程安全Set用来存放每个客户端对应的WebSocket对象
+     * 若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
+     */
+    private static final CopyOnWriteArraySet<WebSocketListener> WEB_SOCKET_SET = new CopyOnWriteArraySet<>();
 
-    //接收sid
-    private String sid = "";
+    /**
+     * 接收connectId
+     */
+    private String connectId = "";
 
-    //与某个客户端的连接会话，需要通过它来给客户端发送数据
+    /**
+     * 与某个客户端的连接会话，需要通过它来给客户端发送数据
+     */
     private Session session;
 
     private Environment webSocketEnvironment;
@@ -41,25 +56,25 @@ public class WebSocketServer implements EnvironmentAware {
     /**
      * 建立连接成功
      *
-     * @param session 可选的参数。session为与某个客户端的连接会话，需要通过它来给客户端发送数据
+     * @param session [可选参数]，session为与某个客户端的连接会话，需要通过它来给客户端发送数据
      */
     @OnOpen
-    public void onOpen(Session session, @PathParam("sid") String sid) {
+    public void onOpen(Session session, @PathParam("connectId") String connectId) {
         // 防止发生重复连接
-        for (WebSocketServer webSocket : webSocketSet) {
-            if (webSocket.sid.equals(sid)) {
-                webSocketSet.remove(webSocket);
-                subOnlineCount();           //在线数减1
+        for (WebSocketListener webSocket : WEB_SOCKET_SET) {
+            if (webSocket.connectId.equals(connectId)) {
+                WEB_SOCKET_SET.remove(webSocket);
+                subOnlineCount();
                 break;
             }
         }
 
         this.session = session;
-        webSocketSet.add(this);     //加入set中
+        WEB_SOCKET_SET.add(this);     //加入set中
         addOnlineCount();//在线数加1
 
-        log.info("有新连接，连接名:{},当前WebSocket连接数目为:{}", sid, getOnlineCount());
-        this.sid = sid;
+        log.info("有新连接，连接ID:{},当前WebSocket连接数目为:{}", connectId, getOnlineCount());
+        this.connectId = connectId;
 
     }
 
@@ -68,9 +83,9 @@ public class WebSocketServer implements EnvironmentAware {
      */
     @OnClose
     public void onClose(Session session, CloseReason closeReason) {
-        webSocketSet.remove(this);  //从set中删除
+        WEB_SOCKET_SET.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
-        log.info("连接关闭{}，当前WebSocket连接数目为:{},关闭原因:{}", sid, getOnlineCount(), closeReason.getReasonPhrase());
+        log.info("连接关闭{}，当前WebSocket连接数目为:{},关闭原因:{}", connectId, getOnlineCount(), closeReason.getReasonPhrase());
     }
 
     /**
@@ -78,7 +93,7 @@ public class WebSocketServer implements EnvironmentAware {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        log.info("发生错误：" + sid + "，错误内容:" + error.getMessage());
+        log.info("发生错误：" + connectId + "，错误内容:" + error.getMessage());
         error.printStackTrace();
     }
 
@@ -90,11 +105,11 @@ public class WebSocketServer implements EnvironmentAware {
      */
     @OnMessage
     public void onMessage(Session session, String message) {
-        log.info("收到来自:" + sid + "的信息:" + message);
+        log.info("收到来自:" + connectId + "的信息:" + message);
         // 群发消息
-        for (WebSocketServer webSocket : webSocketSet) {
+        for (WebSocketListener webSocket : WEB_SOCKET_SET) {
             try {
-                log.info("推送消息到:" + sid + ",推送内容:" + message);
+                log.info("推送消息到:" + connectId + ",推送内容:" + message);
                 webSocket.sendMessage("服务器返回：" + message);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -113,14 +128,14 @@ public class WebSocketServer implements EnvironmentAware {
     /**
      * 群发自定义消息
      */
-    public static void sendInfo(String message, @PathParam("sid") String sid) {
-        log.info("推送消息到窗口" + sid + "，推送内容:" + message);
-        for (WebSocketServer item : webSocketSet) {
+    public static void sendInfo(String message, @PathParam("connectId") String sid) {
+        log.info("推送消息到窗口{}，推送内容:{}", sid, message);
+        for (WebSocketListener item : WEB_SOCKET_SET) {
             try {
                 //这里可以设定只推送给这个sid的，为null则全部推送
                 if (sid == null || sid.length() == 0) {
                     item.sendMessage(message);
-                } else if (item.sid.equals(sid)) {
+                } else if (item.connectId.equals(sid)) {
                     item.sendMessage(message);
                 }
             } catch (IOException e) {
@@ -130,17 +145,17 @@ public class WebSocketServer implements EnvironmentAware {
     }
 
     //推送给指定sid
-    public static boolean sendInfoBySid(@PathParam("sid") String sid, String message) throws IOException {
-        log.info("推送消息到窗口" + sid + "，推送内容:" + message);
+    public static boolean sendInfoBySid(@PathParam("connectId") String connectId, String message) throws IOException {
+        log.info("推送消息到窗口" + connectId + "，推送内容:" + message);
         boolean result = false;
-        if (webSocketSet.size() == 0) {
+        if (WEB_SOCKET_SET.size() == 0) {
             result = false;
         }
-        for (WebSocketServer item : webSocketSet) {
+        for (WebSocketListener item : WEB_SOCKET_SET) {
             try {
-                if (item.sid.equals(sid)) {
+                if (item.connectId.equals(connectId)) {
                     item.sendMessage(message);
-                    log.info("推送消息到:" + sid + "，推送内容:" + message);
+                    log.info("推送消息到:" + connectId + "，推送内容:" + message);
                     result = true;
                 }
             } catch (IOException e) {
@@ -156,11 +171,14 @@ public class WebSocketServer implements EnvironmentAware {
     }
 
     public static synchronized void addOnlineCount() {
-        WebSocketServer.onlineCount++;
+        WebSocketListener.onlineCount++;
     }
 
+    /**
+     * ws在线数目减 1
+     */
     public static synchronized void subOnlineCount() {
-        WebSocketServer.onlineCount--;
+        WebSocketListener.onlineCount--;
     }
 
 
