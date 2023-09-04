@@ -1,6 +1,5 @@
 package com.breze.entity.vo.portal;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.breze.entity.pojo.portal.ContentIntroduce;
 import com.breze.entity.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
@@ -21,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class ContentIntroduceVo extends BaseVO {
+public class ContentIntroduceVO extends BaseVO {
 
     @ApiModelProperty(value = "内容id", name = "id", example = "1", notes = "内容id")
     private Long id;

@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("simple_content")
+@TableName("tb_content_introduce")
 @ApiModel(value = "SimpleContent", description = "主体内容对象,SimpleContent主体内容表")
 public class ContentIntroduce extends BaseEntity {
 

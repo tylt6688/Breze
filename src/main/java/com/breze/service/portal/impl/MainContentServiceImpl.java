@@ -13,7 +13,7 @@ import com.breze.converter.portal.ContentConvert;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
 import com.breze.entity.pojo.tool.ObjectStorageService;
-import com.breze.entity.vo.portal.ContentIntroduceVo;
+import com.breze.entity.vo.portal.ContentIntroduceVO;
 import com.breze.mapper.portal.MainContentMapper;
 import com.breze.mapper.tool.OssFileMapper;
 import com.breze.service.portal.MainContentService;
@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -48,9 +49,9 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     private QiNiuService qiNiuService;
 
     @Override
-    public Page<ContentIntroduceVo> getContentPage(Page<ContentIntroduce> getPage, String titleName, Long parentId) {
+    public Page<ContentIntroduceVO> getContentPage(Page<ContentIntroduce> getPage, String titleName, Long parentId) {
         Page<ContentIntroduce> contentIntroducePage = mainContentMapper.selectPage(getPage, new QueryWrapper<ContentIntroduce>().like(StrUtil.isNotBlank(titleName),"main_title", titleName).eq("parent_id", parentId).orderByAsc("order_num"));
-        Page<ContentIntroduceVo> contentIntroduceVoPage = ContentConvert.INSTANCE.contentPageToContentPageVo(contentIntroducePage);
+        Page<ContentIntroduceVO> contentIntroduceVoPage = ContentConvert.INSTANCE.contentPageToContentPageVo(contentIntroducePage);
         contentIntroduceVoPage.getRecords().forEach(contentIntroduce -> {
             contentIntroduce.setChildren(mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId()).orderByAsc("order_num")));
             contentIntroduce.getChildren().forEach(content -> content.setImgUrl(ossFileMapper.selectById(content.getOssId()).getFileUrl()));
@@ -59,8 +60,8 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     }
 
     @Override
-    public ContentIntroduceVo getContentById(Long id) {
-        ContentIntroduceVo contentIntroduceVo = ContentConvert.INSTANCE.contentToContentVO(mainContentMapper.selectById(id));
+    public ContentIntroduceVO getContentById(Long id) {
+        ContentIntroduceVO contentIntroduceVo = ContentConvert.INSTANCE.contentToContentVO(mainContentMapper.selectById(id));
         contentIntroduceVo.setImgUrl(ossFileMapper.selectById(contentIntroduceVo.getOssId()).getFileUrl());
         return contentIntroduceVo;
     }
@@ -124,5 +125,20 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
             throw new RuntimeException(e);
         }
         return qiqiu && oss>0 && content>0;
+    }
+
+    @Override
+    public List<ContentIntroduceVO> selectAllDataList(String titleName, Long parentId) {
+        List<ContentIntroduce> contentIntroduceList = mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().like(StrUtil.isNotBlank(titleName),"main_title", titleName).eq("parent_id", parentId).orderByAsc("order_num"));
+        List<ContentIntroduceVO> contentIntroduceVOList = ContentConvert.INSTANCE.contentListToContentVOList(contentIntroduceList);
+        contentIntroduceVOList.forEach(contentIntroduce -> {
+            contentIntroduce.setChildren(mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId()).orderByAsc("order_num")));
+            for (ContentIntroduce child : contentIntroduce.getChildren()) {
+                if (child.getOssId() != null){
+                    child.setImgUrl(ossFileMapper.selectById(child.getOssId()).getFileUrl());
+                }
+            }
+        });
+        return contentIntroduceVOList;
     }
 }

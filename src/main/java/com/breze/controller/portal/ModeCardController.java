@@ -32,7 +32,7 @@ public class ModeCardController extends BaseController {
 
     @ApiOperation(value = "获取全部信息")
     @GetMapping("/select")
-    public Result select() {
+    public Result<List<ModeCard>> select() {
         List<ModeCard> list = modeCardService.list();
         return Result.createSuccessMessage("查询模块信息成功", list);
     }
@@ -41,34 +41,34 @@ public class ModeCardController extends BaseController {
     @BrezeLog("获取模块分页信息")
     @ApiImplicitParam(name = "modeTitle", value = "模块标题", dataType = "String", dataTypeClass = String.class)
     @GetMapping("/find_mode_info")
-    public Result findModeCardInfo(String modeTitle) {
+    public Result<Page<ModeCardVO>> findModeCardInfo(String modeTitle) {
         Page<ModeCardVO> modeCardPage = modeCardService.getModePage(getPage(),modeTitle);
         return Result.createSuccessMessage("查询模块信息成功", modeCardPage);
     }
     @ApiOperation(value = "通过id查询")
     @BrezeLog("通过id查询")
     @GetMapping("/find_data_by_id/{id}")
-    public Result findDataById(@PathVariable Long id) {
+    public Result<ModeCard> findDataById(@PathVariable Long id) {
         ModeCard modeCard = modeCardService.getModeById(id);
         return Result.createSuccessMessage("查询成功",modeCard);
     }
     @ApiOperation(value = "新增模块")
     @BrezeLog("新增模块")
     @PostMapping("/insert")
-    public Result insert(@Validated @RequestBody ModeCardDTO modeCardDTO) {
+    public Result<String> insert(@Validated @RequestBody ModeCardDTO modeCardDTO) {
             return brezeJudgeResult(modeCardService.insertModeCard(modeCardDTO));
     }
     @ApiOperation(value = "编辑模块")
     @BrezeLog("编辑模块")
-    @PostMapping("/update")
-    public Result update(@Validated @RequestBody ModeCardDTO modeCardDTO) {
+    @PutMapping("/update")
+    public Result<String> update(@Validated @RequestBody ModeCardDTO modeCardDTO) {
        return brezeJudgeResult( modeCardService.updateModeCard(modeCardDTO));
     }
 
     @ApiOperation(value = "删除模块")
     @BrezeLog("删除模块")
     @DeleteMapping("/delete_by_id/{id}")
-    public Result deleteModeCard(@PathVariable Long id) {
+    public Result<String> deleteModeCard(@PathVariable Long id) {
        return brezeJudgeResult(modeCardService.deleteModeById(id));
     }
 }

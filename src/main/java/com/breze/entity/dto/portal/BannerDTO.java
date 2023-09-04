@@ -1,5 +1,6 @@
 package com.breze.entity.dto.portal;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,11 +17,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class BannerDTO {
-
-    @ApiModelProperty(value = "轮播图id", name = "id", example = "1", notes = "轮播图id")
-    private Long id;
-
+public class BannerDTO extends BaseDTO {
     @ApiModelProperty(value = "轮播图地址", name = "url", notes = "轮播图地址")
     private String url;
 

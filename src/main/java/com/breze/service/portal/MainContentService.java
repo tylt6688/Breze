@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
-import com.breze.entity.vo.portal.ContentIntroduceVo;
+import com.breze.entity.vo.portal.ContentIntroduceVO;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,14 +24,14 @@ public interface MainContentService extends IService<ContentIntroduce> {
      * @Params [getPage, titleName, parentId]
      * @Return Page<ContentIntroduce>
      */
-    Page<ContentIntroduceVo> getContentPage(Page<ContentIntroduce> getPage, String titleName, Long parentId);
+    Page<ContentIntroduceVO> getContentPage(Page<ContentIntroduce> getPage, String titleName, Long parentId);
     /**
      *  通过Id查询指定内容
      *
      * @Params [id]
      * @Return com.breze.entity.vo.portal.ContentIntroduceVo
      */
-    ContentIntroduceVo getContentById(Long id);
+    ContentIntroduceVO getContentById(Long id);
     /**
      *  新增内容和修改内容(含图片)
      *
@@ -53,4 +55,5 @@ public interface MainContentService extends IService<ContentIntroduce> {
     Boolean deleteContent(ContentDTO contentDT);
 
 
+    List<ContentIntroduceVO> selectAllDataList(String titleName, Long parentId);
 }
