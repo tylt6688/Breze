@@ -38,7 +38,6 @@ public class BaseEntity implements Serializable {
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
-
     @ApiModelProperty(value = "排序号", name = "sort", example = "1", notes = "排序号")
     @OrderBy
     private Integer sort;

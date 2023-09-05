@@ -35,7 +35,7 @@ public class ModeCardServiceImpl extends ServiceImpl<ModeCardMapper, ModeCard> i
 
     @Override
     public Page<ModeCardVO> getModePage(Page<ModeCard> page, String modeTitle) {
-        Page<ModeCard> modeCardPage = modeCardMapper.selectPage(page, new QueryWrapper<ModeCard>().eq("mode_title", modeTitle));
+        Page<ModeCard> modeCardPage = modeCardMapper.selectPage(page, new QueryWrapper<ModeCard>().eq(StrUtil.isNotBlank(modeTitle),"mode_title", modeTitle));
         Page<ModeCardVO> modeCardVOPage = ModeCardConvert.INSTANCE.modeCardPageToModeCardVOPage(modeCardPage);
         return modeCardVOPage;
     }

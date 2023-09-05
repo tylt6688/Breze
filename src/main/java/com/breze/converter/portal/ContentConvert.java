@@ -3,9 +3,11 @@ package com.breze.converter.portal;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
-import com.breze.entity.vo.portal.ContentIntroduceVo;
+import com.breze.entity.vo.portal.ContentIntroduceVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author chenweixi
@@ -21,14 +23,14 @@ public interface ContentConvert {
      * @Params [contentIntroducePage]
      * @Return ContentIntroduceVo
      */
-    Page<ContentIntroduceVo> contentPageToContentPageVo(Page<ContentIntroduce> contentIntroducePage);
+    Page<ContentIntroduceVO> contentPageToContentPageVo(Page<ContentIntroduce> contentIntroducePage);
     /**
      *  content => contentVO
      *
      * @Params [contentIntroduce]
      * @Return ContentIntroduceVo
      */
-    ContentIntroduceVo contentToContentVO(ContentIntroduce contentIntroduce);
+    ContentIntroduceVO contentToContentVO(ContentIntroduce contentIntroduce);
     /**
      *  contentDOT =>Content 
      *
@@ -36,4 +38,12 @@ public interface ContentConvert {
      * @Return ContentIntroduce
      */
     ContentIntroduce contentDTOToContent(ContentDTO contentDTO);
+
+    /**
+     *  contentList =>ContentVOList
+     *
+     * @Params [contentDTO]
+     * @Return ContentIntroduce
+     */
+    List<ContentIntroduceVO> contentListToContentVOList(List<ContentIntroduce> contentIntroduce);
 }

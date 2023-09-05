@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("mode_card")
+@TableName("tb_mode_card")
 @ApiModel(value = "ModeCard", description = "模块卡片对象,mode_card模块展示表")
 public class ModeCard extends BaseEntity {
 

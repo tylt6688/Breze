@@ -6,12 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.converter.portal.NavbarConvert;
 import com.breze.entity.dto.portal.NavbarDTO;
 import com.breze.entity.pojo.portal.Navbar;
-import com.breze.entity.vo.portal.NavbarTitleVo;
+import com.breze.entity.vo.portal.NavbarTitleVO;
 import com.breze.entity.vo.portal.NavbarVO;
 import com.breze.mapper.portal.NavbarMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.service.portal.NavbarService;
-import org.apache.poi.ss.formula.functions.Na;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,11 +46,11 @@ public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> impleme
     }
 
     @Override
-    public List<Navbar> finAllData(Long flag) {
+    public List<NavbarVO> finAllData(Long flag) {
         List<Navbar> navbarList = navbarMapper.selectList(new QueryWrapper<Navbar>().eq("flag",flag).eq("parent_id",0).orderByAsc("order_num"));
         List<NavbarVO> navbarVOS = NavbarConvert.INSTANCE.navbarListToNavbarVoList(navbarList);
         navbarVOS.forEach(navbar -> navbar.setNavbarChildren(this.selectChildren(navbar.getId())));
-        return navbarList;
+        return navbarVOS;
     }
 
     @Override
@@ -61,8 +60,8 @@ public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> impleme
     }
 
     @Override
-    public List<NavbarTitleVo> selectByFlag(Long flag) {
-        List<NavbarTitleVo> navbarTitleVos = NavbarConvert.INSTANCE.navbarListToTitleVoList(navbarMapper.selectList(new QueryWrapper<Navbar>().eq("flag", flag)));
+    public List<NavbarTitleVO> selectByFlag(Long flag) {
+        List<NavbarTitleVO> navbarTitleVos = NavbarConvert.INSTANCE.navbarListToTitleVoList(navbarMapper.selectList(new QueryWrapper<Navbar>().eq("flag", flag)));
         return navbarTitleVos;
     }
 

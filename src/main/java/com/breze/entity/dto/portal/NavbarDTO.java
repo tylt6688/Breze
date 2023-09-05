@@ -1,5 +1,6 @@
 package com.breze.entity.dto.portal;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class NavbarDTO {
-
-    @ApiModelProperty(value = "导航ID", name = "id", example = "1", notes = "导航ID")
-    private Long id;
+public class NavbarDTO extends BaseDTO {
 
     @ApiModelProperty(value = "导航类别", name = "flag", example = "0", notes = "导航类别")
     private Long flag;

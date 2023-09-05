@@ -1,5 +1,6 @@
 package com.breze.entity.dto.portal;
 
+import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class ModeCardDTO {
-
-    @ApiModelProperty(value = "模块id", name = "id", example = "1", notes = "模块id")
-    private Long id;
+public class ModeCardDTO extends BaseDTO {
 
     @ApiModelProperty(value = "模块名称", name = "mode_title", example = "轮播图管理", notes = "模块名称")
     private String modeTitle;

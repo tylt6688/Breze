@@ -4,7 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.dto.portal.NavbarDTO;
 import com.breze.entity.pojo.portal.Navbar;
-import com.breze.entity.vo.portal.NavbarTitleVo;
+import com.breze.entity.vo.portal.NavbarTitleVO;
+import com.breze.entity.vo.portal.NavbarVO;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public interface NavbarService extends IService<Navbar> {
      * @Params [flag]
      * @Return List<Navbar>
      */
-    List<Navbar> finAllData(Long flag);
+    List<NavbarVO> finAllData(Long flag);
     /**
      *  通过id获取导航菜单
      *
@@ -44,7 +45,7 @@ public interface NavbarService extends IService<Navbar> {
      * @Params [flag] 
      * @Return java.util.List<com.breze.entity.vo.portal.NavbarTitleVo>
      */
-    List<NavbarTitleVo> selectByFlag(Long flag);
+    List<NavbarTitleVO> selectByFlag(Long flag);
     /**
      *  获取导航菜单数量 
      *

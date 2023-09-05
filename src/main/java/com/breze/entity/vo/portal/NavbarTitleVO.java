@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class NavbarTitleVo extends BaseVO {
+public class NavbarTitleVO extends BaseVO {
 
     @ApiModelProperty(value = "导航ID", name = "id", example = "1", notes = "导航ID")
     private Long id;

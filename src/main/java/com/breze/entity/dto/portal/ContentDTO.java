@@ -1,5 +1,6 @@
 package com.breze.entity.dto.portal;
 
+import com.breze.entity.dto.BaseDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,9 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class ContentDTO {
-    @ApiModelProperty(value = "内容id", name = "id", example = "1", notes = "内容id")
-    private Long id;
+public class ContentDTO extends BaseDTO {
 
     @ApiModelProperty(value = "oss文件", name = "oss_id", notes = "oss文件")
     private String OssId;
