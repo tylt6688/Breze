@@ -25,11 +25,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/breze/test")
 public class BrezeTestController extends BaseController {
+
     @Autowired
     private UserService userService;
-
-
-
 
 
     @GetMapping("/{msg}")
@@ -55,11 +53,10 @@ public class BrezeTestController extends BaseController {
         return Result.createSuccessMessage("", list);
     }
 
-
+    // 测试二维码生成工具
     @PermitAll
-    // 测试二维码生成
     @RequestMapping("/qrCode")
-    public Result qrCode(Integer id) {
+    public Result<String> qrCode(Integer id) {
         String content = "http://www.baidu.com?id=";
         String logoUrl = "http://www.baidu.com/statics/logo.png";
         String url = QrCodeUtil.getBase64QRCode(content + id, logoUrl);

@@ -9,8 +9,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.breze.config.RabbitMQConfig;
-import com.breze.entity.pojo.tool.Email;
-import com.breze.service.tool.MailService;
+import com.breze.entity.pojo.core.Email;
+import com.breze.service.core.MailService;
 
 import java.io.IOException;
 

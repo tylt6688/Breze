@@ -1,7 +1,6 @@
 package com.breze.controller.rbac;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
@@ -50,42 +49,23 @@ public class GroupController extends BaseController {
     }
 
     @ApiOperation(value = "新增部门", notes = "新增部门", httpMethod = "POST")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK丨新增部门成功"),
-            @ApiResponse(code = 500, message = "ERROR丨新增部门失败")
-    })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
-            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
-            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String",dataTypeClass = String.class),
-            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String",dataTypeClass = String.class)
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "OK丨新增部门成功"), @ApiResponse(code = 500, message = "ERROR丨新增部门失败")})
+    @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String", dataTypeClass = String.class), @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String", dataTypeClass = String.class), @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String", dataTypeClass = String.class), @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String", dataTypeClass = String.class)})
     @BrezeLog("新增部门")
     @PostMapping("/insert")
     public Result<String> insert(@RequestBody GroupDTO groupDTO) {
         Group group = GroupConvert.INSTANCE.groupDTOToGroup(groupDTO);
         group.setId(groupDTO.getId());
-        if (groupService.insert(group)) {
-            return Result.createSuccessMessage("新增部门成功");
-        }
-        return Result.createSuccessMessage("部门名称重复");
+        return brezeJudgeResult(groupService.insert(group), "新增部门成功", "部门名称重复");
+
     }
 
     @ApiOperation(value = "更新部门", notes = "更新部门")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
-            @ApiImplicitParam(name = "parentId", value = "新增部门名称", required = true, dataType = "String",dataTypeClass = String.class),
-            @ApiImplicitParam(name = "state", value = "状态", required = true, dataType = "String",dataTypeClass = String.class),
-            @ApiImplicitParam(name = "remark", value = "备注", required = false, dataType = "String",dataTypeClass = String.class)
-    })
     @BrezeLog("更新部门")
     @PutMapping("/update")
     public Result<String> update(@RequestBody GroupDTO groupDTO) {
         Group group = GroupConvert.INSTANCE.groupDTOToGroup(groupDTO);
-        if (groupService.update(group)) {
-            return Result.createSuccessMessage("更新部门成功");
-        }
-        return Result.createSuccessMessage("部门已存在");
+        return brezeJudgeResult(groupService.update(group), "更新部门成功", "更新部门失败");
     }
 
     @ApiOperation(value = "删除部门", notes = "删除部门")
@@ -93,42 +73,23 @@ public class GroupController extends BaseController {
     @BrezeLog("删除部门")
     @DeleteMapping("/delete")
     public Result<String> deleteById(@RequestParam Long id) {
-        if (0 < groupJobService.count(new QueryWrapper<GroupJob>().eq("group_id", id))) {
-            return Result.createSuccessMessage("删除部门失败--");
-        }
-        if (0 < groupService.count(new QueryWrapper<Group>().eq("parent_id", id))) {
-            return Result.createSuccessMessage("删除部门失败, 子部门存在");
-        }
-        groupService.delete(id);
-        return Result.createSuccessMessage("删除部门成功");
+        return brezeJudgeResult(groupService.delete(id), "删除部门成功", "删除部门失败");
     }
 
     @ApiOperation(value = "关联岗位", notes = "用于关联岗位")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "groupId", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "jobId", value = "岗位ID", required = true, dataType = "Long", dataTypeClass = Long.class)
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "groupId", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class), @ApiImplicitParam(name = "jobId", value = "岗位ID", required = true, dataType = "Long", dataTypeClass = Long.class)})
     @BrezeLog("关联岗位")
     @PostMapping("/bind/insert")
-    public Result<String> bindJob(@RequestBody GroupJob groupjob){
-        if (groupJobService.insert(groupjob)) {
-            return Result.createSuccessMessage("关联部门成功");
-        }
-        return Result.createSuccessMessage("关联部门失败");
+    public Result<String> bindJob(@RequestBody GroupJob groupjob) {
+        return brezeJudgeResult(groupJobService.insert(groupjob), "关联岗位成功", "关联岗位失败");
     }
 
     @ApiOperation(value = "解除关联", notes = "用于解除关联岗位")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "groupId", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "jobId", value = "岗位ID", required = true, dataType = "Long", dataTypeClass = Long.class)
-    })
+    @ApiImplicitParams({@ApiImplicitParam(name = "groupId", value = "部门ID", required = true, dataType = "Long", dataTypeClass = Long.class), @ApiImplicitParam(name = "jobId", value = "岗位ID", required = true, dataType = "Long", dataTypeClass = Long.class)})
     @BrezeLog("解除关联")
     @DeleteMapping("/bind/delete")
-    public Result<String> unbindJob(@RequestBody GroupJob groupjob){
-        if (groupJobService.delete(groupjob)) {
-            return Result.createSuccessMessage("解除关联成功");
-        }
-        return Result.createSuccessMessage("解除关联失败");
+    public Result<String> unbindJob(@RequestBody GroupJob groupjob) {
+        return brezeJudgeResult(groupJobService.delete(groupjob), "解除关联成功", "解除关联失败");
     }
 
 }

@@ -8,7 +8,7 @@ import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.service.rbac.UserService;
 import com.breze.service.syslog.LoginLogService;
-import com.breze.service.tool.MailService;
+import com.breze.service.core.MailService;
 import com.breze.utils.ClientUtil;
 import com.breze.utils.IPUtil;
 import com.maxmind.geoip2.DatabaseReader;

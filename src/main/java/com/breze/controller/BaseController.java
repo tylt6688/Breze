@@ -3,24 +3,26 @@ package com.breze.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
-import com.breze.common.exception.BusinessException;
+import com.breze.common.result.Result;
 import com.breze.config.BrezeConfig;
 import com.breze.config.OssConfig;
 import com.breze.service.core.ConfigService;
+import com.breze.service.core.DictDataService;
+import com.breze.service.core.DictService;
 import com.breze.service.portal.*;
 import com.breze.service.rbac.*;
 import com.breze.service.syslog.HandleLogService;
 import com.breze.service.syslog.LoginLogService;
-import com.breze.service.tool.MailService;
-import com.breze.service.tool.QiNiuService;
+import com.breze.service.core.MailService;
+import com.breze.service.core.QiNiuService;
 import com.breze.utils.RedisUtil;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.ServletRequestUtils;
-import com.breze.common.result.Result;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Null;
+import javax.validation.constraints.NotNull;
 
 import static com.breze.common.result.Result.createFailMessage;
 import static com.breze.common.result.Result.createSuccessMessage;
@@ -40,7 +42,6 @@ public class BaseController {
     /**
      * 配置类注入
      */
-
     @Autowired
     protected BrezeConfig brezeConfig;
     @Autowired
@@ -131,14 +132,11 @@ public class BaseController {
 
     //===============================Breze=================================//
 
-    /**
-     * MyBatis-Plus分页方法自定义
-     */
     @Autowired
     HttpServletRequest request;
 
     /**
-     * 自定义泛型分页数据方法,用于拦截请求参数进行查询显示
+     * MyBatis-Plus自定义泛型分页数据方法,用于拦截请求参数进行查询显示
      */
     public <T> Page<T> getPage() {
         // 当前页的页码，默认第 1 页
@@ -151,9 +149,22 @@ public class BaseController {
 
     /**
      * 评判 Boolean 类型进行统一结果返回方法,主要用于更新、删除、插入操作
+     * @param flag Boolean 类型的判断标识
+     * @return Result<String> 统一结果默认消息返回
      */
     public Result<String> brezeJudgeResult(Boolean flag) {
         return Boolean.TRUE.equals(flag) ? createSuccessMessage() : createFailMessage(ErrorEnum.FindException);
+    }
+
+    /**
+     * 评判 Boolean 类型进行统一结果返回方法,主要用于更新、删除、插入操作
+     * @param flag Boolean 类型的判断标识
+     * @param successMessage 成功消息
+     * @param failMessage 失败消息
+     * @return Result<String> 统一结果自定义消息返回
+     */
+    public Result<String> brezeJudgeResult(Boolean flag, @NotNull String successMessage, @NotNull String failMessage) {
+        return Boolean.TRUE.equals(flag) ? createSuccessMessage(successMessage) : createFailMessage(ErrorEnum.FindException, failMessage);
     }
 
 }

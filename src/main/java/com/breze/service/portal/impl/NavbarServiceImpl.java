@@ -38,7 +38,7 @@ public class NavbarServiceImpl extends ServiceImpl<NavbarMapper, Navbar> impleme
     @Override
     public Page<Navbar> findNavbarPage(Page<Navbar> page, String titleName,Long parentId) {
         Page<Navbar> navbarPage = navbarMapper.selectPage(page, new QueryWrapper<Navbar>().like("title_name", titleName).eq("parent_id",parentId).orderByAsc("order_num"));
-        Page<NavbarVO> navbarVOPage = NavbarConvert.INSTANCE.navbarPageToNavarPageVo(navbarPage);
+        Page<NavbarVO> navbarVOPage = NavbarConvert.INSTANCE.navbarPageToNavbarPageVo(navbarPage);
         navbarVOPage.getRecords().forEach(navbar -> {
             navbar.setHasChildren(this.isChildren(navbar.getId()));
         });

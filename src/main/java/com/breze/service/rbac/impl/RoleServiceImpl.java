@@ -64,7 +64,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public Boolean permRole(Long roleId, Long[] menuIds) {
+    public Boolean permMenu(Long roleId, Long[] menuIds) {
         try {
             List<RoleMenu> roleMenus = new ArrayList<>();
             Arrays.stream(menuIds).forEach(menuId -> {
@@ -84,6 +84,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         }
 
     }
+
 
     @Override
     public Boolean insert(RoleDTO roleDTO) {
@@ -112,13 +113,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         for (Long roleId : roleIds) {
             long count = userRoleService.count(new LambdaQueryWrapper<UserRole>().eq(UserRole::getRoleId, roleId));
             if (count > 0) {
-                throw new BusinessException(ErrorEnum.ErrorOperation, "角色已被使用，请先解除占用后删除");
+                throw new BusinessException(ErrorEnum.ErrorOperation, "角色已被使用，请先解除占用");
             }
         }
         try {
             List<Long> ids = Arrays.asList(roleIds);
             // 批量删除需要传入一个集合
-            this.removeByIds(ids);
+            roleMapper.deleteBatchIds(ids);
             // 删除中间表信息
             userRoleService.remove(new LambdaQueryWrapper<UserRole>().in(UserRole::getRoleId, ids));
             roleMenuService.remove(new LambdaQueryWrapper<RoleMenu>().in(RoleMenu::getRoleId, ids));

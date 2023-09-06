@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Author tylt6688
  * @Date 2023/7/25 17:08
- * @Description Breze总控制器
+ * @Description Breze系统配置控制器
  * @Copyright(c) 2023 , 青枫网络工作室
  */
 

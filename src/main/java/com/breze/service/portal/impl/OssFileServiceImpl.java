@@ -2,8 +2,8 @@ package com.breze.service.portal.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.breze.entity.pojo.tool.ObjectStorageService;
-import com.breze.mapper.tool.OssFileMapper;
+import com.breze.entity.pojo.core.ObjectStorageService;
+import com.breze.mapper.core.OssFileMapper;
 import com.breze.service.portal.OssFileService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

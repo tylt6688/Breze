@@ -65,8 +65,8 @@ public class RoleController extends BaseController {
     @BrezeLog("根据角色ID分配角色相应的菜单权限")
     @PostMapping("/perm/{roleId}")
     @PreAuthorize("hasAuthority('sys:role:perm')")
-    public Result<String> permRole(@PathVariable Long roleId, @RequestBody Long[] menuIds) {
-        return brezeJudgeResult(roleService.permRole(roleId, menuIds));
+    public Result<String> permMenu(@PathVariable Long roleId, @RequestBody Long[] menuIds) {
+        return brezeJudgeResult(roleService.permMenu(roleId, menuIds), "菜单权限分配成功", "菜单权限分配失败");
     }
 
     @ApiOperation(value = "新增角色")
@@ -74,7 +74,7 @@ public class RoleController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:role:insert')")
     public Result<String> insert(@Validated @RequestBody RoleDTO roleDTO) {
-        return brezeJudgeResult(roleService.insert(roleDTO));
+        return brezeJudgeResult(roleService.insert(roleDTO), "新增角色成功", "新增角色失败");
     }
 
     @ApiOperation(value = "更新角色")
@@ -82,7 +82,7 @@ public class RoleController extends BaseController {
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('sys:role:update')")
     public Result<String> update(@Validated @RequestBody RoleDTO roleDTO) {
-        return brezeJudgeResult(roleService.update(roleDTO));
+        return brezeJudgeResult(roleService.update(roleDTO), "更新角色信息成功", "更新角色信息失败");
     }
 
     @ApiOperation(value = "删除角色")
@@ -91,7 +91,7 @@ public class RoleController extends BaseController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:role:delete')")
     public Result<String> delete(@RequestBody Long[] roleIds) {
-        return brezeJudgeResult(roleService.delete(roleIds));
+        return brezeJudgeResult(roleService.delete(roleIds), "删除角色成功", "删除角色失败");
     }
 
 

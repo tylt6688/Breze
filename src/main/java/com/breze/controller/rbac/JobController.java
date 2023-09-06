@@ -1,14 +1,10 @@
 package com.breze.controller.rbac;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.breze.common.annotation.BrezeLog;
-import com.breze.common.enums.ErrorEnum;
-import com.breze.common.exception.BusinessException;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
 import com.breze.converter.sys.JobConvert;
 import com.breze.entity.dto.sys.JobDTO;
-import com.breze.entity.pojo.rbac.GroupJob;
 import com.breze.entity.pojo.rbac.Job;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -49,11 +45,7 @@ public class JobController extends BaseController {
     @PostMapping("/insert")
     public Result<String> insert(@RequestBody JobDTO jobDTO) {
         Job job = JobConvert.INSTANCE.jobDTOToJob(jobDTO);
-        if (jobService.insert(job)) {
-            return Result.createSuccessMessage("插入岗位成功");
-        }
-        // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-23]
-        return Result.createSuccessMessage("岗位名称重复");
+        return brezeJudgeResult(jobService.insert(job), "新增岗位成功", "新增岗位失败");
     }
 
     @ApiOperation(value = "更新岗位信息", notes = "用于更新岗位信息")
@@ -61,26 +53,14 @@ public class JobController extends BaseController {
     @PutMapping("/update")
     public Result<String> update(@RequestBody JobDTO jobDTO) {
         Job job = JobConvert.INSTANCE.jobDTOToJob(jobDTO);
-        if (jobService.update(job)) {
-            return Result.createSuccessMessage("更新岗位成功");
-        }
-        // TODO ERROR替换 [抄送人: LGX 待办人: tylt6688 2023-03-23]
-        return Result.createSuccessMessage("岗位已存在");
+        return brezeJudgeResult(jobService.update(job), "更新岗位成功", "更新岗位失败");
     }
 
     @ApiOperation(value = "删除岗位信息", notes = "用于删除岗位信息")
     @BrezeLog("删除岗位信息")
     @DeleteMapping("/delete")
     public Result<String> deleteById(@RequestParam Long id) {
-        if (0 < groupJobService.count(new QueryWrapper<GroupJob>().eq("job_id", id))) {
-            return Result.createSuccessMessage("删除岗位失败");
-        }
-        try {
-            jobService.delete(id);
-            return Result.createSuccessMessage("删除岗位成功");
-        } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException);
-        }
+        return brezeJudgeResult(jobService.delete(id), "删除岗位成功", "删除岗位失败");
 
     }
 

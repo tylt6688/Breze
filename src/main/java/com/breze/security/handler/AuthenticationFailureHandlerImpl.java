@@ -40,6 +40,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
         String msg = authenticationException.getMessage();
 
         Result<String> result;
+
         if (ErrorEnum.VerifyCodeError.getErrorName().equals(msg)) {
             result = Result.createFailMessage(ErrorEnum.VerifyCodeError, msg);
         } else if (ErrorEnum.LockUser.getErrorName().equals(msg)) {
