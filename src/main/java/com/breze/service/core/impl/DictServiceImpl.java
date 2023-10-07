@@ -1,4 +1,4 @@
-package com.breze.service.rbac.impl;
+package com.breze.service.core.impl;
 
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.read.listener.PageReadListener;
@@ -14,9 +14,9 @@ import com.breze.entity.dto.sys.DictDTO;
 import com.breze.entity.pojo.core.Dict;
 import com.breze.entity.pojo.core.DictData;
 import com.breze.entity.vo.sys.DictVO;
-import com.breze.mapper.rbac.DictDataMapper;
-import com.breze.mapper.rbac.DictMapper;
-import com.breze.service.rbac.DictService;
+import com.breze.mapper.core.DictDataMapper;
+import com.breze.mapper.core.DictMapper;
+import com.breze.service.core.DictService;
 import com.breze.utils.FileUtil;
 import com.breze.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;

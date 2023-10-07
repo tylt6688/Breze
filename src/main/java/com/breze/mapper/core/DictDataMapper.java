@@ -1,4 +1,4 @@
-package com.breze.mapper.rbac;
+package com.breze.mapper.core;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.breze.entity.pojo.core.DictData;

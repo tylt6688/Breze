@@ -1,11 +1,11 @@
-package com.breze.service.tool.impl;
+package com.breze.service.core.impl;
 
 import com.breze.common.rabbit.Produce;
 import com.breze.config.BrezeConfig;
 import com.breze.config.MailConfig;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.pojo.tool.Email;
-import com.breze.service.tool.MailService;
+import com.breze.entity.pojo.core.Email;
+import com.breze.service.core.MailService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,25 +1,32 @@
 <p align="center">
-	<img alt="logo" style="width: 256px; height: 256px;" src="preview/breze-logo.png">
-</p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Breze v1.0.0</h1>
-<h4 align="center">基于SpringBoot开发的（多端）一体化权限管理平台</h4>
-<p align="center">
-	<a href="https://github.com/tylt6688/Breze"><img src="https://img.shields.io/badge/Breze-v1.0.0-blue"></a>
-	<a href="https://github.com/tylt6688/Breze/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-Apache%20License%202.0-red"></a>
+<img alt="logo" style="width: 256px; height: 256px;" src="preview/breze-logo.png">
 </p>
 
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">Breze v1.0.0</h1>
+
+<h4 align="center">基于SpringBoot开发的（多端）一体化权限管理平台</h4>
+
+<p align="center">
+<a href="https://github.com/tylt6688/Breze">
+<img src="https://img.shields.io/badge/Breze-v1.0.0-blue">
+</a>
+
+<a href="https://github.com/tylt6688/Breze/blob/master/LICENSE">
+<img src="https://img.shields.io/badge/LICENSE-Apache%20License%202.0-red">
+</a>
+</p>
 
 
 
 ## 项目简介
 
 - **本项目框架于2022年7月13日进行核心权限开源**
-- 开源不易，如对您有帮助的话，点个 star 鼓励一下吧！
 - 根据如今主流开发及应用环境与如今生态平台限制情况下用户群体“快应用”方式，主要划分为两个用户交互端与一个大屏展示端：
   1. PC 浏览器端
   2. 微信小程序端
   3. 大屏展示端
 - Spring Boot + Spring Security + JWT + RBAC 为基础核心框架进行相应功能的开发。
+- 在 GitHub 里，星星 [⭐ Star] 是对一个项目至高无上的肯定，如果觉得对您有帮助的话，欢迎通过下方链接进入项目仓库的主页献出您宝贵的星星。
 
 ## 项目源码
 - Spring Boot Server后台项目地址：https://github.com/tylt6688/Breze
@@ -120,13 +127,16 @@
 
 ## 特别鸣谢
 
-- 
+- [LeoChan](https://github.com/echoleochan)
+- [Nightliuguoxing](https://github.com/Nightliuguoxing)
 
-## 开源声明
+## 开源声明（License）
 
-<img src="preview/support-apache.png" alt="support-apache" style="zoom:50%;" />
+<img src="preview/support-apache.png" alt="support-apache" style="width: 256px; height: 256px;" />
 
 ```
+Copyright 2022 [青枫网络工作室-Breeze团队]
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -144,7 +154,5 @@ limitations under the License.
 
 🛴QQ群：532098740
 
-```
-Copyright [2022] [青枫网络工作室]
-```
+
 

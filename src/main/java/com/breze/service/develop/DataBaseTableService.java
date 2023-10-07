@@ -1,6 +1,6 @@
-package com.breze.service.tool;
+package com.breze.service.develop;
 
-import com.breze.entity.pojo.tool.DataBaseTable;
+import com.breze.entity.pojo.develop.DataBaseTable;
 
 import java.util.List;
 

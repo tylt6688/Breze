@@ -1,4 +1,4 @@
-package com.breze.entity.pojo.tool;
+package com.breze.entity.pojo.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

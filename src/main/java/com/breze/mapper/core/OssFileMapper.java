@@ -1,7 +1,7 @@
-package com.breze.mapper.tool;
+package com.breze.mapper.core;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.breze.entity.pojo.tool.ObjectStorageService;
+import com.breze.entity.pojo.core.ObjectStorageService;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

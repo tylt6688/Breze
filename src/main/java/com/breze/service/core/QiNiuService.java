@@ -1,4 +1,4 @@
-package com.breze.service.tool;
+package com.breze.service.core;
 
 import com.qiniu.common.QiniuException;
 import org.springframework.web.multipart.MultipartFile;

@@ -23,6 +23,7 @@ import java.util.List;
 @Accessors(chain = true)
 @ApiModel(description = "用户信息展示对象")
 public class UserInfoVO extends BaseVO {
+
     private static final long serialVersionUID = 7890603648150338910L;
 
     @ApiModelProperty(value = "用户ID", name = "id", example = "1", notes = "用户ID")

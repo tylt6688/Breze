@@ -1,4 +1,4 @@
-package com.breze.controller.tool;
+package com.breze.controller.core;
 
 import com.breze.common.rabbit.Produce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.thymeleaf.context.Context;
 import com.breze.common.result.Result;
 import com.breze.config.MailConfig;
 import com.breze.controller.BaseController;
-import com.breze.entity.pojo.tool.Email;
+import com.breze.entity.pojo.core.Email;
 import com.breze.entity.pojo.rbac.User;
 
 

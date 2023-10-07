@@ -69,8 +69,7 @@ public class SwaggerConfig {
                 // 开启构建者模式
                 .build()
                 // 设置安全模式，swagger可以设置访问 token
-                .securitySchemes(Collections.singletonList(securitySchemes()))
-                .securityContexts(Collections.singletonList(securityContexts()));
+                .securitySchemes(Collections.singletonList(securitySchemes())).securityContexts(Collections.singletonList(securityContexts()));
     }
 
     /**
@@ -80,7 +79,7 @@ public class SwaggerConfig {
         return HttpAuthenticationScheme.JWT_BEARER_BUILDER.name(SecurityConstant.AUTHORIZATION).build();
     }
 
-    /**
+    /*
      * 安全模式，指定token[API Key方式] 通过Authorization头请求头传递
      */
 //    private List<SecurityScheme> securitySchemes() {
@@ -93,11 +92,7 @@ public class SwaggerConfig {
      * 安全上下文
      */
     private SecurityContext securityContexts() {
-        return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .operationSelector(o -> o.requestMappingPattern().matches("/.*"))
-                .build();
-
+        return SecurityContext.builder().securityReferences(defaultAuth()).operationSelector(o -> o.requestMappingPattern().matches("/.*")).build();
     }
 
     /**
@@ -122,34 +117,118 @@ public class SwaggerConfig {
                 .description(brezeConfig.getDescription())
                 // 设置文档的版本信息-> 1.0.0 Version information
                 .version(brezeConfig.getVersion())
-                // 设置文档的 License 信息->1.3 License information
+                // 设置文档的 License 信息
+                .license("Apache License Version 2.0")
+                // 设置文档的 License Url
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
+                // 服务条款网址
                 .termsOfServiceUrl("https://love.tylt.xyz")
                 // 设置文档的联系方式->1.3.1 Contact information
-                .contact(new Contact(brezeConfig.getCopyrightName(), "https://blog.csdn.net/tylt6688/", "tylt6688@foxmail.com"))
-                .build();
+                .contact(new Contact(brezeConfig.getCopyrightName(), "https://blog.csdn.net/tylt6688/", "tylt6688@foxmail.com")).build();
     }
 
 
-//    /**
-//     * 多分组协同开发的情况
-//     * 开发A组的接口
-//     * @return
-//     */
-//    @Bean
-//    public Docket docketA(){
-//        return  new Docket(DocumentationType.SWAGGER_2)
-//                .groupName("开发A组").select().apis(RequestHandlerSelectors.none())
-//                .build();
-//    }
-//
-//    /**
-//     * 开发B组的接口
-//     * @return
-//     */
-//    @Bean
-//    public Docket docketB(){
-//        return  new Docket(DocumentationType.SWAGGER_2)
-//                .groupName("开发B组");
-//    }
+    /**
+     * 多分组协同开发的情况
+     *
+     * @return Docket
+     */
+    @Bean
+    public Docket docketRbac() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("RBAC Controller")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.breze.controller.rbac"))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securitySchemes())).securityContexts(Collections.singletonList(securityContexts()));
+    }
+
+    /**
+     * 多分组协同开发的情况
+     *
+     * @return Docket
+     */
+    @Bean
+    public Docket docketCore() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("CORE Controller")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.breze.controller.core"))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securitySchemes())).securityContexts(Collections.singletonList(securityContexts()));
+    }
+
+    /**
+     * 多分组协同开发的情况
+     *
+     * @return Docket
+     */
+    @Bean
+    public Docket docketDevelop() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("DEVELOP Controller")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.breze.controller.develop"))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securitySchemes())).securityContexts(Collections.singletonList(securityContexts()));
+    }
+
+    /**
+     * 多分组协同开发的情况
+     *
+     * @return Docket
+     */
+    @Bean
+    public Docket docketMonitor() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("MONITOR Controller")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.breze.controller.monitor"))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securitySchemes())).securityContexts(Collections.singletonList(securityContexts()));
+    }
+
+    /**
+     * 多分组协同开发的情况
+     *
+     * @return Docket
+     */
+    @Bean
+    public Docket docketPortal() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("PORTAL Controller")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.breze.controller.portal"))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securitySchemes())).securityContexts(Collections.singletonList(securityContexts()));
+    }
+
+    /**
+     * 多分组协同开发的情况
+     *
+     * @return Docket
+     */
+    @Bean
+    public Docket docketSyslog() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("SYSLOG Controller")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.breze.controller.syslog"))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securitySchemes())).securityContexts(Collections.singletonList(securityContexts()));
+    }
+
 
 }

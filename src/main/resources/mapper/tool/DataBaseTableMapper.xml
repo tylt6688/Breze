@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.breze.mapper.tool.DataBaseTableMapper">
+<mapper namespace="com.breze.mapper.develop.DataBaseTableMapper">
 
 
     <select id="showDataBases" resultType="java.lang.String">
@@ -8,7 +8,7 @@
     </select>
 
 
-    <select id="findDataBaseTable" resultType="com.breze.entity.pojo.tool.DataBaseTable">
+    <select id="findDataBaseTable" resultType="com.breze.entity.pojo.develop.DataBaseTable">
         SELECT table_name ,create_time , engine, table_collation AS coding, table_comment AS remark FROM information_schema.tables WHERE table_schema = #{dataBaseName} ORDER BY create_time DESC
     </select>
 

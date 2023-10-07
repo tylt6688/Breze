@@ -3,6 +3,8 @@ package com.breze.service.rbac.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.breze.common.enums.ErrorEnum;
+import com.breze.common.exception.BusinessException;
 import com.breze.converter.sys.GroupConvert;
 import com.breze.entity.bo.sys.UserGroupJobBO;
 import com.breze.entity.pojo.rbac.Group;
@@ -91,7 +93,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
 
     @Override
     public List<Group> findAll(String name) {
-            return buildTreeGroup(groupMapper.selectList(new QueryWrapper<Group>().like("name",name)));
+        return buildTreeGroup(groupMapper.selectList(new QueryWrapper<Group>().like("name", name)));
     }
 
 
@@ -157,6 +159,22 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean delete(Long id) {
-       return groupMapper.deleteById(id) > 0;
+
+        try {
+            if (groupJobMapper.selectCount(new QueryWrapper<GroupJob>().eq("group_id", id))>0) {
+                throw new BusinessException(ErrorEnum.FindException, "删除部门失败");
+            }
+            if (0 < groupMapper.selectCount(new QueryWrapper<Group>().eq("parent_id", id))) {
+                throw new BusinessException(ErrorEnum.FindException, "删除部门失败, 子部门存在");
+            }
+            return groupMapper.deleteById(id) > 0;
+        }
+        catch (Exception e){
+            throw new BusinessException(ErrorEnum.FindException, "删除部门失败");
+        }
+
+
+
+
     }
 }

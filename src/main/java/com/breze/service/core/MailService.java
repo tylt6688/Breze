@@ -1,7 +1,7 @@
-package com.breze.service.tool;
+package com.breze.service.core;
 
 import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.pojo.tool.Email;
+import com.breze.entity.pojo.core.Email;
 /**
  * <p>
  * 邮件服务类

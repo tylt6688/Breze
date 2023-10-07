@@ -12,7 +12,7 @@ import com.breze.entity.pojo.portal.Banner;
 import com.breze.entity.vo.portal.BannerVO;
 import com.breze.mapper.portal.BannerMapper;
 import com.breze.service.portal.BannerService;
-import com.breze.service.tool.QiNiuService;
+import com.breze.service.core.QiNiuService;
 import com.qiniu.common.QiniuException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

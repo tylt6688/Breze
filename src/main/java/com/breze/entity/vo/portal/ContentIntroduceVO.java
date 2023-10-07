@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -15,12 +16,15 @@ import java.util.List;
  * @author chenweixi
  * @create 2023-05-04 14:20
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "protal内容展示对象")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 public class ContentIntroduceVO extends BaseVO {
+
+    private static final long serialVersionUID = 2976558442294583208L;
 
     @ApiModelProperty(value = "内容id", name = "id", example = "1", notes = "内容id")
     private Long id;

@@ -32,7 +32,7 @@ import com.breze.mapper.rbac.UserMapper;
 import com.breze.service.rbac.GroupService;
 import com.breze.service.rbac.UserRoleService;
 import com.breze.service.rbac.UserService;
-import com.breze.service.tool.QiNiuService;
+import com.breze.service.core.QiNiuService;
 import com.breze.utils.FileUtil;
 import com.breze.utils.RedisUtil;
 import com.qiniu.common.QiniuException;

@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
 import com.breze.controller.BaseController;
-import com.breze.entity.pojo.tool.CodeGeneration;
+import com.breze.entity.pojo.develop.CodeGeneration;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 

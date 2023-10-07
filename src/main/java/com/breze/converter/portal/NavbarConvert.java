@@ -23,7 +23,7 @@ public interface NavbarConvert {
     @Mapping(source = "titleName", target = "titleName")
     List<NavbarTitleVO> navbarListToTitleVoList(List<Navbar> navbarList);
 
-    Page<NavbarVO> navbarPageToNavarPageVo(Page<Navbar> navbarPage);
+    Page<NavbarVO> navbarPageToNavbarPageVo(Page<Navbar> navbarPage);
 
     List<NavbarVO>  navbarListToNavbarVoList(List<Navbar> navbarList);
 

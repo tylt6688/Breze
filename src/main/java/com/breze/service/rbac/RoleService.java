@@ -1,8 +1,8 @@
 package com.breze.service.rbac;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.dto.sys.RoleDTO;
 import com.breze.entity.pojo.rbac.Role;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.vo.sys.RoleVO;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public interface RoleService extends IService<Role> {
      * @param menuIds 菜单 id 组
      * @return Boolean
      */
-    Boolean permRole(Long roleId, Long[] menuIds);
+    Boolean permMenu(Long roleId, Long[] menuIds);
     /**
      * 插入角色
      *

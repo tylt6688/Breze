@@ -1,8 +1,8 @@
-package com.breze.service.tool.impl;
+package com.breze.service.develop.impl;
 
-import com.breze.entity.pojo.tool.DataBaseTable;
-import com.breze.mapper.tool.DataBaseTableMapper;
-import com.breze.service.tool.DataBaseTableService;
+import com.breze.entity.pojo.develop.DataBaseTable;
+import com.breze.mapper.develop.DataBaseTableMapper;
+import com.breze.service.develop.DataBaseTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

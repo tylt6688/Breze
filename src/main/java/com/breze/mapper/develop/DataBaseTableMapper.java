@@ -1,6 +1,6 @@
-package com.breze.mapper.tool;
+package com.breze.mapper.develop;
 
-import com.breze.entity.pojo.tool.DataBaseTable;
+import com.breze.entity.pojo.develop.DataBaseTable;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

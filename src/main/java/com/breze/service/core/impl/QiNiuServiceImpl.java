@@ -1,9 +1,9 @@
-package com.breze.service.tool.impl;
+package com.breze.service.core.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.breze.config.OssConfig;
-import com.breze.service.tool.QiNiuService;
+import com.breze.service.core.QiNiuService;
 import com.breze.utils.FileUtil;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;

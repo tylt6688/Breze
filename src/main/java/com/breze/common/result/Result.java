@@ -31,7 +31,7 @@ public class Result<T> {
     /**
      * 标准请求成功消息模板
      *
-     * @return Result 成功消息
+     * @return SuccessResult<T> 成功范型模板对象
      */
     public static <T> Result<T> createSuccessMessage() {
         return createSuccessMessage("操作成功");
@@ -41,7 +41,7 @@ public class Result<T> {
      * 请求成功消息模板
      *
      * @param message 自定义提示消息
-     * @return Result 成功消息
+     * @return SuccessResult<T> 成功范型模板对象
      */
     public static <T> Result<T> createSuccessMessage(String message) {
         return createSuccessMessage(message, null);
@@ -52,7 +52,7 @@ public class Result<T> {
      *
      * @param message 自定义提示消息
      * @param data    响应数据
-     * @return Result 成功消息
+     * @return SuccessResult<T> 成功范型模板对象
      */
     public static <T> Result<T> createSuccessMessage(String message, T data) {
         return new SuccessResult<>(true, message, data);
@@ -63,7 +63,7 @@ public class Result<T> {
      * 请求失败消息模板
      *
      * @param errorEnum 错误枚举
-     * @return Result 失败消息
+     * @return FailedResult<T> 失败范型模板对象
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum) {
         return createFailMessage(errorEnum, "操作失败");
@@ -74,7 +74,7 @@ public class Result<T> {
      *
      * @param errorEnum 错误枚举
      * @param message   自定义失败信息
-     * @return Result 失败消息
+     * @return FailedResult<T> 失败范型模板对象
      */
 
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message) {
@@ -88,7 +88,7 @@ public class Result<T> {
      * @param errorEnum 错误枚举
      * @param message   自定义失败信息
      * @param data      响应数据
-     * @return Result 失败消息
+     * @return FailedResult<T> 失败范型模板对象
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message, T data) {
         return new FailedResult<>(false, message, errorEnum.getErrorCode(), errorEnum.getErrorName(), data);

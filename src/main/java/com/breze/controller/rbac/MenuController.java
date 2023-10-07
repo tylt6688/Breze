@@ -70,7 +70,7 @@ public class MenuController extends BaseController {
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:menu:insert')")
     public Result<String> insert(@Validated @RequestBody MenuDTO menuDTO) {
-        return brezeJudgeResult(menuService.insert(menuDTO));
+        return brezeJudgeResult(menuService.insert(menuDTO), "新增菜单成功", "新增菜单失败");
     }
 
     @ApiOperation(value = "更新菜单")
@@ -78,7 +78,7 @@ public class MenuController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:menu:update')")
     public Result<String> update(@Validated @RequestBody MenuDTO menuDTO) {
-        return brezeJudgeResult(menuService.update(menuDTO));
+        return brezeJudgeResult(menuService.update(menuDTO), "更新菜单成功", "更新菜单失败");
     }
 
     @ApiOperation(value = "删除菜单")
@@ -87,8 +87,7 @@ public class MenuController extends BaseController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:menu:delete')")
     public Result<String> delete(@RequestParam Long id) {
-        return brezeJudgeResult(menuService.delete(id));
-
+        return brezeJudgeResult(menuService.delete(id), "删除菜单成功", "删除菜单失败");
     }
 
 }

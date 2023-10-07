@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -12,12 +13,15 @@ import lombok.experimental.Accessors;
  * @author chenweixi
  * @create 2023-05-04 15:12
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "轮播图展示对象")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 public class BannerVO extends BaseVO {
+
+    private static final long serialVersionUID = -8083088524513911523L;
 
     @ApiModelProperty(value = "轮播图id", name = "id", example = "1", notes = "轮播图id")
     private Long id;

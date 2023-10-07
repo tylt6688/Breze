@@ -1,9 +1,9 @@
-package com.breze.controller.tool;
+package com.breze.controller.develop;
 
 import com.breze.common.result.Result;
 import com.breze.config.CodeGeneratorConfig;
-import com.breze.entity.pojo.tool.CodeGeneration;
-import com.breze.service.tool.DataBaseTableService;
+import com.breze.entity.pojo.develop.CodeGeneration;
+import com.breze.service.develop.DataBaseTableService;
 import com.breze.utils.CodeGenerationUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * <p>
  * 代码生成前端控制器
- * 详情配置地址: [https://baomidou.com/pages/981406/#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE-datasourceconfig]
+ * 详情配置地址: [<a href="https://baomidou.com/pages/981406/#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE-datasourceconfig">...</a>]
  * </p>
  *
  * @author tylt6688

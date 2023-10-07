@@ -1,7 +1,7 @@
 package com.breze.service.portal;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.pojo.tool.ObjectStorageService;
+import com.breze.entity.pojo.core.ObjectStorageService;
 
 /**
  * <p>
