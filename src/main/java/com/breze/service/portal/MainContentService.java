@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
 import com.breze.entity.vo.portal.ContentIntroduceVO;
+import com.breze.entity.vo.portal.ContentSelectVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -56,4 +57,6 @@ public interface MainContentService extends IService<ContentIntroduce> {
 
 
     List<ContentIntroduceVO> selectAllDataList(String titleName, Long parentId);
+
+    List<ContentSelectVO> getSelectOption();
 }

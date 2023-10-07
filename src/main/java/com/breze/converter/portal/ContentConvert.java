@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
 import com.breze.entity.vo.portal.ContentIntroduceVO;
+import com.breze.entity.vo.portal.ContentSelectVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -46,4 +47,6 @@ public interface ContentConvert {
      * @Return ContentIntroduce
      */
     List<ContentIntroduceVO> contentListToContentVOList(List<ContentIntroduce> contentIntroduce);
+
+    List<ContentSelectVO> contentListToContentSelectVOList(List<ContentIntroduce> contentIntroduceList);
 }

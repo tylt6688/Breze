@@ -14,6 +14,7 @@ import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
 import com.breze.entity.pojo.tool.ObjectStorageService;
 import com.breze.entity.vo.portal.ContentIntroduceVO;
+import com.breze.entity.vo.portal.ContentSelectVO;
 import com.breze.mapper.portal.MainContentMapper;
 import com.breze.mapper.tool.OssFileMapper;
 import com.breze.service.portal.MainContentService;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,7 +56,11 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
         Page<ContentIntroduceVO> contentIntroduceVoPage = ContentConvert.INSTANCE.contentPageToContentPageVo(contentIntroducePage);
         contentIntroduceVoPage.getRecords().forEach(contentIntroduce -> {
             contentIntroduce.setChildren(mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId()).orderByAsc("order_num")));
-            contentIntroduce.getChildren().forEach(content -> content.setImgUrl(ossFileMapper.selectById(content.getOssId()).getFileUrl()));
+            for (ContentIntroduce child : contentIntroduce.getChildren()) {
+                if (child.getOssId() != null){
+                    child.setImgUrl(ossFileMapper.selectById(child.getOssId()).getFileUrl());
+                }
+            }
         });
         return contentIntroduceVoPage;
     }
@@ -62,7 +68,9 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     @Override
     public ContentIntroduceVO getContentById(Long id) {
         ContentIntroduceVO contentIntroduceVo = ContentConvert.INSTANCE.contentToContentVO(mainContentMapper.selectById(id));
-        contentIntroduceVo.setImgUrl(ossFileMapper.selectById(contentIntroduceVo.getOssId()).getFileUrl());
+        if (contentIntroduceVo.getOssId() != null) {
+            contentIntroduceVo.setImgUrl(ossFileMapper.selectById(contentIntroduceVo.getOssId()).getFileUrl());
+        }
         return contentIntroduceVo;
     }
 
@@ -82,19 +90,22 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
             objectStorageService.setFileUrl(path);
 
             if ((contentIntroduce.getId() != null)) {
+                if(contentIntroduce.getOssId() != null){
                 // 删除原来的图片
                 qiNiuService.deleteFile(contentIntroduce.getImgUrl());
                 // 修改oss表图片存储链接
                 objectStorageService.setId(Long.valueOf(contentIntroduce.getOssId()));
                 ossFileMapper.updateById(objectStorageService);
+                }else{
+                    ossFileMapper.insert(objectStorageService);
+                    contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<ObjectStorageService>().eq("file_name",fileName)).getId());
+                }
                 // 修改内容
                 mainContentMapper.updateById(contentIntroduce);
                 return ossFileMapper.updateById(objectStorageService)>0 && mainContentMapper.updateById(contentIntroduce)>0;
             } else {
-                String ossId = IdUtil.simpleUUID();
-                objectStorageService.setId(Long.valueOf(ossId));
-                contentIntroduce.setOssId(ossId);
                 ossFileMapper.insert(objectStorageService);
+                contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<ObjectStorageService>().eq("file_name",fileName)).getId());
                 mainContentMapper.insert(contentIntroduce);
                 return ossFileMapper.insert(objectStorageService)>0 && mainContentMapper.insert(contentIntroduce)>0;
             }
@@ -107,7 +118,11 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     @Transactional
     public Boolean updateContent(ContentDTO contentDTO) {
         ContentIntroduce contentIntroduce = ContentConvert.INSTANCE.contentDTOToContent(contentDTO);
-        return mainContentMapper.updateById(contentIntroduce)>0;
+        if (contentIntroduce.getId() != null){
+            return mainContentMapper.updateById(contentIntroduce)>0;
+        }else{
+            return mainContentMapper.insert(contentIntroduce) > 0 ;
+        }
     }
 
     @Override
@@ -137,8 +152,16 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
                 if (child.getOssId() != null){
                     child.setImgUrl(ossFileMapper.selectById(child.getOssId()).getFileUrl());
                 }
+                child.setTitleInfoList(Arrays.asList(child.getTitleInfo().split("<->")));
             }
         });
         return contentIntroduceVOList;
+    }
+
+    @Override
+    public List<ContentSelectVO> getSelectOption() {
+        List<ContentIntroduce> contentIntroduceList = mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().ne("parent_id", 0));
+        List<ContentSelectVO> contentSelectVOS = ContentConvert.INSTANCE.contentListToContentSelectVOList(contentIntroduceList);
+        return contentSelectVOS;
     }
 }
