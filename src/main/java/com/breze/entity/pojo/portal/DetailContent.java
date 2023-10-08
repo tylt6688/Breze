@@ -1,5 +1,6 @@
 package com.breze.entity.pojo.portal;
 
+import com.baomidou.mybatisplus.annotation.OrderBy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
@@ -15,47 +16,44 @@ import java.util.List;
 
 /**
  * @author chenweixi
- * @create 2023-02-10 15:43
+ * @create 2023-09-05 14:40
+ * @Description 详细内容
+ * @Copyright(c) 2023, 青枫网络工作室
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("tb_content_introduce")
-@ApiModel(value = "SimpleContent", description = "主体内容对象,SimpleContent主体内容表")
-public class ContentIntroduce extends BaseEntity {
+@TableName("tb_details_content")
+@ApiModel(value = "detailsContent", description = "详细内容对象,detailsContentt详细内容表")
+public class DetailContent extends BaseEntity {
 
-    private static final long serialVersionUID = 8822671337435221276L;
+    @ApiModelProperty("SimpleContent表id")
+    private Long contentId;
 
     @ApiModelProperty("oss表id")
-    private Long OssId;
+    private Long ossId;
 
     @ApiModelProperty("内容模块主标题")
     private String mainTitle;
 
     @ApiModelProperty("内容模块副标题")
-    private String subtitle;
+    private String subTitle;
 
     @ApiModelProperty("内容模块简介")
-    private String titleInfo;
-
-    @ApiModelProperty("序号")
-    private Long orderNum;
-
-    @ApiModelProperty("指定路由跳转")
-    private String routerPath;
+    private String info;
 
     @ApiModelProperty("父id")
     private Long parentId;
+
+    @ApiModelProperty("排序号")
+    private Integer orderNum;
 
     @ApiModelProperty("图片")
     @TableField(exist = false)
     private String imgUrl;
 
-    @ApiModelProperty("背景")
-    private String backUrl;
-
     @TableField(exist = false)
-    private List<String> titleInfoList;
+    private List<String> InfoList;
 }

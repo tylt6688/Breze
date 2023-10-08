@@ -7,6 +7,7 @@ import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.vo.portal.ContentIntroduceVO;
+import com.breze.entity.vo.portal.ContentSelectVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -54,6 +55,14 @@ public class MainContentController extends BaseController {
         return Result.createSuccessMessage("获取内容信息成功", contentIntroduceVo);
     }
 
+    @ApiOperation("获取搜索框选项")
+    @BrezeLog("获取搜索框选项")
+    @GetMapping("/get_select_option")
+    public Result<List<ContentSelectVO>> getSelectOption() {
+        List<ContentSelectVO> contentSelectVOS = mainContentService.getSelectOption();
+        return Result.createSuccessMessage("获取内容信息成功", contentSelectVOS);
+    }
+
     @ApiOperation("新增内容和修改内容(含图片)")
     @BrezeLog("新增内容和修改内容(含图片)")
     @PostMapping("/insert")
@@ -63,7 +72,7 @@ public class MainContentController extends BaseController {
 
     @ApiOperation("更新内容(不含图片)")
     @BrezeLog("更新内容(不含图片)")
-    @PutMapping("/update")
+    @PostMapping("/update")
     public Result<String> updateContent(@Validated @RequestBody ContentDTO contentDTO) {
         return brezeJudgeResult(mainContentService.updateContent(contentDTO));
     }

@@ -295,7 +295,6 @@
             <version>${qiniuoss.version}</version>
         </dependency>
 
-
     </dependencies>
 
     <repositories>

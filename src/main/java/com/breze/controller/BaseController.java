@@ -127,8 +127,12 @@ public class BaseController {
     protected MainContentService mainContentService;
     @Autowired
     protected ModeCardService modeCardService;
+
     @Autowired
     protected OssFileService ossFileService;
+
+    @Autowired
+    protected DetailContentService detailContentService;
 
     //===============================Breze=================================//
 
