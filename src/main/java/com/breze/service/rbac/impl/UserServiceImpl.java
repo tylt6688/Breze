@@ -29,16 +29,15 @@ import com.breze.entity.vo.sys.UserVO;
 import com.breze.mapper.rbac.MenuMapper;
 import com.breze.mapper.rbac.RoleMapper;
 import com.breze.mapper.rbac.UserMapper;
+import com.breze.service.core.QiNiuService;
 import com.breze.service.rbac.GroupService;
 import com.breze.service.rbac.UserRoleService;
 import com.breze.service.rbac.UserService;
-import com.breze.service.core.QiNiuService;
 import com.breze.utils.FileUtil;
 import com.breze.utils.RedisUtil;
+import com.breze.utils.SecurityUtil;
 import com.qiniu.common.QiniuException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,8 +61,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Autowired
     private RedisUtil redisUtil;
@@ -126,7 +124,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
             user.setState(GlobalConstant.STATUS_ON)
                     .setAvatar(SystemConstant.DEFAULT_AVATAR)
-                    .setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
+                    .setPassword(SecurityUtil.encodePassword(SystemConstant.DEFAULT_PASSWORD));
             return userMapper.insert(user) > 0;
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "添加用户失败");
@@ -150,35 +148,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional(rollbackFor = Exception.class)
     public Boolean delete(List<UserDTO> userDTOList) {
         try {
-
-            boolean removeBatchByIds = this.removeBatchByIds(UserConvert.INSTANCE.userDTOToUser(userDTOList));
-            userDTOList.forEach(userDTO -> {
-                List<UserRole> userRoleList = userRoleService.list(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, userDTO.getId()));
-                // 连带删除用户角色关联表
-                userRoleService.removeBatchByIds(userRoleList);
-            });
-
-            return removeBatchByIds;
+            boolean removed = this.removeBatchByIds(UserConvert.INSTANCE.userDTOToUser(userDTOList));
+            return removed;
         } catch (Exception e) {
-            e.printStackTrace();
             throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
         }
+
     }
 
     @Override
     public Boolean resetUserPassword(Long userId) {
         User user = this.getById(userId);
-        user.setPassword(bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD));
+        user.setPassword(SecurityUtil.encodePassword(SystemConstant.DEFAULT_PASSWORD));
         return this.updateById(user);
     }
 
     @Override
     public Boolean updatePassword(UpdatePasswordDTO updatePasswordDTO) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = this.getUserByUserName(username);
-        boolean matches = bCryptPasswordEncoder.matches(updatePasswordDTO.getOldPassword(), user.getPassword());
+        User user = this.getUserByUserName(SecurityUtil.getUsername());
+        boolean matches = SecurityUtil.matchesPassword(updatePasswordDTO.getOldPassword(), user.getPassword());
         if (matches) {
-            user.setPassword(bCryptPasswordEncoder.encode(updatePasswordDTO.getNewPassword()));
+            user.setPassword(SecurityUtil.encodePassword(updatePasswordDTO.getNewPassword()));
             try {
                 return this.updateById(user);
             } catch (Exception e) {
@@ -193,8 +183,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Boolean updateAvatar(MultipartFile avatar) {
         try {
-            String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = this.getUserByUserName(username);
+            User user = this.getUserByUserName(SecurityUtil.getUsername());
             if (user.getAvatar() != null && CharSequenceUtil.subSuf(user.getAvatar(), 24).equals(ossConfig.getUrl())) {
                 qiNiuService.deleteFile(user.getAvatar());
             }
@@ -213,8 +202,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Boolean updateLoginWarnByFlag(Integer loginWarn) {
         try {
-            String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            User user = this.getUserByUserName(username);
+            User user = this.getUserByUserName(SecurityUtil.getUsername());
             return userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
         } catch (Exception e) {
             throw new BusinessException(ErrorEnum.FindException, "更新登录邮件提醒失败");
@@ -232,7 +220,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Boolean importUserByExcel(MultipartFile file) {
-        String encode = bCryptPasswordEncoder.encode(SystemConstant.DEFAULT_PASSWORD);
+        String encode = SecurityUtil.encodePassword(SystemConstant.DEFAULT_PASSWORD);
         File coverFile = FileUtil.multipartFileToFile(file);
         EasyExcelFactory.read(coverFile, User.class, new PageReadListener<User>(dataList -> {
             for (User user : dataList) {

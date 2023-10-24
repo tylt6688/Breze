@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -48,6 +50,8 @@ public class CodeGeneration implements Serializable {
     /**
      * 作者署名
      */
+    @NotBlank(message = "作者署名不能为空")
+    @Size(min = 0, max = 30, message = "作者署名不能超过30个字符")
     private String author;
 
     /**
@@ -69,4 +73,9 @@ public class CodeGeneration implements Serializable {
      * 代码生成的输出目录
      */
     private String outputDir;
+
+    /**
+     * 是否生成到本地磁盘还是项目开发目录
+     */
+    private Boolean isLocal;
 }

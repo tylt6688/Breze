@@ -7,6 +7,7 @@ import com.breze.common.event.BrezeLogEvent;
 import com.breze.entity.pojo.syslog.HandleLog;
 import com.breze.utils.ClientUtil;
 import com.breze.utils.IPUtil;
+import com.breze.utils.SecurityUtil;
 import com.breze.utils.SpringContextHolder;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -51,7 +52,8 @@ public class BrezeLogAspect {
                 .setMethod(request.getMethod())
                 .setClientType(ClientUtil.getPlatformName(request))
                 .setParams(HttpUtil.toParams(request.getParameterMap()))
-                .setCreateTime(LocalDateTime.now());
+                .setCreateTime(LocalDateTime.now())
+                .setOperator(SecurityUtil.getUsername());
 
         // 发送异步日志事件
         Long startTime = System.currentTimeMillis();

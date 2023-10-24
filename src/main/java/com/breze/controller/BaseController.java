@@ -114,6 +114,7 @@ public class BaseController {
     protected DictService dictService;
     @Autowired
     protected DictDataService dictDataService;
+
     //===============================Breze Service=================================//
 
     /**

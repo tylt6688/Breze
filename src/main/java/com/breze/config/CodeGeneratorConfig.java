@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @Description 代码生成配置类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
-
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource.dynamic.datasource.master")

@@ -36,18 +36,23 @@ public class CaptchaFilter extends OncePerRequestFilter {
     @Autowired
     AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
 
+    private static final String LOGIN_URL = "/breze/login";
+
+    private static final String KEY = "key";
+
+    private static final String CODE = "code";
+
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
 
         String url = request.getRequestURI();
         String method = request.getMethod();
 
-        if ("/breze/login".equals(url) && method.equals(CharsetConstant.POST)) {
+        if (LOGIN_URL.equals(url) && method.equals(CharsetConstant.POST)) {
             try {
                 // 先校验验证码
                 validate(request);
             } catch (CaptchaException e) {
-                e.printStackTrace();
                 // 交给登录失败处理器
                 authenticationFailureHandlerImpl.onAuthenticationFailure(request, response, e);
             }
@@ -60,8 +65,8 @@ public class CaptchaFilter extends OncePerRequestFilter {
      */
     private void validate(HttpServletRequest request) {
 
-        String key = request.getParameter("key");
-        String code = request.getParameter("code");
+        String key = request.getParameter(KEY);
+        String code = request.getParameter(CODE);
 
         log.info("传入的参数key:{}--code:{} ", key, code);
 

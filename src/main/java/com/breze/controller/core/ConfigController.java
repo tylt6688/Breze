@@ -13,12 +13,12 @@ import java.util.List;
 
 /**
  * @Author tylt6688
- * @Date 2023/7/25 16:40
- * @Description 配置条目控制器
+ * @Date 2023/7/25 17:08
+ * @Description Breze系统配置控制器
  * @Copyright(c) 2023 , 青枫网络工作室
  */
 
-@Api(tags = "系统配置存储")
+@Api(tags = "系统配置")
 @RestController
 @RequestMapping("/core/config")
 public class ConfigController extends BaseController {

@@ -2,7 +2,6 @@ package com.breze.utils;
 
 import com.breze.config.JwtConfig;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.log4j.Log4j2;
@@ -53,19 +52,10 @@ public class JwtUtil {
      */
     public Claims getClaimByToken(String token) {
 
-        Claims claims = null;
-
-        try {
-            claims = Jwts.parser()
-                    .setSigningKey(jwtConfig.getSecret())
-                    .parseClaimsJws(token)
-                    .getBody();
-
-            log.info("[JWT解析完成]:---{}", claims);
-        } catch (JwtException e) {
-            log.error("[JWT解析失败]令牌异常:---{}", e.getMessage());
-        }
-        return claims;
+        return Jwts.parser()
+                .setSigningKey(jwtConfig.getSecret())
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     /**

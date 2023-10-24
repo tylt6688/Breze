@@ -41,6 +41,16 @@ public class BrezeConfig {
     private String copyrightYear;
 
     /**
+     * 项目版本号
+     */
+    private String version;
+
+    /**
+     * 上传文件路径
+     */
+    private String uploadPath;
+
+    /**
      * 项目Swagger是否开启
      */
     private Boolean swaggerEnabled;
@@ -49,10 +59,5 @@ public class BrezeConfig {
      * 项目验证码是否开启
      */
     private Boolean captchaDevEnabled;
-
-    /**
-     * 项目版本号
-     */
-    private String version;
 
 }

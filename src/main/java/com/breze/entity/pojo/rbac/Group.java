@@ -3,7 +3,6 @@ package com.breze.entity.pojo.rbac;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.breze.entity.pojo.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -51,11 +50,9 @@ public class Group extends BaseEntity {
      */
     private String remark;
 
-    @ApiModelProperty(value = "岗位名称", name = "Job", example = "实习生", notes = "岗位")
     @TableField(exist = false)
     private String job;
 
-    @ApiModelProperty(value = "", name = "", example = "", notes = "")
     @TableField(exist = false)
     private List<Group> children = new ArrayList<>();
 

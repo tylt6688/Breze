@@ -15,13 +15,12 @@ import com.breze.entity.pojo.core.Email;
 import com.breze.entity.pojo.rbac.User;
 
 
+
 /**
- * <p>
- * 邮件发送前端控制器
- * </p>
- *
  * @author tylt6688
- * @since 2022-03-01
+ * @Date 2022-03-01 14:17
+ * @Description 邮件发送前端控制器
+ * @Copyright(c) 2022, 青枫网络工作室
  */
 
 @RestController
@@ -31,7 +30,7 @@ public class MailController extends BaseController {
     @Autowired
     MailConfig mailConfig;
 
-    // 注入TemplateEngine
+    // 注入 TemplateEngine
     @Autowired
     TemplateEngine templateEngine;
 
@@ -44,7 +43,7 @@ public class MailController extends BaseController {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.getUserByUserName(username);
 
-        // 注意导入的包是org.thymeleaf.context
+        // 注意导入的包是 org.thymeleaf.context
         Context context = new Context();
         context.setVariable("username", user.getUsername());
         context.setVariable("updated", user.getUpdateTime());

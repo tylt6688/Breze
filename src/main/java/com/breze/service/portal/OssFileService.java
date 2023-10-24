@@ -1,7 +1,7 @@
 package com.breze.service.portal;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.breze.entity.pojo.core.ObjectStorageService;
+import com.breze.entity.pojo.core.OSS;
 
 /**
  * <p>
@@ -11,7 +11,7 @@ import com.breze.entity.pojo.core.ObjectStorageService;
  * @author tylt6688
  * @since 2022-03-19
  */
-public interface OssFileService extends IService<ObjectStorageService> {
+public interface OssFileService extends IService<OSS> {
 
 
 }

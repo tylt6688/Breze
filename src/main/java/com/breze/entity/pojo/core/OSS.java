@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("tb_oss")
 @ApiModel(value = "OSS", description = "OSS,tb_oss对象存储表")
-public class ObjectStorageService extends BaseEntity {
+public class OSS extends BaseEntity {
 
     private static final long serialVersionUID = 4904930249407221901L;
 

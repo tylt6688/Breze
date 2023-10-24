@@ -2,7 +2,7 @@ package com.breze.service.portal.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.breze.entity.pojo.core.ObjectStorageService;
+import com.breze.entity.pojo.core.OSS;
 import com.breze.mapper.core.OssFileMapper;
 import com.breze.service.portal.OssFileService;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @DS("portal")
 @Transactional
 @Service
-public class OssFileServiceImpl extends ServiceImpl<OssFileMapper, ObjectStorageService> implements OssFileService {
+public class OssFileServiceImpl extends ServiceImpl<OssFileMapper, OSS> implements OssFileService {
 
 }

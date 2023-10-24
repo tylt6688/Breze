@@ -11,9 +11,9 @@ logging:
   # 根据分组设定日志级别
   level:
     # 项目整体日志级别
-    root: info
+    root: error
     # 项目分组各模块日志级别
-    common: info
+    common: error
     controller: debug
     service: debug
     mapper: debug

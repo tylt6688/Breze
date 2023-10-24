@@ -1,17 +1,17 @@
 package com.breze.security;
 
 import com.breze.common.consts.GlobalConstant;
-import com.breze.common.consts.SystemConstant;
 import com.breze.common.enums.ErrorEnum;
+import com.breze.entity.bo.sys.IpBO;
 import com.breze.entity.bo.sys.LoginUserBO;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.pojo.syslog.LoginLog;
+import com.breze.service.core.MailService;
 import com.breze.service.rbac.UserService;
 import com.breze.service.syslog.LoginLogService;
-import com.breze.service.core.MailService;
+import com.breze.utils.BrezeUtil;
 import com.breze.utils.ClientUtil;
 import com.breze.utils.IPUtil;
-import com.maxmind.geoip2.DatabaseReader;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,13 +20,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Author tylt6688
@@ -50,45 +46,35 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
 
         User user = userService.getUserByUserName(username);
-        // 进行异常抛出，交付给认证失败处理器进行处理
+        // 判断帐号是否存在
         if (user == null) {
-            throw new UsernameNotFoundException(ErrorEnum.ErrorUsernamePassword.getErrorName());
-        } else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
+            throw new UsernameNotFoundException(ErrorEnum.UnknownAccount.getErrorName());
+        }
+        // 判断帐户是否被锁定
+        else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
             throw new UsernameNotFoundException(ErrorEnum.LockUser.getErrorName());
         }
-        userService.updateLastLoginTime(username);
-
-        File database = new File(new File("geolite2city.mmdb").getAbsolutePath());
-        // 读取GeoIP数据库内容
-        DatabaseReader reader;
-        String ip = "未知IP";
-        String ipLocation = "未知位置";
-        try {
-            reader = new DatabaseReader.Builder(database).build();
-            HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-            ip = IPUtil.getIpAddress(request);
-            if (IPUtil.isInternalIP(ip)) {
-                ipLocation = "内网地址";
-            } else if (ip.equals(SystemConstant.SERVER_IP)) {
-                ipLocation = "服务器用户";
-            } else {
-                ipLocation = IPUtil.getAddress(reader, IPUtil.getIpAddress(request));
-            }
-
-            log.info("当前用户IP地址:---{}", ip);
-
-            LoginLog loginLog = new LoginLog();
-            loginLog.setUserId(userService.getUserByUserName(username).getId())
-                    .setState(GlobalConstant.TYPE_ZERO).setIpAddress(ip).setOs(ClientUtil.getOperaSystemName(request)).setIpLocation(ipLocation);
-            loginLogService.save(loginLog);
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.info("异常IP地址:---{}", SystemConstant.UNKNOWN_IP);
-        }
-
-        if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
+        // 判断是否需要发送提醒邮件
+        else if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
             mailService.sendRemindEmail(user);
         }
+
+        // 更新该账号最后一次登录时间
+        userService.updateLastLoginTime(username);
+
+//        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        assert servletRequestAttributes != null;
+        HttpServletRequest request = BrezeUtil.getHttpServletRequest();
+
+        IpBO ipAddressInfo = IPUtil.getIpAddressInfo(request);
+        log.info("[当前登录用户IP信息]:---{}", ipAddressInfo.toString());
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUserId(userService.getUserByUserName(username).getId())
+                .setState(GlobalConstant.TYPE_ZERO)
+                .setIpAddress(ipAddressInfo.getIp())
+                .setOs(ClientUtil.getOperaSystemName(request))
+                .setIpLocation(ipAddressInfo.getAddress());
+        loginLogService.save(loginLog);
 
         return new LoginUserBO(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user.getId()));
     }
@@ -105,7 +91,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         String authority = userService.getUserAuthorityInfo(userId);
         // ROLE_admin,ROLE_user,sys:user:list,....
         log.info("[当前角色及对应权限编码]:---{}", authority);
-
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
     }
 

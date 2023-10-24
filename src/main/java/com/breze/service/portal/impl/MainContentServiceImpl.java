@@ -1,6 +1,5 @@
 package com.breze.service.portal.impl;
 
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -12,7 +11,7 @@ import com.breze.common.exception.BusinessException;
 import com.breze.converter.portal.ContentConvert;
 import com.breze.entity.dto.portal.ContentDTO;
 import com.breze.entity.pojo.portal.ContentIntroduce;
-import com.breze.entity.pojo.core.ObjectStorageService;
+import com.breze.entity.pojo.core.OSS;
 import com.breze.entity.vo.portal.ContentIntroduceVO;
 import com.breze.entity.vo.portal.ContentSelectVO;
 import com.breze.mapper.portal.MainContentMapper;
@@ -85,29 +84,29 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
             String path = qiNiuService.uploadFile(file);
             String fileName = path.substring(25, path.lastIndexOf("."));
 
-            ObjectStorageService objectStorageService = new ObjectStorageService();
-            objectStorageService.setFileName(fileName);
-            objectStorageService.setFileUrl(path);
+            OSS OSS = new OSS();
+            OSS.setFileName(fileName);
+            OSS.setFileUrl(path);
 
             if ((contentIntroduce.getId() != null)) {
                 if(contentIntroduce.getOssId() != null){
                 // 删除原来的图片
                 qiNiuService.deleteFile(contentIntroduce.getImgUrl());
                 // 修改oss表图片存储链接
-                objectStorageService.setId(Long.valueOf(contentIntroduce.getOssId()));
-                ossFileMapper.updateById(objectStorageService);
+                OSS.setId(Long.valueOf(contentIntroduce.getOssId()));
+                ossFileMapper.updateById(OSS);
                 }else{
-                    ossFileMapper.insert(objectStorageService);
-                    contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<ObjectStorageService>().eq("file_name",fileName)).getId());
+                    ossFileMapper.insert(OSS);
+                    contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<OSS>().eq("file_name",fileName)).getId());
                 }
                 // 修改内容
                 mainContentMapper.updateById(contentIntroduce);
-                return ossFileMapper.updateById(objectStorageService)>0 && mainContentMapper.updateById(contentIntroduce)>0;
+                return ossFileMapper.updateById(OSS)>0 && mainContentMapper.updateById(contentIntroduce)>0;
             } else {
-                ossFileMapper.insert(objectStorageService);
-                contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<ObjectStorageService>().eq("file_name",fileName)).getId());
+                ossFileMapper.insert(OSS);
+                contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<OSS>().eq("file_name",fileName)).getId());
                 mainContentMapper.insert(contentIntroduce);
-                return ossFileMapper.insert(objectStorageService)>0 && mainContentMapper.insert(contentIntroduce)>0;
+                return ossFileMapper.insert(OSS)>0 && mainContentMapper.insert(contentIntroduce)>0;
             }
         } catch (QiniuException e) {
             throw new RuntimeException(e);

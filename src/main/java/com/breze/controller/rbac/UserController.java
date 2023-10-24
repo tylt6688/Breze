@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @Author tylt6688
  * @Date 2022-03-01
- * @Discription 用户管理前端控制器
+ * @Discription 用户管理控制器
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2

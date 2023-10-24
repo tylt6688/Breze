@@ -21,11 +21,20 @@ import java.util.HashMap;
 @Data
 public class Result<T> {
 
-    /**
-     * 响应数据 Map 集合
-     */
-    @ApiModelProperty(value = "响应数据集合")
-    private HashMap<String, T> result = new HashMap<>();
+    @ApiModelProperty(value = "是否成功")
+    private boolean success;
+
+    @ApiModelProperty(value = "消息提示")
+    private String message;
+
+    @ApiModelProperty(value = "响应数据Map集合")
+    private HashMap<String, T> result;
+
+    private static final String DEFAULT_SUCCESS_MESSAGE = "操作成功";
+
+    private static final String DEFAULT_FAILED_MESSAGE = "操作失败";
+
+
 
 
     /**
@@ -34,7 +43,7 @@ public class Result<T> {
      * @return SuccessResult<T> 成功范型模板对象
      */
     public static <T> Result<T> createSuccessMessage() {
-        return createSuccessMessage("操作成功");
+        return createSuccessMessage(DEFAULT_SUCCESS_MESSAGE);
     }
 
     /**
@@ -66,7 +75,7 @@ public class Result<T> {
      * @return FailedResult<T> 失败范型模板对象
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum) {
-        return createFailMessage(errorEnum, "操作失败");
+        return createFailMessage(errorEnum, DEFAULT_FAILED_MESSAGE);
     }
 
     /**

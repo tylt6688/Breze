@@ -1,32 +1,13 @@
 # application.yml 主配置文件
-# 项目相关配置
-breze:
-  # 标题
-  title: 清枫Breze一体化服务平台
-  # 项目名
-  name: Breze
-  # 项目描述
-  description: Breze权限管理系统接口文档
-  # 版本
-  version: 1.0.0
-  # 版权年份
-  copyrightYear: 2023
-  # 版权归属
-  copyrightName: 青枫网络工作室
-  # Swagger文档启停,生产环境建议关闭
-  swaggerEnabled: true
-
-  captchaDevEnabled: true
-
 spring:
   #  配置激活文件
   profiles:
     active: dev
     # 对配置文件进行分组激活，届时可根据不同环境进行修改
     group:
-      "dev": datasource,redis,rabbitmq,mail,timedtask,private
-      "prod": datasource,redis,rabbitmq,mail,timedtask,private
-      "test": datasource,redis,rabbitmq,mail,timedtask,private
+      "dev": datasource,redis,rabbitmq,mail,scheduled,private
+      "prod": datasource,redis,rabbitmq,mail,scheduled,private
+      "test": datasource,redis,rabbitmq,mail,scheduled,private
   # 限制文件大小
   servlet:
     multipart:

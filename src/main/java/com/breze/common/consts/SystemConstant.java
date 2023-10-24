@@ -24,7 +24,7 @@ public class  SystemConstant {
     /**
      * 未知IP常量
      */
-    public static final String UNKNOWN_IP = "未知IP或处于测试环境";
+    public static final String UNKNOWN_IP = "未知IP地址";
     /**
      * 登录认证成功常量
      */

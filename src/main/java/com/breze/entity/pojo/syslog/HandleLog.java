@@ -59,4 +59,7 @@ public class HandleLog implements Serializable {
     @ApiModelProperty(value = "请求用时", name = "time", example = "7ms")
     private String time;
 
+    @ApiModelProperty(value = "操作人", name = "operator", example = "admin")
+    private String operator;
+
 }

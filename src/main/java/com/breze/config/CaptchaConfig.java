@@ -22,7 +22,7 @@ public class CaptchaConfig {
     public DefaultKaptcha producer() {
 
         Properties properties = new Properties();
-        //图片边框，合法值 yes，no，默认值yes
+        //图片边框，合法值 yes,no，默认值yes
         properties.put(KAPTCHA_BORDER, "no");
         //文字间隔，默认值为 2
         properties.put(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "4");
