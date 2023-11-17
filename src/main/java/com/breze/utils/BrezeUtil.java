@@ -9,6 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
+/**
+ * @Author tylt6688
+ * @Date 2023/10/26 13:38
+ * @Description 框架级工具类
+ * @Copyright(c) 2023 , 青枫网络工作室
+ */
+
 @Log4j2
 @UtilityClass
 public class BrezeUtil {
@@ -83,7 +90,6 @@ public class BrezeUtil {
      * 获取HttpServletRequest
      */
     public static HttpServletRequest getHttpServletRequest() {
-
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert servletRequestAttributes != null;
         return servletRequestAttributes.getRequest();

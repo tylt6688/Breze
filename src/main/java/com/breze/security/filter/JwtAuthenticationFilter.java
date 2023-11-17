@@ -65,18 +65,18 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         String jwt = request.getHeader(jwtConfig.getHeader());
         log.info("[原始带Bearer头jwt信息]：---{}", jwt);
         if (jwt == null || SecurityConstant.BREZE_APP.equals(jwt)) {
-            log.info("[JWT为空](初始登录以及白名单接口访问时为空正常):---{}", jwt);
+            log.info("[初始登录访问，JWT解析正常放行](初始登录以及白名单接口访问时为空正常):---{}", jwt);
             chain.doFilter(request, response);
             return;
         } else if (!jwt.startsWith(SecurityConstant.JWT_PREFIX)) {
             log.info("[JWT头部格式不正确]:---{}", jwt);
-            accessDeniedHandler.handle(request, response, new BrezeDeniedException("JWT头部格式不正确"));
+            accessDeniedHandler.handle(request, response, new BrezeDeniedException("令牌认证失败，请重新登录"));
             return;
         }
 
         jwt = jwt.replace(SecurityConstant.JWT_PREFIX, "");
 
-        log.info("[处理后的jwt信息]：---{}", jwt);
+        log.info("[进行标识处理后的jwt信息]：---{}", jwt);
 
         // 进行 JWT 解析
         Claims claim = jwtUtil.getClaimByToken(jwt);
@@ -85,11 +85,11 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             authenticationEntryPoint.commence(request, response, new BrezeJwtException("登录凭证无效"));
             return;
         }
-        // 判断token是否过期
-        else if (jwtUtil.isTokenExpired(claim)) {
-            authenticationEntryPoint.commence(request, response, new BrezeJwtException("登录凭证已过期"));
-            return;
-        }
+//        // 判断token是否过期
+//        else if (jwtUtil.isTokenExpired(claim)) {
+//            authenticationEntryPoint.commence(request, response, new BrezeJwtException("登录凭证已过期"));
+//            return;
+//        }
 
         // 获取用户的权限菜单等信息
         String username = claim.getSubject();

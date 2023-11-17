@@ -1,7 +1,9 @@
 package com.breze.utils;
 
+import com.breze.common.exception.BrezeJwtException;
 import com.breze.config.JwtConfig;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.log4j.Log4j2;
@@ -52,10 +54,14 @@ public class JwtUtil {
      */
     public Claims getClaimByToken(String token) {
 
-        return Jwts.parser()
-                .setSigningKey(jwtConfig.getSecret())
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parser()
+                    .setSigningKey(jwtConfig.getSecret())
+                    .parseClaimsJws(token)
+                    .getBody();
+        }catch (ExpiredJwtException e){
+            throw new BrezeJwtException("登录凭证失效");
+        }
     }
 
     /**

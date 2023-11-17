@@ -5,22 +5,16 @@ import cn.hutool.http.HttpUtil;
 import com.breze.common.annotation.BrezeLog;
 import com.breze.common.event.BrezeLogEvent;
 import com.breze.entity.pojo.syslog.HandleLog;
-import com.breze.utils.ClientUtil;
-import com.breze.utils.IPUtil;
-import com.breze.utils.SecurityUtil;
-import com.breze.utils.SpringContextHolder;
+import com.breze.utils.*;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * @Author LUCIFER-LGX
@@ -44,7 +38,7 @@ public class BrezeLogAspect {
         log.debug("[类名]:---{},[方法]:---{}", strClassName, strMethodName);
 
         //获取请求 url,ip,httpMethod
-        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        HttpServletRequest request = BrezeUtil.getHttpServletRequest();
         HandleLog handleLog = new HandleLog();
         handleLog.setTitle(brezeLog.value())
                 .setRequestIp(IPUtil.getIpAddress(request))
