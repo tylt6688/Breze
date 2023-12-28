@@ -71,12 +71,8 @@ public class SecurityConfig {
     }
 
     /**
-     * 放行静态资源
+     * 配置安全过滤器链
      */
-//    @Bean
-//    WebSecurityCustomizer webSecurityCustomizer() {
-//        return web -> web.ignoring().antMatchers("/static/**", "/favicon.ico");
-//    }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // 允许跨域

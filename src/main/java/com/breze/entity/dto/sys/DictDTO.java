@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -12,6 +13,7 @@ import lombok.experimental.Accessors;
  * @author chenweixi
  * @create 2023-04-20 16:03
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "字典数据接收对象")
 @Data
 @NoArgsConstructor

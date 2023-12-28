@@ -4,8 +4,10 @@ import com.breze.entity.vo.BaseVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "ConfigVO对象", description = "系统参数配置表")
 @Data
 public class ConfigVO extends BaseVO {

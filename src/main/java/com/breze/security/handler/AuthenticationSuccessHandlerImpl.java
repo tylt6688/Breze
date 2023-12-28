@@ -4,8 +4,8 @@ import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.SystemConstant;
 import com.breze.common.result.Result;
-import com.breze.config.JwtConfig;
-import com.breze.utils.JwtUtil;
+import com.breze.config.TokenConfig;
+import com.breze.utils.TokenUtil;
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,10 @@ import java.nio.charset.StandardCharsets;
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
     @Autowired
-    private JwtConfig jwtConfig;
+    private TokenConfig tokenConfig;
 
     @Autowired
-    JwtUtil jwtUtil;
+    TokenUtil tokenUtil;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Authentication authentication) throws IOException {
@@ -49,9 +49,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         String username = authentication.getName();
 
         // 生成JWT放置到响应Header头中
-        String token = jwtUtil.generateToken(username);
+        String token = tokenUtil.generateToken(username);
 
-        response.setHeader(jwtConfig.getHeader(), token);
+        response.setHeader(tokenConfig.getHeader(), token);
 
         Result<String> result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS, token);
 

@@ -62,7 +62,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
 
-
     @Autowired
     private RedisUtil redisUtil;
 
@@ -139,7 +138,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
             return userMapper.updateById(user) > 0;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
             throw new BusinessException(ErrorEnum.FindException, "修改用户信息失败");
         }
     }
@@ -148,9 +147,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional(rollbackFor = Exception.class)
     public Boolean delete(List<UserDTO> userDTOList) {
         try {
-            boolean removed = this.removeBatchByIds(UserConvert.INSTANCE.userDTOToUser(userDTOList));
-            return removed;
+            return userMapper.deleteBatchIds(UserConvert.INSTANCE.userDTOToUser(userDTOList)) > 0;
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
         }
 
@@ -240,23 +239,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String getUserAuthorityInfo(Long userId) {
+    public String getUserAuthorityInfo(User user) {
         String authority;
-        User user = userMapper.selectById(userId);
         String key = CacheConstant.AUTHORITY_CODE + user.getUsername();
         // 如果 redis 中存在直接取，没有的话再去数据库查
         if (redisUtil.hasKey(key)) {
             authority = (String) redisUtil.get(key);
         } else {
             // 获取角色
-            List<Role> roles = roleMapper.listByUserId(userId);
+            List<Role> roles = roleMapper.listByUserId(user.getId());
             if (roles.isEmpty()) {
                 throw new BusinessException(ErrorEnum.UnknownAccount, ErrorEnum.UnknownAccount.getErrorName());
             }
             String roleCodes = roles.stream().map(role -> "ROLE_" + role.getCode()).collect(Collectors.joining(","));
             authority = roleCodes.concat(",");
             // 获取菜单权限编码
-            List<Long> menuIds = userMapper.getNavMenuIds(userId);
+            List<Long> menuIds = userMapper.getNavMenuIds(user.getId());
             if (menuIds.isEmpty()) {
                 throw new BusinessException(ErrorEnum.NoPermission, ErrorEnum.NoPermission.getErrorName());
             }
@@ -274,6 +272,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public UserInfoVO getCurrentUserInfo(String username) {
         User user = this.getUserByUserName(username);
         UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
+//        userInfoVo.setAvatar(qiNiuService.addDomainPrefix(user.getAvatar()));
         userInfoVo.setRoles(roleMapper.listByUserId(user.getId()));
         userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
         return userInfoVo;
@@ -292,7 +291,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = UserConvert.INSTANCE.userDTOToUser(userDTO);
         Page<User> userPage = this.page(page, this.searchByCondition(user));
         Page<UserVO> userVOPage = UserConvert.INSTANCE.userToUserVO(userPage);
-        userVOPage.getRecords().forEach(u -> u.setRoles(roleMapper.listByUserId(u.getId())));
+        userVOPage.getRecords().forEach(u -> {
+                    u.setRoles(roleMapper.listByUserId(u.getId()));
+//                    u.setAvatar(qiNiuService.addDomainPrefix(u.getAvatar()));
+                }
+
+        );
         return userVOPage;
     }
 

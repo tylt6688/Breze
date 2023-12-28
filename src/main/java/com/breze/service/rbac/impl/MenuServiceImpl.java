@@ -108,7 +108,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public Map<Object, Object> getSideNav(Principal principal) {
         User user = userService.getUserByUserName(principal.getName());
         // 获取权限信息
-        String authorityInfo = userService.getUserAuthorityInfo(user.getId());
+        String authorityInfo = userService.getUserAuthorityInfo(user);
         String[] authorityInfoArray = StringUtils.tokenizeToStringArray(authorityInfo, ",");
         // 获取当前用户授权的菜单导航栏信息
         List<MenuVO> navs = this.getCurrentNav();

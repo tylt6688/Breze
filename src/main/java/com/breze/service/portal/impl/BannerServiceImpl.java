@@ -31,7 +31,6 @@ import java.util.Objects;
  * @since 2022-04-15
  */
 @DS("portal")
-@Transactional
 @Service
 public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> implements BannerService {
 

@@ -4,6 +4,7 @@ import com.breze.entity.dto.BaseDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Author LGX
@@ -11,6 +12,7 @@ import lombok.Data;
  * @Description update by tylt6688
  * @Copyright(c) 2023, 清枫网络工作室
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "团队数据传输对象")
 @Data
 public class GroupDTO extends BaseDTO {

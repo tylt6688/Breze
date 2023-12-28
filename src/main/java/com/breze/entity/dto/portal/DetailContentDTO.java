@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -14,12 +15,15 @@ import lombok.experimental.Accessors;
  * @Description TODO
  * @Copyright(c) 2023, 青枫网络工作室
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "内容接受对象")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
 public class DetailContentDTO extends BaseDTO {
+
+    private static final long serialVersionUID = 5370615934046887386L;
 
     @ApiModelProperty(value = "content", name = "content_Id", notes = "content")
     private Long contentId;

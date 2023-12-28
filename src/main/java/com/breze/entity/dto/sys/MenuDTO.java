@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * @Description 菜单信息 DTO
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "菜单数据传输对象")
 @Data
 @NoArgsConstructor
@@ -23,7 +25,6 @@ import javax.validation.constraints.NotNull;
 public class MenuDTO extends BaseDTO {
 
     private static final long serialVersionUID = 8275860509489827862L;
-
 
     @ApiModelProperty(required = true, value = "菜单父ID", name = "parentId", example = "0", notes = "父菜单ID，一级菜单为0")
     @NotNull(message = "上级菜单不能为空")

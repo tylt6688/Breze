@@ -1,5 +1,6 @@
 package com.breze.service.core.impl;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.breze.config.OssConfig;
@@ -92,6 +93,14 @@ public class QiNiuServiceImpl implements QiNiuService {
         }
         return response.isOK();
 
+    }
+
+   /**
+    * 给外链添加域名前缀
+    */
+    @Override
+    public String addDomainPrefix(String url) {
+        return CharSequenceUtil.isNotBlank(url) ? ossConfig.getUrl() + url : null;
     }
 
 
