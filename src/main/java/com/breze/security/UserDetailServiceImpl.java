@@ -2,16 +2,11 @@ package com.breze.security;
 
 import com.breze.common.consts.GlobalConstant;
 import com.breze.common.enums.ErrorEnum;
-import com.breze.entity.bo.sys.IpBO;
 import com.breze.entity.bo.sys.LoginUserBO;
 import com.breze.entity.pojo.rbac.User;
-import com.breze.entity.pojo.syslog.LoginLog;
 import com.breze.service.core.MailService;
 import com.breze.service.rbac.UserService;
 import com.breze.service.syslog.LoginLogService;
-import com.breze.utils.BrezeUtil;
-import com.breze.utils.ClientUtil;
-import com.breze.utils.IPUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -35,12 +29,16 @@ import java.util.List;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
+    private final UserService userService;
+    private final MailService mailService;
+    private final LoginLogService loginLogService;
+
     @Autowired
-    UserService userService;
-    @Autowired
-    MailService mailService;
-    @Autowired
-    LoginLogService loginLogService;
+    public UserDetailServiceImpl(UserService userService, MailService mailService, LoginLogService loginLogService) {
+        this.userService = userService;
+        this.mailService = mailService;
+        this.loginLogService = loginLogService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -48,10 +46,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
         User user = userService.getUserByUserName(username);
         // 判断帐号是否存在
         if (user == null) {
+            log.info("用户 {} 不存在", username);
             throw new UsernameNotFoundException(ErrorEnum.UnknownAccount.getErrorName());
         }
         // 判断帐户是否被锁定
         else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
+            log.info("用户 {} 账号被锁定", username);
             throw new UsernameNotFoundException(ErrorEnum.LockUser.getErrorName());
         }
         // 判断是否需要发送提醒邮件
@@ -61,37 +61,33 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         // 更新该账号最后一次登录时间
         userService.updateLastLoginTime(username);
+        loginLogService.saveLoginLog(username);
 
-//        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        assert servletRequestAttributes != null;
-        HttpServletRequest request = BrezeUtil.getHttpServletRequest();
-
-        IpBO ipAddressInfo = IPUtil.getIpAddressInfo(request);
-        log.info("[当前登录用户IP信息]:---{}", ipAddressInfo.toString());
-        LoginLog loginLog = new LoginLog();
-        loginLog.setUserId(userService.getUserByUserName(username).getId())
-                .setState(GlobalConstant.TYPE_ZERO)
-                .setIpAddress(ipAddressInfo.getIp())
-                .setOs(ClientUtil.getOperaSystemName(request))
-                .setIpLocation(ipAddressInfo.getAddress());
-        loginLogService.save(loginLog);
-
-        return new LoginUserBO(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user.getId()));
+        return createLoginUser(user);
     }
 
     /**
-     * 通过用户id连接表方式获取权限信息（角色、菜单权限）
+     * 通过用户连接表方式获取权限信息（角色、菜单权限）
      *
-     * @param userId 用户id
      * @return List<GrantedAuthority>
      */
-    public List<GrantedAuthority> getUserAuthority(Long userId) {
+    public List<GrantedAuthority> getUserAuthority(User user) {
 
         // 获取角色(ROLE_admin)、菜单操作权限 sys:user:list
-        String authority = userService.getUserAuthorityInfo(userId);
+        String authority = userService.getUserAuthorityInfo(user);
         // ROLE_admin,ROLE_user,sys:user:list,....
         log.info("[当前角色及对应权限编码]:---{}", authority);
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
+    }
+
+    /**
+     * 创建登录用户业务传输对象
+     *
+     * @param user User对象
+     * @return LoginUserBO 登录用户业务传输对象
+     */
+    public UserDetails createLoginUser(User user) {
+        return new LoginUserBO(user.getUsername(), user.getPassword(), user.getState().equals(GlobalConstant.STATUS_ON), getUserAuthority(user));
     }
 
 

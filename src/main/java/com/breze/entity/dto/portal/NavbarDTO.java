@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -12,12 +13,15 @@ import lombok.experimental.Accessors;
  * @author chenweixi
  * @create 2023-05-04 13:08
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "导航菜单接收对象")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
 public class NavbarDTO extends BaseDTO {
+
+    private static final long serialVersionUID = -7108682887418915520L;
 
     @ApiModelProperty(value = "导航类别", name = "flag", example = "0", notes = "导航类别")
     private Long flag;

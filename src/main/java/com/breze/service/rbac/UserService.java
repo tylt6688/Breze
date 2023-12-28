@@ -89,12 +89,11 @@ public interface UserService extends IService<User> {
     User getUserByUserName(String username);
 
     /**
-     * 根据用户 id 查询当前用户权限信息
+     * 查询当前用户权限信息
      *
-     * @param userId 用户 id
      * @return String
      */
-    String getUserAuthorityInfo(Long userId);
+    String getUserAuthorityInfo(User user);
 
     /**
      * 查询当前用户个人中心信息

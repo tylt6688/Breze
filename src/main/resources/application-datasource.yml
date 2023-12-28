@@ -14,7 +14,7 @@ spring:
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
         slave:
-          url: jdbc:mysql://localhost:3306/breze?${suffix}
+          url: jdbc:mysql://localhost:3306/breze_app?${suffix}
           username: root
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver

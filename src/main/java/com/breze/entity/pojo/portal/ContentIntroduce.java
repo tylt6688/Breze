@@ -23,13 +23,13 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 @TableName("tb_content_introduce")
-@ApiModel(value = "SimpleContent", description = "主体内容对象,SimpleContent主体内容表")
+@ApiModel(value = "SimpleContent", description = "主体内容对象,tb_content_introduce主体内容表")
 public class ContentIntroduce extends BaseEntity {
 
     private static final long serialVersionUID = 8822671337435221276L;
 
     @ApiModelProperty("oss表id")
-    private Long OssId;
+    private Long ossId;
 
     @ApiModelProperty("内容模块主标题")
     private String mainTitle;

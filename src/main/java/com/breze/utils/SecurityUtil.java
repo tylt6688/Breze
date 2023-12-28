@@ -16,12 +16,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @UtilityClass
 public class SecurityUtil {
 
+    /**
+     * 获取当前登录用户的用户名
+     * @return String 用户名
+     */
     public static String getUsername() {
+        log.info("当前登录用户名{}", getAuthentication().getPrincipal());
         return (String) getAuthentication().getPrincipal();
     }
 
+    /**
+     * 获取当前登录用户的信息
+     * @return Authentication 用户信息
+     */
     public static Authentication getAuthentication() {
-        log.info("获取当前登录用户信息{}", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        log.info("当前登录用户信息{}", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return SecurityContextHolder.getContext().getAuthentication();
     }
 

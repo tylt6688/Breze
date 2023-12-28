@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "jwt.breze")
-public class JwtConfig {
+public class TokenConfig {
 
     /**
      * 给JWT起个名字方便后面获取

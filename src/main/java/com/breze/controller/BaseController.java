@@ -6,6 +6,7 @@ import com.breze.common.enums.ErrorEnum;
 import com.breze.common.result.Result;
 import com.breze.config.BrezeConfig;
 import com.breze.config.OssConfig;
+import com.breze.service.app.AppConfigService;
 import com.breze.service.core.ConfigService;
 import com.breze.service.core.DictDataService;
 import com.breze.service.core.DictService;
@@ -128,12 +129,22 @@ public class BaseController {
     protected MainContentService mainContentService;
     @Autowired
     protected ModeCardService modeCardService;
-
     @Autowired
     protected OssFileService ossFileService;
-
     @Autowired
     protected DetailContentService detailContentService;
+
+
+    //===============================Breze Service=================================//
+
+    /**
+     * Portal门户服务注入
+     */
+
+    @Autowired
+    protected AppConfigService appConfigService;
+
+
 
     //===============================Breze=================================//
 

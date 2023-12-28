@@ -22,4 +22,6 @@ public interface LoginLogService extends IService<LoginLog> {
     List<LoginLogVO> getUserLoginCategory(LocalDateTime localDateTime);
 
     Boolean clearByDate(LocalDateTime localDateTime);
+
+    void saveLoginLog(String username);
 }

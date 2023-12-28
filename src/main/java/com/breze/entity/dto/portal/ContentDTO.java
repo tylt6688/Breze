@@ -1,20 +1,19 @@
 package com.breze.entity.dto.portal;
 
 import com.breze.entity.dto.BaseDTO;
-import com.breze.entity.pojo.portal.ContentIntroduce;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.util.List;
 
 /**
  * @author chenweixi
  * @create 2023-05-04 14:53
  */
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(description = "内容接受对象")
 @Data
 @NoArgsConstructor
@@ -22,8 +21,10 @@ import java.util.List;
 @Accessors(chain = true)
 public class ContentDTO extends BaseDTO {
 
+    private static final long serialVersionUID = -8137571421701426589L;
+
     @ApiModelProperty(value = "oss文件", name = "oss_id", notes = "oss文件")
-    private String OssId;
+    private String ossId;
 
     @ApiModelProperty(value = "内容主标题", name = "main_title", notes = "内容主标题")
     private String mainTitle;

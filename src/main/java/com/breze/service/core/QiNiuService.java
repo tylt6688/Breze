@@ -9,5 +9,7 @@ public interface QiNiuService {
 
     Boolean deleteFile(String url) throws QiniuException;
 
+    String addDomainPrefix(String url);
+
 
 }

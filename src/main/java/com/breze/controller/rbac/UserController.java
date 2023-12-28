@@ -36,24 +36,7 @@ import java.util.List;
 public class UserController extends BaseController {
 
 
-    @ApiOperation("根据用户ID获取用户信息")
-    @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
-    @BrezeLog("根据用户ID获取用户信息")
-    @GetMapping("/info/{id}")
-    @PreAuthorize("hasAuthority('sys:user:select')")
-    public Result<UserInfoVO> info(@PathVariable Long id) {
-        UserInfoVO userInfoVo = userService.getUserInfoById(id);
-        return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
-    }
 
-    @ApiOperation("获取全部用户列表，可多条件联合查询，实体属性值为空则显示全部")
-    @BrezeLog("获取全部用户列表")
-    @PostMapping("/select")
-    @PreAuthorize("hasAuthority('sys:user:select')")
-    public Result<Page<UserVO>> select(@RequestBody UserDTO userDTO) {
-        Page<UserVO> userPage = userService.getUserPage(getPage(), userDTO);
-        return Result.createSuccessMessage("获取用户列表成功", userPage);
-    }
 
     @ApiOperation("新增用户")
     @BrezeLog("新增用户")
@@ -77,6 +60,27 @@ public class UserController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
         return brezeJudgeResult(userService.update(userDTO),"用户信息更新成功","用户信息更新失败");
+    }
+
+
+
+    @ApiOperation("获取全部用户列表，可多条件联合查询，实体属性值为空则显示全部")
+    @BrezeLog("获取全部用户列表")
+    @PostMapping("/select")
+    @PreAuthorize("hasAuthority('sys:user:select')")
+    public Result<Page<UserVO>> select(@RequestBody UserDTO userDTO) {
+        Page<UserVO> userPage = userService.getUserPage(getPage(), userDTO);
+        return Result.createSuccessMessage("获取用户列表成功", userPage);
+    }
+
+    @ApiOperation("根据用户ID获取用户信息")
+    @ApiImplicitParam(name = "id", value = "用户ID", paramType = "path", required = true, dataType = "Long", dataTypeClass = Long.class)
+    @BrezeLog("根据用户ID获取用户信息")
+    @GetMapping("/info/{id}")
+    @PreAuthorize("hasAuthority('sys:user:select')")
+    public Result<UserInfoVO> info(@PathVariable Long id) {
+        UserInfoVO userInfoVo = userService.getUserInfoById(id);
+        return Result.createSuccessMessage("获取用户信息成功", userInfoVo);
     }
 
 

@@ -6,9 +6,7 @@ import com.breze.entity.dto.sys.UserDTO;
 import com.breze.entity.pojo.rbac.User;
 import com.breze.entity.vo.sys.UserInfoVO;
 import com.breze.entity.vo.sys.UserVO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -23,6 +21,12 @@ import java.util.List;
 public interface UserConvert {
 
     UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
+
+    @Mapping(target = "avatar", source = "avatar")
+    @AfterMapping
+    default void setAvatar(@MappingTarget UserVO userVO, User user) {
+        userVO.setAvatar("http://qiniuyun.tylt.fun" + user.getAvatar());
+    }
 
     /**
      * User 转为 UserVO
@@ -48,6 +52,8 @@ public interface UserConvert {
      */
     @Mappings({
             @Mapping(source = "username", target = "username"),
+            @Mapping(target = "groupJob", ignore = true),
+            @Mapping(target = "roles", ignore = true)
     })
     UserInfoVO userToUserInfoVo(User user);
 
