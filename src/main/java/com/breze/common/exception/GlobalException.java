@@ -23,7 +23,7 @@ import java.nio.file.AccessDeniedException;
  */
 @Log4j2
 @RestControllerAdvice
-public class GlobalException extends Throwable {
+public class GlobalException extends Exception {
 
     private static final long serialVersionUID = -3332727555745749667L;
 
@@ -41,7 +41,7 @@ public class GlobalException extends Throwable {
     }
 
     /**
-     * JWT认证异常拦截
+     * 认证异常拦截
      *
      * @throws JwtException JWT异常
      */
@@ -50,7 +50,7 @@ public class GlobalException extends Throwable {
     public Result<Object> handler(BrezeJwtException e) {
         log.error("[Jwt出现异常]:----------------{}", e.getMessage());
         e.printStackTrace();
-        return Result.createFailMessage(ErrorEnum.IncorrectCredentials, e.getMessage());
+        return Result.createFailMessage(ErrorEnum.INCORRECT_CREDENTIALS, e.getMessage());
     }
 
     /**
@@ -63,7 +63,7 @@ public class GlobalException extends Throwable {
     public Result<Object> handler(AccessDeniedException e) {
         log.error("Security权限不足异常:----------------{}", e.getMessage());
         e.printStackTrace();
-        return Result.createFailMessage(ErrorEnum.NoPermission, ErrorEnum.NoPermission.getErrorName());
+        return Result.createFailMessage(ErrorEnum.NO_PERMISSION, ErrorEnum.NO_PERMISSION.getErrorName());
     }
 
     /**
@@ -79,7 +79,7 @@ public class GlobalException extends Throwable {
         BindingResult bindingResult = e.getBindingResult();
         ObjectError objectError = bindingResult.getAllErrors().stream().findFirst().get();
         e.printStackTrace();
-        return Result.createFailMessage(ErrorEnum.UnknownError, objectError.getDefaultMessage());
+        return Result.createFailMessage(ErrorEnum.UNKNOWN_ERROR, objectError.getDefaultMessage());
     }
 
     /**
@@ -92,7 +92,7 @@ public class GlobalException extends Throwable {
     public Result<Object> handler(IllegalArgumentException e) {
         log.error("非法参数异常:----------------{}", e.getMessage());
         e.printStackTrace();
-        return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
+        return Result.createFailMessage(ErrorEnum.FIND_EXCEPTION, e.getMessage());
     }
 
     /**
@@ -105,6 +105,6 @@ public class GlobalException extends Throwable {
     public Result<Object> handler(RuntimeException e) {
         log.error("运行时异常:----------------{}", e.getMessage());
         e.printStackTrace();
-        return Result.createFailMessage(ErrorEnum.FindException, e.getMessage());
+        return Result.createFailMessage(ErrorEnum.FIND_EXCEPTION, e.getMessage());
     }
 }

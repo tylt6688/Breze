@@ -2,11 +2,9 @@ package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
-import com.breze.common.consts.SystemConstant;
+import com.breze.common.enums.NormalEnum;
 import com.breze.common.result.Result;
-import com.breze.config.TokenConfig;
 import lombok.Cleanup;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -28,9 +26,6 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
-    @Autowired
-    TokenConfig tokenConfig;
-
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 
@@ -42,12 +37,9 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
         response.setCharacterEncoding(CharsetConstant.UTF_8);
 
-        // 将 JWT 清空后传给前端
-        response.setHeader(tokenConfig.getHeader(), "");
-
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
-        Result<String> result = Result.createSuccessMessage(SystemConstant.LOGOUT_SUCCESS);
+        Result<String> result = Result.createSuccessMessage(NormalEnum.LOGIN_SUCCESS.getNormalMsg());
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

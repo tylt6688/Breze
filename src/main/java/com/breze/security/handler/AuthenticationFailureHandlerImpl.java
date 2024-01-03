@@ -41,14 +41,14 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
 
         Result<String> result;
 
-        if (ErrorEnum.VerifyCodeError.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.VerifyCodeError, msg);
-        } else if (ErrorEnum.LockUser.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.LockUser, ErrorEnum.LockUser.getErrorName());
-        } else if (ErrorEnum.ErrorUsernamePassword.getErrorName().equals(msg)) {
-            result = Result.createFailMessage(ErrorEnum.ErrorUsernamePassword, ErrorEnum.ErrorUsernamePassword.getErrorName());
+        if (ErrorEnum.VERIFY_CODE_ERROR.getErrorName().equals(msg)) {
+            result = Result.createFailMessage(ErrorEnum.VERIFY_CODE_ERROR, msg);
+        } else if (ErrorEnum.LOCK_USER.getErrorName().equals(msg)) {
+            result = Result.createFailMessage(ErrorEnum.LOCK_USER, ErrorEnum.LOCK_USER.getErrorName());
+        } else if (ErrorEnum.ERROR_USERNAME_PASSWORD.getErrorName().equals(msg)) {
+            result = Result.createFailMessage(ErrorEnum.ERROR_USERNAME_PASSWORD, ErrorEnum.ERROR_USERNAME_PASSWORD.getErrorName());
         } else {
-            result = Result.createFailMessage(ErrorEnum.IllegalOperation, ErrorEnum.IllegalOperation.getErrorName());
+            result = Result.createFailMessage(ErrorEnum.ILLEGAL_OPERATION, ErrorEnum.ILLEGAL_OPERATION.getErrorName());
         }
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));

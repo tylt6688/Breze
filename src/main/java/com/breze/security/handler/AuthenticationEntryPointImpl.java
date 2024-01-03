@@ -37,7 +37,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         @Cleanup ServletOutputStream outputStream = response.getOutputStream();
 
         // 认证失败的情况下返回异常信息
-        Result<ErrorEnum> result = Result.createFailMessage(ErrorEnum.IncorrectCredentials);
+        Result<ErrorEnum> result = Result.createFailMessage(ErrorEnum.INCORRECT_CREDENTIALS);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

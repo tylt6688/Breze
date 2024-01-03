@@ -95,5 +95,21 @@ public class BrezeUtil {
         return servletRequestAttributes.getRequest();
     }
 
+    /**
+     * 判断传入的对象是否为 null
+     * @param object 对象
+     */
+    public static boolean isNull(Object object) {
+        return object == null;
+    }
+
+    /**
+     * 判断传入的对象是否不为 null
+     */
+    public static boolean isNotNull(Object object) {
+        return object!= null;
+    }
+
+
 
 }

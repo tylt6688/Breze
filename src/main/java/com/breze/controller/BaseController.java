@@ -169,7 +169,7 @@ public class BaseController {
      * @return Result<String> 统一结果默认消息返回
      */
     public Result<String> brezeJudgeResult(Boolean flag) {
-        return Boolean.TRUE.equals(flag) ? createSuccessMessage() : createFailMessage(ErrorEnum.FindException);
+        return Boolean.TRUE.equals(flag) ? createSuccessMessage() : createFailMessage(ErrorEnum.FIND_EXCEPTION);
     }
 
     /**
@@ -180,7 +180,7 @@ public class BaseController {
      * @return Result<String> 统一结果自定义消息返回
      */
     public Result<String> brezeJudgeResult(Boolean flag, @NotNull String successMessage, @NotNull String failMessage) {
-        return Boolean.TRUE.equals(flag) ? createSuccessMessage(successMessage) : createFailMessage(ErrorEnum.FindException, failMessage);
+        return Boolean.TRUE.equals(flag) ? createSuccessMessage(successMessage) : createFailMessage(ErrorEnum.FIND_EXCEPTION, failMessage);
     }
 
 }

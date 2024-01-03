@@ -135,7 +135,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             Menu menu = MenuConvert.INSTANCE.menuDTOToMenu(menuDTO);
             return this.save(menu);
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "新增菜单失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "新增菜单失败");
         }
     }
 
@@ -147,7 +147,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             userService.clearUserAuthorityInfoByMenuId(menu.getId());
             return this.updateById(menu);
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "更新菜单失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "更新菜单失败");
         }
     }
 
@@ -156,7 +156,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         // 判断是否存在子目录
         long count = this.count(new LambdaQueryWrapper<Menu>().eq(Menu::getParentId, id));
         if (count > 0) {
-            throw new BusinessException(ErrorEnum.FindException, "子菜单不为空，请先删除子菜单");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "子菜单不为空，请先删除子菜单");
         }
         try {
             this.removeById(id);
@@ -164,7 +164,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             // 同步删除中间表关联
             return roleMenuService.remove(new LambdaQueryWrapper<RoleMenu>().eq(RoleMenu::getMenuId, id));
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "删除菜单失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "删除菜单失败");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.breze.utils;
 
+import com.breze.entity.bo.sys.LoginUserBO;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,14 @@ public class SecurityUtil {
     public static String getUsername() {
         log.info("当前登录用户名{}", getAuthentication().getPrincipal());
         return (String) getAuthentication().getPrincipal();
+    }
+
+    /**
+     * 获取当前登录用户对象
+     * @return LoginUserBO 登录用户业务对象
+     */
+    public static LoginUserBO getLoginUserBO() {
+        return (LoginUserBO) getAuthentication().getPrincipal();
     }
 
     /**

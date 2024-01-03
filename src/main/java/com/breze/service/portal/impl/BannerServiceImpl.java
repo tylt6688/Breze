@@ -67,7 +67,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
     @Transactional
     public Boolean insertBanner(String alt, Integer orderNum, MultipartFile file) {
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".png") && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".jpg")) {
-            throw new BusinessException(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "文件必须为PNG或JPG格式");
         }
         try {
             String path = qiNiuService.uploadFile(file);

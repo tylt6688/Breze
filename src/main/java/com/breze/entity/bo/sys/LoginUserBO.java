@@ -33,17 +33,17 @@ public class LoginUserBO implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
 
     /**
-     * 账号是否失效
+     * 账号未失效
      */
     private final Boolean accountNonExpired;
 
     /**
-     * 账号是否锁定
+     * 账号未锁定
      */
     private final Boolean accountNonLocked;
 
     /**
-     * 密钥是否失效
+     * 密钥未失效
      */
     private final Boolean credentialsNonExpired;
 
@@ -58,7 +58,6 @@ public class LoginUserBO implements UserDetails {
 
 
     public LoginUserBO(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-
         this.username = username;
         this.password = password;
         this.enabled = enabled;
@@ -67,7 +66,6 @@ public class LoginUserBO implements UserDetails {
         this.accountNonLocked = accountNonLocked;
         this.authorities = authorities;
     }
-
 
     @Override
     public String getUsername() {
@@ -98,7 +96,6 @@ public class LoginUserBO implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return this.credentialsNonExpired;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -72,7 +72,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
 
         //先判断 code与 key是否为空，再从Redis中获取进行比较
         if (StringUtils.isBlank(key) || StringUtils.isBlank(code) || !code.equals(redisUtil.hashGet(CacheConstant.CAPTCHA_KEY, key))) {
-            throw new CaptchaException(ErrorEnum.VerifyCodeError.getErrorName());
+            throw new CaptchaException(ErrorEnum.VERIFY_CODE_ERROR.getErrorName());
         }
 
         //一次性使用，使用后将其从Redis中删除

@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class IpBO {
+public class IPBO {
 
     private String ip;
 

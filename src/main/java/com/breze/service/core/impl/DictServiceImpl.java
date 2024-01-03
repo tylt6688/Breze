@@ -83,7 +83,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         if (dict.getId() == null){
             Dict dictType = dictMapper.selectOne(new QueryWrapper<Dict>().eq("type", dict.getType()));
             if (!Objects.isNull(dictType)){
-                throw new BusinessException(ErrorEnum.FindException, "字典类型已被使用");
+                throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "字典类型已被使用");
             }
             return dictMapper.insert(dict)>0;
         }else{
@@ -102,7 +102,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             return dictMapper.deleteById(id) > 0;
         }else {
 
-            throw new BusinessException(ErrorEnum.FindException, "该字典类型下存在子节点，请删除数据在尝试");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "该字典类型下存在子节点，请删除数据在尝试");
         }
     }
 
@@ -117,7 +117,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             EasyExcelFactory.write(response.getOutputStream(), DictExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("数据字典").doWrite(dictExcelBOS);
         } catch (Exception e) {
             response.reset();
-            throw new BusinessException(ErrorEnum.FindException, "导出Excel表失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导出Excel表失败");
         }
     }
 
@@ -130,11 +130,11 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
                 try {
                     Dict dictType = dictMapper.selectOne(new QueryWrapper<Dict>().eq("type", dict.getType()));
                     if (!Objects.isNull(dictType)){
-                        throw new BusinessException(ErrorEnum.FindException, "字典类型已被使用");
+                        throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "字典类型已被使用");
                     }
                     dictMapper.insert(dict);
                 } catch (Exception e) {
-                    throw new BusinessException(ErrorEnum.FindException, "导入Excel表失败");
+                    throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导入Excel表失败");
                 }
             }
         })).sheet().doRead();
@@ -150,7 +150,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             EasyExcelFactory.write(response.getOutputStream(), DictExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("数据字典").doWrite(Arrays.asList(dictExcelBO));
         } catch (Exception e) {
             response.reset();
-            throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导出模板Excel表失败");
         }
     }
 
