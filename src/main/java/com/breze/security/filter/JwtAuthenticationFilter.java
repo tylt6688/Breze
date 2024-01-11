@@ -1,6 +1,6 @@
 package com.breze.security.filter;
 
-import com.breze.entity.bo.sys.LoginUserBO;
+import com.breze.common.exception.BrezeJwtException;
 import com.breze.entity.bo.sys.LoginUserCacheBO;
 import com.breze.security.UserDetailServiceImpl;
 import com.breze.security.handler.AuthenticationEntryPointImpl;
@@ -53,16 +53,21 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        LoginUserCacheBO loginUser = tokenUtil.getLoginUser(request);
-
-        if (BrezeUtil.isNotNull(loginUser)) {
-            List<GrantedAuthority> userAuthority = userDetailService.getUserAuthority(userService.getUserByUserName(loginUser.getUsername()));
-            // 第三个参数是查询出来的权限信息
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser.getUsername(), null, userAuthority);
-            // 把用户的信息存入安全上下文 SecurityContextHolder中
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        try {
+            LoginUserCacheBO loginUser = tokenUtil.getLoginUser(request);
+            if (BrezeUtil.isNotNull(loginUser)) {
+                List<GrantedAuthority> userAuthority = userDetailService.getUserAuthority(userService.getUserByUserName(loginUser.getUsername()));
+                // 第三个参数是查询出来的权限信息
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser.getUsername(), null, userAuthority);
+                // 把用户的信息存入安全上下文 SecurityContextHolder中
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+            chain.doFilter(request, response);
         }
-        chain.doFilter(request, response);
+        catch (Exception e){
+            authenticationEntryPoint.commence(request, response, new BrezeJwtException(e.getMessage()));
+        }
+
     }
 
 }

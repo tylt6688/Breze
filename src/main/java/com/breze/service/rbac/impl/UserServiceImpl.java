@@ -42,6 +42,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
 
-    @Autowired
+    @Resource
     private RedisUtil redisUtil;
 
     @Autowired
@@ -239,6 +240,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    // FIXME 等待修复问题
     public String getUserAuthorityInfo(User user) {
         String authority;
         String key = CacheConstant.AUTHORITY_CODE + user.getUsername();

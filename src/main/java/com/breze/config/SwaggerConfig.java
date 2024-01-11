@@ -3,7 +3,6 @@ package com.breze.config;
 
 import com.breze.common.consts.SecurityConstant;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -16,6 +15,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.List;
 @EnableOpenApi
 public class SwaggerConfig {
 
-    @Autowired
+    @Resource
     private BrezeConfig brezeConfig;
 
     /**

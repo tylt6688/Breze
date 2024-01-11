@@ -124,6 +124,7 @@ public class TokenUtil {
         if (BrezeUtil.isNull(object)) {
             return null;
         }
+
         LoginUserCacheBO loginUserCacheBO = new LoginUserCacheBO();
         loginUserCacheBO.setUsername(username);
         return loginUserCacheBO;
