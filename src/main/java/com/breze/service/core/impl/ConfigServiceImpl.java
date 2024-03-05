@@ -9,6 +9,8 @@ import com.breze.entity.vo.sys.ConfigVO;
 import com.breze.mapper.rbac.ConfigMapper;
 import com.breze.service.core.ConfigService;
 import com.breze.utils.BrezeUtil;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +23,21 @@ import java.util.List;
  * @author tylt6688
  * @since 2023-06-07
  */
+@Log4j2
 @Service
 public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> implements ConfigService {
 
+
+
+    private final ConfigMapper configMapper;
+
+    @Autowired
+    public ConfigServiceImpl(ConfigMapper configMapper) {
+        this.configMapper = configMapper;
+    }
     @Override
-    public List<Config> getConfigByKey(String s) {
-        return this.list(new LambdaQueryWrapper<Config>().eq(Config::getKey, s));
+    public Config getConfigByKey(String key) {
+        return configMapper.selectOne(new LambdaQueryWrapper<Config>().eq(Config::getConfigKey, key));
     }
 
     @Override
@@ -37,20 +48,22 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> impleme
 
     @Override
     public List<ConfigVO> getConfigList(BrezeConfig brezeConfig) {
+        log.info("AABBCC",brezeConfig.toString());
+        String[] attributeNames = BrezeUtil.getAttributeNames(brezeConfig);
 
         ConfigVO configVO = new ConfigVO();
-        String[] filedName = BrezeUtil.getFiledName(brezeConfig);
-        for (String s : filedName) {
-            if (this.getConfigByKey(s).isEmpty()) {
-                String value = (String) BrezeUtil.getFieldValueByName(s, brezeConfig);
-                configVO.setName(s);
-                configVO.setKey(s);
-                configVO.setValue(value);
-                Config config = ConfigConvert.INSTANCE.convertToConfig(configVO);
-                this.save(config);
-            }
+        for (String attributeName : attributeNames) {
+            log.info(attributeName);
+//            if (BrezeUtil.isNotNull(this.getConfigByKey(attributeName))) {
+//                String value = (String) BrezeUtil.getFieldValueByName(attributeName, brezeConfig);
+//                configVO.setName(attributeName);
+//                configVO.setKey(attributeName);
+//                configVO.setValue(value);
+//                Config config = ConfigConvert.INSTANCE.convertToConfig(configVO);
+//                this.save(config);
+//            }
         }
-        List<Config> list = this.list();
-        return ConfigConvert.INSTANCE.convertToConfigVO(list);
+
+        return ConfigConvert.INSTANCE.convertToConfigVO(this.list());
     }
 }

@@ -37,7 +37,7 @@ public class BrezeLogAspect {
 
         log.debug("[类名]:---{},[方法]:---{}", strClassName, strMethodName);
 
-        //获取请求 url,ip,httpMethod
+        // 获取请求 url,ip,httpMethod
         HttpServletRequest request = BrezeUtil.getHttpServletRequest();
         HandleLog handleLog = new HandleLog();
         handleLog.setTitle(brezeLog.value())

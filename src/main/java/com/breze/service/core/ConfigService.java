@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface ConfigService extends IService<Config> {
 
-    List<Config> getConfigByKey(String s);
+    Config getConfigByKey(String s);
 
     Boolean insertConfig(ConfigVO configVO);
 

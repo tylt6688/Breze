@@ -16,7 +16,6 @@ public class  SystemConstant {
      * 服务器本地IP地址
      */
     public static final String SERVER_IP = "127.0.0.1";
-
     /**
      * 默认账号头像常量
      */

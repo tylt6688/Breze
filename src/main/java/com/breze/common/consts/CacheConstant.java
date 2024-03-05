@@ -12,7 +12,6 @@ public class CacheConstant {
      */
     public static final String CAPTCHA_KEY = "captcha";
 
-
     /**
      * 权限key常量
      */

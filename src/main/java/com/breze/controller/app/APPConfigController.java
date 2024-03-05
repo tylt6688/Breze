@@ -58,7 +58,6 @@ public class APPConfigController extends BaseController {
         Page<AppConfigVO> appConfigPage = appConfigService.getAppConfigPage(getPage(), appConfigDTO);
         return Result.createSuccessMessage("获取App配置列表成功", appConfigService.list());
 
-//        return Result.createSuccessMessage("获取App配置列表成功");
     }
 
 }

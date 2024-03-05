@@ -35,9 +35,6 @@ import java.util.List;
 @RequestMapping("/sys/user")
 public class UserController extends BaseController {
 
-
-
-
     @ApiOperation("新增用户")
     @BrezeLog("新增用户")
     @PostMapping("/insert")

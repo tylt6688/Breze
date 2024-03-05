@@ -28,5 +28,4 @@ public class GlobalConstant {
     public static final Integer CURRENT = 1;
     public static final Integer SIZE = 10;
 
-
 }

@@ -30,7 +30,7 @@ public class Config extends BaseEntity {
     /**
      * 配置键
      */
-    private String key;
+    private String configKey;
 
     /**
      * 配置值

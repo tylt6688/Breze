@@ -121,8 +121,9 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
         HashMap<String, List<DictData>> dictListMap = new HashMap<>();
         for (String dict : dicts) {
             if (redisUtil.hasKey(dict)){
-                List<DictData> dataList = (List<DictData>) redisUtil.get(dict);
-                dictListMap.put(dict,dataList);
+//                FIXME 此处转换有问腿  等待修复
+//                List<DictData> dataList = (List<DictData>) redisUtil.get(dict);
+//                dictListMap.put(dict,dataList);
             }else{
                 List<DictData> dataList = dictDataMapper.selectList(new QueryWrapper<DictData>().eq("dict_type", dict));
                 dictListMap.put(dict,dataList);
