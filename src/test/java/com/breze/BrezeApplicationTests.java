@@ -1,7 +1,6 @@
 package com.breze;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.breze.entity.pojo.rbac.User;
+import com.breze.config.BrezeConfig;
 import com.breze.mapper.rbac.UserMapper;
 import com.breze.utils.BrezeUtil;
 import org.junit.jupiter.api.Test;
@@ -31,11 +30,20 @@ class BrezeApplicationTests {
 //        StatusResultMatchers status = MockMvcResultMatchers.status();
 //        actions.andExpect(status.isOk());
 
-        User user = new User();
-        user.setUsername("bre").setTrueName("").setLoginWarn(0);
+//        User user = new User();
+//        user.setUsername("bre").setTrueName("").setLoginWarn(0);
+//
+//        QueryWrapper<User> queryWrapper = BrezeUtil.createQueryWrapperByLike(user);
+//        System.out.println(userMapper.selectList(queryWrapper));
 
-        QueryWrapper<User> queryWrapper = BrezeUtil.createQueryWrapperByLike(user);
-        System.out.println(userMapper.selectList(queryWrapper));
+
+        BrezeConfig brezeConfig = new BrezeConfig();
+        brezeConfig.setName("breze7788");
+
+        Object name = BrezeUtil.getFieldValueByName("name", brezeConfig);
+        System.out.println(name.toString());
+
+
     }
 
 }

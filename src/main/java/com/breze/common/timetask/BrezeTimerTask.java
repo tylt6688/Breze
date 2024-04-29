@@ -1,7 +1,9 @@
 package com.breze.common.timetask;
 
+import com.breze.config.BrezeConfig;
 import com.breze.service.syslog.HandleLogService;
 import com.breze.service.syslog.LoginLogService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
  * @Description 定时任务
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@Log4j2
 @Component
 public class BrezeTimerTask {
 
@@ -24,10 +27,13 @@ public class BrezeTimerTask {
     @Autowired
     HandleLogService handleLogService;
 
-//    @Scheduled(cron = "0/15 * * * * ?") // 每隔15s触发
-//    public void test(){
-//        System.out.println("定时任务执行");
-//    }
+    @Autowired
+    BrezeConfig brezeConfig;
+
+    @Scheduled(cron = "0/15 * * * * ?") // 每隔15s触发
+    public void test(){
+        log.info("定时任务执行[每隔15s触发]"+brezeConfig.getCopyrightYear());
+    }
 
     /**
      * 每天凌晨触发清理30天之前的日志记录数据

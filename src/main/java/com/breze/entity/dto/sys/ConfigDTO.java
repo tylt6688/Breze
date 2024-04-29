@@ -21,16 +21,16 @@ public class ConfigDTO extends BaseDTO {
     private static final long serialVersionUID = 4028932115503608978L;
 
     @ApiModelProperty(value = "配置项中文名", example = "系统名称", notes = "配置项中文名", dataType = "String", required = true)
-    private String name;
+    private String configName;
 
     @ApiModelProperty(value = "配置项键", example = "system.name", notes = "配置项键", dataType = "String", required = true)
-    private String key;
+    private String configKey;
 
     @ApiModelProperty(value = "配置项值", example = "青枫网络工作室", notes = "配置项值", dataType = "String", required = true)
-    private String value;
+    private String configValue;
 
     @ApiModelProperty(value = "状态（开关）", example = "1", notes = "状态（开关）", dataType = "Integer", required = true)
-    private Integer state;
+    private Integer configState;
 
     @ApiModelProperty(value = "创建人", example = "admin", notes = "创建人", dataType = "String", required = true)
     private String createBy;

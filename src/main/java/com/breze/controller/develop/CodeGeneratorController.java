@@ -41,7 +41,6 @@ public class CodeGeneratorController {
 
     @PostMapping("/generate")
     public Result<Object> codeGenerator(@RequestBody CodeGeneration codeGeneration) {
-
         codeGeneration.setUsername(codeGeneratorConfig.getUsername());
         codeGeneration.setPassword(codeGeneratorConfig.getPassword());
         CodeGenerationUtil.codeGenerator(codeGeneration);

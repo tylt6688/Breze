@@ -27,8 +27,7 @@ public class ServerUtil {
         CpuInfo cpuInfo = OshiUtil.getCpuInfo();
         double free = cpuInfo.getFree();
         DecimalFormat format = new DecimalFormat("#.00");
-        String cpuUsed = String.valueOf(Double.parseDouble(format.format(100.0D - free)));
-        return cpuUsed;
+        return String.valueOf(Double.parseDouble(format.format(100.0D - free)));
     }
 
     /**

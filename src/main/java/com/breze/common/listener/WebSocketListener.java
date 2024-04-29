@@ -1,11 +1,11 @@
 package com.breze.common.listener;
 
+import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
@@ -23,7 +23,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint("/webSocket/{connectId}")
 public class WebSocketListener implements EnvironmentAware {
     /**
-     * 静态变量，记录当前在线连接数。必须是线程安全的
+     * 静态变量，记录当前在线连接数,必须是线程安全的
      */
     private static int onlineCount = 0;
 
@@ -46,7 +46,7 @@ public class WebSocketListener implements EnvironmentAware {
     private Environment webSocketEnvironment;
 
     @Override
-    public void setEnvironment(@NotNull final Environment environment) {
+    public void setEnvironment(@NonNull final Environment environment) {
         if (webSocketEnvironment == null) {
             log.info("初始化全局环境变量");
             webSocketEnvironment = environment;
@@ -93,7 +93,7 @@ public class WebSocketListener implements EnvironmentAware {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        log.info("发生错误：" + connectId + "，错误内容:" + error.getMessage());
+        log.info("发生错误：{}，错误内容:{}", connectId, error.getMessage());
         error.printStackTrace();
     }
 
@@ -105,11 +105,11 @@ public class WebSocketListener implements EnvironmentAware {
      */
     @OnMessage
     public void onMessage(Session session, String message) {
-        log.info("收到来自:" + connectId + "的信息:" + message);
+        log.info("收到来自:{}的信息:{}", connectId, message);
         // 群发消息
         for (WebSocketListener webSocket : WEB_SOCKET_SET) {
             try {
-                log.info("推送消息到:" + connectId + ",推送内容:" + message);
+                log.info("推送消息到:{},推送内容:{}", connectId, message);
                 webSocket.sendMessage("服务器返回：" + message);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -132,8 +132,8 @@ public class WebSocketListener implements EnvironmentAware {
         log.info("推送消息到窗口{}，推送内容:{}", sid, message);
         for (WebSocketListener item : WEB_SOCKET_SET) {
             try {
-                //这里可以设定只推送给这个sid的，为null则全部推送
-                if (sid == null || sid.length() == 0) {
+                // 这里可以设定只推送给这个sid的，为null则全部推送
+                if (sid == null || sid.isEmpty()) {
                     item.sendMessage(message);
                 } else if (item.connectId.equals(sid)) {
                     item.sendMessage(message);
@@ -144,22 +144,21 @@ public class WebSocketListener implements EnvironmentAware {
         }
     }
 
-    //推送给指定sid
-    public static boolean sendInfoBySid(@PathParam("connectId") String connectId, String message) throws IOException {
-        log.info("推送消息到窗口" + connectId + "，推送内容:" + message);
+    // 推送给指定sid
+    public static boolean sendInfoBySid(@PathParam("connectId") String connectId, String message) {
+        log.info("推送消息到窗口{}，推送内容:{}", connectId, message);
         boolean result = false;
-        if (WEB_SOCKET_SET.size() == 0) {
-            result = false;
-        }
-        for (WebSocketListener item : WEB_SOCKET_SET) {
-            try {
-                if (item.connectId.equals(connectId)) {
-                    item.sendMessage(message);
-                    log.info("推送消息到:" + connectId + "，推送内容:" + message);
-                    result = true;
+        if (!WEB_SOCKET_SET.isEmpty()) {
+            for (WebSocketListener item : WEB_SOCKET_SET) {
+                try {
+                    if (item.connectId.equals(connectId)) {
+                        item.sendMessage(message);
+                        log.info("推送消息到:{}，推送内容:{}", connectId, message);
+                        result = true;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
         return result;

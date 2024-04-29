@@ -80,11 +80,11 @@ public class BrezeUtil {
      */
     public static Object getFieldValueByName(String fieldName, Object object) {
         try {
-            //根据字段名得到字段
+            // 根据字段名得到字段
             Field field = object.getClass().getDeclaredField(fieldName);
-            //设置字段可访问
+            // 设置字段可访问
             field.setAccessible(true);
-            //返回字段值
+            // 返回字段值
             return field.get(object);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -144,7 +144,7 @@ public class BrezeUtil {
                 if (value instanceof Integer) {
                     queryWrapper.eq(fieldName, value);
                 } else if (value instanceof String && (!String.valueOf(value).isEmpty())) {
-                        queryWrapper.like(fieldName, String.valueOf(value).replace("%", "\\%"));
+                    queryWrapper.like(fieldName, String.valueOf(value).replace("%", "\\%"));
                 }
 
             }

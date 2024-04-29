@@ -145,7 +145,6 @@ public class BaseController {
     protected AppConfigService appConfigService;
 
 
-
     //===============================Breze=================================//
 
     @Autowired
@@ -165,6 +164,7 @@ public class BaseController {
 
     /**
      * 评判 Boolean 类型进行统一结果返回方法,主要用于更新、删除、插入操作
+     *
      * @param flag Boolean 类型的判断标识
      * @return Result<String> 统一结果默认消息返回
      */
@@ -174,9 +174,10 @@ public class BaseController {
 
     /**
      * 评判 Boolean 类型进行统一结果返回方法,主要用于更新、删除、插入操作
-     * @param flag Boolean 类型的判断标识
+     *
+     * @param flag           Boolean 类型的判断标识
      * @param successMessage 成功消息
-     * @param failMessage 失败消息
+     * @param failMessage    失败消息
      * @return Result<String> 统一结果自定义消息返回
      */
     public Result<String> brezeJudgeResult(Boolean flag, @NotNull String successMessage, @NotNull String failMessage) {

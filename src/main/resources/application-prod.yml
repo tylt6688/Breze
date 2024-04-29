@@ -2,22 +2,3 @@
 # 生产环境
 server:
   port: 9090
-
-# 项目相关配置
-breze:
-  # 标题
-  title: 清枫Breze一体化服务平台
-  # 项目名
-  name: Breze
-  # 项目描述
-  description: Breze权限管理系统接口文档
-  # 版本
-  version: 1.0.0
-  # 版权年份
-  copyrightYear: 2023
-  # 版权归属
-  copyrightName: 青枫网络工作室
-  # Swagger文档启停,生产环境建议关闭
-  swaggerEnabled: false
-  # 是否开启验证码
-  captchaDevEnabled: false

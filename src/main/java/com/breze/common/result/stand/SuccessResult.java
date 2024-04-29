@@ -3,6 +3,7 @@ package com.breze.common.result.stand;
 import cn.hutool.core.map.MapUtil;
 import com.breze.common.result.Result;
 import io.swagger.annotations.ApiModel;
+import lombok.EqualsAndHashCode;
 
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ import java.util.HashMap;
  * @Description 成功结果实体类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(description = "请求成功响应模板")
 public class SuccessResult<T> extends Result<T> {
     private static final String DATA_TAG = "data";

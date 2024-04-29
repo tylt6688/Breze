@@ -78,4 +78,9 @@ public class CodeGeneration implements Serializable {
      * 是否生成到本地磁盘还是项目开发目录
      */
     private Boolean isLocal;
+
+    /**
+     * 是否生成Swagger注解
+     * */
+    private Boolean enableSwagger;
 }

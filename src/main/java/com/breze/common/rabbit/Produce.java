@@ -33,7 +33,7 @@ public class Produce {
         CorrelationData correlationData = new CorrelationData(msgId);
         log.info("队列消息生成成功{}", msgId);
         //消息生产
-        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_A, RabbitMQConfig.ROUTINGKEY_A, MessageHelper.objToMsg(email), correlationData);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_A, RabbitMQConfig.ROUTING_KEY_A, MessageHelper.objToMsg(email), correlationData);
 
         return true;
 

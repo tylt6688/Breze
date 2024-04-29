@@ -12,12 +12,13 @@ import lombok.ToString;
  * @Description 日志枚举类
  * @Copyright(c) 2022 , 青枫网络工作室
  */
+@Getter
 @ToString
 @AllArgsConstructor
 public enum LogEnum {
 
     // 业务日志枚举
-    BUSSINESS("bussiness"),
+    BUSINESS("business"),
     // 系统日志枚举
     PLATFORM("platform"),
     // 数据库日志枚举
@@ -25,7 +26,6 @@ public enum LogEnum {
     // 系统异常日志枚举
     EXCEPTION("exception");
 
-    @Getter
     @EnumValue
     private final String category;
 

@@ -26,18 +26,20 @@ public class RabbitMQConfig {
     public static final String QUEUE_B = "QUEUE_B";
     public static final String QUEUE_C = "QUEUE_C";
 
-
     public static final String EXCHANGE_A = "Exchange_A";
     public static final String EXCHANGE_B = "Exchange_B";
     public static final String EXCHANGE_C = "Exchange_C";
 
+    public static final String ROUTING_KEY_A = "Routing_Key_A";
+    public static final String ROUTING_KEY_B = "Routing_Key_B";
+    public static final String ROUTING_KEY_C = "Routing_Key_C";
 
-    public static final String ROUTINGKEY_A = "RoutingKey_A";
-    public static final String ROUTINGKEY_B = "RoutingKey_B";
-    public static final String ROUTINGKEY_C = "RoutingKey_C";
+    private final CachingConnectionFactory connectionFactory;
 
     @Autowired
-    private CachingConnectionFactory connectionFactory;
+    public RabbitMQConfig(CachingConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
 
     @Bean
@@ -93,12 +95,12 @@ public class RabbitMQConfig {
 
     @Bean
     public Binding bindingA() {
-        return BindingBuilder.bind(queueA()).to(defaultExchange()).with(RabbitMQConfig.ROUTINGKEY_A);
+        return BindingBuilder.bind(queueA()).to(defaultExchange()).with(RabbitMQConfig.ROUTING_KEY_A);
     }
 
     @Bean
     public Binding bindingB() {
-        return BindingBuilder.bind(queueB()).to(defaultExchange()).with(RabbitMQConfig.ROUTINGKEY_B);
+        return BindingBuilder.bind(queueB()).to(defaultExchange()).with(RabbitMQConfig.ROUTING_KEY_B);
     }
 
 
