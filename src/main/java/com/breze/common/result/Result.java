@@ -38,9 +38,9 @@ public class Result<T> {
 
 
     /**
-     * 标准请求成功消息模板
+     * 请求成功消息模板
      *
-     * @return SuccessResult<T> 成功范型模板对象
+     * @return SuccessResult<T> 请求成功范型模板对象
      */
     public static <T> Result<T> createSuccessMessage() {
         return createSuccessMessage(DEFAULT_SUCCESS_MESSAGE);
@@ -50,18 +50,18 @@ public class Result<T> {
      * 请求成功消息模板
      *
      * @param message 自定义提示消息
-     * @return SuccessResult<T> 成功范型模板对象
+     * @return SuccessResult<T> 请求成功范型模板对象
      */
     public static <T> Result<T> createSuccessMessage(String message) {
         return createSuccessMessage(message, null);
     }
 
     /**
-     * 空参请求成功消息模板
+     * 请求成功消息模板
      *
      * @param message 自定义提示消息
      * @param data    响应数据
-     * @return SuccessResult<T> 成功范型模板对象
+     * @return SuccessResult<T> 请求成功范型模板对象
      */
     public static <T> Result<T> createSuccessMessage(String message, T data) {
         return new SuccessResult<>(true, message, data);
@@ -72,7 +72,7 @@ public class Result<T> {
      * 请求失败消息模板
      *
      * @param errorEnum 错误枚举
-     * @return FailedResult<T> 失败范型模板对象
+     * @return FailedResult<T> 请求失败范型模板对象
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum) {
         return createFailMessage(errorEnum, DEFAULT_FAILED_MESSAGE);
@@ -83,7 +83,7 @@ public class Result<T> {
      *
      * @param errorEnum 错误枚举
      * @param message   自定义失败信息
-     * @return FailedResult<T> 失败范型模板对象
+     * @return FailedResult<T> 请求失败范型模板对象
      */
 
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message) {
@@ -97,7 +97,7 @@ public class Result<T> {
      * @param errorEnum 错误枚举
      * @param message   自定义失败信息
      * @param data      响应数据
-     * @return FailedResult<T> 失败范型模板对象
+     * @return FailedResult<T> 请求失败范型模板对象
      */
     public static <T> Result<T> createFailMessage(ErrorEnum errorEnum, String message, T data) {
         return new FailedResult<>(false, message, errorEnum.getErrorCode(), errorEnum.getErrorName(), data);

@@ -162,15 +162,15 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements
 
         try {
             if (groupJobMapper.selectCount(new QueryWrapper<GroupJob>().eq("group_id", id))>0) {
-                throw new BusinessException(ErrorEnum.FindException, "删除部门失败");
+                throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "删除部门失败");
             }
             if (0 < groupMapper.selectCount(new QueryWrapper<Group>().eq("parent_id", id))) {
-                throw new BusinessException(ErrorEnum.FindException, "删除部门失败, 子部门存在");
+                throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "删除部门失败, 子部门存在");
             }
             return groupMapper.deleteById(id) > 0;
         }
         catch (Exception e){
-            throw new BusinessException(ErrorEnum.FindException, "删除部门失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "删除部门失败");
         }
 
 

@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 /**
  * @author chenweixi
  * @create 2023-09-13 17:25
- * @Description TODO
+ * @Description 内容接受对象
  * @Copyright(c) 2023, 青枫网络工作室
  */
 @EqualsAndHashCode(callSuper = true)

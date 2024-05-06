@@ -5,9 +5,9 @@ spring:
     active: dev
     # 对配置文件进行分组激活，届时可根据不同环境进行修改
     group:
-      "dev": datasource,redis,rabbitmq,mail,scheduled,private
-      "prod": datasource,redis,rabbitmq,mail,scheduled,private
-      "test": datasource,redis,rabbitmq,mail,scheduled,private
+      "dev": project,datasource,redis,rabbitmq,mail,scheduled,private
+      "prod": project,datasource,redis,rabbitmq,mail,scheduled,private
+      "test": project,datasource,redis,rabbitmq,mail,scheduled,private
   # 限制文件大小
   servlet:
     multipart:

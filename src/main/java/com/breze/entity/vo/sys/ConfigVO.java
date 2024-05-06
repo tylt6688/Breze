@@ -18,16 +18,16 @@ public class ConfigVO extends BaseVO {
     private Integer id;
 
     @ApiModelProperty("配置项中文名")
-    private String name;
+    private String configName;
 
     @ApiModelProperty("配置项键")
-    private String key;
+    private String configKey;
 
     @ApiModelProperty("配置项值")
-    private String value;
+    private String configValue;
 
     @ApiModelProperty("状态（开关）")
-    private Integer state;
+    private Integer configState;
 
     @ApiModelProperty("创建人")
     private String createBy;

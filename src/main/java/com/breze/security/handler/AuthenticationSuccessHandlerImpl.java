@@ -2,9 +2,8 @@ package com.breze.security.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.breze.common.consts.CharsetConstant;
-import com.breze.common.consts.SystemConstant;
+import com.breze.common.enums.NormalEnum;
 import com.breze.common.result.Result;
-import com.breze.config.TokenConfig;
 import com.breze.utils.TokenUtil;
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
@@ -31,11 +30,12 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
-    @Autowired
-    private TokenConfig tokenConfig;
+    private final TokenUtil tokenUtil;
 
     @Autowired
-    TokenUtil tokenUtil;
+    public AuthenticationSuccessHandlerImpl(TokenUtil tokenUtil) {
+        this.tokenUtil = tokenUtil;
+    }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Authentication authentication) throws IOException {
@@ -48,12 +48,9 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
         String username = authentication.getName();
 
-        // 生成JWT放置到响应Header头中
         String token = tokenUtil.generateToken(username);
 
-        response.setHeader(tokenConfig.getHeader(), token);
-
-        Result<String> result = Result.createSuccessMessage(SystemConstant.LOGIN_SUCCESS, token);
+        Result<String> result = Result.createSuccessMessage(NormalEnum.LOGIN_SUCCESS.getNormalMsg(), token);
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

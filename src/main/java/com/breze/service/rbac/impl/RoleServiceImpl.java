@@ -80,7 +80,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             userService.clearUserAuthorityInfoByRoleId(roleId);
             return remove && saveBatch;
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException);
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION);
         }
 
     }
@@ -92,7 +92,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             Role role = RoleConvert.INSTANCE.roleDTOTORole(roleDTO);
             return this.save(role);
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException);
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION);
         }
     }
 
@@ -104,7 +104,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             userService.clearUserAuthorityInfoByRoleId(role.getId());
             return this.updateById(role);
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "更新角色失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "更新角色失败");
         }
     }
 
@@ -113,7 +113,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         for (Long roleId : roleIds) {
             long count = userRoleService.count(new LambdaQueryWrapper<UserRole>().eq(UserRole::getRoleId, roleId));
             if (count > 0) {
-                throw new BusinessException(ErrorEnum.ErrorOperation, "角色已被使用，请先解除占用");
+                throw new BusinessException(ErrorEnum.ERROR_OPERATION, "角色已被使用，请先解除占用");
             }
         }
         try {
@@ -129,7 +129,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             }
             return true;
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException);
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION);
         }
     }
 }

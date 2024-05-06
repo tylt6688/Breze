@@ -1,7 +1,7 @@
 package com.breze.utils;
 
 import com.breze.common.consts.SystemConstant;
-import com.breze.entity.bo.sys.IpBO;
+import com.breze.entity.bo.sys.IPBO;
 import com.maxmind.geoip2.DatabaseReader;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
@@ -34,8 +34,8 @@ public class IPUtil {
         }
     }
 
-    public static IpBO getIpAddressInfo(HttpServletRequest request) {
-        IpBO ipBO = new IpBO();
+    public static IPBO getIpAddressInfo(HttpServletRequest request) {
+        IPBO ipBO = new IPBO();
         String ip = IPUtil.getIpAddress(request);
         ipBO.setIp(ip);
         if (IPUtil.isInternalIP(ip)) {

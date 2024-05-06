@@ -3,7 +3,6 @@ package com.breze.common.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 /**
  * @Author tylt6688
@@ -12,59 +11,57 @@ import lombok.ToString;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Getter
-@ToString
 @AllArgsConstructor
 public enum ErrorEnum {
 
     /**
      * 密码错误错误码
      */
-    ErrorUsernamePassword("用户名或密码错误", 1001),
+    ERROR_USERNAME_PASSWORD("用户名或密码错误", 1001),
     /**
      * 验证码错误错误码
      */
-    VerifyCodeError("验证码错误", 1002),
+    VERIFY_CODE_ERROR("验证码错误", 1002),
     /**
      * 无权限错误码
      */
-    NoPermission("无权限操作", 1003),
+    NO_PERMISSION("无权限操作", 1003),
     /**
-     * JWT凭证异常用户错误码
+     * 凭证异常错误码
      */
-    IncorrectCredentials("登录凭证失效", 1004),
+    INCORRECT_CREDENTIALS("登录凭证失效", 1004),
     /**
      * 未认证用户错误码
      */
-    NoAuthentication("未认证用户", 1005),
+    NO_AUTHENTICATION("未认证用户", 1005),
     /**
      * 账户已被锁定错误码
      */
-    LockUser("账户已被锁定，请联系管理员", 1006),
+    LOCK_USER("账户已被锁定，请联系管理员", 1006),
     /**
      * 账户无效错误码
      */
-    UnknownAccount("无效账户", 1007),
+    UNKNOWN_ACCOUNT("无效账户", 1007),
     /**
      * 未知错误错误码
      */
-    UnknownError("未知错误", 600),
+    UNKNOWN_ERROR("未知错误", 600),
     /**
      * 出现异常错误码
      */
-    FindException("出现异常", 700),
+    FIND_EXCEPTION("出现异常", 700),
     /**
      * 出现异常错误码
      */
-    ErrorOperation("错误操作", 800),
+    ERROR_OPERATION("错误操作", 800),
     /**
      * 非法操作错误码
      */
-    IllegalOperation("非法操作", 900);
+    ILLEGAL_OPERATION("非法操作", 900);
 
 
     @EnumValue
     private final String errorName;
-
 
     @EnumValue
     private final Integer errorCode;

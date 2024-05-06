@@ -1,6 +1,7 @@
 package com.breze.controller.core;
 
 import com.breze.common.result.Result;
+import com.breze.config.BrezeConfig;
 import com.breze.controller.BaseController;
 import com.breze.entity.vo.sys.ConfigVO;
 import io.swagger.annotations.Api;
@@ -23,12 +24,16 @@ import java.util.List;
 @RequestMapping("/core/config")
 public class ConfigController extends BaseController {
 
-
-    @GetMapping("/get_init_config")
-    public Result<List<ConfigVO>> getInitConfig() {
-
-        return Result.createSuccessMessage("获取配置信息成功", configService.getConfigList(brezeConfig));
+    @GetMapping("/project")
+    public Result<BrezeConfig> getProjectInfo() {
+        return Result.createSuccessMessage("获取项目配置信息成功", brezeConfig);
     }
+
+    @GetMapping("/get_sys_config")
+    public Result<List<ConfigVO>> getInitConfig() {
+        return Result.createSuccessMessage("获取配置信息成功", configService.getConfigList());
+    }
+
 
 
 }

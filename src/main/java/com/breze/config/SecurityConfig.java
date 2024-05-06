@@ -32,26 +32,30 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Autowired
-    private AuthenticationSuccessHandlerImpl authenticationSuccessHandlerImpl;
+    private final AuthenticationSuccessHandlerImpl authenticationSuccessHandlerImpl;
+
+    private final AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
+
+    private final AccessDeniedHandlerImpl accessDeniedHandlerImpl;
+
+    private final AuthenticationEntryPointImpl authenticationEntryPointImpl;
+
+    private final AuthenticationConfiguration authenticationConfiguration;
+
+    private final LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
+
+    private final CaptchaFilter captchaFilter;
 
     @Autowired
-    private AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl;
-
-    @Autowired
-    private AccessDeniedHandlerImpl accessDeniedHandlerImpl;
-
-    @Autowired
-    private AuthenticationEntryPointImpl authenticationEntryPointImpl;
-
-    @Autowired
-    private AuthenticationConfiguration authenticationConfiguration;
-
-    @Autowired
-    private LogoutSuccessHandlerImpl logoutSuccessHandlerImpl;
-
-    @Autowired
-    private CaptchaFilter captchaFilter;
+    public SecurityConfig(AuthenticationSuccessHandlerImpl authenticationSuccessHandlerImpl, AuthenticationFailureHandlerImpl authenticationFailureHandlerImpl, AccessDeniedHandlerImpl accessDeniedHandlerImpl, AuthenticationEntryPointImpl authenticationEntryPointImpl, AuthenticationConfiguration authenticationConfiguration, LogoutSuccessHandlerImpl logoutSuccessHandlerImpl, CaptchaFilter captchaFilter) {
+        this.authenticationSuccessHandlerImpl = authenticationSuccessHandlerImpl;
+        this.authenticationFailureHandlerImpl = authenticationFailureHandlerImpl;
+        this.accessDeniedHandlerImpl = accessDeniedHandlerImpl;
+        this.authenticationEntryPointImpl = authenticationEntryPointImpl;
+        this.authenticationConfiguration = authenticationConfiguration;
+        this.logoutSuccessHandlerImpl = logoutSuccessHandlerImpl;
+        this.captchaFilter = captchaFilter;
+    }
 
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -89,7 +93,7 @@ public class SecurityConfig {
                 // 配置登录请求
                 .formLogin()
                 // 自定义登录请求路径(post)
-                .loginProcessingUrl("/breze/login")
+                .loginProcessingUrl(SecurityConstant.LOGIN_PATH)
                 // 自定义登录用户名密码属性名,默认为 username 和 password
 //                .usernameParameter("username").passwordParameter("password")
 //                .loginPage("/login") //配置登录页面(前后端不分离)

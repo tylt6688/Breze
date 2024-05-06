@@ -1,6 +1,5 @@
 package com.breze.service.core.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.breze.config.BrezeConfig;
 import com.breze.converter.sys.ConfigConvert;
@@ -8,7 +7,8 @@ import com.breze.entity.pojo.core.Config;
 import com.breze.entity.vo.sys.ConfigVO;
 import com.breze.mapper.rbac.ConfigMapper;
 import com.breze.service.core.ConfigService;
-import com.breze.utils.BrezeUtil;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,36 +21,25 @@ import java.util.List;
  * @author tylt6688
  * @since 2023-06-07
  */
+@Log4j2
 @Service
 public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> implements ConfigService {
 
-    @Override
-    public List<Config> getConfigByKey(String s) {
-        return this.list(new LambdaQueryWrapper<Config>().eq(Config::getKey, s));
+
+    private final ConfigMapper configMapper;
+
+    private final BrezeConfig brezeConfig;
+
+    @Autowired
+    public ConfigServiceImpl(ConfigMapper configMapper, BrezeConfig brezeConfig) {
+        this.configMapper = configMapper;
+        this.brezeConfig = brezeConfig;
     }
 
     @Override
-    public Boolean insertConfig(ConfigVO configVO) {
-        Config config = ConfigConvert.INSTANCE.convertToConfig(configVO);
-        return this.save(config);
+    public List<ConfigVO> getConfigList() {
+        return ConfigConvert.INSTANCE.convertToConfigVO(this.list());
     }
 
-    @Override
-    public List<ConfigVO> getConfigList(BrezeConfig brezeConfig) {
 
-        ConfigVO configVO = new ConfigVO();
-        String[] filedName = BrezeUtil.getFiledName(brezeConfig);
-        for (String s : filedName) {
-            if (this.getConfigByKey(s).isEmpty()) {
-                String value = (String) BrezeUtil.getFieldValueByName(s, brezeConfig);
-                configVO.setName(s);
-                configVO.setKey(s);
-                configVO.setValue(value);
-                Config config = ConfigConvert.INSTANCE.convertToConfig(configVO);
-                this.save(config);
-            }
-        }
-        List<Config> list = this.list();
-        return ConfigConvert.INSTANCE.convertToConfigVO(list);
-    }
 }

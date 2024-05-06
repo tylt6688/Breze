@@ -25,7 +25,6 @@ public class CodeGenerator {
         /*
          * 项目配置
          */
-
         String author = "Breze"; // 作者
         String packageName = "com.breze"; // 包名
         Boolean isLocal = true; // 是否生成到本地磁盘

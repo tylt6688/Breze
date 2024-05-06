@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+#set($year = $dateTool.get('yyyy', $date))
 /**
  * @Author ${author}
  * @Date ${date}
- * @Description
- * @Copyright(c) 2022 , 青枫网络工作室
+ * @Description 描述信息
+ * @Copyright(c) ${year} , 青枫网络工作室
  */
 @Service
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {}

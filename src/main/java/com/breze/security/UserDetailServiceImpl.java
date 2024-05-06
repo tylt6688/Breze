@@ -47,12 +47,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
         // 判断帐号是否存在
         if (user == null) {
             log.info("用户 {} 不存在", username);
-            throw new UsernameNotFoundException(ErrorEnum.UnknownAccount.getErrorName());
+            throw new UsernameNotFoundException(ErrorEnum.UNKNOWN_ACCOUNT.getErrorName());
         }
         // 判断帐户是否被锁定
         else if (user.getState().equals(GlobalConstant.STATUS_OFF)) {
-            log.info("用户 {} 账号被锁定", username);
-            throw new UsernameNotFoundException(ErrorEnum.LockUser.getErrorName());
+            log.info("用户 {} 账号已被锁定", username);
+            throw new UsernameNotFoundException(ErrorEnum.LOCK_USER.getErrorName());
         }
         // 判断是否需要发送提醒邮件
         else if (user.getLoginWarn().equals(GlobalConstant.STATUS_ON)) {
@@ -60,7 +60,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         }
 
         // 更新该账号最后一次登录时间
-        userService.updateLastLoginTime(username);
+        userService.updateLoginInfo(user);
         loginLogService.saveLoginLog(username);
 
         return createLoginUser(user);

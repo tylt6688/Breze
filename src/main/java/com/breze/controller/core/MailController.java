@@ -1,6 +1,7 @@
 package com.breze.controller.core;
 
 import com.breze.common.rabbit.Produce;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.breze.entity.pojo.rbac.User;
  * @Copyright(c) 2022, 青枫网络工作室
  */
 
+@Api(tags = "邮件管理")
 @RestController
 @RequestMapping("/mail")
 public class MailController extends BaseController {

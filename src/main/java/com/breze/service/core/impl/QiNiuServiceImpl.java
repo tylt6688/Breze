@@ -2,10 +2,10 @@ package com.breze.service.core.impl;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
 import com.breze.config.OssConfig;
 import com.breze.service.core.QiNiuService;
 import com.breze.utils.FileUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -63,23 +63,26 @@ public class QiNiuServiceImpl implements QiNiuService {
         assert fileName != null;
         String newFileName = FileUtil.getUniqueFileName(fileName);
         // 上传文件
-        Response res = null;
+        Response res;
         try {
             res = uploadManager.put(file.getInputStream(), newFileName, token, null, null);
+
+            if (!res.isOK()) {
+                throw new RuntimeException("上传七牛云出错：" + res);
+            }
+
+            // 解析上传成功的结果
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            DefaultPutRet putRet = objectMapper.readValue(res.bodyString(), DefaultPutRet.class);
+
+            //获取上传后oss空间内唯一文件地址
+            String path = ossConfig.getUrl() + "/" + putRet.key;
+            // 直接返回外链地址
+            return path;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (!res.isOK()) {
-            throw new RuntimeException("上传七牛云出错：" + res);
-        }
-        // 解析上传成功的结果
-        DefaultPutRet putRet = JSON.parseObject(res.bodyString(), DefaultPutRet.class);
-
-        //获取上传后oss空间内唯一文件地址
-        String path = ossConfig.getUrl() + "/" + putRet.key;
-        // 直接返回外链地址
-        return path;
-
     }
 
     @Override
@@ -95,9 +98,9 @@ public class QiNiuServiceImpl implements QiNiuService {
 
     }
 
-   /**
-    * 给外链添加域名前缀
-    */
+    /**
+     * 给外链添加域名前缀
+     */
     @Override
     public String addDomainPrefix(String url) {
         return CharSequenceUtil.isNotBlank(url) ? ossConfig.getUrl() + url : null;

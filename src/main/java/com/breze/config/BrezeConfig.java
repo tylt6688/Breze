@@ -16,32 +16,32 @@ import org.springframework.context.annotation.Configuration;
 public class BrezeConfig {
 
     /**
-     * 项目标题
+     * 头部标题
      */
     private String title;
 
     /**
-     * 项目标题
+     * 项目名称
      */
     private String name;
 
     /**
-     * 项目描述
+     * 描述
      */
     private String description;
 
     /**
-     * 项目版权归属
+     * 版权归属
      */
     private String copyrightName;
 
     /**
-     * 项目版权年份
+     * 版权年份
      */
     private String copyrightYear;
 
     /**
-     * 项目版本号
+     * 版本号
      */
     private String version;
 
@@ -51,12 +51,12 @@ public class BrezeConfig {
     private String uploadPath;
 
     /**
-     * 项目Swagger是否开启
+     * Swagger是否开启
      */
     private Boolean swaggerEnabled;
 
     /**
-     * 项目验证码是否开启
+     * 验证码是否开启
      */
     private Boolean captchaDevEnabled;
 

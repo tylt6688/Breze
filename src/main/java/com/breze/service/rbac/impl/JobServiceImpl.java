@@ -87,11 +87,11 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
     public Boolean delete(Long id) {
         try {
             if (groupJobMapper.selectCount(new QueryWrapper<GroupJob>().eq("job_id", id)) > 0) {
-                throw new BusinessException(ErrorEnum.FindException, "删除岗位失败");
+                throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "删除岗位失败");
             }
             return jobMapper.deleteById(id) > 0;
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "删除岗位失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "删除岗位失败");
         }
 
 

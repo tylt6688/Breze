@@ -14,7 +14,6 @@ import com.breze.entity.dto.sys.DictDataDTO;
 import com.breze.entity.pojo.core.DictData;
 import com.breze.entity.vo.sys.DictDataVO;
 import com.breze.mapper.core.DictDataMapper;
-import com.breze.mapper.core.DictMapper;
 import com.breze.service.core.DictDataService;
 import com.breze.utils.FileUtil;
 import com.breze.utils.RedisUtil;
@@ -24,7 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 
@@ -34,9 +36,6 @@ import static org.apache.commons.lang3.StringUtils.isNoneBlank;
  */
 @Service
 public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> implements DictDataService {
-
-    @Autowired
-    private DictMapper dictMapper;
 
     @Autowired
     private DictDataMapper dictDataMapper;
@@ -85,7 +84,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
             EasyExcelFactory.write(response.getOutputStream(), DictDataExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("字典数据").doWrite(dictExcelBOS);
         } catch (Exception e) {
             response.reset();
-            throw new BusinessException(ErrorEnum.FindException, "导出Excel表失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导出Excel表失败");
         }
     }
 
@@ -97,7 +96,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
                 try {
                     dictDataMapper.insert(dict);
                 } catch (Exception e) {
-                    throw new BusinessException(ErrorEnum.FindException, "导入Excel表失败");
+                    throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导入Excel表失败");
                 }
             }
         })).sheet().doRead();
@@ -113,7 +112,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
             EasyExcelFactory.write(response.getOutputStream(), DictDataExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("字典数据").doWrite(Arrays.asList(dictDataExcelBO));
         } catch (Exception e) {
             response.reset();
-            throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导出模板Excel表失败");
         }
     }
 
@@ -122,8 +121,9 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
         HashMap<String, List<DictData>> dictListMap = new HashMap<>();
         for (String dict : dicts) {
             if (redisUtil.hasKey(dict)){
-                List<DictData> dataList = (List<DictData>) redisUtil.get(dict);
-                dictListMap.put(dict,dataList);
+//                FIXME 此处转换有问腿  等待修复
+//                List<DictData> dataList = (List<DictData>) redisUtil.get(dict);
+//                dictListMap.put(dict,dataList);
             }else{
                 List<DictData> dataList = dictDataMapper.selectList(new QueryWrapper<DictData>().eq("dict_type", dict));
                 dictListMap.put(dict,dataList);

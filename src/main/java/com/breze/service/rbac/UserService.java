@@ -147,11 +147,11 @@ public interface UserService extends IService<User> {
     Boolean importUserByExcel(MultipartFile file);
 
     /**
-     * 更新用户最后登录时间
+     * 更新用户登录信息
      *
-     * @param username 用户名
+     * @param user 用户对象
      */
-    void updateLastLoginTime(String username);
+    void updateLoginInfo(User user);
 
     /**
      * 避免系统用户分配权限变动后redis缓存未发生变动导致缓存不一致

@@ -10,8 +10,9 @@ package com.breze.common.consts;
 public class SecurityConstant {
 
     public static final String ALL = "*";
-
     public static final String ALL_PATH = "/**";
+    public static final String LOGIN_PATH = "/breze/login";
+
     /**
      * Authorization 常量，方便请求头中获取
      */
@@ -26,6 +27,7 @@ public class SecurityConstant {
      * Breze [系统白名单接口常量数组]
      */
     public static final String[] URL_WHITELIST = {
+            LOGIN_PATH,
             "/login",
             "/logout",
             "/captcha",
@@ -35,7 +37,7 @@ public class SecurityConstant {
             "/*/api-docs",
             "/swagger-resources/**",
             "/druid/**",
-            "/breze/login",
+            "/core/config/**",
             "/breze/test/**",
             "/webSocket/**",
     };

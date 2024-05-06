@@ -35,15 +35,12 @@ import java.util.List;
 @RequestMapping("/sys/user")
 public class UserController extends BaseController {
 
-
-
-
     @ApiOperation("新增用户")
     @BrezeLog("新增用户")
     @PostMapping("/insert")
     @PreAuthorize("hasAuthority('sys:user:insert')")
     public Result<String> insert(@Validated @RequestBody UserDTO userDTO) {
-        return brezeJudgeResult(userService.insert(userDTO),"新增用户成功","新增用户失败");
+        return brezeJudgeResult(userService.insert(userDTO), "新增用户成功", "新增用户失败");
     }
 
     @ApiOperation("删除用户信息")
@@ -51,7 +48,7 @@ public class UserController extends BaseController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result<String> delete(@RequestBody List<UserDTO> userDTOList) {
-        return brezeJudgeResult(userService.delete(userDTOList),"删除用户成功","删除用户失败");
+        return brezeJudgeResult(userService.delete(userDTOList), "删除用户成功", "删除用户失败");
     }
 
     @ApiOperation("更新用户信息")
@@ -59,9 +56,8 @@ public class UserController extends BaseController {
     @PutMapping("/update")
     @PreAuthorize("hasAuthority('sys:user:update')")
     public Result<String> update(@Validated @RequestBody UserDTO userDTO) {
-        return brezeJudgeResult(userService.update(userDTO),"用户信息更新成功","用户信息更新失败");
+        return brezeJudgeResult(userService.update(userDTO), "用户信息更新成功", "用户信息更新失败");
     }
-
 
 
     @ApiOperation("获取全部用户列表，可多条件联合查询，实体属性值为空则显示全部")
@@ -89,7 +85,7 @@ public class UserController extends BaseController {
     @PostMapping("/perm_role")
     @PreAuthorize("hasAuthority('sys:user:role')")
     public Result<String> permRole(@RequestBody PermRoleDTO permRoleDTO) {
-        return brezeJudgeResult(userService.permRole(permRoleDTO),"分配用户角色成功","分配用户角色失败");
+        return brezeJudgeResult(userService.permRole(permRoleDTO), "分配用户角色成功", "分配用户角色失败");
     }
 
 
@@ -99,7 +95,7 @@ public class UserController extends BaseController {
     @PostMapping("/reset_password")
     @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result<String> resetPassword(@RequestParam Long userId) {
-        return brezeJudgeResult(userService.resetUserPassword(userId),"重置用户密码成功","重置用户密码失败");
+        return brezeJudgeResult(userService.resetUserPassword(userId), "重置用户密码成功", "重置用户密码失败");
     }
 
 
@@ -139,7 +135,7 @@ public class UserController extends BaseController {
     @BrezeLog("导入用户Excel表")
     @PostMapping("/import_excel")
     public Result<String> importExcel(@RequestParam MultipartFile file) {
-        return brezeJudgeResult(userService.importUserByExcel(file),"导入用户Excel表成功","导入用户Excel表失败");
+        return brezeJudgeResult(userService.importUserByExcel(file), "导入用户Excel表成功", "导入用户Excel表失败");
     }
 
     @ApiOperation("导出用户Excel表")

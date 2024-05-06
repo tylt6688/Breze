@@ -21,23 +21,3 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-# 项目相关配置
-breze:
-  # 标题
-  title: 清枫Breze一体化服务平台
-  # 项目名
-  name: Breze
-  # 项目描述
-  description: Breze权限管理系统接口文档
-  # 版本
-  version: 1.0.0
-  # 版权年份
-  copyrightYear: 2023
-  # 版权归属
-  copyrightName: 青枫网络工作室
-  # 本地文件上传路径，示例 (Windows配置D:/breze/uploadPath，Linux下配置 /home/breze/uploadPath)
-  uploadPath: D:/breze/uploadPath
-  # Swagger文档启停,生产环境建议关闭
-  swaggerEnabled: true
-  # 是否启用开发者模式验证码
-  captchaDevEnabled: true

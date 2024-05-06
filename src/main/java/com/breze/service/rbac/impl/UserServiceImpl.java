@@ -42,6 +42,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
 
-    @Autowired
+    @Resource
     private RedisUtil redisUtil;
 
     @Autowired
@@ -126,7 +127,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                     .setPassword(SecurityUtil.encodePassword(SystemConstant.DEFAULT_PASSWORD));
             return userMapper.insert(user) > 0;
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "添加用户失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "添加用户失败");
         }
 
     }
@@ -139,7 +140,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return userMapper.updateById(user) > 0;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new BusinessException(ErrorEnum.FindException, "修改用户信息失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "修改用户信息失败");
         }
     }
 
@@ -150,7 +151,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return userMapper.deleteBatchIds(UserConvert.INSTANCE.userDTOToUser(userDTOList)) > 0;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new BusinessException(ErrorEnum.FindException, "删除用户失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "删除用户失败");
         }
 
     }
@@ -171,7 +172,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             try {
                 return this.updateById(user);
             } catch (Exception e) {
-                throw new BusinessException(ErrorEnum.FindException, "修改密码失败");
+                throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "修改密码失败");
             }
         } else {
             return false;
@@ -188,12 +189,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
             String path = qiNiuService.uploadFile(avatar);
             if (path == null) {
-                throw new BusinessException(ErrorEnum.FindException, "更新头像失败");
+                throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "更新头像失败");
             }
             user.setAvatar(path);
             return this.updateById(user);
         } catch (QiniuException e) {
-            throw new BusinessException(ErrorEnum.FindException, e.getMessage());
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, e.getMessage());
         }
     }
 
@@ -204,15 +205,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user = this.getUserByUserName(SecurityUtil.getUsername());
             return userMapper.updateLoginWarnByUserId(loginWarn, user.getId());
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "更新登录邮件提醒失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "更新登录邮件提醒失败");
         }
     }
 
     @Override
-    public void updateLastLoginTime(String username) {
+    public void updateLoginInfo(User user) {
         // 更新账户最后一次登录时间
         LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
-        lambdaUpdateWrapper.eq(User::getUsername, username);
+        lambdaUpdateWrapper.eq(User::getUsername, user.getUsername());
         lambdaUpdateWrapper.set(User::getLoginTime, LocalDateTime.now());
         this.update(lambdaUpdateWrapper);
     }
@@ -229,7 +230,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 try {
                     userMapper.insert(user);
                 } catch (Exception e) {
-                    throw new BusinessException(ErrorEnum.FindException, "导入用户Excel表失败");
+                    throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导入用户Excel表失败");
                 }
             }
         })).sheet().doRead();
@@ -239,6 +240,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    // FIXME 等待修复问题
     public String getUserAuthorityInfo(User user) {
         String authority;
         String key = CacheConstant.AUTHORITY_CODE + user.getUsername();
@@ -249,14 +251,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // 获取角色
             List<Role> roles = roleMapper.listByUserId(user.getId());
             if (roles.isEmpty()) {
-                throw new BusinessException(ErrorEnum.UnknownAccount, ErrorEnum.UnknownAccount.getErrorName());
+                throw new BusinessException(ErrorEnum.UNKNOWN_ACCOUNT, ErrorEnum.UNKNOWN_ACCOUNT.getErrorName());
             }
             String roleCodes = roles.stream().map(role -> "ROLE_" + role.getCode()).collect(Collectors.joining(","));
             authority = roleCodes.concat(",");
             // 获取菜单权限编码
             List<Long> menuIds = userMapper.getNavMenuIds(user.getId());
             if (menuIds.isEmpty()) {
-                throw new BusinessException(ErrorEnum.NoPermission, ErrorEnum.NoPermission.getErrorName());
+                throw new BusinessException(ErrorEnum.NO_PERMISSION, ErrorEnum.NO_PERMISSION.getErrorName());
             }
             List<Menu> menus = menuMapper.selectBatchIds(menuIds);
             String menuPerms = menus.stream().map(Menu::getPerms).collect(Collectors.joining(","));
@@ -272,7 +274,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public UserInfoVO getCurrentUserInfo(String username) {
         User user = this.getUserByUserName(username);
         UserInfoVO userInfoVo = UserConvert.INSTANCE.userToUserInfoVo(user);
-//        userInfoVo.setAvatar(qiNiuService.addDomainPrefix(user.getAvatar()));
         userInfoVo.setRoles(roleMapper.listByUserId(user.getId()));
         userInfoVo.setGroupJob(groupService.findGroupAndJobByUserId(user.getId()));
         return userInfoVo;
@@ -320,7 +321,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             });
             return true;
         } catch (Exception e) {
-            throw new BusinessException(ErrorEnum.FindException, "分配角色失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "分配角色失败");
         }
 
     }
@@ -354,7 +355,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             EasyExcelFactory.write(response.getOutputStream(), UserExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(userExcelBOS);
         } catch (Exception e) {
             response.reset();
-            throw new BusinessException(ErrorEnum.FindException, "导出Excel表失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导出Excel表失败");
         }
     }
 
@@ -367,7 +368,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             EasyExcelFactory.write(response.getOutputStream(), UserExcelBO.class).autoCloseStream(Boolean.FALSE).useDefaultStyle(false).sheet("模板").doWrite(Arrays.asList(userExcel));
         } catch (Exception e) {
             response.reset();
-            throw new BusinessException(ErrorEnum.FindException, "导出模板Excel表失败");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "导出模板Excel表失败");
         }
     }
 

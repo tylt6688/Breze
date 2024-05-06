@@ -13,7 +13,6 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -123,7 +122,7 @@ public class QrCodeUtil {
      */
     private BufferedImage crateQRCode(String content, Integer width, Integer height, String logoUrl, Integer logoWidth, Integer logoHeight) {
         if (StrUtil.isNotBlank(content)) {
-            ServletOutputStream stream = null;
+
             HashMap<EncodeHintType, Comparable> hints = new HashMap<>(4);
             // 指定字符编码为utf-8
             hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
@@ -146,15 +145,6 @@ public class QrCodeUtil {
                 return bufferedImage;
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (stream != null) {
-                    try {
-                        stream.flush();
-                        stream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         }
         return null;

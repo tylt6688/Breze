@@ -1,16 +1,17 @@
 package com.breze.security.filter;
 
 import com.breze.common.exception.BrezeJwtException;
+import com.breze.entity.bo.sys.LoginUserCacheBO;
 import com.breze.security.UserDetailServiceImpl;
-import com.breze.security.handler.AccessDeniedHandlerImpl;
 import com.breze.security.handler.AuthenticationEntryPointImpl;
 import com.breze.service.rbac.UserService;
+import com.breze.utils.BrezeUtil;
 import com.breze.utils.TokenUtil;
-import io.jsonwebtoken.Claims;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -19,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author tylt6688
@@ -43,9 +45,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Autowired
     AuthenticationEntryPointImpl authenticationEntryPoint;
 
-    @Autowired
-    AccessDeniedHandlerImpl accessDeniedHandler;
-
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -54,40 +53,21 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        // 判断JWT是否为空
-        String jwt = tokenUtil.getToken(request);
-//        log.info("[原始带Bearer头jwt信息]：---{}", jwt);
-//        if (jwt == null || SecurityConstant.BREZE_APP_TOKEN_PREFIX.equals(jwt)) {
-//            log.info("[初始登录访问，JWT解析正常放行](初始登录以及白名单接口访问时为空正常):---{}", jwt);
-//            chain.doFilter(request, response);
-//            return;
-//        } else if (!jwt.startsWith(SecurityConstant.BREZE_TOKEN_PREFIX)) {
-//            log.info("[JWT头部格式不正确]:---{}", jwt);
-//            accessDeniedHandler.handle(request, response, new BrezeDeniedException("令牌认证失败，请重新登录"));
-//            return;
-//        }
-//
-//        jwt = jwt.replace(SecurityConstant.BREZE_TOKEN_PREFIX, "");
-
-        log.info("[进行标识处理后的jwt信息]：---{}", jwt);
-
-        // 进行 JWT 解析
-        Claims claim = tokenUtil.getClaimByToken(jwt);
-
-        if (claim == null) {
-            authenticationEntryPoint.commence(request, response, new BrezeJwtException("登录凭证无效"));
-            return;
+        try {
+            LoginUserCacheBO loginUser = tokenUtil.getLoginUser(request);
+            if (BrezeUtil.isNotNull(loginUser)) {
+                List<GrantedAuthority> userAuthority = userDetailService.getUserAuthority(userService.getUserByUserName(loginUser.getUsername()));
+                // 第三个参数是查询出来的权限信息
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser.getUsername(), null, userAuthority);
+                // 把用户的信息存入安全上下文 SecurityContextHolder中
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+            chain.doFilter(request, response);
+        }
+        catch (Exception e){
+            authenticationEntryPoint.commence(request, response, new BrezeJwtException(e.getMessage()));
         }
 
-        // 获取用户的权限菜单等信息
-        String username = claim.getSubject();
-
-        // 第三个参数是查询出来的权限信息
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, null, userDetailService.getUserAuthority(userService.getUserByUserName(username)));
-
-        SecurityContextHolder.getContext().setAuthentication(token);
-
-        chain.doFilter(request, response);
     }
 
 }

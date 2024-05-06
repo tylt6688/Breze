@@ -70,7 +70,7 @@ public class ClientUtil {
         String uaStr = request.getHeader(CharsetConstant.USER_AGENT);
         UserAgent userAgent = UserAgentUtil.parse(uaStr);
         String operaSystemName = userAgent.getOs().toString();
-        if (operaSystemName.equals(UNKNOWN)){
+        if (operaSystemName.equals(UNKNOWN)) {
             return uaStr;
         }
         return operaSystemName;

@@ -51,12 +51,12 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
 
     @Override
     public Page<ContentIntroduceVO> getContentPage(Page<ContentIntroduce> getPage, String titleName, Long parentId) {
-        Page<ContentIntroduce> contentIntroducePage = mainContentMapper.selectPage(getPage, new QueryWrapper<ContentIntroduce>().like(StrUtil.isNotBlank(titleName),"main_title", titleName).eq("parent_id", parentId).orderByAsc("order_num"));
+        Page<ContentIntroduce> contentIntroducePage = mainContentMapper.selectPage(getPage, new QueryWrapper<ContentIntroduce>().like(StrUtil.isNotBlank(titleName), "main_title", titleName).eq("parent_id", parentId).orderByAsc("order_num"));
         Page<ContentIntroduceVO> contentIntroduceVoPage = ContentConvert.INSTANCE.contentPageToContentPageVo(contentIntroducePage);
         contentIntroduceVoPage.getRecords().forEach(contentIntroduce -> {
             contentIntroduce.setChildren(mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId()).orderByAsc("order_num")));
             for (ContentIntroduce child : contentIntroduce.getChildren()) {
-                if (child.getOssId() != null){
+                if (child.getOssId() != null) {
                     child.setImgUrl(ossFileMapper.selectById(child.getOssId()).getFileUrl());
                 }
             }
@@ -78,35 +78,35 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     public Boolean insertContent(ContentDTO contentDT, MultipartFile file) {
         ContentIntroduce contentIntroduce = ContentConvert.INSTANCE.contentDTOToContent(contentDT);
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.PNG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPEG)) {
-            throw new BusinessException(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "文件必须为PNG或JPG格式");
         }
         try {
             String path = qiNiuService.uploadFile(file);
             String fileName = path.substring(25, path.lastIndexOf("."));
 
-            OSS OSS = new OSS();
-            OSS.setFileName(fileName);
-            OSS.setFileUrl(path);
+            OSS oss = new OSS();
+            oss.setFileName(fileName);
+            oss.setFileUrl(path);
 
             if ((contentIntroduce.getId() != null)) {
-                if(contentIntroduce.getOssId() != null){
-                // 删除原来的图片
-                qiNiuService.deleteFile(contentIntroduce.getImgUrl());
-                // 修改oss表图片存储链接
-                OSS.setId(Long.valueOf(contentIntroduce.getOssId()));
-                ossFileMapper.updateById(OSS);
-                }else{
-                    ossFileMapper.insert(OSS);
-                    contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<OSS>().eq("file_name",fileName)).getId());
+                if (contentIntroduce.getOssId() != null) {
+                    // 删除原来的图片
+                    qiNiuService.deleteFile(contentIntroduce.getImgUrl());
+                    // 修改oss表图片存储链接
+                    oss.setId(contentIntroduce.getOssId());
+                    ossFileMapper.updateById(oss);
+                } else {
+                    ossFileMapper.insert(oss);
+                    contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<OSS>().eq("file_name", fileName)).getId());
                 }
                 // 修改内容
                 mainContentMapper.updateById(contentIntroduce);
-                return ossFileMapper.updateById(OSS)>0 && mainContentMapper.updateById(contentIntroduce)>0;
+                return ossFileMapper.updateById(oss) > 0 && mainContentMapper.updateById(contentIntroduce) > 0;
             } else {
-                ossFileMapper.insert(OSS);
-                contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<OSS>().eq("file_name",fileName)).getId());
+                ossFileMapper.insert(oss);
+                contentIntroduce.setOssId(ossFileMapper.selectOne(new QueryWrapper<OSS>().eq("file_name", fileName)).getId());
                 mainContentMapper.insert(contentIntroduce);
-                return ossFileMapper.insert(OSS)>0 && mainContentMapper.insert(contentIntroduce)>0;
+                return ossFileMapper.insert(oss) > 0 && mainContentMapper.insert(contentIntroduce) > 0;
             }
         } catch (QiniuException e) {
             throw new RuntimeException(e);
@@ -117,10 +117,10 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
     @Transactional
     public Boolean updateContent(ContentDTO contentDTO) {
         ContentIntroduce contentIntroduce = ContentConvert.INSTANCE.contentDTOToContent(contentDTO);
-        if (contentIntroduce.getId() != null){
-            return mainContentMapper.updateById(contentIntroduce)>0;
-        }else{
-            return mainContentMapper.insert(contentIntroduce) > 0 ;
+        if (contentIntroduce.getId() != null) {
+            return mainContentMapper.updateById(contentIntroduce) > 0;
+        } else {
+            return mainContentMapper.insert(contentIntroduce) > 0;
         }
     }
 
@@ -138,17 +138,17 @@ public class MainContentServiceImpl extends ServiceImpl<MainContentMapper, Conte
         } catch (QiniuException e) {
             throw new RuntimeException(e);
         }
-        return qiqiu && oss>0 && content>0;
+        return qiqiu && oss > 0 && content > 0;
     }
 
     @Override
     public List<ContentIntroduceVO> selectAllDataList(String titleName, Long parentId) {
-        List<ContentIntroduce> contentIntroduceList = mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().like(StrUtil.isNotBlank(titleName),"main_title", titleName).eq("parent_id", parentId).orderByAsc("order_num"));
+        List<ContentIntroduce> contentIntroduceList = mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().like(StrUtil.isNotBlank(titleName), "main_title", titleName).eq("parent_id", parentId).orderByAsc("order_num"));
         List<ContentIntroduceVO> contentIntroduceVOList = ContentConvert.INSTANCE.contentListToContentVOList(contentIntroduceList);
         contentIntroduceVOList.forEach(contentIntroduce -> {
             contentIntroduce.setChildren(mainContentMapper.selectList(new QueryWrapper<ContentIntroduce>().eq("parent_id", contentIntroduce.getId()).orderByAsc("order_num")));
             for (ContentIntroduce child : contentIntroduce.getChildren()) {
-                if (child.getOssId() != null){
+                if (child.getOssId() != null) {
                     child.setImgUrl(ossFileMapper.selectById(child.getOssId()).getFileUrl());
                 }
                 child.setTitleInfoList(Arrays.asList(child.getTitleInfo().split("<->")));

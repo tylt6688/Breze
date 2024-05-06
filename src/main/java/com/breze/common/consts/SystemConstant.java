@@ -16,22 +16,9 @@ public class  SystemConstant {
      * 服务器本地IP地址
      */
     public static final String SERVER_IP = "127.0.0.1";
-
     /**
      * 默认账号头像常量
      */
-    public static final String DEFAULT_AVATAR = "http://qiniuyun.tylt.xyz/breze/breze-avatar.png";
-    /**
-     * 未知IP常量
-     */
-    public static final String UNKNOWN_IP = "未知IP地址";
-    /**
-     * 登录认证成功常量
-     */
-    public static final String LOGIN_SUCCESS = "登录认证成功";
-    /**
-     * 退出成功常量
-     */
-    public static final String LOGOUT_SUCCESS = "退出成功";
+    public static final String DEFAULT_AVATAR = "http://qiniuyun.tylt.fun/breze/breze-avatar.png";
 
 }

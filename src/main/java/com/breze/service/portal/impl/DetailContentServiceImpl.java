@@ -78,7 +78,7 @@ public class DetailContentServiceImpl extends ServiceImpl<DetailContentMapper, D
     public Boolean insertContent(DetailContentDTO detailContentDTO, MultipartFile file) {
         DetailContent detailContent = DetailContentConvert.INSTANCE.detailContentDTOToDetailContent(detailContentDTO);
         if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.PNG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPG) && !Objects.requireNonNull(file.getOriginalFilename()).endsWith(CharsetConstant.JPEG)) {
-            throw new BusinessException(ErrorEnum.FindException, "文件必须为PNG或JPG格式");
+            throw new BusinessException(ErrorEnum.FIND_EXCEPTION, "文件必须为PNG或JPG格式");
         }
         try {
             String path = qiNiuService.uploadFile(file);
