@@ -144,7 +144,6 @@ public class BaseController {
     @Autowired
     protected AppConfigService appConfigService;
 
-
     //===============================Breze=================================//
 
     @Autowired

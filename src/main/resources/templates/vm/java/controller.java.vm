@@ -27,10 +27,11 @@ import ${package.Service}.${table.serviceName};
 import ${superControllerClassPackage};
 #end
 
+#set($year = $dateTool.get('yyyy', $date))
 /**
  * @Author ${author}
  * @Date ${date}
- * @Description
+ * @Description 描述信息
  * @Copyright(c) ${year} , 青枫网络工作室
  */
 #if(${restControllerStyle})
@@ -80,7 +81,7 @@ public Result findById(@PathVariable #foreach($field in ${table.fields})#if(${fi
 })
 @PostMapping("/insert")
 public Result insert(@RequestBody ${entity} ${table.entityPath}) {
-    return brezeJudgeResult(${table.entityPath}Service.save(${table.entityPath}),"操作成功","操作失败");
+    return brezeJudgeResult(${table.entityPath}Service.save(${table.entityPath}), "操作成功", "操作失败");
 }
 
 @Log("修改${table.entityPath}")
@@ -92,8 +93,7 @@ public Result insert(@RequestBody ${entity} ${table.entityPath}) {
 })
 @PutMapping("/update")
 public Result updateById(@RequestBody ${entity} ${table.entityPath}) {
-    boolean flag = ${table.entityPath}Service.updateById(${table.entityPath});
-    return flag ? Result.createSuccessMessage(${table.entityPath}) : Result.createFailureMessage(ErrorEnum.FindException);
+    return brezeJudgeResult(${table.entityPath}Service.updateById(${table.entityPath}), "更新成功", "更新失败");
 }
 
 @Log("根据ID删除${table.entityPath}")
@@ -105,11 +105,8 @@ public Result updateById(@RequestBody ${entity} ${table.entityPath}) {
     #end
 @DeleteMapping("/delete/{id}")
 public Result deleteById(@PathVariable #foreach($field in ${table.fields})#if(${field.keyIdentityFlag})${field.propertyType}#end#end id) {
-    boolean flag = ${table.entityPath}Service.removeById(id);
-    if (flag) {
-        return Result.createSuccessMessage("删除成功");
-    }
-    return Result.createFailureMessage(ErrorEnum.UnknowError);
+    return brezeJudgeResult(${table.entityPath}Service.removeById(id), "删除成功", "删除失败");
+
 }
 }
 

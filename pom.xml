@@ -199,7 +199,7 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
-        <!--整合mybatis plus https://baomidou.com/-->
+        <!-- Mybatis Plus https://baomidou.com/-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -220,7 +220,7 @@
             <version>${mybatis.plus.generator.version}</version>
         </dependency>
 
-        <!-- 对 MyBatis Plus 代码生成器进行支持的 velocity 模板引擎-->
+        <!-- 对 MyBatis Plus 代码生成器进行支持的 Velocity 模板引擎-->
         <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -234,8 +234,7 @@
             <version>${commons.lang.version}</version>
         </dependency>
 
-        <!-- 二维码生成  -->
-        <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+        <!-- 二维码生成 https://mvnrepository.com/artifact/com.google.zxing/core -->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>

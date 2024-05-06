@@ -7,6 +7,7 @@ import com.breze.common.consts.CharsetConstant;
 import com.breze.common.consts.DevelopConstant;
 import com.breze.common.result.Result;
 import com.breze.controller.BaseController;
+import io.swagger.annotations.Api;
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import java.util.UUID;
  * @Copyright(c) 2022 , 青枫网络工作室
  */
 @Log4j2
+@Api(tags = "验证码管理")
 @RestController
 public class CaptchaController extends BaseController {
     /**

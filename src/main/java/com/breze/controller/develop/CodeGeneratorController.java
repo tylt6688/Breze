@@ -2,12 +2,16 @@ package com.breze.controller.develop;
 
 import com.breze.common.result.Result;
 import com.breze.config.CodeGeneratorConfig;
+import com.breze.controller.BaseController;
 import com.breze.entity.pojo.develop.CodeGeneration;
+import com.breze.entity.pojo.develop.DataBaseTable;
 import com.breze.service.develop.DataBaseTableService;
 import com.breze.utils.CodeGenerationUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,30 +25,35 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "代码生成器")
 @RestController
 @RequestMapping("/tool/code")
-public class CodeGeneratorController {
+public class CodeGeneratorController extends BaseController {
+
+    private final CodeGeneratorConfig codeGeneratorConfig;
+
+    private final DataBaseTableService dataBaseTableService;
 
     @Autowired
-    private CodeGeneratorConfig codeGeneratorConfig;
-
-    @Autowired
-    private DataBaseTableService dataBaseTableService;
+    public CodeGeneratorController(CodeGeneratorConfig codeGeneratorConfig, DataBaseTableService dataBaseTableService) {
+        this.codeGeneratorConfig = codeGeneratorConfig;
+        this.dataBaseTableService = dataBaseTableService;
+    }
 
     @GetMapping("/show_databases")
-    public Result<Object> showDatabases() {
+    public Result<List<String>> showDatabases() {
         return Result.createSuccessMessage("获取数据库成功", dataBaseTableService.showDataBases());
     }
 
     @GetMapping("/get_tables")
-    public Result<Object> findAllTableNames(@RequestParam String dataBaseName) {
+    public Result<List<DataBaseTable>> findAllTableNames(@RequestParam String dataBaseName) {
         return Result.createSuccessMessage("获取数据表成功", dataBaseTableService.listDataBaseTables(dataBaseName));
     }
 
     @PostMapping("/generate")
-    public Result<Object> codeGenerator(@RequestBody CodeGeneration codeGeneration) {
-        codeGeneration.setUsername(codeGeneratorConfig.getUsername());
-        codeGeneration.setPassword(codeGeneratorConfig.getPassword());
-        CodeGenerationUtil.codeGenerator(codeGeneration);
-        return Result.createSuccessMessage("代码生成成功");
+    public Result<String> codeGenerator(@RequestBody CodeGeneration codeGeneration) {
+
+        codeGeneration.setUsername(codeGeneratorConfig.getUsername())
+                .setPassword(codeGeneratorConfig.getPassword());
+        return brezeJudgeResult(CodeGenerationUtil.codeGenerator(codeGeneration), "代码生成成功", "代码生成失败");
+
     }
 
 }

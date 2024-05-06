@@ -136,7 +136,7 @@ public class SwaggerConfig {
     @Bean
     public Docket docketRbac() {
         return new Docket(DocumentationType.OAS_30)
-                .groupName("RBAC Controller")
+                .groupName("RBAC 权限 Controller")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.breze.controller.rbac"))
@@ -153,7 +153,7 @@ public class SwaggerConfig {
     @Bean
     public Docket docketCore() {
         return new Docket(DocumentationType.OAS_30)
-                .groupName("CORE Controller")
+                .groupName("CORE 核心 Controller")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.breze.controller.core"))
@@ -170,7 +170,7 @@ public class SwaggerConfig {
     @Bean
     public Docket docketDevelop() {
         return new Docket(DocumentationType.OAS_30)
-                .groupName("DEVELOP Controller")
+                .groupName("DEVELOP 开发 Controller")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.breze.controller.develop"))
@@ -187,7 +187,7 @@ public class SwaggerConfig {
     @Bean
     public Docket docketMonitor() {
         return new Docket(DocumentationType.OAS_30)
-                .groupName("MONITOR Controller")
+                .groupName("MONITOR 监控 Controller")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.breze.controller.monitor"))
@@ -204,7 +204,7 @@ public class SwaggerConfig {
     @Bean
     public Docket docketPortal() {
         return new Docket(DocumentationType.OAS_30)
-                .groupName("PORTAL Controller")
+                .groupName("PORTAL 官网 Controller")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.breze.controller.portal"))
@@ -221,7 +221,7 @@ public class SwaggerConfig {
     @Bean
     public Docket docketSyslog() {
         return new Docket(DocumentationType.OAS_30)
-                .groupName("SYSLOG Controller")
+                .groupName("SYSLOG 日志 Controller")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.breze.controller.syslog"))

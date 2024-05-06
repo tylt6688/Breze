@@ -22,12 +22,14 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 #end
 
+#set($year = $dateTool.get('yyyy', $date))
 /**
  * @Author ${author}
  * @Date ${date}
- * @Description
+ * @Description 描述信息
  * @Copyright(c) ${year} , 青枫网络工作室
  */
+
 #if(${entityLombokModel})
 @Data
     #if(${chainModel})
