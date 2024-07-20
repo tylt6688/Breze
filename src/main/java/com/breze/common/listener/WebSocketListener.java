@@ -120,6 +120,7 @@ public class WebSocketListener implements EnvironmentAware {
 
     /**
      * 这个方法与上面几个方法不一样。没有用注解，是根据自己需要添加的方法。
+     *
      */
     public void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);

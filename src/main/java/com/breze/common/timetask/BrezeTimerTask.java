@@ -30,10 +30,10 @@ public class BrezeTimerTask {
     @Autowired
     BrezeConfig brezeConfig;
 
-    @Scheduled(cron = "0/15 * * * * ?") // 每隔15s触发
-    public void test(){
-        log.info("定时任务执行[每隔15s触发]"+brezeConfig.getCopyrightYear());
-    }
+//    @Scheduled(cron = "0/15 * * * * ?") // 每隔15s触发
+//    public void test(){
+//        log.info("定时任务执行[每隔15s触发]"+brezeConfig.getCopyrightYear());
+//    }
 
     /**
      * 每天凌晨触发清理30天之前的日志记录数据

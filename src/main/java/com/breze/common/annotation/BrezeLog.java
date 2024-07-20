@@ -14,12 +14,16 @@ import java.lang.annotation.*;
 public @interface BrezeLog {
 
     /**
-     * 日志标题
+     * 日志标题（默认为空字符串）
+     *
+     * @return 日志标题
      */
     String value() default "";
 
     /**
-     * 是否保存（默认保存）
+     * 是否保存日志（默认true保存）
+     *
+     * @return true表示保存日志，false表示不保存
      */
     boolean saveFlag() default true;
 }
