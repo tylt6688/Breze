@@ -27,7 +27,6 @@ public class BrezeLogListener {
     @Order
     @EventListener(BrezeLogEvent.class)
     public void saveSysLog(BrezeLogEvent event) {
-
         HandleLog handleLog = (HandleLog) event.getSource();
         handleLogService.save(handleLog);
     }

@@ -16,7 +16,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        log.debug("client ctx{}",ctx);
+        log.debug("client ctx{}", ctx);
 //        for (int i = 0; i < 10; i++) {
 //            ctx.writeAndFlush(Unpooled.copiedBuffer("Hello, Server!"+i, CharsetUtil.UTF_8));
 //        }
@@ -39,7 +39,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     /**
      * 处理异常, 一般是需要关闭通道
      *
-     * @param ctx 上下文对象
+     * @param ctx       上下文对象
      * @param throwable 异常
      */
     @Override

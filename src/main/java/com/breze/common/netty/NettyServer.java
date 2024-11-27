@@ -12,6 +12,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 public class NettyServer {
+
     private final int port;
 
     public NettyServer(int port) {
@@ -20,6 +21,7 @@ public class NettyServer {
 
     public void run() {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
+
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();

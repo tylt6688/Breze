@@ -1,13 +1,10 @@
 package com.breze.common.result.stand;
 
-import cn.hutool.core.map.MapUtil;
 import com.breze.common.result.Result;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.HashMap;
 
 /**
  * @Author tylt6688
@@ -29,7 +26,8 @@ public class FailedResult<T> extends Result<T> {
     private static final String DATA_TAG = "data";
 
     public FailedResult(Boolean success, String message, Integer errorCode, String errorName, T data) {
-        super.setResult((HashMap<String, T>) MapUtil.builder(DATA_TAG, data).build());
+//        super.setResult((HashMap<String, T>) MapUtil.builder(DATA_TAG, data).build());
+        super.setResult(data);
         super.setSuccess(success);
         super.setMessage(message);
 

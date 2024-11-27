@@ -56,7 +56,7 @@ public class MailController extends BaseController {
 
         Email email = new Email();
         email.setMailFrom(mailConfig.getUsername());
-        email.setMailFromNick(brezeConfig.getName());
+        email.setMailFromNick(brezeConfig.getProjectName());
         email.setMailTo(user.getEmail());
         email.setSubject("登录提醒邮件");
         email.setContent(content);

@@ -120,7 +120,6 @@ public class WebSocketListener implements EnvironmentAware {
 
     /**
      * 这个方法与上面几个方法不一样。没有用注解，是根据自己需要添加的方法。
-     *
      */
     public void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
@@ -129,14 +128,14 @@ public class WebSocketListener implements EnvironmentAware {
     /**
      * 群发自定义消息
      */
-    public static void sendInfo(String message, @PathParam("connectId") String sid) {
-        log.info("推送消息到窗口{}，推送内容:{}", sid, message);
+    public static void sendInfo(@PathParam("connectId") String connectId, String message) {
+        log.info("推送消息到窗口{}，推送内容:{}", connectId, message);
         for (WebSocketListener item : WEB_SOCKET_SET) {
             try {
                 // 这里可以设定只推送给这个sid的，为null则全部推送
-                if (sid == null || sid.isEmpty()) {
+                if (connectId == null || connectId.isEmpty()) {
                     item.sendMessage(message);
-                } else if (item.connectId.equals(sid)) {
+                } else if (item.connectId.equals(connectId)) {
                     item.sendMessage(message);
                 }
             } catch (IOException e) {

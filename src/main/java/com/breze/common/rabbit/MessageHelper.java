@@ -5,6 +5,7 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.core.MessageProperties;
+
 /**
  * @Author tylt6688
  * @Date 2022/4/24 11:33
@@ -18,8 +19,8 @@ public class MessageHelper {
             return null;
         }
         Message message = MessageBuilder.withBody(JSONUtil.toJsonStr(obj).getBytes()).build();
-		// 消息持久化        
-		message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+        // 消息持久化
+        message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
         message.getMessageProperties().setContentType(MessageProperties.CONTENT_TYPE_JSON);
         return message;
     }

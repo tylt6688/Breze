@@ -9,12 +9,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum NormalEnum {
 
-    LOGIN_SUCCESS("登录成功", 601),
-    LOGOUT_SUCCESS("退出成功", 602);
+    LOGIN_SUCCESS(601, "登录成功"),
+    LOGOUT_SUCCESS(602, "退出成功");
+
+    @EnumValue
+    private final Integer normalCode;
 
     @EnumValue
     private final String normalMsg;
 
-    @EnumValue
-    private final Integer normalCode;
+
 }

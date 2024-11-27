@@ -17,54 +17,54 @@ public enum ErrorEnum {
     /**
      * 密码错误错误码
      */
-    ERROR_USERNAME_PASSWORD("用户名或密码错误", 1001),
+    ERROR_USERNAME_PASSWORD(1001, "用户名或密码错误"),
     /**
      * 验证码错误错误码
      */
-    VERIFY_CODE_ERROR("验证码错误", 1002),
+    VERIFY_CODE_ERROR(1002, "验证码错误"),
     /**
      * 无权限错误码
      */
-    NO_PERMISSION("无权限操作", 1003),
+    NO_PERMISSION(1003, "无权限操作"),
     /**
      * 凭证异常错误码
      */
-    INCORRECT_CREDENTIALS("登录凭证失效", 1004),
+    INCORRECT_CREDENTIALS(1004, "登录凭证失效"),
     /**
      * 未认证用户错误码
      */
-    NO_AUTHENTICATION("未认证用户", 1005),
+    NO_AUTHENTICATION(1005, "未认证用户"),
     /**
      * 账户已被锁定错误码
      */
-    LOCK_USER("账户已被锁定，请联系管理员", 1006),
+    LOCK_USER(1006, "账户已被锁定，请联系管理员"),
     /**
      * 账户无效错误码
      */
-    UNKNOWN_ACCOUNT("无效账户", 1007),
+    UNKNOWN_ACCOUNT(1007, "无效账户"),
     /**
      * 未知错误错误码
      */
-    UNKNOWN_ERROR("未知错误", 600),
+    UNKNOWN_ERROR(600, "未知错误"),
     /**
      * 出现异常错误码
      */
-    FIND_EXCEPTION("出现异常", 700),
+    FIND_EXCEPTION(700, "出现异常"),
     /**
      * 出现异常错误码
      */
-    ERROR_OPERATION("错误操作", 800),
+    ERROR_OPERATION(800, "错误操作"),
     /**
      * 非法操作错误码
      */
-    ILLEGAL_OPERATION("非法操作", 900);
+    ILLEGAL_OPERATION(900, "非法操作");
 
+    @EnumValue
+    private final Integer errorCode;
 
     @EnumValue
     private final String errorName;
 
-    @EnumValue
-    private final Integer errorCode;
 
     /**
      * 根据错误码获取错误信息

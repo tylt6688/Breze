@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class DictExcelBO {
     @ExcelProperty("字典名称")
     @ColumnWidth(20)
@@ -29,10 +30,4 @@ public class DictExcelBO {
     @ColumnWidth(20)
     private String remark;
 
-    public DictExcelBO(String name, String type, String state, String remark) {
-        this.name = name;
-        this.type = type;
-        this.state = state;
-        this.remark = remark;
-    }
 }

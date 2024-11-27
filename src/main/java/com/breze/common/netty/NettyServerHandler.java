@@ -19,7 +19,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         Channel channel = ctx.channel();
         // 将 msg 转成一个 ByteBuf，ByteBuf 是 Netty 提供的，不是 NIO 的 ByteBuffer.
         ByteBuf buf = (ByteBuf) msg;
-        System.out.println("收到的消息"+buf.toString(CharsetUtil.UTF_8));
+        System.out.println("收到的消息" + buf.toString(CharsetUtil.UTF_8));
 
         log.debug("上下文{},客户端地址: {},消息:{}", ctx, channel.remoteAddress(), buf.toString(CharsetUtil.UTF_8));
     }

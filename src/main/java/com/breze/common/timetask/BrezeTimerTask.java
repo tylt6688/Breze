@@ -36,9 +36,9 @@ public class BrezeTimerTask {
 //    }
 
     /**
-     * 每天凌晨触发清理30天之前的日志记录数据
+     * 每天凌晨触发，清理30天之前的日志记录数据
      */
-    @Scheduled(cron = "0 0 0 * * ?") // 每天凌晨触发
+    @Scheduled(cron = "0 0 0 * * ?")
     public void cleanLogData() {
         LocalDate threshold = LocalDate.now().minusDays(30);
         LocalDateTime thresholdDateTime = threshold.atStartOfDay();

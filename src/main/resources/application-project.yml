@@ -1,9 +1,9 @@
 # 项目相关配置
 breze:
   # 标题
-  title: 清枫Breze一体化服务平台
+  title: 清枫Breze多端一体化服务平台
   # 项目名
-  name: Breze
+  projectName: Breze
   # 项目描述
   description: Breze权限管理系统接口文档
   # 版本
@@ -18,3 +18,5 @@ breze:
   swaggerEnabled: true
   # 是否启用开发者模式验证码
   captchaDevEnabled: true
+  # python解释器路径
+  pythonInterpreter: C:\ProgramData\anaconda3\python.exe
