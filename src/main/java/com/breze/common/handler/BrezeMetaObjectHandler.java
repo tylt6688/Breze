@@ -21,13 +21,13 @@ public class BrezeMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        log.info("start insert fill ....");
+        log.info("run insert fill ....");
         this.fillStrategy(metaObject, "createTime", LocalDateTime.now());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        log.info("start update fill ....");
+        log.info("run update fill ....");
         this.fillStrategy(metaObject, "updateTime", LocalDateTime.now());
     }
 

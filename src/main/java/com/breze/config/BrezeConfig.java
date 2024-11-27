@@ -23,7 +23,7 @@ public class BrezeConfig {
     /**
      * 项目名称
      */
-    private String name;
+    private String projectName;
 
     /**
      * 描述
@@ -56,8 +56,13 @@ public class BrezeConfig {
     private Boolean swaggerEnabled;
 
     /**
-     * 验证码是否开启
+     * 开发模式下验证码是否开启
      */
     private Boolean captchaDevEnabled;
+
+    /*
+     * Python解释器路径
+     */
+    private String pythonInterpreter;
 
 }

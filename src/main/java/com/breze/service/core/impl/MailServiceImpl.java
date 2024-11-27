@@ -203,7 +203,7 @@ public class MailServiceImpl implements MailService {
 
             Email email = new Email();
             email.setMailFrom(mailConfig.getUsername())
-                    .setMailFromNick(brezeConfig.getName())
+                    .setMailFromNick(brezeConfig.getProjectName())
                     .setMailTo(user.getEmail())
                     .setSubject("账户登录提醒")
                     .setContent(content);

@@ -32,13 +32,12 @@ public class BrezeLogAspect {
     public Object around(ProceedingJoinPoint point, BrezeLog brezeLog) {
 
         String strClassName = point.getTarget().getClass().getName();
-
         String strMethodName = point.getSignature().getName();
 
         log.debug("[类名]:---{},[方法]:---{}", strClassName, strMethodName);
 
-        // 获取请求 url,ip,httpMethod
         HttpServletRequest request = BrezeUtil.getHttpServletRequest();
+
         HandleLog handleLog = new HandleLog();
         handleLog.setTitle(brezeLog.value())
                 .setRequestIp(IPUtil.getIpAddress(request))

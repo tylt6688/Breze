@@ -5,17 +5,19 @@ import com.breze.common.listener.WebSocketListener;
 import com.breze.common.result.Result;
 import com.breze.config.BrezeConfig;
 import com.breze.utils.FileUtil;
+import com.breze.utils.ProcessUtil;
 import com.breze.utils.QrCodeUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.PermitAll;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author tylt6688
@@ -33,7 +35,7 @@ public class BrezeTestController extends BaseController {
 
     @GetMapping("/{msg}")
     public Result<String> demo01(@PathVariable String msg) {
-        WebSocketListener.sendInfo(msg, "1");
+        WebSocketListener.sendInfo("1", msg);
         return Result.createSuccessMessage("请求成功", msg);
     }
 
@@ -52,6 +54,26 @@ public class BrezeTestController extends BaseController {
     @RequestMapping("/execute")
     public String execute(MultipartFile file) throws IOException {
         return FileUtil.uploadFile(brezeConfig.getUploadPath(), file);
+    }
+
+    @ApiOperation("python脚本执行测试")
+    @PostMapping("/py_script_test")
+    public Result<String> getData(@RequestParam String params) {
+        // 想要传递到脚本中的参数
+        List<String> commend = new ArrayList<>();
+        // Python环境的路径
+        commend.add(brezeConfig.getPythonInterpreter());
+        // Python脚本的路径，也可以是绝对路径
+        String scriptPath = System.getProperty("user.dir") + "\\scripts\\";
+        commend.add(scriptPath + "test.py");
+
+        commend.addAll(Arrays.asList(params.split(",")));
+        // 执行脚本命令
+        Process process = ProcessUtil.exec(commend);
+        // 获取执行结果
+        String result = ProcessUtil.getOutput(process);
+
+        return Result.createSuccessMessage("脚本执行完毕", result);
     }
 
 }

@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.HashMap;
-
 /**
  * @Author tylt6688
  * @Date 2022/2/5 11:57
@@ -28,13 +26,12 @@ public class Result<T> {
     private String message;
 
     @ApiModelProperty(value = "响应数据Map集合")
-    private HashMap<String, T> result;
+//    private HashMap<String, T> result;
+    private T result;
 
     private static final String DEFAULT_SUCCESS_MESSAGE = "操作成功";
 
     private static final String DEFAULT_FAILED_MESSAGE = "操作失败";
-
-
 
 
     /**
