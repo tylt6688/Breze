@@ -10,13 +10,9 @@
 <a href="https://github.com/tylt6688/Breze">
 <img src="https://img.shields.io/badge/Breze-v1.0.0-blue">
 </a>
-
 <a href="https://github.com/tylt6688/Breze/blob/master/LICENSE">
 <img src="https://img.shields.io/badge/LICENSE-Apache%20License%202.0-red">
 </a>
-</p>
-
-
 
 ## 项目简介
 
@@ -32,10 +28,6 @@
 - Spring Boot Server后台项目地址：https://github.com/tylt6688/Breze
 - Browser Vue WEB端项目地址：https://github.com/tylt6688/Breze-Vue
 - Uni-APP端项目地址：https://github.com/tylt6688/Breze-App
-
-## 项目演示
-
-- 演示地址：
 
 ## 项目部署
 - MySQL 5.7 账户：root，密码：123456
@@ -108,21 +100,22 @@
 
 <table>
     <tr>
-        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/loginpage.png"/></td>
-        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/dashboard.png"/></td>
+        <td><img src="preview/loginpage.png"/></td>
+        <td><img src="preview/dashboard.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/roleManager.png"/></td>
-        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/roleManagerAssignPermissions.png"/></td>
+        <td><img src="preview/roleManager.png"/></td>
+        <td><img src="preview/roleManagerAssignPermissions.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/userManager.png"/></td>
-        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/userManagerAssignPermissions.png"/></td>
+        <td><img src="preview/userManager.png"/></td>
+        <td><img src="preview/userManagerAssignPermissions.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://github.com/tylt6688/Breze/raw/master/preview/codeGener.png"/></td>
+        <td><img src="preview/codeGener.png"/></td>
     </tr>
 </table>
+
 
 
 ## 特别鸣谢
@@ -130,29 +123,9 @@
 - [LeoChan](https://github.com/echoleochan)
 - [Nightliuguoxing](https://github.com/Nightliuguoxing)
 
-## 开源声明（License）
 
-<img src="preview/support-apache.png" alt="support-apache" style="width: 256px; height: 256px;" />
 
-```
-Copyright 2022 [青枫网络工作室-Breeze团队]
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-	http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
-## 加入我们
-
-🛴QQ群：532098740
 
 
 
